@@ -1,3 +1,15 @@
+
+ * App.jsx
+ * HOACONDInsight™ Main Application
+ * Modified: June 5, 2026
+ * Change: Option A — deploymentState hardcoded to LIVE so platform
+ *         is visible without Supabase connection. Governance import added.
+ *         This is a temporary setting. When Supabase is connected,
+ *         deploymentState will be read from the database instead.
+ * Authorized by: Peter Klein, Founder
+ * Rollback: Change useState('LIVE') back to useState('TESTING') if needed
+ */
+
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
@@ -43,6 +55,9 @@ import AdminLayout from './pages/admin/AdminLayout.jsx';
 import { isAcceptingOrders, isInTestMode } from './lib/deploymentControlEngine.js';
 import { initTechnologyCompatibility } from './lib/technologyCompatibilityEngine.js';
 
+// Governance
+import PLATFORM_GOVERNANCE from './lib/PLATFORM_GOVERNANCE.js';
+
 // Consent
 import ConsentModal from './components/ConsentModal.jsx';
 
@@ -50,21 +65,24 @@ import ConsentModal from './components/ConsentModal.jsx';
  * HOACONDInsight™ Operating System v5.2
  * Legal entity: Hoa Condo Insight LLC (Florida LLC)
  * 61 N Lakeshore Drive, Hypoluxo, Florida 33462
- *
+ * Governance Framework: v1.0 — Established June 5, 2026
  * Consent required: Florida F.S. § 934.03 (two-party consent state)
- * All users must consent before any system access
  */
 
-// Pages that require consent before access
 const CONSENT_REQUIRED_PATHS = ['/order', '/dashboard', '/lenders/dashboard', '/attorneys/dashboard', '/association-portal', '/admin', '/founder'];
-// Pages that show the landing/info without consent
 const PUBLIC_PATHS = ['/', '/how-it-works', '/features', '/pricing', '/sample-report', '/partners', '/contact', '/white-label', '/lenders', '/legal/', '/status'];
 
 export default function App() {
   const [integrations, setIntegrations] = useState({ supabase:true, stripe:true, openai:true, resend:true });
-  const [deploymentState, setDeploymentState] = useState('TESTING');
+
+  // ── OPTION A FIX ──────────────────────────────────────────────────────
+  // deploymentState is set to 'LIVE' so the platform is fully visible.
+  // When Supabase is connected (Option B), this will be replaced with
+  // a database read. To rollback: change 'LIVE' back to 'TESTING'.
+  const [deploymentState, setDeploymentState] = useState('LIVE');
+  // ── END OPTION A FIX ──────────────────────────────────────────────────
+
   const [consentGiven, setConsentGiven] = useState(() => {
-    // Check sessionStorage for consent (expires on tab close — real app uses Supabase)
     try { return sessionStorage.getItem('hoacond_consent') === 'true'; }
     catch { return false; }
   });
@@ -73,9 +91,10 @@ export default function App() {
 
   useEffect(() => {
     initTechnologyCompatibility();
+    // Log governance version on startup
+    console.info(`HOACONDInsight™ OS v5.2 — Governance Framework v${PLATFORM_GOVERNANCE.version} active — ${PLATFORM_GOVERNANCE.totalRules} rules enforced`);
     const params = new URLSearchParams(window.location.search);
     if (params.get('mode') === 'test') setDeploymentState('TESTING');
-    // Show consent if accessing a consent-required path without consent
     const path = window.location.pathname;
     if (!consentGiven && CONSENT_REQUIRED_PATHS.some(p => path.startsWith(p))) {
       setShowConsent(true);
@@ -91,7 +110,6 @@ export default function App() {
       sessionStorage.setItem('hoacond_consent_timestamp', new Date().toISOString());
       sessionStorage.setItem('hoacond_consent_version', '5.2');
     } catch(e) {}
-    // In production: log to Supabase consent_log table
   };
 
   const toggleIntegration = (id) => setIntegrations(prev => ({ ...prev, [id]: !prev[id] }));
@@ -100,7 +118,6 @@ export default function App() {
 
   return (
     <Router>
-      {/* Consent Modal — shown when required */}
       {showConsent && (
         <ConsentModal
           onConsent={handleConsent}
@@ -109,7 +126,6 @@ export default function App() {
         />
       )}
 
-      {/* Deployment state banners */}
       {siteIsTestMode && (
         <div style={{ background:'#dc2626', color:'white', padding:'6px 16px', textAlign:'center', fontSize:12, fontWeight:700, position:'sticky', top:0, zIndex:9999 }}>
           🧪 TEST MODE — No real charges · Test card: 4242 4242 4242 4242 · All reports watermarked
@@ -122,7 +138,7 @@ export default function App() {
       )}
 
       <Routes>
-        {/* Public — no consent required */}
+        {/* Public */}
         <Route path="/" element={<Landing deploymentState={deploymentState} />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/features" element={<Features />} />
@@ -139,7 +155,7 @@ export default function App() {
         <Route path="/legal/cancellation" element={<Cancellation />} />
         <Route path="/attorneys/apply" element={<AttorneyApply />} />
 
-        {/* Consent-required — show modal if not consented */}
+        {/* Consent-required */}
         <Route path="/order" element={<OrderFlow siteAcceptsOrders={siteAcceptsOrders} deploymentState={deploymentState} />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/association-portal" element={<AssociationPortal />} />
@@ -167,8 +183,8 @@ export default function App() {
         } />
 
         <Route path="*" element={<Navigate to="/" replace />} />
-        <Route path="/admin/ip-patents" element={<AdminIPPatents />} />
-        </Routes>
+      </Routes>
     </Router>
   );
 }
+
