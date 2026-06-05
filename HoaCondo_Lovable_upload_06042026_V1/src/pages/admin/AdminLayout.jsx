@@ -1,3 +1,11 @@
+/**
+ * AdminLayout.jsx
+ * HOACONDInsight™ Admin OS Layout
+ * Modified: June 5, 2026
+ * Change: Added Governance module to Admin sidebar (Rule-002 version stamp)
+ * Authorized by: Peter Klein, Founder
+ */
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminOverview from './AdminOverview.jsx';
@@ -28,63 +36,65 @@ import AdminSystemUpdates from './AdminSystemUpdates.jsx';
 import AdminIntegrationSync from './AdminIntegrationSync.jsx';
 import AdminLegalCompliance from './AdminLegalCompliance.jsx';
 import AdminLivingAI from './AdminLivingAI.jsx';
+import AdminGovernance from './AdminGovernance.jsx';
 
 const GROUPS = [
   {
     label: 'Core',
     items: [
-      { id:'overview',   icon:'◎', label:'Overview',          component: AdminOverview },
-      { id:'deploy',     icon:'⊕', label:'Deployment',        component: AdminDeploymentControl, restricted:true },
+      { id:'overview',    icon:'◎', label:'Overview',          component: AdminOverview },
+      { id:'deploy',      icon:'⊕', label:'Deployment',        component: AdminDeploymentControl, restricted:true },
+      { id:'governance',  icon:'⚖', label:'Governance',        component: AdminGovernance, isNew:true },
     ]
   },
   {
     label: 'Communications',
     items: [
-      { id:'comms',      icon:'✉', label:'Communications',    component: AdminCommunications, isNew:true },
+      { id:'comms',       icon:'✉', label:'Communications',    component: AdminCommunications, isNew:true },
     ]
   },
   {
     label: 'Security',
     items: [
-      { id:'security',   icon:'⊘', label:'Security & Backup', component: AdminSecurity },
-      { id:'sopval',     icon:'⊛', label:'SOP Validator',     component: AdminSopValidator, restricted:true },
-      { id:'techupdates',icon:'↺', label:'Tech Updates',      component: AdminTechUpdates },
+      { id:'security',    icon:'⊘', label:'Security & Backup', component: AdminSecurity },
+      { id:'sopval',      icon:'⊛', label:'SOP Validator',     component: AdminSopValidator, restricted:true },
+      { id:'techupdates', icon:'↺', label:'Tech Updates',      component: AdminTechUpdates },
     ]
   },
   {
     label: 'Operations',
     items: [
-      { id:'analyses',   icon:'◷', label:'Analyses',          component: AdminAnalyses },
-      { id:'attorneys',  icon:'⊜', label:'Attorneys',         component: AdminAttorneys },
-      { id:'ai',         icon:'⊙', label:'AI Engine',         component: AdminAI },
-      { id:'autonomous', icon:'⊗', label:'Autonomous',        component: AdminAutonomous },
-      { id:'finance',    icon:'◈', label:'Finance',           component: AdminFinance },
-      { id:'hr',         icon:'◉', label:'HR',                component: AdminHR },
-      { id:'livingai',   icon:'✦', label:'AI Command Center', component: AdminLivingAI,       isNew:true },
-      { id:'legalcomp',  icon:'⚖', label:'Legal Compliance', component: AdminLegalCompliance, isNew:true },
-      { id:'legal',      icon:'⊡', label:'Legal',             component: AdminLegal },
+      { id:'analyses',    icon:'◷', label:'Analyses',          component: AdminAnalyses },
+      { id:'attorneys',   icon:'⊜', label:'Attorneys',         component: AdminAttorneys },
+      { id:'ai',          icon:'⊙', label:'AI Engine',         component: AdminAI },
+      { id:'autonomous',  icon:'⊗', label:'Autonomous',        component: AdminAutonomous },
+      { id:'finance',     icon:'◈', label:'Finance',           component: AdminFinance },
+      { id:'hr',          icon:'◉', label:'HR',                component: AdminHR },
+      { id:'livingai',    icon:'✦', label:'AI Command Center', component: AdminLivingAI, isNew:true },
+      { id:'legalcomp',   icon:'⚖', label:'Legal Compliance',  component: AdminLegalCompliance, isNew:true },
+      { id:'legal',       icon:'⊡', label:'Legal',             component: AdminLegal },
     ]
   },
   {
     label: 'Revenue',
     items: [
-      { id:'marketing',  icon:'◇', label:'Marketing',         component: AdminMarketing },
-      { id:'outreach',   icon:'◆', label:'Outreach',          component: AdminOutreach },
-      { id:'lenders',    icon:'◰', label:'Lenders',           component: AdminLenders },
-      { id:'partners',   icon:'◳', label:'Partners',          component: AdminPartners },
-      { id:'insurance',  icon:'◲', label:'Insurance',         component: AdminInsurance },
-      { id:'pe',         icon:'◱', label:'PE / Exit',         component: AdminPE },
-      { id:'vendors',    icon:'◫', label:'Vendors',           component: AdminVendors },
-      { id:'wl',         icon:'◪', label:'White Label',       component: AdminWhiteLabel },
-      { id:'media',      icon:'◨', label:'Media / PR',        component: AdminMediaPR },
+      { id:'marketing',   icon:'◇', label:'Marketing',         component: AdminMarketing },
+      { id:'outreach',    icon:'◆', label:'Outreach',          component: AdminOutreach },
+      { id:'lenders',     icon:'◰', label:'Lenders',           component: AdminLenders },
+      { id:'partners',    icon:'◳', label:'Partners',          component: AdminPartners },
+      { id:'insurance',   icon:'◲', label:'Insurance',         component: AdminInsurance },
+      { id:'pe',          icon:'◱', label:'PE / Exit',         component: AdminPE },
+      { id:'vendors',     icon:'◫', label:'Vendors',           component: AdminVendors },
+      { id:'wl',          icon:'◪', label:'White Label',       component: AdminWhiteLabel },
+      { id:'media',       icon:'◨', label:'Media / PR',        component: AdminMediaPR },
     ]
   },
   {
     label: 'System',
     items: [
-      { id:'settings',   icon:'⚙', label:'Settings',          component: AdminSettings },
-      { id:'updates',    icon:'⟳', label:'System Updates',    component: AdminSystemUpdates },
-      { id:'sync',       icon:'⟺', label:'Integration Sync',  component: AdminIntegrationSync },
+      { id:'settings',    icon:'⚙', label:'Settings',          component: AdminSettings },
+      { id:'updates',     icon:'⟳', label:'System Updates',    component: AdminSystemUpdates },
+      { id:'sync',        icon:'⟺', label:'Integration Sync',  component: AdminIntegrationSync },
     ]
   },
 ];
@@ -99,7 +109,6 @@ export default function AdminLayout({ integrations = {}, toggleIntegration, depl
     <div className="admin-layout">
       {/* ── SIDEBAR ──────────────────────────────────────────── */}
       <div className="sidebar" style={{ display: 'flex', flexDirection: 'column' }}>
-        {/* Sidebar header */}
         <div style={{ padding: '1rem', borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0 }}>
           <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'baseline', gap: '0.15rem' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', color: 'var(--gold)' }}>HOACOND</span>
@@ -107,12 +116,11 @@ export default function AdminLayout({ integrations = {}, toggleIntegration, depl
           </Link>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', marginTop: '0.5rem' }}>
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--green)' }} />
-            <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>OS v5.1 Active</span>
+            <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>OS v5.2 Active</span>
           </div>
           <p style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.2)', marginTop: '0.25rem' }}>Hoa Condo Insight LLC</p>
         </div>
 
-        {/* Sidebar nav */}
         <div style={{ flex: 1, overflowY: 'auto', paddingBottom: '1rem' }}>
           {GROUPS.map(group => (
             <div key={group.label}>
@@ -130,7 +138,6 @@ export default function AdminLayout({ integrations = {}, toggleIntegration, depl
           ))}
         </div>
 
-        {/* Sidebar footer */}
         <div style={{ padding: '0.75rem 1rem', borderTop: '1px solid rgba(255,255,255,0.06)', flexShrink: 0 }}>
           <Link to="/" style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
             <span>←</span> Back to website
@@ -140,7 +147,6 @@ export default function AdminLayout({ integrations = {}, toggleIntegration, depl
 
       {/* ── MAIN CONTENT ─────────────────────────────────────── */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        {/* Admin top bar */}
         <div className="admin-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flex: 1 }}>
             <p style={{ fontSize: '0.75rem', fontWeight: 700, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
@@ -159,7 +165,6 @@ export default function AdminLayout({ integrations = {}, toggleIntegration, depl
           </div>
         </div>
 
-        {/* Page content */}
         <div className="admin-main">
           <ActiveComponent
             integrations={integrations}
