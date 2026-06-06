@@ -1,0 +1,4 @@
+/* All routes handled by React Router — SPA redirect */
+/*  Required for /admin and all client-side routes to work on Netlify  */
+/admin/*  /index.html  200
+/*         /index.html  200

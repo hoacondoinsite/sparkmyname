@@ -1,0 +1,66 @@
+# HOA_CODE_15 — netlify.toml
+# HOACONDInsight LLC — Peter Klein — Sole Owner
+# Version: 1.0 | Date: 2026-06-06
+#
+# PURPOSE: Build configuration confirming all environment variable names and build settings.
+# Deploy this at the ROOT of your repository (same level as package.json)
+#
+# REQUIRED ENV VARS IN NETLIFY DASHBOARD:
+#   VITE_SUPABASE_URL
+#   VITE_SUPABASE_ANON_KEY
+#   SUPABASE_SERVICE_ROLE_KEY
+#   VITE_STRIPE_PUBLISHABLE_KEY
+#   STRIPE_SECRET_KEY
+#   STRIPE_WEBHOOK_SECRET
+#   VITE_OPENAI_API_KEY
+#   RESEND_API_KEY
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_VERSION = "9"
+
+# SPA redirect — all routes serve index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Admin route explicit (belt and suspenders)
+[[redirects]]
+  from = "/admin/*"
+  to = "/index.html"
+  status = 200
+
+# Stripe webhook endpoint
+[[redirects]]
+  from = "/api/stripe-webhook"
+  to = "/.netlify/functions/stripe-webhook"
+  status = 200
+
+# Headers — security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Cache static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[dev]
+  command = "npm run dev"
+  port = 5173
+  targetPort = 5173
+  publish = "dist"
+  autoLaunch = false
