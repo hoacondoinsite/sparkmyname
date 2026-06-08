@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SparkMyName — Pricing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+  :root{--flame:#FF4E00;--amber:#FF9A00;--spark:#FFD600;--ink:#0D0D0D;--ash:#F5F2EE;--smoke:#8A8278;--white:#FFFFFF;--gradient:linear-gradient(135deg,var(--flame) 0%,var(--amber) 60%,var(--spark) 100%);}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--ash);color:var(--ink);}
+
+  nav{display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:rgba(245,242,238,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,78,0,0.1);position:sticky;top:0;z-index:50;}
+  .nav-logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
+  .nav-back{color:var(--smoke);font-size:0.88rem;font-weight:500;text-decoration:none;}
+  .nav-back:hover{color:var(--flame);}
+
+  .pricing-wrap{max-width:1100px;margin:0 auto;padding:72px 24px 100px;}
+  .pricing-header{text-align:center;margin-bottom:64px;}
+  .pricing-header h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:900;line-height:1.1;margin-bottom:14px;}
+  .pricing-header h1 em{font-style:normal;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .pricing-header p{color:var(--smoke);font-size:1.05rem;line-height:1.65;}
+
+  /* TOGGLE */
+  .toggle-wrap{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:48px;}
+  .toggle-label{font-size:0.88rem;font-weight:600;color:var(--smoke);}
+  .toggle-label.active{color:var(--ink);}
+  .toggle-switch{position:relative;width:52px;height:28px;cursor:pointer;}
+  .toggle-switch input{opacity:0;width:0;height:0;}
+  .toggle-track{position:absolute;inset:0;background:rgba(0,0,0,0.12);border-radius:100px;transition:background 0.2s;}
+  .toggle-switch input:checked + .toggle-track{background:var(--gradient);}
+  .toggle-thumb{position:absolute;top:4px;left:4px;width:20px;height:20px;border-radius:50%;background:white;transition:transform 0.2s;box-shadow:0 2px 6px rgba(0,0,0,0.15);}
+  .toggle-switch input:checked ~ .toggle-thumb{transform:translateX(24px);}
+  .save-badge{background:rgba(255,78,0,0.1);color:var(--flame);font-size:0.75rem;font-weight:700;padding:3px 10px;border-radius:100px;}
+
+  /* CARDS */
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;align-items:start;}
+
+  .price-card{background:var(--white);border-radius:28px;padding:44px 36px;border:2px solid rgba(0,0,0,0.06);position:relative;overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;}
+  .price-card:hover{transform:translateY(-4px);box-shadow:0 24px 64px rgba(0,0,0,0.1);}
+  .price-card.featured{background:var(--ink);border-color:transparent;color:var(--white);}
+  .price-card.featured::before{content:'MOST POPULAR';position:absolute;top:0;left:0;right:0;text-align:center;padding:8px;background:var(--gradient);font-size:0.72rem;font-weight:800;letter-spacing:0.1em;color:var(--white);}
+
+  .tier-name{font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke);margin-bottom:24px;}
+  .price-card.featured .tier-name{color:rgba(255,255,255,0.5);}
+
+  .price-row{display:flex;align-items:baseline;gap:4px;margin-bottom:6px;}
+  .price-dollar{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:900;color:var(--ink);line-height:1;}
+  .price-card.featured .price-dollar{color:var(--white);}
+  .price-cents{font-size:1rem;font-weight:600;color:var(--smoke);align-self:flex-start;padding-top:12px;}
+  .price-period{font-size:0.85rem;color:var(--smoke);margin-bottom:24px;}
+  .price-card.featured .price-period{color:rgba(255,255,255,0.4);}
+
+  .price-desc{font-size:0.9rem;color:var(--smoke);line-height:1.65;margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid rgba(0,0,0,0.07);}
+  .price-card.featured .price-desc{color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.1);}
+
+  .features{display:flex;flex-direction:column;gap:12px;margin-bottom:36px;}
+  .feature{display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;line-height:1.5;}
+  .feature-icon{color:var(--amber);font-size:0.9rem;flex-shrink:0;margin-top:2px;}
+  .price-card.featured .feature{color:rgba(255,255,255,0.8);}
+
+  /* BUTTONS */
+  .checkout-btn{
+    width:100%;padding:16px;border-radius:100px;border:none;cursor:pointer;
+    font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:700;
+    transition:transform 0.2s,box-shadow 0.2s;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .checkout-btn:disabled{opacity:0.6;cursor:not-allowed;}
+  .btn-gradient{background:var(--gradient);color:var(--white);box-shadow:0 6px 24px rgba(255,78,0,0.3);}
+  .btn-gradient:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 32px rgba(255,78,0,0.4);}
+  .btn-white{background:var(--white);color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,0.1);}
+  .btn-white:hover:not(:disabled){transform:translateY(-2px);}
+  .btn-outline{background:transparent;color:var(--ink);border:2px solid rgba(0,0,0,0.12);}
+  .btn-outline:hover:not(:disabled){border-color:var(--flame);color:var(--flame);}
+
+  /* STRIPE FORM */
+  .stripe-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;align-items:center;justify-content:center;padding:24px;}
+  .stripe-modal.active{display:flex;}
+  .modal-box{background:var(--white);border-radius:24px;padding:44px;max-width:480px;width:100%;position:relative;max-height:90vh;overflow-y:auto;}
+  .modal-close{position:absolute;top:16px;right:20px;font-size:1.4rem;cursor:pointer;color:var(--smoke);background:none;border:none;line-height:1;}
+  .modal-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;margin-bottom:6px;}
+  .modal-subtitle{color:var(--smoke);font-size:0.88rem;margin-bottom:28px;}
+  .modal-amount{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:28px;}
+
+  .form-group{margin-bottom:20px;}
+  .form-label{display:block;font-size:0.8rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--smoke);margin-bottom:8px;}
+  .form-input{width:100%;padding:14px 16px;border:2px solid rgba(0,0,0,0.1);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--ink);outline:none;transition:border-color 0.2s;}
+  .form-input:focus{border-color:var(--flame);}
+  #card-element{padding:14px 16px;border:2px solid rgba(0,0,0,0.1);border-radius:12px;transition:border-color 0.2s;}
+  #card-element.StripeElement--focus{border-color:var(--flame);}
+
+  .pay-btn{width:100%;padding:18px;border-radius:100px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;background:var(--gradient);color:var(--white);box-shadow:0 8px 28px rgba(255,78,0,0.3);transition:transform 0.2s;margin-top:24px;display:flex;align-items:center;justify-content:center;gap:10px;}
+  .pay-btn:hover:not(:disabled){transform:translateY(-2px);}
+  .pay-btn:disabled{opacity:0.6;cursor:not-allowed;}
+  #card-errors{color:#DC2626;font-size:0.82rem;margin-top:8px;min-height:18px;}
+
+  .secure-note{text-align:center;font-size:0.75rem;color:var(--smoke);margin-top:14px;display:flex;align-items:center;justify-content:center;gap:6px;}
+
+  /* ENTERPRISE CONTACT */
+  .enterprise-note{text-align:center;margin-top:56px;padding:40px;background:var(--white);border-radius:24px;border:1px solid rgba(0,0,0,0.07);}
+  .enterprise-note h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;margin-bottom:10px;}
+  .enterprise-note p{color:var(--smoke);font-size:0.9rem;margin-bottom:20px;line-height:1.65;}
+  .enterprise-note a{color:var(--flame);font-weight:700;text-decoration:none;}
+
+  /* FAQ */
+  .faq-section{margin-top:80px;}
+  .faq-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-bottom:32px;text-align:center;}
+  .faq-item{border-bottom:1px solid rgba(0,0,0,0.07);padding:20px 0;}
+  .faq-q{font-weight:700;font-size:0.95rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+  .faq-q:after{content:'+';}
+  .faq-q.open:after{content:'−';}
+  .faq-a{display:none;color:var(--smoke);font-size:0.9rem;line-height:1.7;padding-top:12px;}
+  .faq-a.visible{display:block;}
+
+  footer{text-align:center;padding:40px 24px;font-size:0.78rem;color:var(--smoke);}
+  footer a{color:var(--flame);text-decoration:none;}
+
+  @media(max-width:600px){.modal-box{padding:28px 20px;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">SparkMyName ✦</a>
+  <a href="index.html" class="nav-back">← Home</a>
+</nav>
+
+<div class="pricing-wrap">
+  <div class="pricing-header">
+    <h1>Simple, <em>honest</em> pricing.</h1>
+    <p>No hidden fees. No subscriptions required. Pay only for what you need.</p>
+  </div>
+
+  <!-- TOGGLE ONE-TIME / ANNUAL -->
+  <div class="toggle-wrap">
+    <span class="toggle-label active" id="label-onetime">One-Time</span>
+    <label class="toggle-switch">
+      <input type="checkbox" id="billingToggle" onchange="toggleBilling()">
+      <div class="toggle-track"></div>
+      <div class="toggle-thumb"></div>
+    </label>
+    <span class="toggle-label" id="label-annual">Annual <span class="save-badge">Save 50%</span></span>
+  </div>
+
+  <div class="cards-grid">
+    <!-- CONSUMER -->
+    <div class="price-card">
+      <div class="tier-name">Consumer</div>
+      <div class="price-row">
+        <span class="price-dollar" id="consumer-price">$5</span>
+      </div>
+      <div class="price-period" id="consumer-period">one-time payment</div>
+      <div class="price-desc">Perfect for entrepreneurs, freelancers, and solo founders finding their perfect brand identity.</div>
+      <div class="features">
+        <div class="feature"><span class="feature-icon">✦</span>Full AI name generation (20–50 names)</div>
+        <div class="feature"><span class="feature-icon">✦</span>Live domain availability check (.com, .net, .io, .co)</div>
+        <div class="feature"><span class="feature-icon">✦</span>Downloadable PDF summary report</div>
+        <div class="feature"><span class="feature-icon">✦</span>AI trademark risk overview</div>
+        <div class="feature"><span class="feature-icon">✦</span>Instant delivery — no waiting</div>
+      </div>
+      <button class="checkout-btn btn-gradient" onclick="openCheckout('consumer')">
+        Get Started — <span id="consumer-btn-price">$5</span>
+      </button>
+    </div>
+
+    <!-- PROFESSIONAL -->
+    <div class="price-card featured" style="padding-top:60px;">
+      <div class="tier-name">Professional</div>
+      <div class="price-row">
+        <span class="price-dollar" style="color:var(--white)">$79</span>
+      </div>
+      <div class="price-period">per report — no subscription</div>
+      <div class="price-desc">In-depth analysis for serious founders who need real trademark intelligence before committing to a name.</div>
+      <div class="features">
+        <div class="feature"><span class="feature-icon">✦</span>Everything in Consumer</div>
+        <div class="feature"><span class="feature-icon">✦</span>Deep USPTO trademark screening</div>
+        <div class="feature"><span class="feature-icon">✦</span>Competitor name analysis</div>
+        <div class="feature"><span class="feature-icon">✦</span>Brand strength scoring matrix</div>
+        <div class="feature"><span class="feature-icon">✦</span>Pronunciation & memorability analysis</div>
+        <div class="feature"><span class="feature-icon">✦</span>Attorney referral guidance</div>
+        <div class="feature"><span class="feature-icon">✦</span>Full branded PDF report</div>
+      </div>
+      <button class="checkout-btn btn-white" onclick="openCheckout('professional')">
+        Get Pro Report — $79
+      </button>
+    </div>
+
+    <!-- ANNUAL CONSUMER (shown when toggle on) -->
+    <div class="price-card" id="annual-card" style="display:none;">
+      <div class="tier-name">Annual Access</div>
+      <div class="price-row">
+        <span class="price-dollar">$9</span><span class="price-cents">.95</span>
+      </div>
+      <div class="price-period">per year — auto-renewing</div>
+      <div class="price-desc">Unlimited Consumer searches all year. Ideal if you're naming multiple projects or evolving your brand over time.</div>
+      <div class="features">
+        <div class="feature"><span class="feature-icon">✦</span>Unlimited Consumer searches for 1 year</div>
+        <div class="feature"><span class="feature-icon">✦</span>All Consumer tier features included</div>
+        <div class="feature"><span class="feature-icon">✦</span>Auto-renews annually at $9.95/yr</div>
+        <div class="feature"><span class="feature-icon">✦</span>Cancel anytime</div>
+      </div>
+      <button class="checkout-btn btn-gradient" onclick="openCheckout('annual')">
+        Subscribe — $9.95/yr
+      </button>
+    </div>
+
+    <!-- ENTERPRISE (hidden when annual toggle) -->
+    <div class="price-card" id="enterprise-card">
+      <div class="tier-name">Enterprise</div>
+      <div class="price-row">
+        <span class="price-dollar">$299</span>
+      </div>
+      <div class="price-period">per month — up to $2,499/mo</div>
+      <div class="price-desc">For agencies, accelerators, brand consultants, and naming firms running high-volume searches for clients.</div>
+      <div class="features">
+        <div class="feature"><span class="feature-icon">✦</span>Unlimited searches</div>
+        <div class="feature"><span class="feature-icon">✦</span>White-label PDF reports</div>
+        <div class="feature"><span class="feature-icon">✦</span>API access for integration</div>
+        <div class="feature"><span class="feature-icon">✦</span>Dedicated account manager</div>
+        <div class="feature"><span class="feature-icon">✦</span>Custom branding options</div>
+        <div class="feature"><span class="feature-icon">✦</span>Priority support</div>
+      </div>
+      <button class="checkout-btn btn-outline" onclick="contactEnterprise()">
+        Contact Sales →
+      </button>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <div class="faq-title">Common Questions</div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What do I get with a Consumer report?</div>
+      <div class="faq-a">You get a full AI-powered name generation session producing 20–50 creative brand name options, live domain availability checking across .com, .net, .io, and .co extensions, and a downloadable branded PDF report. Includes an AI-based trademark risk overview — not a substitute for legal advice.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is domain availability checking accurate?</div>
+      <div class="faq-a">Our tool uses live DNS lookup via Cloudflare's DNS-over-HTTPS API to check whether domains currently have active records. This is highly accurate for .com and .net. Always verify with a domain registrar before purchasing. Results are for guidance only.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What's the difference between the Consumer and Professional reports?</div>
+      <div class="faq-a">The Consumer report gives you names and domain availability. The Professional report adds deep USPTO trademark class analysis, competitor name mapping, brand strength scoring across 6 dimensions, and specific attorney guidance — everything you need before filing a trademark or committing major resources to a brand.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Does this replace a trademark attorney?</div>
+      <div class="faq-a">No — and we say so clearly on every report. Our AI provides a screening tool to help you eliminate obviously problematic names and focus attorney time on your best candidates. Before adopting any brand name or filing a trademark, always consult a qualified trademark attorney.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is my payment secure?</div>
+      <div class="faq-a">Yes. All payments are processed by Stripe, the same payment processor used by Amazon, Google, and Shopify. We never store your credit card information. All transactions are encrypted end-to-end.</div>
+    </div>
+  </div>
+</div>
+
+<!-- STRIPE CHECKOUT MODAL -->
+<div class="stripe-modal" id="checkoutModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeCheckout()">×</button>
+    <div class="modal-title" id="modal-title">Complete Your Purchase</div>
+    <div class="modal-subtitle" id="modal-subtitle">SparkMyName Consumer Report</div>
+    <div class="modal-amount" id="modal-amount">$5.00</div>
+
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <input type="email" class="form-input" id="customer-email" placeholder="you@example.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Full Name</label>
+      <input type="text" class="form-input" id="customer-name" placeholder="Your full name">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Card Details</label>
+      <div id="card-element"></div>
+      <div id="card-errors"></div>
+    </div>
+
+    <button class="pay-btn" id="pay-btn" onclick="handlePayment()">
+      🔒 Pay Securely
+    </button>
+    <div class="secure-note">🔒 Secured by Stripe — We never store your card details</div>
+  </div>
+</div>
+
+<footer>
+  © 2026 Vorrex LLC — <a href="index.html">SparkMyName.com</a> — <a href="mailto:supportsparkmyname@gmail.com">Support</a>
+</footer>
+
+<script>
+// ── STRIPE SETUP ──
+// Replace with your actual Stripe publishable key from Netlify env
+// In production this is injected via Netlify env var VITE_STRIPE_PUBLISHABLE_KEY
+const STRIPE_KEY = window.__STRIPE_KEY__ || 'pk_live_51TcnKDFx648CsdqbMArAke3KpAPveNTLMjo6vAFb4CWaAOo3ZF8tN0UNgeiMAjJ99iA9XGZBxgbstMofBP5ISqtA00aJqiqLw9';
+let stripe, cardElement;
+let currentTier = 'consumer';
+
+const TIERS = {
+  consumer:     { label:'Consumer Report',  amount:'$5.00',  desc:'One-time — full AI name search + PDF' },
+  professional: { label:'Professional Report', amount:'$79.00', desc:'Deep trademark analysis + full report' },
+  annual:       { label:'Annual Access',    amount:'$9.95',  desc:'Unlimited searches for one year' },
+};
+
+// Price IDs from your Stripe dashboard — set these in Netlify env vars
+const PRICE_IDS = {
+  consumer:     window.__PRICE_CONSUMER__     || 'price_consumer_REPLACE',
+  professional: window.__PRICE_PROFESSIONAL__ || 'price_professional_REPLACE',
+  annual:       window.__PRICE_ANNUAL__       || 'price_annual_REPLACE',
+};
+
+function initStripe() {
+  try {
+    stripe = Stripe(STRIPE_KEY);
+    const elements = stripe.elements();
+    cardElement = elements.create('card', {
+      style: {
+        base: {
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: '16px',
+          color: '#0D0D0D',
+          '::placeholder': { color: '#8A8278' }
+        }
+      }
+    });
+    cardElement.mount('#card-element');
+    cardElement.on('change', e => {
+      document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
+    });
+  } catch(e) {
+    console.warn('Stripe init error:', e);
+  }
+}
+
+function toggleBilling() {
+  const isAnnual = document.getElementById('billingToggle').checked;
+  document.getElementById('label-onetime').classList.toggle('active', !isAnnual);
+  document.getElementById('label-annual').classList.toggle('active', isAnnual);
+  document.getElementById('annual-card').style.display = isAnnual ? 'block' : 'none';
+  document.getElementById('enterprise-card').style.display = isAnnual ? 'none' : 'block';
+  if (isAnnual) {
+    document.getElementById('consumer-price').textContent = '$9';
+    document.getElementById('consumer-period').textContent = 'per year — auto-renewing';
+    document.getElementById('consumer-btn-price').textContent = '$9.95/yr';
+  } else {
+    document.getElementById('consumer-price').textContent = '$5';
+    document.getElementById('consumer-period').textContent = 'one-time payment';
+    document.getElementById('consumer-btn-price').textContent = '$5';
+  }
+}
+
+function openCheckout(tier) {
+  currentTier = tier;
+  const t = TIERS[tier];
+  document.getElementById('modal-title').textContent = 'Complete Purchase';
+  document.getElementById('modal-subtitle').textContent = t.label + ' — ' + t.desc;
+  document.getElementById('modal-amount').textContent = t.amount;
+  document.getElementById('pay-btn').textContent = `🔒 Pay ${t.amount}`;
+  document.getElementById('checkoutModal').classList.add('active');
+  if (!stripe) initStripe();
+}
+
+function closeCheckout() {
+  document.getElementById('checkoutModal').classList.remove('active');
+}
+
+async function handlePayment() {
+  const email = document.getElementById('customer-email').value.trim();
+  const name = document.getElementById('customer-name').value.trim();
+  if (!email || !name) { alert('Please enter your name and email.'); return; }
+  if (!stripe || !cardElement) { alert('Payment system not ready. Please refresh.'); return; }
+
+  const btn = document.getElementById('pay-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Processing...';
+
+  try {
+    // Create payment intent via Netlify Function
+    const res = await fetch('/.netlify/functions/create-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tier: currentTier, email, name })
+    });
+    const { clientSecret, error: serverError } = await res.json();
+    if (serverError) throw new Error(serverError);
+
+    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: cardElement,
+        billing_details: { name, email }
+      }
+    });
+
+    if (error) {
+      document.getElementById('card-errors').textContent = error.message;
+      btn.disabled = false;
+      btn.textContent = `🔒 Pay ${TIERS[currentTier].amount}`;
+      return;
+    }
+
+    if (paymentIntent.status === 'succeeded') {
+      sessionStorage.setItem('smn_tier', currentTier);
+      sessionStorage.setItem('smn_email', email);
+      sessionStorage.setItem('smn_payment_id', paymentIntent.id);
+      closeCheckout();
+      window.location.href = `success.html?tier=${currentTier}&pi=${paymentIntent.id}`;
+    }
+  } catch (err) {
+    console.error(err);
+    document.getElementById('card-errors').textContent = 'Payment failed. Please try again or contact support.';
+    btn.disabled = false;
+    btn.textContent = `🔒 Pay ${TIERS[currentTier].amount}`;
+  }
+}
+
+function contactEnterprise() {
+  window.location.href = 'mailto:supportsparkmyname@gmail.com?subject=Enterprise%20Inquiry%20-%20SparkMyName&body=Hi%2C%20I%27m%20interested%20in%20the%20Enterprise%20plan.%20Please%20contact%20me.';
+}
+
+function toggleFaq(el) {
+  el.classList.toggle('open');
+  const answer = el.nextElementSibling;
+  answer.classList.toggle('visible');
+}
+
+// Pre-fill name from app.html if passed
+const urlParams = new URLSearchParams(window.location.search);
+const passedName = urlParams.get('name');
+if (passedName) {
+  sessionStorage.setItem('smn_selected', passedName);
+}
+</script>
+</body>
+</html>

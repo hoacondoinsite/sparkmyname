@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SparkMyName — Generating Your Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.6.0/jspdf.plugin.autotable.min.js"></script>
+<style>
+  :root{--flame:#FF4E00;--amber:#FF9A00;--spark:#FFD600;--ink:#0D0D0D;--ash:#F5F2EE;--smoke:#8A8278;--white:#FFFFFF;--green:#16A34A;--red:#DC2626;--gradient:linear-gradient(135deg,var(--flame) 0%,var(--amber) 60%,var(--spark) 100%);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--ash);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px;}
+
+  .gen-box{max-width:520px;width:100%;text-align:center;}
+
+  .logo{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:40px;display:block;}
+
+  .progress-ring{position:relative;width:120px;height:120px;margin:0 auto 32px;}
+  .progress-ring svg{transform:rotate(-90deg);}
+  .progress-circle{stroke-dasharray:314;stroke-dashoffset:314;transition:stroke-dashoffset 0.3s ease;stroke:url(#grad);}
+  .progress-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+  .gen-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;margin-bottom:10px;}
+  .gen-status{color:var(--smoke);font-size:0.92rem;margin-bottom:40px;line-height:1.6;min-height:24px;}
+
+  .steps-list{text-align:left;margin-bottom:40px;}
+  .gen-step{display:flex;align-items:center;gap:14px;padding:12px 20px;border-radius:12px;margin-bottom:8px;background:var(--white);border:1px solid rgba(0,0,0,0.06);}
+  .gen-step-icon{font-size:1.1rem;width:24px;text-align:center;}
+  .gen-step-label{font-size:0.88rem;font-weight:600;}
+  .gen-step.done .gen-step-icon::after{content:'';}
+  .gen-step.active{border-color:rgba(255,78,0,0.3);background:rgba(255,78,0,0.04);}
+  .gen-step.complete{border-color:rgba(22,163,74,0.2);background:rgba(22,163,74,0.04);}
+  .gen-step.complete .gen-step-label{color:var(--green);}
+
+  .download-section{display:none;}
+  .dl-box{background:var(--white);border-radius:20px;padding:36px;border:1px solid rgba(0,0,0,0.07);margin-bottom:24px;}
+  .dl-icon{font-size:3rem;margin-bottom:16px;}
+  .dl-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;margin-bottom:8px;}
+  .dl-sub{color:var(--smoke);font-size:0.88rem;margin-bottom:24px;line-height:1.6;}
+  .dl-btn{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;border-radius:100px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;background:var(--gradient);color:var(--white);box-shadow:0 6px 24px rgba(255,78,0,0.3);transition:transform 0.2s;text-decoration:none;}
+  .dl-btn:hover{transform:translateY(-2px);}
+  .back-link{color:var(--smoke);font-size:0.88rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+  .back-link:hover{color:var(--flame);}
+</style>
+</head>
+<body>
+<div class="gen-box">
+  <a class="logo" href="index.html">SparkMyName ✦</a>
+
+  <div id="generatingSection">
+    <div class="progress-ring">
+      <svg width="120" height="120" viewBox="0 0 120 120">
+        <defs>
+          <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#FF4E00"/>
+            <stop offset="100%" style="stop-color:#FFD600"/>
+          </linearGradient>
+        </defs>
+        <circle cx="60" cy="60" r="50" fill="none" stroke="#E5E0D8" stroke-width="8"/>
+        <circle class="progress-circle" id="progressCircle" cx="60" cy="60" r="50" fill="none" stroke="#FF4E00" stroke-width="8" stroke-linecap="round"/>
+      </svg>
+      <div class="progress-num" id="progressNum">0%</div>
+    </div>
+
+    <div class="gen-title">Building Your Report</div>
+    <div class="gen-status" id="genStatus">Gathering your results...</div>
+
+    <div class="steps-list">
+      <div class="gen-step" id="step1"><span class="gen-step-icon">📋</span><span class="gen-step-label">Reading your name results</span></div>
+      <div class="gen-step" id="step2"><span class="gen-step-icon">🌐</span><span class="gen-step-label">Compiling domain availability data</span></div>
+      <div class="gen-step" id="step3"><span class="gen-step-icon">✦</span><span class="gen-step-label">Generating AI trademark overview</span></div>
+      <div class="gen-step" id="step4"><span class="gen-step-icon">📄</span><span class="gen-step-label">Designing your branded PDF</span></div>
+      <div class="gen-step" id="step5"><span class="gen-step-icon">⬇</span><span class="gen-step-label">Preparing download</span></div>
+    </div>
+  </div>
+
+  <div class="download-section" id="downloadSection">
+    <div class="dl-box">
+      <div class="dl-icon">📄</div>
+      <div class="dl-title">Your Report Is Ready!</div>
+      <div class="dl-sub">Your branded SparkMyName PDF report has been generated. Click below to download it to your device.</div>
+      <button class="dl-btn" id="dlBtn">⬇ Download PDF Report</button>
+    </div>
+    <a href="app.html" class="back-link">← Run another search</a>
+  </div>
+</div>
+
+<script>
+const { jsPDF } = window.jspdf;
+let pdfBlob = null;
+let pdfFilename = '';
+
+const DISCLAIMER = 'This report is generated by artificial intelligence and is provided for informational purposes only. It does not constitute legal advice and does not establish an attorney-client relationship. Trademark availability determinations involve complex legal judgments beyond the scope of this tool. Before adopting any brand name, registering any trademark, or making any business decision based on this report, you should consult a qualified trademark attorney.';
+
+function setProgress(pct, statusText, stepNum) {
+  const circle = document.getElementById('progressCircle');
+  const circumference = 314;
+  circle.style.strokeDashoffset = circumference - (circumference * pct / 100);
+  document.getElementById('progressNum').textContent = pct + '%';
+  document.getElementById('genStatus').textContent = statusText;
+  for (let i = 1; i <= 5; i++) {
+    const el = document.getElementById('step' + i);
+    if (i < stepNum) el.className = 'gen-step complete';
+    else if (i === stepNum) el.className = 'gen-step active';
+    else el.className = 'gen-step';
+  }
+}
+
+async function buildPDF() {
+  await sleep(400);
+  setProgress(10, 'Reading your name results...', 1);
+
+  const names = JSON.parse(sessionStorage.getItem('smn_names') || '[]');
+  const selected = sessionStorage.getItem('smn_selected') || '';
+  const tier = sessionStorage.getItem('smn_tier') || 'consumer';
+  const isPro = tier === 'professional';
+
+  await sleep(600);
+  setProgress(30, 'Compiling domain availability data...', 2);
+  await sleep(600);
+  setProgress(50, 'Generating AI analysis...', 3);
+  await sleep(800);
+  setProgress(70, 'Designing your branded PDF...', 4);
+
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pageW = 210; const pageH = 297;
+  const margin = 20; const contentW = pageW - margin * 2;
+
+  // ── COVER PAGE ──
+  // Header bar
+  doc.setFillColor(13, 13, 13);
+  doc.rect(0, 0, pageW, 56, 'F');
+
+  // Brand name
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(28);
+  doc.text('SparkMyName', margin, 28);
+
+  // Tagline
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(11);
+  doc.setTextColor(138, 130, 120);
+  doc.text('AI-Powered Brand Name Discovery', margin, 40);
+
+  // Report type badge
+  doc.setFillColor(255, 78, 0);
+  doc.roundedRect(pageW - margin - 54, 16, 54, 18, 4, 4, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.text(isPro ? 'PRO REPORT' : 'CONSUMER REPORT', pageW - margin - 28, 27, { align: 'center' });
+
+  // Report title
+  doc.setTextColor(13, 13, 13);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(22);
+  doc.text('Brand Name Discovery Report', margin, 84);
+
+  // Date line
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(138, 130, 120);
+  const now = new Date();
+  doc.text(`Generated: ${now.toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' })} at ${now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}`, margin, 94);
+
+  if (selected) {
+    doc.setFontSize(10);
+    doc.setTextColor(255, 78, 0);
+    doc.text(`Selected Name: ${selected}`, margin, 104);
+  }
+
+  // Divider
+  doc.setDrawColor(229, 224, 216);
+  doc.setLineWidth(0.5);
+  doc.line(margin, 112, pageW - margin, 112);
+
+  // SUMMARY STATS
+  doc.setTextColor(13, 13, 13);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(14);
+  doc.text('Summary', margin, 125);
+
+  const statsY = 135;
+  const statCols = [
+    { label: 'Names Generated', value: String(names.length || 0) },
+    { label: 'Domains Checked', value: String((names.length || 0) * 4) },
+    { label: 'Report Type', value: isPro ? 'Professional' : 'Consumer' },
+    { label: 'AI Disclaimer', value: 'Included' },
+  ];
+  statCols.forEach((s, i) => {
+    const x = margin + (i % 2) * (contentW / 2);
+    const y = statsY + Math.floor(i / 2) * 22;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(138, 130, 120);
+    doc.text(s.label.toUpperCase(), x, y);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(14);
+    doc.setTextColor(13, 13, 13);
+    doc.text(s.value, x, y + 9);
+  });
+
+  // ── NAMES TABLE ──
+  doc.addPage();
+  doc.setFillColor(13, 13, 13);
+  doc.rect(0, 0, pageW, 20, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(11);
+  doc.text('SPARKMYNAME ✦ Brand Names & Domain Availability', margin, 13);
+
+  doc.setTextColor(13, 13, 13);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(14);
+  doc.text('Generated Brand Names', margin, 36);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(138, 130, 120);
+  doc.text(`${names.length} names generated. Domain availability checked live at time of report.`, margin, 44);
+
+  // Table
+  if (names.length > 0) {
+    const tableData = names.map(n => [
+      n.name,
+      n.tagline,
+      n.style,
+      n.name.replace(/\s+/g,'')+'.com',
+    ]);
+
+    doc.autoTable({
+      startY: 52,
+      head: [['Name', 'Tagline', 'Style', 'Primary Domain']],
+      body: tableData,
+      theme: 'striped',
+      headStyles: {
+        fillColor: [13, 13, 13],
+        textColor: [255, 255, 255],
+        fontStyle: 'bold',
+        fontSize: 9,
+      },
+      bodyStyles: { fontSize: 9, textColor: [13, 13, 13] },
+      alternateRowStyles: { fillColor: [245, 242, 238] },
+      columnStyles: {
+        0: { fontStyle: 'bold', cellWidth: 36 },
+        1: { cellWidth: 70 },
+        2: { cellWidth: 40 },
+        3: { cellWidth: 44 },
+      },
+      margin: { left: margin, right: margin },
+    });
+  } else {
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(10);
+    doc.setTextColor(138, 130, 120);
+    doc.text('No names found in session. Please run a search in the SparkMyName app first.', margin, 65);
+  }
+
+  // ── PRO SECTION ──
+  if (isPro) {
+    doc.addPage();
+    doc.setFillColor(13, 13, 13);
+    doc.rect(0, 0, pageW, 20, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.text('SPARKMYNAME ✦ Professional Analysis', margin, 13);
+
+    doc.setTextColor(255, 78, 0);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.text('PRO', margin, 32);
+    doc.setTextColor(13, 13, 13);
+    doc.setFontSize(16);
+    doc.text('Brand Strength Analysis', margin + 14, 32);
+
+    const criteria = [
+      ['Memorability', 'How easily customers will recall the name after a single exposure'],
+      ['Pronounceability', 'Whether the name is easy to say and spell without confusion'],
+      ['Distinctiveness', 'How unique the name is relative to competitors in your industry'],
+      ['Domain Strength', 'Availability of the .com extension and defensive alternatives'],
+      ['Trademark Risk (General)', 'Likelihood of conflict with existing registered marks in common classes'],
+      ['Global Suitability', 'Whether the name carries neutral or positive meaning across major languages'],
+    ];
+
+    let cy = 44;
+    doc.setFont('helvetica', 'normal');
+    criteria.forEach(([title, desc]) => {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(13, 13, 13);
+      doc.text(title, margin, cy);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(138, 130, 120);
+      const lines = doc.splitTextToSize(desc, contentW - 10);
+      doc.text(lines, margin, cy + 6);
+      cy += 6 + lines.length * 5 + 8;
+    });
+
+    // Attorney guidance
+    cy += 6;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.setTextColor(13, 13, 13);
+    doc.text('Attorney Engagement Guidance', margin, cy);
+    cy += 10;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(13, 13, 13);
+    const guidance = [
+      '1. Narrow your list to 3–5 finalists using the criteria above.',
+      '2. Ask your trademark attorney to run a comprehensive clearance search for each finalist.',
+      '3. File an Intent-to-Use (ITU) trademark application for your top choice as soon as possible.',
+      '4. Register your .com domain immediately — domain registration does not equal trademark rights.',
+      '5. Use your trademark application filing date as your "priority date" in case of future disputes.',
+    ];
+    guidance.forEach(line => {
+      doc.text(line, margin, cy);
+      cy += 7;
+    });
+  }
+
+  // ── DISCLAIMER PAGE ──
+  doc.addPage();
+  doc.setFillColor(255, 154, 0);
+  doc.rect(0, 0, pageW, 20, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(11);
+  doc.text('SPARKMYNAME ✦ Important Legal Disclaimer', margin, 13);
+
+  doc.setTextColor(13, 13, 13);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(14);
+  doc.text('AI Disclaimer — Required Reading', margin, 36);
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  const disclaimerLines = doc.splitTextToSize(DISCLAIMER, contentW);
+  doc.text(disclaimerLines, margin, 48);
+
+  let dy = 48 + disclaimerLines.length * 6 + 16;
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(12);
+  doc.text('About SparkMyName', margin, dy);
+  dy += 10;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  const about = 'SparkMyName is an AI-powered brand name discovery platform built by Vorrex LLC. We use advanced artificial intelligence to generate creative, memorable brand name options and check live domain availability — helping entrepreneurs, founders, and businesses find the perfect name for their ventures.';
+  const aboutLines = doc.splitTextToSize(about, contentW);
+  doc.text(aboutLines, margin, dy);
+
+  dy += aboutLines.length * 6 + 16;
+  doc.setFont('helvetica', 'bold');
+  doc.text('Contact & Support', margin, dy);
+  dy += 8;
+  doc.setFont('helvetica', 'normal');
+  doc.text('Email: supportsparkmyname@gmail.com', margin, dy);
+  dy += 7;
+  doc.text('Website: www.sparkmyname.com', margin, dy);
+  dy += 7;
+  doc.text('© 2026 Vorrex LLC — All Rights Reserved', margin, dy);
+
+  // Footer on all pages
+  const pageCount = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(138, 130, 120);
+    doc.text(`SparkMyName.com — © 2026 Vorrex LLC — Page ${i} of ${pageCount}`, pageW / 2, pageH - 10, { align: 'center' });
+  }
+
+  return doc;
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function run() {
+  try {
+    const doc = await buildPDF();
+    setProgress(90, 'Preparing your download...', 5);
+    await sleep(400);
+
+    const selected = sessionStorage.getItem('smn_selected') || 'SparkMyName';
+    const tier = sessionStorage.getItem('smn_tier') || 'consumer';
+    const dateStr = new Date().toISOString().split('T')[0];
+    pdfFilename = `SparkMyName_${tier}_Report_${dateStr}.pdf`;
+    pdfBlob = doc.output('blob');
+
+    setProgress(100, 'Your report is ready!', 5);
+    await sleep(400);
+
+    document.getElementById('generatingSection').style.display = 'none';
+    document.getElementById('downloadSection').style.display = 'block';
+
+    document.getElementById('dlBtn').onclick = () => {
+      const url = URL.createObjectURL(pdfBlob);
+      const a = document.createElement('a');
+      a.href = url; a.download = pdfFilename;
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+
+    // Auto-trigger download
+    setTimeout(() => document.getElementById('dlBtn').click(), 600);
+
+  } catch(err) {
+    console.error(err);
+    document.getElementById('genStatus').textContent = 'Error generating report. ' + err.message;
+  }
+}
+
+run();
+</script>
+</body>
+</html>
