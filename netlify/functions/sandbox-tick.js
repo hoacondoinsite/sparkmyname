@@ -97,9 +97,13 @@ async function step(job) {
       const [brand] = await sel('sandbox_brands', `brand_id=eq.${order.brand_id}&select=*`);
       const pal = (brand && brand.color_palette) || {};
       const colors = [pal.primary, pal.accent, pal.secondary].filter(Boolean).join(', ');
-      const ban = 'ABSOLUTELY NO text, words, letters, numbers, logos, watermarks, signage, grommets, ropes, walls, rooms or 3D mockups. STRICTLY NO flying ingredients, NO floating or levitating items, NO dust particles, NO explosions, NO splashes. Everything rests naturally on the surface, gravity-correct. Pure edge-to-edge background art only.';
-      // explicitly declare the offer items so the model paints the FULL spread
-      const spreadItems = String((p.brief&&(p.brief.details||p.brief.offer))||'').split(/[,\u2022;]+/).map(x=>x.trim()).filter(Boolean).slice(0,5);
+      const ban = 'ABSOLUTELY NO text, words, letters, numbers, logos, watermarks, signage, easel signs, placards, printed cards, memorial cards, grommets, ropes, walls, rooms or 3D mockups. STRICTLY NO flying ingredients, NO floating or levitating items, NO dust particles, NO explosions, NO splashes. Everything rests naturally on the surface, gravity-correct. Pure edge-to-edge background art only.';
+      // explicitly declare the offer items so the model paints the FULL spread — but ONLY real,
+      // depictable props. Offer COPY (free / included / no extra charge / $off / "with X service")
+      // is composited as text by code, never painted into the scene, or the model draws a text sign.
+      const spreadItems = String((p.brief&&(p.brief.details||p.brief.offer))||'').split(/[,\u2022;]+/).map(x=>x.trim()).filter(Boolean)
+        .filter(x=>!/\b(free|included|complimentary|no extra|no charge|%\s?off|save|discount|deal|bonus|offer|only)\b|^with\b|\$\s*\d/i.test(x))
+        .slice(0,5);
       const [b2] = await sel('sandbox_brands', `brand_id=eq.${order.brand_id}&select=industry,banned_visual_elements`);
       const niche = (b2&&b2.industry) ? `Subject niche: ${b2.industry}. ` : '';
       const brandBans = (b2&&Array.isArray(b2.banned_visual_elements)&&b2.banned_visual_elements.length) ? ` BRAND-BANNED visuals, never include: ${b2.banned_visual_elements.join(', ')}.` : '';
