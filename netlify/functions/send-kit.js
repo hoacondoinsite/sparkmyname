@@ -251,7 +251,7 @@ function buildEmail(names, reportUrl, accountUrl, conf, seed) {
           + '<span style="font:800 13px/1 ' + SANS + ';letter-spacing:.12em;text-transform:uppercase;color:#127A40;">'
           + '&#127881;&nbsp; It is here &nbsp;&#127881;</span>'
         + '</div>' +
-        '<img src="https://sparkmyname.netlify.app/img/email-banner.jpg" alt="" width="560" style="display:block;width:100%;max-width:560px;border-radius:14px;margin:0 auto 14px;">' +
+        '' +
         '<div style="font:800 34px/1.08 ' + SANS + ';letter-spacing:-.04em;color:' + INKC + ';margin:18px 0 0;">Your brand is ready.</div>' +
         '<div style="margin:20px 0 6px;">' +
         '<a href="' + esc(openUrl) + '" style="display:inline-block;font:800 17px/1 ' + SANS + ';color:#FFFFFF;background:#189850;text-decoration:none;padding:16px 30px;border-radius:100px;">Open your workspace &rarr;</a>' +
@@ -358,7 +358,7 @@ function buildConfirmEmail(seed, wsUrl, helpUrl){
   /* goPortal removed 2026-07-26: the confirmation email no longer links to the workspace,
      because at the moment it is sent there is nothing behind that link yet. */
   return _emDocWrap(''+
-  '<img src="https://sparkmyname.netlify.app/img/email-building.jpg" alt="" width="560" style="display:block;width:100%;max-width:560px;border-radius:14px;margin:0 auto 14px;">'+'<div style="margin:0;padding:38px 14px;background:#F0F7F3;font-family:'+SANS+';">'+
+  '<div style="margin:0;padding:38px 14px;background:#F0F7F3;font-family:'+SANS+';">'+
   '<div style="max-width:560px;margin:0 auto;background:#FFFFFF;border:1px solid '+LINE+';border-radius:20px;overflow:hidden;">'+
     '<div style="height:5px;background:linear-gradient(90deg,#189850,#33C273,#127A40);font-size:0;line-height:0;">&nbsp;</div>'+
     '<div style="padding:36px 36px 34px;">'+
