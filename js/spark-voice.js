@@ -58,18 +58,24 @@
       var _tokPath = (S.opts && S.opts.tokenPath) || '/.netlify/functions/realtime-token';
       var _tokBody = { brief: briefText(S.brief) };
       if (S.opts && S.opts.tokenBody) { for (var _k in S.opts.tokenBody) { _tokBody[_k] = S.opts.tokenBody[_k]; } }
-      res = await fetch(_tokPath, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(_tokBody)
-      });
+      // Intent-prewarmed credential (opt-in via SparkVoice.prewarm) — skip the fetch if a fresh one is waiting.
+      var _pk = _tokPath + '|' + JSON.stringify((S.opts && S.opts.tokenBody) || {});
+      if (_preData && _preKey === _pk && (now() - _preAt) < 25000) {
+        data = _preData; _preData = null; _preKey = null;
+      } else {
+        res = await fetch(_tokPath, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(_tokBody)
+        });
+        data = await res.json().catch(function () { return {}; });
+      }
     } catch (e) {
       throw new Error('Step 1: could not reach the SparkMyName server. ' +
                       'Check your internet connection.');
     }
-    data = await res.json().catch(function () { return {}; });
-    if (!res.ok || !data.ok || !data.token) {
-      throw new Error('Step 1: ' + (data.message || 'the server would not start a voice session.'));
+    if (!data || (res && !res.ok) || !data.ok || !data.token) {
+      throw new Error('Step 1: ' + ((data && data.message) || 'the server would not start a voice session.'));
     }
 
     var pc = new RTCPeerConnection();
@@ -305,8 +311,26 @@
     S.pc = null; S.dc = null; S.mic = null;
   }
 
+  var _preKey = null, _preData = null, _preAt = 0;
+  // Opt-in latency helper: fetch the ephemeral credential on user intent (button press) so it overlaps
+  // the click->connect gap. Only mints a token when a caller explicitly calls this — never on page load.
+  function prewarm(opts) {
+    try {
+      opts = opts || {};
+      var path = opts.tokenPath || '/.netlify/functions/realtime-token';
+      var body = {}; if (opts.tokenBody) { for (var k in opts.tokenBody) body[k] = opts.tokenBody[k]; }
+      var key = path + '|' + JSON.stringify(body);
+      if (_preData && _preKey === key && (now() - _preAt) < 25000) return; // already fresh
+      _preKey = key; _preAt = now(); _preData = null;
+      fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+        .then(function (r) { return r.json(); })
+        .then(function (d) { if (d && d.ok && d.token && _preKey === key) { _preData = d; } })
+        .catch(function () { _preData = null; });
+    } catch (e) {}
+  }
+
   function isLive() { return !!(S && S.live); }
 
-  window.SparkVoice = { start: start, stop: stop, isLive: isLive,
+  window.SparkVoice = { start: start, stop: stop, isLive: isLive, prewarm: prewarm,
                         _brief: function () { return S ? S.brief : null; } };
 })();
