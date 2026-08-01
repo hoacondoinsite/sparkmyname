@@ -215,6 +215,11 @@
     if (!able) { b.hidden = true; }
 
     mic.parentNode.insertBefore(b, mic.nextSibling);
+    // Intent-based prewarm: warm the ephemeral token the instant the user presses, so the fetch
+    // overlaps the veil-open + WebRTC handshake. Fires only on real intent — never on page load.
+    b.addEventListener('pointerdown', function () {
+      try { if (window.SparkVoice && window.SparkVoice.prewarm && !window.SparkVoice.isLive()) window.SparkVoice.prewarm({}); } catch (e) {}
+    });
     b.addEventListener('click', open);
   }
 
