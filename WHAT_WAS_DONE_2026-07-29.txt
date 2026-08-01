@@ -1,0 +1,1854 @@
+SPARKMYNAME — SESSION LEDGER — July 29 2026 (evening)
+Each disc issued this session is time-stamped below, newest at the bottom.
+Standard: nothing marked done unless proven (grep-proof / node --check / wiring trace).
+
+====================================================================================
+ZIP 1 — "SPARK (API deprecation sweep verified, all functions syntax-clean) July 29 2026, 2015.zip"
+Issued: July 29 2026, 2015
+Type: Verification + safety checkpoint (full site).
+What was done:
+  - API DEPRECATION SWEEP (banked "do it first") — VERIFIED, not assumed:
+      * studio-engine.js: OPENAI_IMAGE_MODEL env override confirmed in place and correctly
+        threaded (request + both responses). Default left on live gpt-image-1; one-word env
+        flip to gpt-image-2 ready for when it's confirmed live. gpt-image-1 dies 2026-10-23.
+      * name-search-test.js: confirmed repointed to gpt-5.6-terra; dead web_search_options
+        confirmed removed from code; confirmed standalone (not wired to any page).
+      * TTS (21 producers): confirmed all on the bare auto-rolling alias; zero retired
+        dated-snapshot pins. No code change needed.
+      * No hidden exposure to Sora / OpenAI Videos / Assistants / v1/prompts / fine-tuning
+        / Evals — all swept to ZERO.
+      * Spine (clean-names.js) confirmed untouched.
+  - FULL BUG SWEEP: node --check on all 162 function files -> 0 syntax errors.
+  - Code edits required: NONE (the fixes were already correctly present from the prior disc).
+  - Docs added: docs/API_DEPRECATION_SWEEP_2026-07-29.txt (full proof), this ledger.
+OPEN ACTION (Founder only): ear-check ONE existing film — TTS alias rolled snapshots and
+  per-brand voice casting is locked. I can't listen to audio.
+====================================================================================
+
+====================================================================================
+ZIP 2 — "SPARK (font cleanup — unused Sora link dropped from 44 pages, Poppins+Inter kept) July 29 2026, 2035.zip"
+Issued: July 29 2026, 2035
+Type: Font cleanup (full site). Speed win, proven zero visual change.
+What was done:
+  - Removed the redundant Sora Google-Fonts <link> (66 segments) from the 44 pages where
+    Sora never rendered (Poppins already wins via --head). Each of those pages now downloads
+    one fewer webfont; Poppins + Inter kept intact.
+  - KEPT Sora on the 3 pages that actually render it in their own inline styles:
+    workspace.html (5 inline uses), film-test.html (1), video.html (its --serif token).
+    Removing it there WOULD have changed their look, so it stayed.
+  - Verified: vorrex.html's remaining "Sora" is demo-brand label DATA
+    (type:[{name:'Sora'}...]), never a live font-family — confirmed harmless.
+PROOF (not assumed):
+  - Real DOM parse (jsdom) of edited + kept pages: edited = Sora:false / Poppins+Inter:true;
+    kept = Sora:true / Poppins+Inter:true. All PASS.
+  - Malformation check on all 44 edited links: none (no &&, ?&, dangling separators).
+  - Line-by-line diff vs the original disc: the SOLE change in all 44 files is the Sora
+    removal — no wiring, forms, scripts, or copy altered.
+  - Commerce/login guard: checkout.html + account.html endpoint references unchanged.
+Not touched (still open): the 3 Sora-rendering pages could be unified to Poppins for a true
+  one-head-font site — that's a VISIBLE change to workspace/video/film-test, so it waits for
+  your say-so. Stale internal note in css/uniform.css still reads "Sora heads" (comment only,
+  affects nothing) — can tidy on request.
+====================================================================================
+
+====================================================================================
+ZIP 3 — "SPARK (press-kit truth-fix — media-kit palette corrected to white-green, no fabricated coverage) July 29 2026, 2055.zip"
+Issued: July 29 2026, 2055
+Type: Press-kit truth-fix (full site).
+The task was "press-kit truth-fix (real mastheads)". Investigation changed the finding:
+  - MASTHEADS: the rejected real-masthead image was never wired in — no "as featured in"
+    strip, no broken ref, no real publication names anywhere in copy or files. So there is
+    NO live masthead violation to remove. I did NOT fabricate a replacement press strip:
+    an "As featured in X" claim asserts coverage that doesn't exist, and that is a Truth-
+    Standard problem whether the publication names are real OR invented. Fabricating press
+    coverage was declined on purpose.
+  - THE REAL DEFECT FOUND: the downloadable media kit still handed journalists the DEAD
+    champagne-gold / void-black palette. Corrected all three surfaces to the true
+    white-green tokens pulled from the live spark.css :root:
+      * assets/press/sparkmyname_colors.txt — rewritten: Spark Green #189850 / deep
+        #127A40 / bright #33F28B / Warm Amber #B7791F / Ink #141414 / Ink-2 #3A3F3C /
+        White #FFFFFF / Soft Panel #F4F6F5.
+      * assets/press/sparkmyname_palette.ase — regenerated (valid ASEF, 8 RGB swatches).
+      * press.html copy — "champagne gold system, void black, ink white" -> "Spark green
+        system on white, with ink and warm-amber accent".
+PROOF (not assumed):
+  - Grep: zero champagne-gold / void-black / dead-hex references remain in press.html or
+    assets/press/.
+  - .ase written AND parsed back independently: sig ASEF, v1.0, 8 blocks, every swatch
+    reads back at its exact hex.
+  - press.html change isolated against the ZIP-2 state: the ONLY new edit is the palette
+    phrase — no other line touched. press.html parses clean (jsdom).
+OPEN / your call (not done): (a) if you want a credibility element on the press page, I can
+  build a TRUTHFUL one from real facts — U.S. Patent Pending, Owned by VORREX IGNITE LLC,
+  Built in Florida, and a showcase of real Spark-made demo brands — no fake coverage.
+  (b) press.html's "Media kit downloads" section has headings but no actual download
+  buttons wired to these files; I can wire real download links on request.
+====================================================================================
+
+====================================================================================
+ZIP 4 — "SPARK (image upgrade batch A — 10 people-forward brand photos placed on homepage + 404) July 29 2026, 2140.zip"
+Issued: July 29 2026, 2140
+Type: Visual upgrade (full site). Founder uploaded 19 real, self-made brand photos
+(people-forward, no trademark issue per Founder) to replace weaker images.
+Process (verify, don't guess):
+  - All 19 PNGs (~38MB) identified BY EYE from disk (not by filename/upload order),
+    bound to true content, then processed to web JPEGs (2.8MB total, 40–247KB each),
+    each cropped to its slot's exact aspect ratio so nothing distorts.
+  - Placed only where the image's industry matches the slot's VISIBLE figcaption/label
+    (checked each caption first). 10 slots upgraded this batch:
+      TILES (6): Landscaping→Verdant Horizon · Hair salons→luxury salon · Kids &
+        education→Little Luminary Academy · Events & DJs→Lace & Luminous · Bakeries→
+        Rue & Flour · Home repair→Voltcraft Electrical.
+      SHOWCASE (3): brand-table→kit flatlay (×2 uses) · complete-package→gold-A deluxe
+        kit (×2 uses) · Pressure washing mtile→new technician+truck photo.
+      404 PAGE: Pathfinders "404" sculpture.
+  - Each slot: swapped src AND updated alt to the true content; figcaptions untouched.
+  - DROPPED on purpose: Accounting tile — the finance/gold-bars photo reads "wealth,"
+    not "accounting," and the tile shows a visible "Accounting" label, so forcing it
+    would be dishonest. finance-wealth held for a proper slot in batch B.
+PROOF (not assumed):
+  - Site-wide: 135 static <img> refs across 48 pages all resolve — ZERO broken images.
+  - Swapped slots confirmed pointing to the new files (both ×2 showcase uses updated);
+    old filenames fully de-referenced on index.
+  - Figcaptions verified intact (Landscaping, Hair salons, Kids & education, Events &
+    DJs, Bakeries, Home repair, Pressure washing).
+  - index.html + 404.html parse clean (jsdom).
+STAGED, NOT YET PLACED (9 images, all already inside img/ — nothing lost):
+  Aerovista Charter (aviation), CareFirst (customer support), Ironclad Roasters
+  (coffee), Ink & Ivy Books (bookstore), Aura Dental Studio (dental), Meridian
+  Alliance Partners (consulting), luxury jazz supper club, finance/wealth, and the
+  portrait "SparkMyName Ventures" folio. These belong in the see-the-work gallery
+  and/or a homepage "real brands" showcase — batch B, after reading that page's
+  structure, so this stays a small reviewable batch.
+====================================================================================
+
+====================================================================================
+ZIP 5 — "SPARK (see-the-work de-duplicated + real-brands gallery of 9 photos) July 29 2026, 2210.zip"
+Issued: July 29 2026, 2210
+Type: Bug fix + image upgrade batch B (full site).
+FOUND WHILE PLACING IMAGES — a real defect: see-the-work.html was CORRUPTED — it held
+  TWO full HTML documents concatenated (a mangled "</div>TYPE html>" where a second
+  <!DOCTYPE> was pasted in). The DOM therefore rendered the ENTIRE page twice (two
+  footers, two of every heading). Almost certainly from stacking the "new white-green
+  marketing site on top" of the old deploy. Adding a gallery to that would have shown
+  the gallery twice too — so I fixed the page first.
+FIX (verified, not blind): confirmed the embedded second copy was a COMPLETE, valid
+  standalone page (1 body/footer/h1, all sections, all film brands). Kept that clean
+  copy, dropped the truncated fragment, prepended one clean <!DOCTYPE html>.
+  RESULT: single valid document — 1 doctype, 1 <html>, 1 body, 1 footer, 1 h1; renders
+  ONCE. All original content preserved (JetForce, Romanesco, Tresses, Rotor Odyssey,
+  Aura Revival film brands; header; footer; nav links). Line count 271 -> 147.
+ADDED (batch B): a new "What a finished brand looks like" gallery — the 9 remaining
+  people-forward brand photos, each captioned by true brand + industry:
+  Aerovista Charter (aviation) · Ironclad Roasters (coffee) · Ink & Ivy Books
+  (bookstore) · Aura Dental Studio (dental) · CareFirst (customer support) · Meridian
+  Alliance Partners (professional services) · a jazz supper club · a wealth & finance
+  brand · SparkMyName Ventures (brand identity). Portrait/5:4 sources cropped to 3:2.
+TRUTH GUARD: framed as example brand concepts (kicker "Every kind of founder"), NOT as
+  real customers/testimonials — the people are AI-generated, so a "real owner" claim
+  would be false.
+PROOF: jsdom -> 1 body / 1 footer / 1 h1, no duplicate headings, 13 mtiles, 9 new
+  captions found; every static <img> resolves (zero broken); exactly one <!DOCTYPE>,
+  one <html>, one </html>; no corruption markers remain.
+
+  >>> IMPORTANT, NOT YET FIXED — index.html (the LIVE homepage) has the SAME duplicated-
+  document corruption (its DOM also shows 2 footers / 2 h1s). I did NOT auto-fix it this
+  batch because (a) it is the live deploy and (b) its two embedded copies may DIFFER
+  (the 30-industry wall + batch-A image work appear in only one copy), so a blind dedupe
+  could drop content or the commerce wiring. RECOMMENDED NEXT: a dedicated, verified
+  index.html de-duplication — carefully diff the two copies, keep the correct single
+  version (preserving the full wall, batch-A photos, and checkout/login endpoints),
+  prove it renders once, then ship. Please eyeball the very bottom of the live homepage:
+  if you see a second header/hero/footer stacked below the real footer, that confirms it.
+====================================================================================
+
+====================================================================================
+ZIP 6 — "SPARK (homepage de-corrupted — 30-tile wall reassembled, renders once, checkout intact) July 29 2026, 2245.zip"
+Issued: July 29 2026, 2245
+Type: Critical bug fix (full site) — index.html (the LIVE homepage).
+THE BUG (worse than see-the-work): index.html was 73.5KB of scrambled HTML — the
+  "30-industry wall" mosaic held only its first 6 tiles in place; a premature </div>
+  closed it early, the OTHER 24 tiles (including the batch-A photos) were orphaned AFTER
+  a malformed "</body></html" (missing >), and then a STALE second copy of the whole
+  page (doc2 — no wall at all) was appended. Rendered result: the homepage came out
+  roughly TWICE (2 footers, 2 h1s, 48 checkout elements) with a broken/duplicated wall.
+  Almost certainly from stacking the "new marketing site on top" of the old deploy.
+WHY IT WASN'T A SIMPLE CUT: unlike see-the-work (two clean copies), here the correct
+  content was SPLIT — 6 wall tiles in place, 24 orphaned, and the only structurally-
+  complete copy (doc2) was missing the entire wall. Blindly keeping either copy would
+  have destroyed the 30-tile wall AND the batch-A photo work. This is why I analyzed
+  both halves tile-by-tile before touching anything.
+THE FIX (deterministic, asserted): moved the 24 orphaned tiles back into the wall
+  mosaic (in document order, right before the premature </div>), truncated at the
+  page's real </body>, and wrote one clean </html>. Dropped the orphan tail + stale doc2.
+  73,551 -> 38,560 bytes.
+PROOF (strict gate — would not have shipped otherwise):
+  - RENDER now: 1 footer, 1 h1, 1 wall header, 30 wall tiles, NO duplicate headings.
+  - Structure: exactly 1 <!DOCTYPE>, 1 <html>, 1 </html>, 1 <body>, 1 footer; zero
+    "TYPE html>" corruption markers.
+  - Wall complete: 30 tiles in order (tile-podcast ... tile-agency); all 7 batch-A
+    photos present (verdant, salon, little-luminary, lace, rue, voltcraft, pressure).
+  - COMMERCE SAFE: hero/mic/checkout-entry block is BYTE-IDENTICAL to the pre-fix file;
+    checkout.html links back to correct single count (24, was doubled 48); the
+    mic->smn_idea->checkout wiring lives in js/spark.js (untouched); checkout.html and
+    account.html were never edited. All static <img> refs resolve (zero broken).
+  - Parses clean (jsdom).
+NOTE: kit-flatlay / kit-gold-a now appear 1x each (correct) — the earlier "2x" was the
+  doc-duplication artifact, not two real uses.
+FOUNDER TEST BEFORE TRUSTING: this is the live homepage, so deploy this disc and eyeball
+  it — the second header/hero/footer that was stacked below the real footer should be
+  GONE, and the industry wall should show as one clean grid.
+====================================================================================
+
+====================================================================================
+ZIP 7 — "SPARK (interactive journey upgraded — 4 step photos + new copy, tabs wired & tested) July 29 2026, 2320.zip"
+Issued: July 29 2026, 2320
+Type: Content + interactive upgrade (full site) — homepage "From a dream to a business
+you can run" section.
+Founder uploaded 4 people-forward step images + full copy for steps 01-03 (04 copy not
+provided). Identified each image BY EYE and matched to the correct step:
+  the_idea_box_1 -> 01 The Idea | the_brand_box2 (APEX) -> 02 The Brand |
+  the_launch (Lumina Clean) -> 03 The Launch | The_success (Verde Naturals) -> 04 Success.
+APPROACH (low-risk): the homepage already had a working tab component (#jtabs + #jpanel,
+  fed by window.SMN_JOURNEY, switched by spark.js). Rather than rebuild JS, I reused the
+  proven mechanism and swapped only the content:
+  - Processed 4 images to web JPEGs (step-01-idea..step-04-success, 97-162KB).
+  - Replaced the SMN_JOURNEY data (same {t,p,li,img,alt} schema) with Founder's copy for
+    01-03; wrote a truthful DRAFT for 04 (no copy was supplied — see note).
+  - Relabeled tabs Dream/Brand/Launch/Grow -> The Idea/The Brand/The Launch/The Success.
+  - Updated the subheadline to the Founder's wording.
+  - Applied the Founder's exact tab colors: selected #111811 bg + #00B050 badge + white
+    text; softened unselected label text to grey (badge already green).
+BUG CAUGHT & FIXED: spark.js rendered the panel kicker from a HARDCODED
+  KICK=['Dream','Brand','Launch','Grow'] — clicking a retitled tab would still show the
+  old word. Updated KICK to ['The Idea','The Brand','The Launch','The Success'].
+PROOF (real DOM test, not assumed): loaded the page in jsdom, ran spark.js, and CLICKED
+  each tab — every panel showed the correct image + headline + kicker:
+    The Idea->step-01 + "curate the foundation"; The Brand->step-02 + "ready instantly";
+    The Launch->step-03 + "open your doors"; The Success->step-04 + 3 bullets. .on state
+    toggles correctly. spark.js syntax OK.
+INTEGRITY: homepage still renders ONCE (1 footer, 1 h1); single valid document (1
+  doctype/html/body; zero corruption markers); checkout.html links intact (24); all
+  static <img> refs resolve (zero broken); the hero->journey block and the footer are
+  byte-identical to the pre-edit file. Line-diff = exactly the subheadline + 4 tab labels
+  + the data array, nothing else.
+NOTE FOR FOUNDER: Step 04 "The Success" copy was NOT in your brief, so I wrote a
+  truthful placeholder (headline "Open, running, and ready to grow."; body about the
+  living workspace, catalog reorders, brand-aware AI tools and real human help). Send me
+  the real 04 copy and I'll drop it in. Old journey-*.jpg images are now unused (left in
+  img/, harmless).
+====================================================================================
+
+====================================================================================
+ZIP 8 — "SPARK (site-wide health sweep — result.html post-payment page fixed, all clean) July 29 2026, 2350.zip"
+Issued: July 29 2026, 2350
+Type: Site-wide bug/wiring/error sweep (full site).
+SWEEP RESULTS (48 pages, 165 JS files):
+  1. DOUBLED-DOCUMENT corruption (rendered DOM): CLEAN on all 48 pages. index.html and
+     see-the-work.html were the only two affected and are fixed (ZIP 5 / ZIP 6).
+  2. STRUCTURE: exactly 1 <!DOCTYPE> and 0 mangled doctypes on every page. olin.html /
+     vorrex.html show 3x </html> in source but render as SINGLE documents — the extras
+     are inside the Page-Studio / teaser tools' JS string templates (confirmed false
+     alarms, not bugs).
+  3. BROKEN IMAGES: none (every static <img src> across all pages resolves).
+  4. DEAD INTERNAL LINKS: none (every href="*.html" points to a file that exists).
+  5. MISSING CSS/JS ASSETS: none (every <link href=*.css> and <script src=*.js> resolves).
+  6. JS SYNTAX: all 165 files (162 functions + 3 site js) pass node --check.
+  7. FUNCTION WIRING: all 35 distinct /.netlify/functions/* referenced by pages/JS exist;
+     checkout.html -> create-checkout confirmed wired.
+
+REAL BUG FOUND & FIXED — result.html (the post-payment "Payment received" page, what a
+  customer sees right after paying $99):
+  - Its last line was corrupted: "</body></html<img src=...thankyou-card.jpg...>>" — the
+    </html> had lost its ">", and the thank-you card <img> was orphaned AFTER the closing
+    tags (same displacement family as the homepage corruption, but a single image).
+  - FIX: moved the card to the top of the confirmation panel (#main22) where its own
+    style (margin:0 auto 16px, centered) shows it belongs, and repaired the close to a
+    clean </body></html>.
+  - PROOF: parses clean (1 footer, 1 h1); card is the first child of #main22 and appears
+    exactly once; h1 "Payment received — your brand is being built." intact; the order-
+    status polling script (setInterval tick) intact (5 <script>/5 </script>); line-diff =
+    exactly 4 lines (card added at top, corrupted tail removed, clean </body></html>).
+
+NET: the site is now clean on corruption, images, links, assets, JS syntax, and function
+  wiring. The doubled-document family of bugs is fully closed (index, see-the-work,
+  result all repaired).
+====================================================================================
+
+====================================================================================
+ZIP 9 — 2140 — HOMEPAGE "WHAT YOU GET": 8-CARD GRID REPLACED WITH THE 6-PILLAR GRID
+====================================================================================
+FOUNDER ORDER: replace the 8-card "What you get" grid on index.html with a 6-card
+  "Penthouse Suite" grid (his copy + 6 new 2K images).
+
+WHAT CHANGED (index.html only, plus 6 new images):
+  - Section #what: <div class="dgrid"> (8 .dcard) -> <div class="dgrid dgrid-6"> (6 .dcard).
+    Header H2 and subheadline were ALREADY the exact text he specified — left untouched.
+  - Added a scoped <style id="dgrid6"> before </head>: 3 columns desktop / 2 at <=1040px /
+    1 at <=680px, and a slightly larger card title + body. No global CSS touched.
+  - 6 images placed: img/grid-01-names.jpg .. grid-06-workspace.jpg.
+
+IMAGES: his uploads were 1536x1024 PNGs at ~2.1 MB each (12.8 MB total) — that would have
+  crippled the homepage on mobile. Converted to 1200x800 progressive JPEG q86: 153/130/
+  173/169/173/131 KB = 0.93 MB total (~14x smaller, visually identical for photographs).
+  Full-size PNGs NOT kept in the disc; Founder still holds the originals.
+
+TRUTH-STANDARD CORRECTIONS (3 lines of his copy overstated what the engine returns —
+  each verified against source before changing):
+  1. "a curated 5-color palette" -> "three curated color palettes".
+     PROOF: netlify/functions/build-kit.js line 11 demands "EXACTLY ... 3 palettes",
+     each with 4 hex; line 130 clamps to that shape.
+  2. "a month of pre-written launch posts" -> "pre-written launch posts" (count removed).
+     PROOF: build-kit.js "6 posts"; line 132 topUp(strs(k.posts,6),6,fillPO) = six.
+  3. "primary lockups, standalone icons, wordmarks, and reversed versions" ->
+     "primary lockup, icon, wordmark, emblem and outline".
+     PROOF: js/workspace-core.js line 5479 names the five real vector files; there is no
+     "reversed" file.
+  VERIFIED-TRUE AND LEFT AS WRITTEN: "8 custom AI tools" and all 8 tool names — they
+  exist in js/workspace-core.js (AISTUDIO array, line 5525+; tag list line 3135).
+  Domain line tightened to ".com and .net checked live — plus alternative endings to
+  claim", matching check-domain.js (live .com/.net; .ai/.co/.store shown client-side).
+
+PROOF: 1 DOCTYPE / 1 </html> / 1 <footer> / 1 <h1>; div tags balance 140/140; section
+  14/14; 24 checkout.html links unchanged; all 6 new <img src> resolve on disk.
+
+====================================================================================
+ZIP 10 — 2205 — JOURNEY SECTION FINISHED (the one unfinished task from the handoff)
+====================================================================================
+IMAGE AUDIT FIRST (identified BY EYE from disk, filenames not trusted): all four step
+  images were already correct and already in place — step-01-idea.jpg = woman at a laptop
+  in a sunlit kitchen (Dream); step-02-brand.jpg = founder behind the LawnEssence brand
+  spread (Brand); step-03-launch.jpg = woman at a grand-opening storefront (Launch);
+  step-04-success.jpg = man with a tablet dashboard in a stocked shop (Grow). No new
+  uploads were needed. The handoff's DREAM-image mismatch is therefore already resolved
+  its own recommended way (a): the laptop image is on Dream; the storefront PNG was never
+  placed and remains a spare asset.
+
+WHAT CHANGED:
+  1. Tab labels: "The Idea / The Brand / The Launch / The Success" -> "Dream / Brand /
+     Launch / Grow" (per the Founder's newest doc; one-line flip if he wants the old set).
+  2. js/spark.js line 103 KICK array updated to match: ['Dream','Brand','Launch','Grow'].
+     (This is the documented gotcha — kicker labels are hardcoded, not read from the tabs.)
+  3. SMN_JOURNEY[3] (GROW): placeholder copy replaced with the finalized copy —
+     t "Eight AI tools and a team that stays with you.", new p naming the AI Studio tools,
+     3 new bullets, and a corrected alt describing the actual photograph.
+  4. SMN_JOURNEY[1] (BRAND) bullet: "(primary, icon, wordmark, reversed)" ->
+     "(primary, icon, wordmark, emblem, outline)" — same truth fix as ZIP 9, the five
+     vector files that actually exist (workspace-core.js line 5479).
+  5. TRUTH SOFTENING, flagged to Founder: his bullet read "8 specialized AI tools
+     PRE-TRAINED on your specific brand." The tools are not trained on the brand — they
+     are given brand context at call time (wToolAssistant/wToolContent build a ctx string
+     and pass it as a prompt). Changed to "that already know your specific brand", which
+     is true and reads the same. The six named tools all verified real.
+
+PROOF (jsdom, index.html + spark.js executed, each tab actually clicked):
+  tab0 PASS kicker "Dream"  h3 "You have an idea..."          img step-01-idea.jpg   3 bullets
+  tab1 PASS kicker "Brand"  h3 "Your complete brand..."       img step-02-brand.jpg  3 bullets
+  tab2 PASS kicker "Launch" h3 "A step-by-step path..."       img step-03-launch.jpg 3 bullets
+  tab3 PASS kicker "Grow"   h3 "Eight AI tools and a team..." img step-04-success.jpg 3 bullets
+  .on toggles to exactly 1 tab on every click.
+INTEGRITY: 1 DOCTYPE / 1 </html> / 1 <footer> in DOM / 1 <h1> in DOM; 0 broken <img src>
+  across the whole page; 24 checkout.html links (unchanged); hero+mic block SHA-256
+  IDENTICAL to the 2350 baseline; SMN_JOURNEY count 1, #jpanel refs 2 (unchanged).
+  spark.js passes node --check; all 163 netlify functions pass node --check.
+  Line-diff vs baseline = exactly the 6 lines above, nothing else.
+  (tools/render-harness.js fails node --check on its #! shebang — pre-existing in the
+  2350 baseline, a dev harness, not shipped runtime. Not touched.)
+
+STILL OPEN: TTS ear-check (Founder only); gpt-image-2 env flip before 2026-10-23.
+====================================================================================
+
+====================================================================================
+ZIP 11 — 2310 — BRAND FILM PLAYER BUILT AND WIRED (films now actually play)
+====================================================================================
+FOUNDER ORDER: the films are finished in Supabase and must play on the homepage, with a
+  control line along the bottom — scrub/seek, start/stop, rewind, replay, volume up and
+  down, CC for ADA — closing at the end and returning the visitor where they were, and
+  reopening/replaying without hassle. Test and verify; assume nothing works until proven.
+
+THE BUG THIS CLOSES: the homepage film wall had ZERO <video> elements. The play button
+  ran a toast reading "On the deployed site the brand film plays here." That was false on
+  every environment — the deployed site runs the same code. A visitor clicking play was
+  told the film plays there while nothing happened. Removed and replaced with a real player.
+
+WHY A PLAYER AND NOT A <video src>: a film is not one file. Each film is several scene
+  .mp4s plus ONE continuous narration .mp3 and ONE music .mp3 (proven in
+  premiere-produce-background.js: scenes upload as slug-sceneN.mp4, voice as slug-voice.mp3,
+  music as slug-music.mp3; the manifest records {voice, music, shots[]} per brand).
+
+DUPLICATES — HANDLED WITHOUT GUESSING: storage holds orphan files from earlier versions
+  (odyssey1-4, luxheli, marquee, sparkstudios). The player never reads storage directly; it
+  reads the manifest, and the producer PRUNES the manifest to the current BRANDS list
+  ("prune keys for brands no longer on the wall"). Orphans are therefore unreachable by
+  construction — no filename guessing anywhere in the player.
+
+NEW FILES:
+  css/film-player.css  — modal, stage, bottom control line, captions, reduced-motion support.
+  js/film-player.js    — the player. window.SMNFilm.open(slug,{name,cat,source,opener}).
+  js/film-captions.js  — narration text for ADA captions, generated from the EXACT `script`
+                         string each producer sends to the TTS engine (11 films). The words
+                         a caption shows are the words the narrator speaks. TIMING IS
+                         PROPORTIONAL (cues spread by character count), not hand-authored —
+                         wording exact, cue boundaries approximate. Stated in the file header.
+
+HOW IT PLAYS: two alternating <video> elements. While scene N plays, scene N+1 is already
+  loading on the other element, so the hand-off has nothing to wait for (the Founder's
+  "fast buffering" preserved). Narration and music run as one unbroken track underneath and
+  are re-synced to the film clock whenever drift exceeds 0.35s. One scrubber spans the whole
+  film: every scene's real duration is measured on open, so seeking to 30% of a 3-scene film
+  lands in the correct scene at the correct second.
+
+CONTROLS (all present and individually tested): play/pause, rewind 10s, restart, seek
+  scrubber, elapsed/total time, mute, volume slider, CC, fullscreen, close (bar + corner).
+  Keyboard: Space/k play-pause, arrows seek 5s, Escape closes. Dialog carries role="dialog"
+  aria-modal="true"; CC exposes aria-pressed; every control has an aria-label.
+
+END OF FILM: replay button appears immediately and the player hands the page back after a
+  5-second beat. Clicking replay cancels the close and restarts from 0:00. Closing restores
+  scroll position AND returns keyboard focus to the play button that opened it.
+
+SAFARI GUARD: the caption splitter was first written with a lookbehind regex. A lookbehind
+  in a regex literal is a PARSE error in Safari below 16.4 — it would have killed the whole
+  file and taken the player down silently. Rewritten as a character walk. Verified 0
+  lookbehind occurrences remain in js/film-player.js.
+
+PROOF — 46 assertions, all passing, driven through jsdom with the media layer stubbed
+  (jsdom implements no playback) and the manifest endpoint mocked:
+  test 1 (37/37): API present; captions for all 11 films; SMN_FILMS carry slug+source; the
+    old toast string is GONE from spark.js; play button opens the player; the correct
+    endpoint (/.netlify/functions/premiere-manifest) is called; page scroll locks; all 10
+    controls present; seek and volume are real range inputs; dialog ARIA correct; total
+    duration correctly summed from 3 scenes (4+6+10 = 0:20); CC enabled and aria-pressed;
+    scrubbing to 30% lands at 0:06 AND switches to the correct scene; a caption displays and
+    its text is verbatim narration; rewind clamps at 0:00; volume slider lowers film audio;
+    mute zeroes it; scene 1 ending advances to scene 2; Escape closes; scroll restored;
+    visitor returned to scroll position 840; focus handed back to the play button; reopens
+    cleanly.
+  test 2 (9/9): at the end a replay button appears, is screen-reader labelled, and the
+    player stays open long enough to catch it; replay restarts at 0:00 and keeps it open;
+    a film with no scenes shows an honest message that does NOT pretend it played, and runs
+    no fake controls; an unreachable manifest shows an honest error.
+
+INTEGRITY: 1 DOCTYPE / 1 </html> / 1 <footer> / 1 <h1>; div tags 140/140; 24 checkout.html
+  links unchanged; hero+mic block SHA-256 IDENTICAL to the 2350 baseline; spark.js,
+  film-player.js and film-captions.js all pass node --check; all three new assets are both
+  referenced by index.html and present on disk.
+
+SCOPE HELD DELIBERATELY (Shipping Law — small batches, Founder tests between):
+  wired to the 5 films already on the wall. NOT yet done, next disc:
+  - Expand the wall to the other films that have stills on disk: allies, brightpath,
+    outlierdialogues, pawsandhearts (4 more, stills already present in img/).
+  - OVERTIME SOCIAL (overtime2) — the Founder's first film, 9 scenes, its own folder and
+    its own manifest endpoint. The player already supports it (source:'overtime2'), but
+    there is NO still image for it in img/, so it has no wall tile yet. Needs one frame.
+====================================================================================
+
+====================================================================================
+ZIP 12 — 2345 — DETECTIVE FINDING + film-check.html DIAGNOSTIC PAGE
+====================================================================================
+FOUNDER REPORT: "no films available, refreshed, they used to work perfectly."
+
+THE DETECTIVE FINDING — the player was not broken, it was GONE:
+  - 15 film manifest functions exist in netlify/functions (premiere, overtime2, sparkfilm1,
+    goldreel, mastergold, homemarquee1, blessed75, broadway1, jazzandteddy, sayborn1,
+    serenity, signhome1, truehome1, tutorial, os/order).
+  - ZERO pages called any of them. Proven: grep for "functions/*-manifest" across every
+    .html returned 0 hits before this session's work.
+  - Only 3 pages contained a <video> tag at all (film-test, guide, video) and none is
+    linked from the site.
+  - docs/index_ROLLBACK_2026-07-27.html — the July 27 rollback homepage — also contains
+    ZERO filmStage/<video>. So the player was already absent before that rollback point.
+  CONCLUSION: the films never stopped working. Storage is intact (manifest verified below).
+  The code that PLAYED them was lost in an earlier homepage rebuild, and the film wall was
+  left as still images with a play button that only raised a toast. ZIP 11 rebuilt it.
+
+MANIFEST VERIFIED FROM PRODUCTION (Founder pasted the live response):
+  /.netlify/functions/premiere-manifest returns made_at 2026-07-11 and ELEVEN films, every
+  one with voice + music + shots:
+    sparkpreview 4 · jetforce 3 · allies 3 · romanesco 3 · tresses 3 · outlierdialogues 3 ·
+    aurarevival 3 · brightpath 3 · pawsandhearts 3 · odyssey5 4 · sparkstudios 5
+  So the data layer is healthy and needs NO producer run. (Firing a producer key would
+  re-record narration — the exact voice-drift risk — so it must NOT be used as a "fix".)
+  CSP checked too: netlify.toml already allows media-src and connect-src https://*.supabase.co,
+  so the browser is not blocking Supabase. Neither is the cause.
+
+NEW FILE — film-check.html (unlisted, noindex, linked from nothing):
+  A plain-English diagnostic that walks the chain link by link and says exactly where it
+  breaks, with no browser console needed (ADA):
+    1. Is js/film-player.js on this site and running?
+    2. Are the captions loaded?
+    3. Can the page reach /.netlify/functions/premiere-manifest?
+    4. Which films are finished (table of film / scenes / narration / music)?
+    5. Will a REAL scene load and play in THIS browser?
+  Each step turns green/amber/red with a sentence a non-developer can act on, and a final
+  verdict names which link failed. On a step-5 failure it prints the exact URL it tried so
+  the file can be opened directly. A "Play Rotor Odyssey now" button is enabled ONLY after
+  step 5 passes — it can never offer a film it has not actually proven loadable.
+
+PROOF — 17 assertions across FIVE simulated failure modes, all passing (jsdom, real page,
+  local scripts inlined so they execute in browser order, media layer and fetch stubbed):
+  healthy      -> steps 1-5 green, 11 caption sets counted, 11 films reported, odyssey5
+                  listed with 4 scenes, "11 of 11 ready", all-clear verdict, play enabled.
+  player absent-> step 1 red, names film-player.js, verdict says deploy, steps 2-5 marked
+                  skipped rather than faked green.
+  manifest unreachable -> step 3 red and prints the browser's real reason verbatim.
+  manifest empty       -> verdict calls it a storage question, not a code question.
+  video file dead      -> step 5 red, prints the exact scene URL attempted, play button
+                  stays DISABLED.
+  (One assertion failed on first run — the test regex looked for "deployed" while the page
+  says "Deploy". The TEST was wrong and was corrected; the page was not changed.)
+
+INTEGRITY: film-check.html is a single clean document (1 DOCTYPE, 1 </html>, balanced divs),
+  carries robots noindex, and is referenced by 0 other pages. index.html untouched by this
+  disc. No change to any live customer-facing page.
+
+NEXT: Founder opens /film-check.html and reports which step goes red. That single answer
+  decides the fix. Still queued: 4 more wall tiles (allies, brightpath, outlierdialogues,
+  pawsandhearts — stills already in img/), plus a still frame for Overtime Social, plus
+  SparkMyName's own film (sparkpreview) and sparkstudios which have no stills yet.
+====================================================================================
+
+====================================================================================
+ZIP 13 — 0025 — WEBP CONVERSION (item 1 of the speed/UX list)
+====================================================================================
+MEASURED FIRST, NOT GUESSED. Homepage before: 52 images = 4.75 MB; ALL code (every CSS +
+  JS file) = 77 KB. Images were 98% of the weight. Already correct and left alone: 61 of 62
+  images lazy-loaded, and ZERO images dimensionally oversized for their slots.
+
+WHAT CHANGED: 130 images in img/ converted to WebP at quality 82, method 6, and all 125
+  references across 15 files repointed. Originals deleted (rollback lives in prior discs).
+  img/ 12 MB -> 8 MB. Homepage images 4.75 MB -> 3.16 MB (1.59 MB saved per visitor).
+
+HONEST NUMBER: I predicted 55-65% savings and got 33%. The existing JPEGs were already
+  well-optimised, so there was less slack than I estimated. Said plainly rather than dressed up.
+
+QUALITY DECISION: tested q82 / q76 / q70 on the largest file (166 / 131 / 120 KB). Stayed at
+  q82. This is a brand-design site; visible artifacts on brand photography is a bad trade for
+  a few hundred KB.
+
+THREE THINGS DELIBERATELY NOT CONVERTED — each would have broken something silently:
+  1. img/og-share.jpg — the social preview used by 21 og:image tags across 29 pages. Some
+     platforms will not render a WebP link preview. Verified still JPEG after the pass.
+  2. img/email-banner.jpg and img/email-building.jpg — referenced by netlify functions and
+     sent inside EMAILS. Outlook and several clients do not render WebP. Kept as JPEG and
+     their WebP twins deleted so nothing can drift onto them later.
+  3. favicons, apple-touch-icon, icon-192/512, og-card.png — icons and manifest art stay PNG.
+
+PROOF — 12 assertions, all passing (jsdom, real page, player scripts executed):
+  all 4 journey tabs still show the right kicker AND the right .webp image; all 6 grid cards
+  on .webp; all 5 film-wall stills on .webp; the film player still opens and still measures a
+  3-scene film at 0:20; page renders once (1 footer, 1 h1); 24 checkout.html links intact;
+  og:image site-wide still JPEG and no .webp anywhere in an og:image.
+  Reference sweep across every .html, js/, css/, july27/ and netlify/functions: 99 real image
+  references checked, ZERO broken.
+  (Two test assertions failed on first run and BOTH were the test's fault, not the site's —
+  a regex matching generated download filenames in workspace-core.js, and an assertion that
+  assumed index.html has an og:image. Tests corrected; site unchanged.)
+
+TWO PRE-EXISTING FAULTS FOUND WHILE IN THERE — reported, NOT fixed in this disc:
+  a. index.html has ZERO open-graph tags. 29 other pages have them. The homepage — the most
+     shared URL on the site — produces no preview image or title card when pasted into
+     iMessage, Facebook, LinkedIn or Slack. Present in the 2350 baseline; not caused here.
+  b. july27/home-hybrid.html references assets/story-hero-2k.jpg which does not exist.
+     Confirmed broken in the original baseline disc too (6 hits). Concept folder, unlinked.
+
+STILL QUEUED (agreed order, one at a time, tested between):
+  2. Four homepage images still lack width/height -> can shift the page as it loads.
+  3. js/film-captions.js (14 KB) loads for every visitor but is only needed once a film opens.
+  4. gpt-image-2 promoted for text-bearing assets (cards, signage, packaging) — real defect
+     repair now that OPENAI_IMAGE_MODEL=gpt-image-2 is set in Netlify.
+  5. Realtime voice intake.  6. Web search inside Market Pulse.
+====================================================================================
+
+====================================================================================
+ZIP 14 — 0140 — REALTIME VOICE INTAKE (flagship model, rolling sessions)
+====================================================================================
+FOUNDER ORDER: realtime voice for Spark clients, first class / top of the line, price rise
+  acceptable later if needed. Founder's own refinement, adopted: cap a session and roll
+  automatically into a new one so the customer is never shut down.
+
+WHY IT MATTERS (the argument, not the feature): product quality is capped by how well Spark
+  understands ONE sentence. "I want to start a bakery" and "a bakery for people with celiac
+  who've been left out their whole lives" produce different brands. Today the site gets the
+  first. A conversation gets the second. This improves the OUTPUT, not just the experience.
+
+THE ECONOMICS, MEASURED NOT GUESSED (rates confirmed live, July 2026):
+  gpt-realtime-2 = $32/M audio in, $64/M out. 1 min of customer speech ~600 tokens; 1 min of
+  model speech ~1,200. A 5-minute intake lands around $0.30-$1.00 against a $99 sale — under
+  1%. FLAGSHIP IS AFFORDABLE HERE; no price rise needed for this.
+  THE TRAP: the API re-sends the ENTIRE conversation every turn, so cost grows with the
+  SQUARE of session length. A 20-minute chat is ~16x a 5-minute one, not 4x.
+  THE FOUNDER'S FIX IS THE RIGHT ONE and is cheaper as well as safer: rolling into a fresh
+  session drops the accumulated context to zero, so cost stays FLAT instead of compounding.
+
+WHAT WAS BUILT:
+  netlify/functions/realtime-token.js — mints a short-lived ephemeral credential (ek_ prefix,
+    ~60s life) via POST /v1/realtime/client_secrets using the server-side key. The browser
+    NEVER sees OPENAI_API_KEY. Carries the Spark persona, two tools, semantic VAD, and an
+    OpenAI-Safety-Identifier. Enforces REALTIME_MAX_LEGS (default 8) SERVER-SIDE, so a
+    tampered page cannot ask forever. Uses the existing VITE_OPENAI_API_KEY — NO NEW KEY.
+  js/spark-voice.js — WebRTC transport + the rollover. Legs of ~100s. Rollover happens ONLY
+    at a pause (waits for response.done; never cuts across a sentence). The microphone stream
+    is REUSED across legs so the browser never re-prompts for permission mid-conversation,
+    which would destroy the illusion of one conversation.
+  js/spark-voice-ui.js + css/spark-voice.css — the panel: live transcript of both sides
+    (usable with sound off and for hard-of-hearing visitors), and the brief filling in
+    visibly as Spark understands. On confirmation it writes the sentence into the EXISTING
+    #seed textarea, so the rest of the site works exactly as before.
+
+THE HANDOFF, which is the whole build: a new session has no memory. The model calls a
+  save_brief tool every time it learns something, so a current brief is always held client
+  side; the next leg is seeded with it and instructed not to greet or re-ask. Get this wrong
+  and Spark asks "what's your business?" twice and looks broken.
+
+DELIBERATE DESIGN CALLS:
+  - The existing free browser-dictation "Speak" button is UNTOUCHED. Voice conversation is a
+    SEPARATE button ("Talk it through"). A free feature was not silently replaced with a paid
+    one, and someone who just wants to say one sentence still can.
+  - The button HIDES ITSELF if the browser lacks WebRTC or getUserMedia, rather than offering
+    something that can only disappoint.
+  - Persona prompt kept deliberately short — it is re-sent every turn and is the single most
+    expensive thing on this API.
+  - Truth standard written into the persona: never promise a website, hosting or trademark
+    protection; never guarantee a domain or handle.
+
+PROOF — 24 assertions, all passing (jsdom, real page, scripts inlined to run in document
+  order, WebRTC/getUserMedia/fetch stubbed, real OpenAI event shapes driven down the data
+  channel): button mounts directly after the mic and the free Speak button and textarea are
+  untouched; panel opens as an ARIA dialog; the token is requested from OUR server with the
+  leg number; NO API key string anywhere in browser code; live captions render for both
+  speakers; save_brief populates the visible brief; finish_intake writes the confirmed
+  sentence into #seed, closes the panel and releases the microphone; the button hides when
+  WebRTC is missing and when the microphone API is missing; a token failure says voice could
+  not start, points at the textarea, and NEVER pretends it heard anything; the server-side
+  cap message reaches the customer.
+  (First test run failed to find the button. Cause was the TEST — jsdom reported readyState
+  'loading' so mount correctly waited for DOMContentLoaded which the harness never fired.
+  Harness rewritten to load the page as a browser does. Site code was not changed.)
+
+INTEGRITY: 1 DOCTYPE / 1 </html> / 1 <footer> / 1 <h1>; div 140/140; 24 checkout links.
+  The hero block now differs from the 2350 baseline — diffed line by line and it is EXACTLY
+  six image src values changing .jpg -> .webp from ZIP 13, nothing structural.
+  All five touched JS files pass node --check.
+
+HONEST LIMIT: this has been proven against a MOCKED Realtime API, because no live call can be
+  made from the build environment. Event shapes, endpoints and the token flow follow the
+  current GA documentation, but the FIRST REAL CALL IS THE REAL TEST. If it fails, the
+  browser console message and the Netlify function log for realtime-token will say why.
+
+OPTIONAL ENV (nothing required): OPENAI_REALTIME_MODEL (default gpt-realtime-2),
+  OPENAI_REALTIME_VOICE (default cedar), REALTIME_MAX_LEGS (default 8).
+====================================================================================
+
+====================================================================================
+ZIP 15 — 0210 — VOICE FIX: CSP WAS BLOCKING OPENAI ("Load failed")
+====================================================================================
+FOUNDER REPORT: the voice panel opened and said "Voice could not start. Load failed."
+
+THE BUG — MINE, from ZIP 14. netlify.toml's Content-Security-Policy lists which outside
+  servers the browser is permitted to contact. connect-src read:
+      'self' https://*.supabase.co https://api.stripe.com
+  api.openai.com was NOT on it. The voice intake POSTs its WebRTC offer to
+  api.openai.com/v1/realtime/calls, so the BROWSER refused the request before it ever left
+  the machine. "Load failed" is Safari's wording for exactly that. Step 1 (our own token
+  function) succeeded — it is 'self' — which is why the panel opened at all before failing.
+  I built the feature without checking the site's own security header. Named plainly.
+
+THE FIX: api.openai.com added to connect-src, with a three-line comment directly above the
+  header explaining WHY, so a future sweep does not strip it and silently kill voice again.
+  Nothing else in the CSP touched — supabase (films) and stripe (checkout) verified intact.
+
+SECOND FIX — the error message itself was useless. "Load failed" is what the browser says;
+  it tells the Founder nothing and cost a round trip. Every failure path in js/spark-voice.js
+  is now labelled by step and says what to do:
+    Step 1 — could not reach the SparkMyName server (connection).
+    Step 2 — the browser blocked the connection to OpenAI, naming connect-src and
+             api.openai.com as the usual cause.
+    Step 3 — the browser did not give microphone access; allow it and try again.
+
+PROOF — 9 new assertions plus the original 24 re-run, all passing:
+  a simulated CSP block now names connect-src AND api.openai.com instead of "Load failed";
+  an unreachable server is labelled Step 1; a refused microphone is labelled Step 3 and tells
+  them to allow it; the healthy path still connects with no error; netlify.toml's connect-src
+  allows api.openai.com while STILL allowing supabase and stripe; microphone=(self) intact.
+  The full ZIP 14 voice suite was then genuinely re-run after these edits: 24/24 green.
+  (That claim was written into this ledger BEFORE the suite had actually run — the test
+  file had been deleted, so the command failed silently. Caught, the file was rebuilt,
+  the suite really was run, and only then was this line allowed to stand.)
+  (Two assertions failed on first run. Both were the TEST's fault again — the regex matched
+  the explanatory COMMENT I had just added, because that comment contains the words
+  "connect-src". Test corrected; netlify.toml was already right.)
+
+NOTE FOR ANY FUTURE FEATURE THAT CALLS A NEW OUTSIDE SERVICE: check connect-src in
+  netlify.toml FIRST. The site's CSP is enforcing, not report-only. A new endpoint that is
+  not listed will fail in the browser with a message that names nothing.
+====================================================================================
+
+====================================================================================
+ZIP 16 — 0305 — VOICE REWRITTEN AGAINST THE ACTUAL SPEC. THE ROLLOVER WAS THE BUG.
+====================================================================================
+FOUNDER REPORT: "it came on once, said 'so you'd like to make a hair salon? what would you
+  like?' and then I keep... it reloads... the mic disappears... I should be able to hold a
+  conversation back and forth." He then asked, correctly, that the real specification be
+  read rather than guessed at.
+
+I WAS WRONG, IN THREE WAYS, AND THE FIRST ONE CAUSED EVERY SYMPTOM HE SAW.
+
+  1. THE ROLLOVER WAS UNNECESSARY. OpenAI already manages long conversations. Per their
+     own docs: past the input-token limit the conversation is truncated — the OLDEST items
+     are dropped from the Response input — and THE SESSION CONTINUES. There was never any
+     need to restart. My restart every ~100s handed the customer to a model with no memory,
+     which is exactly why it re-greeted him and re-asked what he had just said.
+
+  2. THE ROLLOVER MADE IT MORE EXPENSIVE, NOT LESS — the opposite of its entire purpose.
+     OpenAI: "The best strategy for maximizing cache rate is keep a session's history
+     static." Cached audio input is $0.40/M against $32/M fresh — 80x cheaper. Every restart
+     threw the whole cache away and re-paid full price for the rebuilt context.
+
+  3. INPUT TRANSCRIPTION WAS NEVER ENABLED, so the customer's own words never appeared on
+     screen. It is opt-in and billed separately from the conversation.
+
+THE FIX — ONE SESSION, START TO FINISH, CONFIGURED THE DOCUMENTED WAY:
+  netlify/functions/realtime-token.js
+    + truncation: { type:'retention_ratio', retention_ratio:0.8,
+                    token_limits:{ post_instructions: 8000 } }
+      This is OpenAI's own recommended cost control. 0.8 drops a larger slice less often, so
+      the prompt cache survives far longer — the real saving, and the one I was destroying.
+    + audio.input.transcription: { model:'gpt-4o-transcribe' } so the customer sees their
+      own words.
+    - the leg/MAX_LEGS chain cap: deleted. There is no chain any more.
+  js/spark-voice.js
+    - rollOver(), LEG_SECONDS, HARD_LEGS, rollWanted: all deleted. Zero occurrences remain.
+    + reconnect() survives but fires ONLY on a genuine WebRTC connectionstatechange of
+      'failed' or 'disconnected', max 2 attempts, seeded with the brief so nothing is
+      re-asked. Never on a schedule.
+    + MAX_MINUTES = 20 wall-clock stop so a tab left open overnight cannot bill forever. It
+      ENDS cleanly with a message and keeps whatever was understood — it does not restart.
+    + real spend now read from response.done usage (input, output, cached tokens) and
+      emitted, so cost is observed rather than estimated.
+
+PROOF — 15 assertions, all passing: the session opens exactly ONCE and is STILL one session
+  after four full back-and-forth turns and well past the old 100-second restart point; the
+  session stays live; both sides of the conversation appear on screen; the server config
+  carries retention_ratio 0.8, a token ceiling, input transcription and semantic VAD; no leg
+  cap remains on the server; no scheduled rollover remains in the client; reconnect is bound
+  only to connectionstatechange; the long stop still exists; token usage is read from
+  response.done.
+
+LESSON WORTH KEEPING: the clever hack was invented before the specification was read. It
+  cost the Founder a broken feature, a wasted deploy, and would have quietly overcharged him.
+  Read the vendor's own cost and lifecycle guidance BEFORE designing around a problem they
+  have already solved.
+====================================================================================
+
+====================================================================================
+ZIP 17 — 0345 — VOICE POLISH: NO STOP BUTTON, THINKING STATE, AGENCY-GRADE PANEL
+====================================================================================
+IT WORKED. Founder held a real conversation and Spark produced:
+  "A luxury Palm Beach salon and spa for anyone seeking hair, skin, and massage services,
+   with a clean, gorgeous feel that delivers a magical, customer-first experience people
+   want to return to."
+Three pieces of Founder feedback, all correct, all addressed.
+
+1. "DONE TALKING" WAS A TRAP — Founder: "people are gonna touch that... it's gonna shut it
+   off and get people pissed off." He was right. A button offering to STOP, sitting there
+   during a live conversation, is a button pressed by mistake. REMOVED ENTIRELY (0 hits).
+   Spark now ends the conversation itself: once the customer agrees the summary is right it
+   asks whether there is anything else, gives a one-line warm goodbye, THEN calls
+   finish_intake. The persona is instructed never to finish without that goodbye.
+   The footer now reads "it waits for you, and closes itself when you're done."
+   A Close button still exists but is HIDDEN unless voice failed, where closing is the only
+   sensible action. The X in the header remains for anyone who wants out.
+   SALVAGE ADDED: closing early no longer throws away the conversation — whatever Spark
+   understood is written into the idea box, so nothing the customer said is lost.
+
+2. THE DELAY — Founder: "a little slow... then once it got going it was good." Real cause
+   found in the docs, not guessed: gpt-realtime-2 runs reasoning MID-TURN, which is exactly
+   the pause before the first word. OpenAI's guidance for production voice agents is to
+   start at LOW reasoning effort. Set reasoning:{effort:'low'} — an intake interview does
+   not need deep reasoning. AND the pause is now EXPLAINED rather than silent: a Thinking
+   state with animated dots and a header that moves Connecting -> Listening -> Thinking ->
+   Speaking -> Listening. A pause you can see is not a pause that feels broken.
+
+3. THE PRESENTATION — Founder: "agency type stuff, quality stuff, nice presentation... not
+   just stick type on a thing." Panel rebuilt: radial night-sky field behind it, 20px
+   rounded card with an inner light line, Spark's words in 22px Georgia display serif, the
+   customer's words smaller with a quiet rule down the left, an orb that BREATHES slowly
+   while listening and quickens while thinking, spaced-out uppercase micro-labels, and the
+   brief presented as labelled rows rather than a plain list.
+
+4. A BRANDING FAULT IN SPARK'S OWN INTERVIEW, caught from the Founder's transcript: it
+   accepted "for anyone seeking hair, skin, and massage" as the audience. In branding,
+   anyone is nobody — that is the weakest line in an otherwise strong sentence, and it was
+   MY instruction that allowed it. The persona now refuses "everyone"/"anyone" on the
+   audience question and asks warmly for one recognisable human being (someone getting ready
+   for an event, an executive with ninety minutes, a bride, a new mother) before moving on.
+
+PROOF — 23 assertions across two suites, all passing:
+  panel (16): no stop button visible; the string "Done talking" appears nowhere; the hint
+    says it closes itself; Thinking shows during the pause and clears the instant words
+    arrive; header cycles Thinking -> Speaking -> Listening correctly; brief renders as
+    labelled rows; closing early salvages the idea into #seed; low reasoning effort is set;
+    the persona refuses "anyone" and requires a warm goodbye; serif display type and the
+    thinking dots exist in the CSS.
+  session (7): still ONE session after six full back-and-forth turns; still live; Spark
+    closes the conversation itself via finish_intake; the final sentence lands in #seed; the
+    microphone is released; the page still renders once; 24 checkout links intact.
+====================================================================================
+
+====================================================================================
+ZIP 18 — 0430 — THE IMAGE LIBRARY IS DELETED + BOTH CINEMATIC PROMPTS NOW MATCH
+====================================================================================
+FOUNDER ORDER: "get rid of the old library, cancel that whole thing, I never want that again.
+  It's causing me tires and dentist things and wrong things. I don't want to store any images
+  anymore like that." Plus: investigate the two 2K prompt calls, one is better than the other.
+
+THE DETECTIVE ANSWER — THE PROMPT WAS NEVER THE PROBLEM:
+  Diffed the July 26 disc against live. The brand-header prompt in studio-engine.js is
+  BYTE-FOR-BYTE IDENTICAL in both. There is no better prompt hiding in the old disc; the
+  July-23 cinematic restoration is intact and has been all along.
+
+  BUT the two calls are real, and one WAS better. The live disc has a SECOND prompt in
+  generate-asset.js (the customer asset path) that the July 26 disc did not. It carried real
+  photographic direction the header prompt never had:
+      "Shot on a full-frame camera with a fast prime lens... volumetric light through real
+       atmosphere, true-to-life materials with honest reflections and micro-texture..."
+  The header prompt had the MOOD words but none of the OPTICS. That is why the photograph
+  crowning every workspace looked flatter than the assets beneath it — the Founder was reading
+  a real difference, in the right place, for the right reason.
+
+FIX 1 — THE LIBRARY IS DELETED, NOT VERSIONED AGAIN.
+  What it was: ONE photograph banked per industry and reused for every customer in that
+  industry forever, to save money.
+  Why it had to go: a banked photograph is PERMANENT. A bad frame — a vintage-looking one, or
+  a tyre shop's picture landing on a dentist — was inherited by every customer in that
+  industry, and NO prompt fix could ever reach them, because a library HIT never regenerates.
+  It was patched twice (restore prompt 07-23, orphan shelf to v2 on 07-27) and the pictures
+  were still wrong, because the fault was the STORING, not the wording.
+  Now: every order generates its own header, fresh. Nothing banked, nothing shared, nothing
+  inherited. The frame is written to orders/<orderkey>/header.png — under the order's own key,
+  never an industry name — so it can never be served to anybody else. A bad frame can now only
+  affect the single order it was made for. Nothing is deleted from Supabase; the old shelves
+  are simply never read again, so nothing can break.
+  Removed: LIBRARY_GENERATION, the library/ path, and the libraryHas() lookup (now dead code,
+  deleted). Verified across every function: ZERO still read a shared library.
+
+FIX 2 — BOTH CALLS NOW CARRY THE SAME OPTICS.
+  The header prompt gains, verbatim from the better call: full-frame camera with a fast prime
+  lens, volumetric light through real atmosphere, true-to-life materials with honest
+  reflections and micro-texture, sharp focal point. Plus one new guard aimed straight at the
+  reported fault: "Modern and current — photographed today, not a period or archival image."
+  The text ban and photoreal guard are untouched.
+
+COST NOTE, STATED PLAINLY: the library existed for cost discipline. Deleting it means one
+  extra image generation per order instead of one per industry forever. On a $99 sale that is
+  small, and the Founder judged the trouble not worth the saving. He is right — a permanent
+  wrong picture costs more than a fresh right one.
+
+PROOF — 20 assertions, all passing: no library path, no LIBRARY_GENERATION, no libraryHas
+  lookup, no reuse branch; header written under the ORDER key; NO function anywhere still
+  reads a shared library; header prompt carries camera, lens, volumetric light, micro-texture
+  and the anti-period guard while keeping the text ban and photoreal guard; all three shared
+  optics phrases now present in BOTH prompt builders; four touched functions parse.
+  (One assertion failed first run — my own removal COMMENT contains the words "libraryHas()",
+  so the test matched its own explanation. Test corrected to strip comments; code untouched.)
+
+WORTH KNOWING: headers already banked under library/v1 and library/v2 are now orphaned but
+  still exist in Supabase storage. Nothing reads them. If the Founder wants the space back
+  they can be deleted by hand from the brand-headers bucket — but nothing requires it.
+====================================================================================
+
+====================================================================================
+ZIP 19 — 0510 — BRAND CARD REBUILT AGAINST THE APPROVED REFERENCE
+====================================================================================
+FOUNDER SUPPLIED THE REFERENCE: SparkMyName_Card_from_real_data_CharterEdge.html plus the
+  July-14 Platinum Palms PDF. Its headings run 01 Why it works, 02 Logo system, 03 Colour
+  palettes, 04 Typography, 05 Voice & tone, 06 Taglines, ... 10 About / profile, 13 Launch
+  posts — a single 760px column, Georgia 22px numbered headings, nothing stretched.
+
+SIX FAULTS FOUND AND FIXED. Two were outright bugs, not taste.
+
+1. "WHY IT WORKS" WAS PRINTED TWICE — a real bug. The About/profile panel ended by rendering
+   'Why "<name>" works' with the same eight bullets, while the dedicated 'why' tile showed the
+   identical list beside it. Both were on screen at once in the Founder's screenshot. Section
+   01 owns them now; the copy inside About/profile is deleted. Verified 0 occurrences.
+
+2. THE HERO CAPTION WAS INVISIBLE — also a bug, and a regression I traced to a dated comment.
+   On 2026-07-27 the scrim was removed with the reasoning "These cards carry no caption, so it
+   was darkening half of the thing the customer paid for." But .ch-cap DOES exist and does sit
+   over the photo, so its white text vanished on any bright image — exactly what the Founder
+   reported ("you can't see it because it's hidden"). Both concerns are satisfiable and now
+   are: the scrim returns as a 34% bottom band ONLY (not the old 52%), it removes itself
+   entirely when a hero has no caption (:not(:has(.ch-cap))), the caption is forced white, and
+   a text-shadow carries it the rest of the way. The photograph still shows essentially in full.
+
+3. THE EMPTY SPACES — CSS, not content. The mosaic ran align-items:stretch with .bkacc-b at
+   flex:1, so every tile inflated to the tallest tile in its row. A tile holding one small
+   avatar was stretched to the height of the six-row handles tile beside it. That was the hole
+   the Founder was looking at. Now align-items:start and no flex fill — tiles size to their
+   own content. Column minimum raised 330px -> 420px; 330 was narrower than a phone, which is
+   why text read cramped.
+
+4. THE ORDER — restored to the reference. Live had drifted to About/profile FIRST, pushing the
+   logo and palettes far down ("the logo should come up top, the color palettes, the taglines...
+   look at the color palette way down here"). Now: why, logo, colors, typography, voice, words,
+   avatar, bios, handles, overview, linkedin, facebook, posts. All 13 sections retained.
+
+5. THE TYPE — headings were rendering at body size. Now Georgia serif 21px with a small
+   dark leading-zero number badge (01, 02, 03...) exactly as the reference card does, via a CSS
+   counter so numbering can never drift out of step with the order. Body copy raised to 15.5px
+   at 1.62 line-height.
+
+6. THE LOGOS — capped at 84px inside a large tile. Now 150px on the brand card.
+
+PROOF — 23 assertions, all passing: Why is 01, Logo 02, Colours 03, first six match the
+  reference exactly, About moved to position 10, Launch posts still last, all 13 sections
+  retained, zero duplicate Why bullets, tiles no longer stretch, no flex fill, wider columns,
+  scrim restored as a band and self-removing without a caption, caption white with shadow,
+  serif numbered headings, larger body copy, larger logos, workspace-core.js parses,
+  workspace.html renders as one document, style tags balanced.
+
+STILL OPEN, RAISED BY THE FOUNDER, NOT YET DONE: (a) green is still present — the tiles are
+  #F4F6F5 (green-grey) and the download tile has a green edge; he wants to know if green
+  should go entirely before I sweep it. (b) Launch posts spans two columns while its
+  neighbours span one, so it runs full width alone at the end — deliberate in the CSS, but he
+  dislikes it; it is a one-line change once he says which way.
+====================================================================================
+
+====================================================================================
+ZIP 20 — 0545 — NOTHING PRINTS OVER THE PHOTOGRAPH (Vine & Crust card as reference)
+====================================================================================
+FOUNDER: "the top area should not be overlayed on the logo, please follow this" — with the
+  July-9 Vine & Crust pizza card supplied as the standard.
+
+WHY THE PIZZA CARD SETTLES IT: its header prints NOTHING over any image. Logo, then name in
+  large serif, then domain with its availability flag, then the social handles on one line,
+  then the tagline in italic — all stacked on white, then a rule, then 01 Why it works. Clean
+  stack, no overlay anywhere.
+
+THE FAULT, AND MY PART IN IT — THIS IS THE THIRD PASS OVER THE SAME SPOT:
+  07-27  the scrim was DELETED, reasoning "these cards carry no caption". They did carry one,
+         so on a bright photo the white words became invisible.
+  07-30  (ZIP 19, earlier today) I brought the scrim BACK so the words could be read. That
+         was the wrong answer and I should have looked harder before building it.
+  07-30  (this disc) the reference makes it plain. Checking the Founder's own screenshot: the
+         name, the domain AND the tagline already appear directly beneath the photo, full
+         size, on white. The overlay was a SECOND COPY of the same three facts, printed on top
+         of the thing the customer paid for.
+  REMOVING IT SATISFIES BOTH EARLIER ORDERS AT ONCE: the photograph shows completely (07-27's
+  intent) and there is no unreadable text anywhere (today's complaint), because there is no
+  text over the picture at all. The history is written into the CSS above the rule so nobody
+  reverses it a third time.
+
+CHANGED: .cinehero::after back to content:none (no scrim, photo fully visible); .ch-cap and
+  .ideacine .ch-cap set to display:none; the white-text override and text-shadow I added in
+  ZIP 19 removed entirely.
+
+CHECKED AND DELIBERATELY NOT CHANGED: report-template.js asset() also lays a name and tagline
+  over an image at inset:0 with a white face beneath. That is the SOCIAL MOCKUP composer —
+  Instagram/Facebook post artwork built from the brand's own assets — where type over artwork
+  is the point. Not the brand hero. Left alone, and verified it still parses.
+
+PROOF — 17 assertions, all passing: nothing prints over the photograph; scrim off; no leftover
+  white-text override or text-shadow; the reversal is documented in place; and every ZIP 19
+  fix still holds — order still 01 Why / 02 Logo / 03 Colours, About still at 10, all 13
+  sections present, no duplicate Why bullets, tiles still size to content, serif numbered
+  headings, enlarged body copy, larger logos, one document, balanced style tags, both touched
+  functions parse.
+
+LESSON: two dated comments now exist on this same CSS rule arguing opposite positions. Both
+  were reasoning from the code alone. The Founder's reference card answered it in one look.
+  When a visual question comes up again, ask for the reference BEFORE building.
+
+STILL OPEN: (a) green — tiles are #F4F6F5 and the download tile has a green edge; awaiting
+  the Founder's word on whether green goes entirely. (b) Launch posts spanning two columns
+  alone at the end.
+====================================================================================
+
+====================================================================================
+ZIP 21 — 0620 — GREEN REMOVED + TYPE FLOOR RAISED + WHOLE CARD AUDITED
+====================================================================================
+FOUNDER: "green on card is a problem not needed. And I would like to make all the font and
+  type all readable size and clean looking — and confirm everything on the page is viewable
+  clean."
+
+GREEN — 78 INSTANCES REMOVED. It was not one colour, it was three, and two were disguised:
+  #F4F6F5        x16  the tile background. Reads as grey; it is a green-grey (G above R and B)
+                      and it tinted every panel on the card. -> #F5F5F5, a true neutral.
+  rgba(20,60,40) x48  a dark-GREEN tint doing duty as the "glass" panel fill, the hairlines,
+                      and quiet label text. Invisible as green on its own, but it warmed every
+                      border and every muted word on the page toward green. -> rgba(28,28,28)
+                      at identical alpha, so weight and softness are unchanged.
+  rgba(18,122,64) x14 a real green, used for the glow under buttons and pills. -> rgba(20,20,20).
+  PROVEN by hue test, not by eye: every hex and every rgba on the page was parsed and checked
+  for G > R and G > B. Zero greens remain.
+
+TYPE — A FLOOR, NOT A GUESS. Every font-size on the page was extracted and sorted. The scale
+  started at 11px. It now starts at 12.5px:
+    11px   -> 12.5px  the small uppercase labels above each block ("ABOUT YOUR BRAND"). Tracked
+                      -out capitals need MORE size, not less; tracking was eased .17em -> .15em.
+    12px   -> 12.5px  the build stamp in the footer.
+    15.5px -> 16px    running text, bullets and prose — now equal to the site's own --t-body
+                      instead of sitting just under it. Line-height 1.62 -> 1.65.
+    --t-meta 13px -> 13.5px ;  --t-data .8125rem (13px) -> .875rem (14px)
+    quiet notes/hints pinned at 13.5px; handle rows at 15.5px; hex labels at 13px.
+  Final scale: 12.5, 13, 13.5, 15.5, 16, 17, 19, 21, 26, 34 px. Headings stay Georgia 21px.
+
+VIEWABLE AND CLEAN — CONFIRMED BY MEASUREMENT, NOT BY LOOKING:
+  CONTRAST. Every text colour was checked against every background it can sit on (card tile,
+  page, white) using the WCAG relative-luminance formula. 15 pairings tested. Worst is 6.7:1
+  (the muted labels); the threshold for normal text is 4.5:1. Everything passes AA, most by a
+  wide margin — headings run 16.9:1.
+  STRUCTURE. One DOCTYPE, one </html>, style tags balanced, parses as valid HTML under jsdom,
+  no content hidden by a stray display:none, workspace-core.js parses.
+  CARRIED FORWARD, ALL STILL TRUE: nothing prints over the photograph; the photo shows fully;
+  tiles size to their own content so there are no empty stretches; order is 01 Why / 02 Logo /
+  03 Colours; all 13 sections render; no duplicated Why bullets.
+
+PROOF — 24 assertions plus a 15-pairing contrast sweep, all passing.
+
+NOTE ON WHAT "GREEN" MEANT: the Founder could see it and the code did not obviously contain
+  it, because two of the three greens were low-alpha tints inside var() defaults rather than
+  named colours. Searching for "green" would have found nothing. The hue test found all three.
+
+STILL OPEN: Launch posts spans two columns while its neighbours span one, so it runs full
+  width alone at the end. One line either way, waiting on the Founder's preference.
+====================================================================================
+
+====================================================================================
+ZIP 22 — 0655 — BRAND CARD GOES VERTICAL. ONE COLUMN, TOP TO BOTTOM.
+====================================================================================
+FOUNDER: "can we get the brand card to go vertical down the page... it's just easier, better,
+  the way I had it long time ago." He offered to send an old disc to show it.
+
+NO EXTRA DISC WAS NEEDED — he had already supplied the reference. The CharterEdge card he
+  sent earlier IS the vertical layout: a single 760px column with the sections stacked 01
+  through 13, nothing side by side. The July-9 Vine & Crust PDF is the same. Said so rather
+  than taking a file he did not need to dig out.
+
+WHAT CHANGED: .bkmosaic goes from a CSS grid to display:block, capped at 820px and centred.
+  Sections stack with an even 20px gap; the last one carries no trailing gap. On phones the
+  cap simply releases to 100%.
+  Deleted with the grid: every grid-column span rule (handles, logo, typography, posts), the
+  orphaned-last-tile rule, and the grid-collapse media query. All now meaningless.
+
+WHY THIS IS THE RIGHT FIX AND NOT ANOTHER PATCH — READ THE HISTORY:
+  FOUR dated comments had accumulated on this one rule, arguing in circles:
+    07-26ish  column-count — sliced tall sections in half mid-logo, so it became a grid;
+    07-27     align-items:start — short tiles left ragged holes, so it became stretch;
+    07-27     stretch — made rows even, but inflated small tiles to match tall neighbours;
+    07-30     back to start — fixed the inflation, brought the holes back.
+  Every one of those was a different SYMPTOM of the same cause: sections of wildly different
+  heights placed beside each other. A single column removes the cause. Three separate open
+  complaints close with it and cannot return:
+    - the empty spaces (no rows, so nothing stretches to match a neighbour);
+    - Launch posts running full width alone at the end (everything is full width now — this
+      was the last item still waiting on a Founder decision, and the column answers it);
+    - cramped text (one measured 820px column instead of tiles narrower than a phone).
+  The whole history is written into the CSS above the rule so the circle does not restart.
+
+PROOF — 24 assertions, all passing: single column present; grid gone; no span rules; no
+  orphan rule; even stacking; no trailing gap; mobile releases the cap; history documented;
+  Launch posts no longer a special case. AND every earlier gain verified still intact — order
+  01 Why / 02 Logo / 03 Colours, About at 10, all 13 sections, no duplicate Why bullets,
+  nothing over the photograph, serif numbered headings, 16px body, 150px logos, zero green,
+  12.5px type floor, one document, balanced braces and style tags, valid HTML, JS parses.
+
+APPLIES TO EVERY BRAND IMMEDIATELY. The card is rebuilt from stored data on every view —
+  nothing is persisted as HTML — so old brands and new orders alike open in the new column.
+  (Only the generated PHOTOS are baked per brand; those stay as they were made.)
+====================================================================================
+
+====================================================================================
+ZIP 23 — 0730 — THE CARD WEARS THE BRAND'S COLOURS + THE TILE CIRCUS ORGANISED
+====================================================================================
+FOUNDER: "the page in black and white looks ugly... like I'm reading a criminal rap sheet or
+  some court document, and we're an advertising agency." Plus: the action tiles are "a circus",
+  clarify what they do, and do not lose any of the downloads.
+
+THE IDEA THAT FIXES IT: a black-and-white presentation of a COLOUR identity is the problem.
+  Every brand already carries three palettes with real hex codes. The card now dresses itself
+  in the brand's own first palette, so no two customers ever see the same-looking card.
+  bkAccentVars() in js/workspace-core.js picks the swatch DELIBERATELY, not [0]: it must be
+  dark enough to read as text on a light panel (luminance < .62) AND actually coloured
+  (saturation > .12), else the card falls back to its own ink rather than printing pale yellow
+  nobody can read. It emits --bk-accent and --bk-accent-soft onto the card wrapper.
+  Taking that colour: the section numbers, the rule under every heading, a 3px edge down the
+  left of each section, the bullet marks, the small block labels, the group rules, the primary
+  tile, and every tile's hover and focus ring.
+
+THE TILE CIRCUS: thirteen buttons in three loosely named groups, all styled identically, so
+  nothing led and everything shouted. Now: groups renamed to plain language — "Your files",
+  "Keep building", "Help & housekeeping"; an even auto-fit grid; ONE primary tile filled in the
+  brand colour so the eye knows where to start; and the destructive Remove action stepped back
+  to a dashed outline instead of sitting level with the rest. ALL TEN TILES KEPT AND VERIFIED
+  STILL WIRED — nothing lost, exactly as the Founder asked.
+
+HIS TWO QUESTIONS, ANSWERED IN THE CODE AND THEN IN THE COPY:
+  "Email it to me — who's it emailing to? Is that wired?" — traced: the button posts to
+    netlify/functions/email-brand.js which sends via Resend, mode:'self', to the SIGNED-IN
+    ACCOUNT'S OWN ADDRESS. Yes, wired. The tile now says "Sends the brand sheet to your own
+    account email as a PDF" instead of the vaguer "your inbox".
+  "Share the brand with who?" — it MINTS a public link; nothing is sent by us. Renamed to
+    "Get a shareable link" and now reads "Creates a public link you can paste anywhere. Shows
+    the name, photo and tagline only — no downloads, no email."
+  Also tightened: "Download this brand" now lists what is actually in the ZIP, and the brand
+  sheet says "in full colour", which is now true because the card is in colour.
+
+PROOF — 36 assertions, all passing. The accent engine was unit-tested against real palettes:
+  a pale-only palette (#FFD700/#FFF5EE/#DFFF00/#FFFACD) correctly falls back to readable ink;
+  a mixed palette correctly SKIPS the pale swatch and picks the dark saturated one; an absent
+  palette still returns a valid accent; the soft companion tint is emitted at the right alpha.
+  Plus: every CSS hook present, groups renamed, old names gone, primary and quiet tiles styled,
+  tiles stack on phones, all four label rewrites in place, all ten data- handlers still there,
+  single column intact, order intact, no green returned, type floor holds, one document,
+  braces balanced, JS parses.
+  (One assertion failed first run — the test regex expected escaped quotes the file does not
+  contain. The TEST was wrong; the code was already correct.)
+
+CONTINUITY HANDOVER DELIVERED alongside this disc:
+  "SparkMyName Continuity Handover July 30 2026.pdf" — 4 pages, 8 sections: how to start, what
+  shipped (ZIP 9-23), the brand card and why each decision was made, realtime voice including
+  both corrections, the films, the images and the deleted library, everything still open with
+  owners, and the two surviving rules. Rendered and visually checked page by page; column
+  widths are fractions of the 6.8in usable width and every cell is a Paragraph, so nothing runs
+  off the page.
+====================================================================================
+
+====================================================================================
+ZIP 24 — 0810 — THE LAWNESSENCE STANDARD. THE CARD MATCHES THE APPROVED REFERENCE.
+====================================================================================
+FOUNDER supplied brand_sheet_example_for_lawnessence.pdf: "I found the real brand card that
+  was perfect, and this is how I wanted it to look on the page... this is a home run."
+
+WHAT THE REFERENCE DOES THAT THE LIVE CARD DID NOT — measured off the PDF, not guessed:
+  1. Section headings are LARGE SERIF IN THE BRAND'S OWN COLOUR (LawnEssence renders them in
+     its dark green, Vine & Crust in its rustic red), with a small quiet number beside them.
+     I had built the inverse: small dark text with a coloured number. That single difference
+     is most of the gap between "a page of information" and "a presentation".
+  2. A BRAND chip, a hairline, and UNDERSTAND THE BRAND announce the deck before section 01.
+  3. Each section sits in its own softly bordered rounded panel; the bullets sit in an inner
+     framed box, two columns.
+  4. Colour swatches are large blocks with the hex beneath, four across.
+  ALL FOUR IMPLEMENTED. Headings 27px Georgia in --bk-accent; the 3px left edge from ZIP 23
+  removed in favour of the reference's even soft border; bullets two-up in a framed box,
+  collapsing to one column under 620px; swatches 74px blocks, four across, two on phones.
+
+THE ACCENT ENGINE HAD A REAL BUG, FOUND BY TESTING IT AGAINST THE REFERENCE'S OWN PALETTE:
+  The first version accepted any swatch with luminance under .62. On LawnEssence's actual
+  palette that selected #A3D99B — the PALE green — which against a white panel is 1.6:1 and
+  effectively unreadable. Every heading on that card would have been a pale smear.
+  THE QUESTION WAS WRONG. It was never "is this colour darkish", it is "can this be read on
+  white". The test is now the real WCAG contrast ratio, floor 4.0:1 — which rejects the pale
+  green outright and accepts the brand's real #3B8A3B at 4.3:1, comfortably above the 3.0
+  large-text threshold the accent is actually used at.
+
+AND A SECOND PROBLEM THE FIX EXPOSED: with a strict contrast floor, brands with NO dark swatch
+  fell back to black — Platinum Palms is gold, sky blue and coral; Elysian Palm is four honeys.
+  Falling back to black leaves exactly the grey card the Founder objected to in the first place.
+  So rather than give up, the engine now takes the brand's MOST COLOURFUL swatch and walks it
+  darker in 4% steps until it can be read. The hue is preserved; only the weight changes.
+  RESULT, measured on the real palettes from his own reference documents:
+    LawnEssence    -> rgb(59,138,59)   4.3:1   (its own dark green, exactly as the PDF shows)
+    Vine & Crust   -> rgb(192,57,43)   5.4:1   (its own rustic red, exactly as the PDF shows)
+    Platinum Palms -> rgb(143,120,0)   4.3:1   (its gold, darkened — hue kept)
+    Elysian Palm   -> rgb(173,109,0)   4.2:1   (its amber, darkened — hue kept)
+    true greys     -> #141414                  (nothing colourful to keep; ink is correct)
+  Every brand now wears its own colour, and none wears an unreadable one.
+
+PROOF — 30 assertions, all passing: the BRAND chip rule exists and is emitted before section
+  01; headings are 27px Georgia in the brand colour with a quiet number and no under-rule; the
+  heavy left edge is gone; sections are soft rounded panels; bullets framed, two columns,
+  collapsing on phones; swatches 74px with hex beneath in the brand colour; the accent picks
+  correctly for LawnEssence and Vine & Crust, keeps the hue on bright-only palettes, falls back
+  to ink only on true greys, and EVERY real palette tested yields >= 4:1. Plus everything
+  earlier still intact: single column, order, nothing over the photo, no duplicate bullets, no
+  green, all ten action tiles wired, one document, balanced braces, valid HTML, JS parses.
+
+WHY THIS KEPT TAKING PASSES, honestly: three separate attempts were made at "make the card
+  look right" before the Founder produced this reference, and each was reasoning from the code.
+  The reference answered it in one reading. The pattern is now recorded in two places — the
+  continuity PDF and here. ASK FOR THE REFERENCE FIRST.
+====================================================================================
+
+(next disc will be appended here as the session continues)
+
+====================================================================================
+NEW SESSION (handover) — DISC: "Spark (brand card organised - four clear groups, section
+numbers removed, headers readable) July 30 2026 - 1150.zip"
+Type: Brand-card organisation + readability (full site). STEP 1 of the card project.
+Founder order: "keep the card, make it nice... put all the controls in one organised area...
+consolidate into something logical so people understand what they're clicking and getting...
+don't lose any of the things... the headers are a mess, I can't read it... test everything,
+assume everything's broken until proven."
+
+WHAT WAS DONE — and how it was PROVEN (jsdom render, not by reading code):
+  1. THE CONTROL DECK, REGROUPED into four plain-English groups, in this order:
+       1) Download your brand   — Download this brand / Brand sheet (PDF) / All N names
+       2) Share & send          — Email it to me / Get a shareable link
+       3) Keep building          — AI Studio / Success Path / Hand it to a designer / Get more names
+       4) Manage this brand      — Save this brand / Message the Spark team / Support / Remove
+     The deck is now DATA-DRIVEN (an array of groups -> tiles) instead of a hand-built HTML
+     string with four dated comments arguing in circles. Order is trivial to change and a
+     control cannot silently fall out. Every button keeps the EXACT data-attribute its handler
+     binds to — nothing rewired, position is free.
+  2. SECTION NUMBERS (01-13) REMOVED. The CSS counter (counter-increment:bksec /
+     content:counter(bksec,...)) is gone entirely — content:none — so nothing can re-print it.
+     Founder: "you don't use the numbers one through twelve."
+  3. SECTION HEADERS made readable: the number that crowded each Georgia heading is gone, and
+     the brand-accent underline was realigned to the heading's left padding (20px -> 26px) so it
+     sits under the text cleanly instead of floating left of it.
+
+PROOF (real render through jsdom — the code was executed, not eyeballed):
+  - node --check js/workspace-core.js : SYNTAX OK.
+  - Rendered mainHTML(curIdea()) into #main and ran the real bind(): no throw.
+  - All 13 controls present in the DOM AND each received a live 'click' handler (recorded by
+    monkeypatching addEventListener): dlall, brandpdf, dlallnames, sendbrand, sharelink,
+    tool=ai, tool=success, olin, morenames, brandsave, tool=concierge, support, removebrand.
+  - Nothing lost: the four tabs (Launch/Grow/Downloads/Extras) still render, and all 13 brand
+    sections still render in the mosaic.
+  - Confirmed no counter(bksec) rule remains in workspace.html.
+
+NOT TOUCHED THIS STEP (named so the next session knows they are still open): the blank
+brand-sheet PRINT (window.print hides .shell), the raw-.txt deliverables (taglines/fonts/
+bios/posts/handles + Brand-Kit.txt), and the every-brand ZIP folder-per-brand structure.
+Founder's plan: one step at a time, examine each before the next.
+====================================================================================
+
+====================================================================================
+DISC: "Spark (site-wide text readability restored - dark ink on white, header wordmark
+visible, plus card in four groups) July 30 2026 - 1320.zip"
+Type: Site-wide readability repair (full site). Carries the prior card-organiser disc too.
+Founder-reported: "the header is a mess site wide... black strip... I can't read anything
+in the workspace header, the login/MagicLink page, the left column, or inside the AI/help
+panels." Asked to be a detective and find the cause.
+
+ROOT CAUSE (found, not guessed): the text-colour variable --ink was forced to WHITE
+(#FFFFFF) on pages whose backgrounds are WHITE. Two "final layer" :root blocks in
+workspace.html (labelled CO212 and CO221 "aurora-navy") set --ink:#FFFFFF !important while
+also setting --bg1/body/cards to #FFFFFF. Every element that colours text with var(--ink)
+therefore rendered white-on-white = invisible. Same white --ink was also scoped into the
+AI Studio card (.aimcard), the account/help panel, .overviewall and .panelwrap — which is
+why those read as "screwed up" too. It is a leftover from the old aurora-NAVY (dark) theme,
+where white ink was correct; the backgrounds were later switched to white but --ink was
+never switched back to dark. The header wordmark "MyName" (.mark b) was also explicitly
+color:#FFFFFF, invisible on the white bar.
+
+THE FIX (surgical, white-background pages only):
+  - Flipped every white --ink to --ink:#141414 in workspace.html (6 places: the two CO212/
+    CO221 :root blocks, .aimcard, the account panel, .overviewall, .panelwrap), and in
+    olin.html, vorrex.html and command.html (same leftover).
+  - .ocov full-screen overlay (olin/vorrex) also had white body text on a white bg — set dark.
+  - Header wordmark .mark b set to solid dark #141414 (both the base rule and the CO212
+    override) so "SparkMyName" reads on the white bar.
+  - DELIBERATELY LEFT ALONE: film-test.html, video.html, video-forge-internal-4t4o.html.
+    These are genuinely DARK-themed internal pages (--panel:#101010) where white ink is
+    correct. Touching them would have broken them.
+
+PROOF (jsdom, executed — not eyeballed):
+  - grep: zero white --ink remain in the four fixed pages; the three dark pages still carry
+    white --ink (correctly untouched).
+  - getComputedStyle(:root)['--ink'] now resolves to #141414 (was #FFFFFF).
+  - .mark b computes to rgb(20,20,20) — the wordmark is dark/visible.
+  - Regression: the card still renders, bind() runs clean, the four control groups are intact
+    and all 13 controls still receive a live click handler.
+
+STILL OPEN (unchanged, for later steps, one at a time): blank brand-sheet PRINT; raw-.txt
+deliverables; every-brand ZIP folder-per-brand. And a note for a future pass: the AI Studio /
+account / help panels are now READABLE, but the Founder also wants them "dressed up nice" —
+a visual polish pass on those panels is worth doing as its own step.
+====================================================================================
+
+====================================================================================
+DISC: "Spark (all pages readable - white-on-white body text fixed site-wide) July 30 2026 - 1450.zip"
+Type: Site-wide READABILITY CLEAN-UP (full site). Step: clean up (readable) BEFORE dress up.
+Carries the two prior discs (four-group card + white --ink fix) as well.
+Founder order: "go clean it up so everything's readable, then we'll dress it up nice."
+
+SECOND SYSTEMIC CAUSE FOUND + FIXED (the bigger one): most content pages carried a late
+override  body{background:#FFFFFF!important;color:#FFFFFF}  — a WHITE page background with
+WHITE default text, so the body-level text on the whole page was invisible. Same dark-theme
+leftover as the --ink bug, but on the body element itself, which is why the earlier --ink fix
+did not catch it. Fixed 24 such rules across 20 pages (artdirector, checkout, deliverables,
+domains, examples, features, film-test, go-to-market, guide, james, legal-docs, name-ideas,
+olin, qa-batch, quality-check, resources, shoot, video, video-forge-internal, vorrex) — body
+text set to #141414 (dark) on the white background. film-check.html left ALONE (genuinely dark
+navy #0d1220 with light text — correct).
+
+PROOF (executed, not eyeballed):
+  - grep: zero white-on-white body rules remain anywhere; film-check untouched.
+  - --ink9 (the other body text variable in use) confirmed #141414 on all pages using it.
+  - jsdom render: body text computes to rgb(20,20,20) on checkout, deliverables, brand-kit,
+    account and olin — dark and readable.
+
+HONEST LIMITS OF THIS STEP (so nothing is over-claimed):
+  - This clears the two SYSTEMIC invisible-text causes (white --ink variable; white body text).
+    Body-level text is now readable site-wide.
+  - It is NOT a per-element render audit of all 49 pages — a specific hand-coded low-contrast
+    spot could still exist somewhere and would be caught in the dress-up pass.
+  - EMAILS are untouched and unaudited: ~17 server-side templates (send-kit, deliver-background,
+    order-deliver, email-brand, request-refund, receipts, etc.) with their own inline styles.
+  - The Stripe payment page is hosted by Stripe and cannot be restyled by us.
+
+NEXT (Founder's order, after he confirms readability): the DRESS-UP pass — visual polish so
+every page has real eye appeal on the green/black/white theme; and a separate EMAIL audit.
+Still open from before: brand-sheet PRINT, raw-.txt deliverables, every-brand ZIP folders.
+====================================================================================
+
+====================================================================================
+DISC: "Spark (card dress-up - agency polish, brand-accent themed deck and sections) July 30 2026 - 1600.zip"
+Type: DRESS-UP chunk 1 of N (full site). Visual polish of the workspace brand card.
+Founder order: "dress everything up nice, small chunks, I'll keep dropping disks."
+
+WHAT WAS DONE (purely visual — no structure or wiring changed):
+  - The whole card area now wears the brand's OWN accent, not just the sections. mainHTML
+    applies bkAccentVars() to .overviewall (the wrapper around the deck + kit), so the deck's
+    ONE primary tile ("Download this brand") and the group ticks pick up the brand colour too.
+    This is what the Founder liked about the old card — "the card matched the colour palette."
+  - Appended one clean dress-up style block (#smn-dressup-1), loaded last:
+      * Card shell: softer 20px round, a single restrained shadow (beats the CO212/CO221
+        !important shadow so it actually lands).
+      * Control deck: consistent spacing, quiet tiles, exactly one primary action in the brand
+        colour, a stepped-back dashed "Remove", clear hover + keyboard focus ring.
+      * Brand-kit sections: elegant white cards, Georgia 22px titles with a brand-accent
+        underline, comfortable 16px/1.7 body set to a 70ch measure, accent bullets.
+      * Name/photo picker: selected brand reads with a brand-colour ring.
+    Discipline per the design guidance: white agency sheet, brand accent as the single thread —
+    deliberately NOT the acid-green-on-black AI default.
+
+PROOF (jsdom, executed):
+  - node --check: JS OK.
+  - Render + bind clean, no regression: the four control groups intact, all 13 controls still
+    receive a live click handler, the 13 kit sections still render.
+  - Confirmed .overviewall now carries a --bk-accent inline style (deck is themed); demo brand
+    resolved to rgb(192,57,43) — a real brand colour, proving the theming path works end to end.
+
+NEXT CHUNKS (dress-up, one disc at a time as the Founder deploys): the account / AI Studio /
+Success Path / help panels; then the content pages (checkout, deliverables, legal, domains,
+etc.); then the marketing homepage pass. Separately still open: EMAIL templates audit, and the
+earlier three (brand-sheet PRINT, raw-.txt deliverables, every-brand ZIP folders).
+====================================================================================
+
+====================================================================================
+DISC: "Spark (presentation studies on every brand card - seven material renders per name) July 30 2026 - 1710.zip"
+Type: FEATURE — surfaces the material Presentation Studies on every name's card.
+Founder order: "every brand card gets these, all 7, they're beautiful." Founder also chose
+eager-at-delivery + deferred the image tier to me.
+
+WHAT WAS DONE (safe half — display + on-tap generation, reusing the PROVEN path):
+  - New SMN_STUDIES list (7 materials: titanium, embossed cotton, brass, glass, leather,
+    agency page, app tile) with material trigger phrases written to route correctly through
+    materialFor() in generate-asset.js.
+  - A "Presentation Studies" section on EVERY name's card (in mainHTML, above the kit), with a
+    "Create my presentation studies" button and a results grid. Brand-themed via --bk-accent.
+  - The button fires all 7 renders for the current name through generate-asset.js — the SAME
+    endpoint the AI Designer already uses (no reimplementation, so they match what the Founder
+    loved) — in parallel, dropping each thumbnail in as it lands. Per-tile failure never blocks
+    the set; spend happens ONLY on this tap (flash tier via the existing path).
+  - HONEST per the Logo Law: the section states these are presentation renders to show the
+    brand off, NOT the usable logo files ("your usable logo files live in Downloads"). No claim
+    that a study is a downloadable logo.
+
+WHY ON-TAP FIRST, NOT EAGER-AT-DELIVERY (deliberate, stated to Founder):
+  - The image APIs (Gemini/OpenAI) are NOT reachable from the build environment, so generation
+    itself can only be verified on the live site. On-tap lets the Founder verify quality + cost
+    on ONE real order before any standing per-order spend. Auto-firing at delivery is a thin
+    one-line follow-up (Disc B) once confirmed. This is the small-batch discipline that protects
+    the paying-delivery pipeline — the same rule that saved checkout.
+
+PROOF (jsdom, executed):
+  - node --check: JS OK.
+  - Render + bind clean; NO regression — the four control groups and 13 kit sections intact.
+  - Studies section + wired button present.
+  - Simulated a real click: the handler fired EXACTLY 7 generate-asset calls, one carrying each
+    of the 7 material phrases, and rendered 7 images into the grid. Sample request verified:
+    "Vine & Crust logo engraved into a brushed dark titanium plate — presentation study".
+  - NOT verifiable here (stated honestly): the actual pixels — needs live Gemini/OpenAI keys.
+    Founder verifies by tapping on the deployed site.
+
+TIER: defaulted to the existing flash path (a few cents each). Raising a material to the top
+tier (~19c) is a per-material change in generate-asset/studio-engine when the Founder wants.
+
+NEXT: Disc B — auto-fire the 7 studies for all names right AFTER core delivery (eager, the
+Founder's end state), once he's confirmed quality live. Separately still open: the ~150-piece
+catalog "come live" surfacing; and the earlier three (print, .txt deliverables, every-brand ZIP).
+====================================================================================
+
+====================================================================================
+DISC: "Spark (presentation studies bug fixed - button now polls for the queued renders) July 30 2026 - 1815.zip"
+Type: BUGFIX (client-only) for the studies button. No server / paying-pipeline change.
+Founder reported: tapping "Create my presentation studies" returned "Couldn't make this
+one" for all 7. Founder confirmed the generator itself is proven and approved wiring it live.
+
+ROOT CAUSE (found by reading generate-asset.js): generate-asset is ASYNCHRONOUS. It queues
+the render to generate-asset-background and returns resp(202,{queued:true,error:'queued'}).
+The finished image only comes back on a LATER identical request, via the cache gate
+(resp(200,{success:true,download_url})). The command-bar shelf handles this by re-polling
+every ~6s. My button called ONCE, saw no download_url in the 'queued' reply, and wrongly
+showed "Couldn't make this one." The studies were generating the whole time.
+
+THE FIX (js/workspace-core.js only):
+  - The button now POLLS each material every 6s (cap ~4 min) until download_url lands.
+  - Distinguishes done / still-queued (duplicate_request_in_progress too) / hard error, and
+    surfaces the REAL reason on a hard error (invalid_token, brand_not_activated, etc.) instead
+    of a generic line.
+  - Each material carries its own 'take' cache key so seven distinct studies never collide.
+  - HARDENED: repaints from `state` against the LIVE #ssGrid every update, and persists each
+    finished study to NM.studies. A card repaint mid-generation can no longer strand a finished
+    render in a detached grid, and reopening the brand re-shows the studies (mainHTML renders
+    from NM.studies) without regenerating.
+
+PROOF (jsdom, executed — real render + simulated polling with clamped timers):
+  - node --check: OK.
+  - queued->done: all 7 render; all 7 persist to NM.studies.
+  - repaint MID-generation: still 7 (the detached-grid bug is gone).
+  - reopen (fresh render): shows the 7 persisted studies with no button press.
+  - hard error: friendly message on all 7, exactly ONE call each (no infinite loop).
+  - immediate success: 7 images, exactly 7 calls.
+  - no regression: four control groups + 13 kit sections intact.
+  - NOT verifiable here (stated honestly): the actual image pixels + whether the Founder's
+    session token authenticates against generate-asset — both need the live site. If the live
+    tap ever shows "Open this brand from your email link" that means capsule/token access,
+    which generate-asset doesn't yet accept — a separate server fix we'd add before eager.
+
+NEXT: Founder taps once on a REAL brand on the deployed site to confirm the 7 render live
+(this also proves the auth path). THEN Disc B wires the eager auto-at-delivery (his approved
+end state) — held until the on-tap is confirmed end-to-end, per the "confirm before wiring
+into the paying path" discipline.
+====================================================================================
+
+====================================================================================
+DISC: "Spark (presentation studies unlocked for every owned name - activation gate opened for studies only) July 30 2026 - 1940.zip"
+Type: SERVER change (paying path) — targeted, studies-only. Founder said "go."
+Context: the studies button surfaced the true error "This brand isn't activated yet"
+(brand_not_activated). Root reason: the product activates ONE name per order (free);
+the other five stay gated, so studies only worked on the one activated name. Founder's
+vision is all SIX names get studies. Founder approved opening the gate for studies only.
+
+WHAT WAS DONE (two files, kept in lockstep):
+  - generate-asset.js (front door) and generate-asset-background.js (renderer): GATE 2
+    (activation) now reads:
+        if (kit._activated !== true && !(openMode && wantsMockup(<request text>)))
+             return fail(402,'brand_not_activated');
+    i.e. a PRESENTATION STUDY is allowed for any name in an order the caller OWNS, whether
+    or not that name is activated. Ownership (token -> email -> report) is UNCHANGED and
+    still required. Every other paid asset stays activation-gated exactly as before.
+
+WHY IT'S SAFE (no leak):
+  - The bypass condition is IDENTICAL to the study-builder routing: the renderer only builds
+    a study when `openMode && wantsMockup(spec.request_text)` (-> mockupWorkOrder). So anything
+    that skips activation can ONLY come out as a study — no other paid asset can slip through.
+  - Ownership is still enforced; a study on a report you don't own still returns not_your_brand.
+  - This is exactly the Founder's authorized behaviour: every one of the six names can be shown
+    "in the world," at the per-order cost already approved.
+
+PROOF (executed):
+  - node --check both files: OK.
+  - Extracted the real wantsMockup() and tested the gate predicate:
+      * all 7 study requests the button sends -> detected as studies (bypass fires)
+      * un-activated + owned + study -> ALLOWED (the fix)
+      * ordinary assets (business card, flyer, logo, hero, post, palette) on an un-activated
+        brand -> STILL BLOCKED (no leak)
+      * study on a non-openMode (registry) request -> still blocked
+      * activated brand -> allowed for anything (unchanged)
+  - NOT verifiable here (stated honestly): the live render itself needs Gemini/OpenAI keys.
+    Founder verifies by tapping "Create my presentation studies" on ANY name on the deploy.
+
+RESULT: the studies button should now work on every one of the six names, activated or not.
+NEXT (still open): the eager auto-at-delivery producer (fires all 7 for all names right after
+core delivery) once the Founder confirms the live renders; and the ~150-piece catalog "come
+live" (note SMN_PRINT_BASICS is currently OFF, which switches the print pieces off).
+====================================================================================
+
+====================================================================================
+DISC: "Spark (header readability fixed site-wide - light nav links and navy-tinted selectors) July 30 2026 - 2010.zip"
+Type: READABILITY + freshen of the shared navy header. Founder: "this header makes it
+hard to navigate, I can't read it — freshen it up." (Seen on the result.html confirmation.)
+
+ROOT CAUSE: 20 pages carry an inline NAVY header (background rgba(10,20,40,.92)) but the
+nav links were colored for a LIGHT header — .nav a = var(--soft) #404040 and hover
+var(--ink9) #141414 — i.e. dark-grey text on a navy bar = unreadable. "Log in" was
+var(--ink9) too. The language/currency <select> chips inherited the global white select
+style, so they read as clunky white boxes on the navy.
+
+WHAT WAS DONE (identical inline blocks, swept with literal-match perl):
+  - 17 pages (all that carry the marketing nav): nav links -> rgba(233,240,255,.82) with a
+    white hover and a smooth transition; "Log in" -> #EAF2FF. High contrast on navy, readable.
+    (account, artdirector, brand-kit, brands, checkout, deliverables, domains, examples,
+     features, go-to-market, guide, james, legal-docs, name-ideas, resources, result, roadmap)
+  - 5 of those pages that have the language/currency selectors: chips restyled from white
+    (#F4F6F5 / #141414) to navy-tinted (rgba(255,255,255,.07) bg, light hairline border,
+    #EAF2FF text) so they belong on the navy bar.
+  - LEFT ALONE deliberately: command.html, olin.html, vorrex.html carry the navy bg but a
+    DIFFERENT header variant (no marketing-nav rule) — untouched to avoid guessing.
+  - index.html and the other spark.css pages use a separate WHITE header (already readable) —
+    untouched (verified no navy nav rule leaked in).
+
+PROOF (jsdom + grep, executed):
+  - Every swept page: old dark nav rule GONE, light rule present. Zero dark nav rules remain.
+  - result.html: header + all 5 nav links render; Log in light; selector chips navy-tinted.
+  - index.html: confirmed untouched (no navy nav rule injected — white header safe).
+  - features/deliverables/checkout: still parse. File count 509 (nothing added/removed).
+
+NOTE: this is a pure CSS colour/style swap in identical shared blocks — no structure, no JS.
+Further freshening available if wanted (Log-in as a bordered pill, spacing polish) and the
+3 app-header pages can be aligned next.
+====================================================================================
+
+====================================================================================
+DISC: "Spark (agency custom logo on the card - header and featured in the logo suite plus one-tap create) July 30 2026 - 2130.zip"
+Type: FRONT-END. Founder: agency page is THE one; put it on the card in two places; fold
+the 7-material explorer down to agency-only. (Screenshots: logo-system box + card header.)
+
+WHAT WAS DONE (js/workspace-core.js + workspace.html):
+  - CARD HEADER: the agency render now shows BIG between the domain and the tagline —
+    order is name -> domain -> [agency logo, large] -> tagline. Reads NM.agencyLogo.
+  - LOGO SUITE: a featured "Agency Custom" tile added as the star of the suite (both the
+    real-logo branch and the client-drawn fallback), clickable to open the full image.
+    When a brand has no agency render yet, the tile is a "Create agency custom" button.
+  - ONE-TAP CREATE (data-makeagency): fires the AGENCY-PAGE study only (flash tier),
+    take=agency, polls generate-asset until the render lands (it's async), stores it to
+    NM.agencyLogo, and repaints so it appears in both spots. Errors surface the real reason.
+  - REMOVED the 7-material "See ... in the world" explorer (Founder found the other six too
+    funky). Label chosen: "Agency Custom" (Founder delegated the wording).
+  - CSS: .wa-agency (big, centered, rounded, soft shadow), .logocard.agencycard (accent-ringed
+    featured tile), .agencybtn.
+
+PROOF (jsdom, executed):
+  - node --check OK; file count 509.
+  - PRESET a name's agencyLogo -> shows big in the header AND as the "Agency Custom" suite tile;
+    header order verified name->domain->agency->tagline.
+  - CREATE with none yet -> button present; click -> agency-only request (take=agency, agency
+    presentation-page prompt) -> render PERSISTED to NM.agencyLogo. No old studyshow/[data-makestudies].
+  - four control groups + 13 kit sections intact.
+  - The single "after-generate header shows it" assert failed ONLY as the known harness artifact
+    (sandbox repaints #main to a login state with no live session); the PRESET test proves the
+    same render path renders both spots. Actual pixels verified live on tap (needs image keys).
+
+STILL TO COME (as agreed):
+  1) EAGER auto-at-delivery producer — fires ONE agency study per name right after the core kit
+     ships, flash tier, NEW orders only (never backfills history). Backend, verify on one live
+     new order. This is the next disc, after Founder confirms the look on an existing brand.
+  2) Remove the writing from the delivered 2K images — awaiting the Founder's screenshot to
+     pinpoint which image / what text (engine notes say name/domain/tagline are drawn on the
+     CARD, not baked into the image, so the writing is likely model-generated inside the image).
+====================================================================================
+
+====================================================================================
+DISC: "Spark (clean photo - removed the name and tagline bar laid over the hero image) July 30 2026 - 2200.zip"
+Type: FRONT-END fix. Founder (with two screenshots): a bar carrying the name + tagline is
+laid across the bottom of the hero photo — "it's being laid on top of a photo, just get it out."
+
+ROOT CAUSE: the big header photo block (.bh-reveal, js/workspace-core.js ~line 3755) rendered,
+on top of the <img>: a .bh-scrim (translucent bar), .bh-name (the name) and .bh-tag (the
+tagline). It was a SECOND copy of the name+tagline that already appear directly beneath the
+photo on white (the .webavail block). An earlier "nothing over the photograph" fix (2026-07-30)
+had only hidden the small photo-GRID captions (.cinehero/.ideacine .ch-cap) — it missed this
+header overlay, so it kept showing.
+NOTE: the DELIVERED 2K files were already clean — the 2K download is the raw heroUrl fetched
+directly (line 2861) and genCover has no text. The writing existed only in the CARD DISPLAY.
+
+WHAT WAS DONE:
+  - Removed .bh-scrim + .bh-name + .bh-tag from the .bh-reveal render. The header photo now
+    shows completely, untouched. The name/domain/tagline are untouched and still shown right
+    below the photo on white (.wa-name/.wa-domain/.wa-tag). So the display now matches the
+    already-clean downloaded files.
+
+PROOF (jsdom, executed):
+  - node --check OK; file count 509.
+  - With a hero set: the photo still renders (.bh-reveal img present); .bh-scrim, .bh-name,
+    .bh-tag are ALL gone; .bh-reveal now contains only the <img>; the name/domain/tagline still
+    render below in .webavail; four control groups + 13 kit sections intact.
+
+STILL TO COME: the EAGER auto-at-delivery agency producer (one agency study per name right after
+the core kit ships, flash tier, new orders only) — next, after the Founder confirms the agency
+look on an existing brand.
+====================================================================================
+
+====================================================================================
+DISC: "Spark (brand sheet print fixed - no longer prints blank) July 30 2026 - 2230.zip"
+Type: BUG FIX (print CSS). A few-minutes task while the Founder's new order processed.
+
+BUG: "Brand sheet (PDF)" (data-brandpdf, workspace-core.js ~4457) calls window.print().
+The @media print block (workspace.html ~1654) had `body>*:not(#main){display:none}`. But
+#main is NOT a direct child of body — the DOM is body > div.shell > (aside.rail + main#main
++ #acctOv). So that rule hid .shell and took #main down with it => the sheet printed BLANK.
+
+FIX: replaced the single rule with a two-level one that keeps the body>.shell>#main path and
+hides the siblings at each level:
+    body>*:not(.shell){display:none !important}
+    .shell>*:not(#main){display:none !important}
+The rest of the block is unchanged (still hides .deck/.tabs/.panelwrap/.cardacts/.bkacc-chev
+and forces .bkacc-b open), so the printed sheet is the brand card content without the controls.
+
+PROOF (grep + jsdom):
+  - old buggy rule GONE; the two new rules present (exactly one shell>#main isolation).
+  - page parses; confirmed #main is nested inside .shell and is NOT a direct body child
+    (which is the root cause) — so the fix targets the correct path. File count 509.
+  - NOT testable here: actual print rendering (no print engine in the sandbox). Founder
+    confirms by clicking "Brand sheet (PDF)" and using the browser's Save-as-PDF.
+
+NOTE: the tile calls it a "one-page PDF"; the card is long, so a browser print will span a few
+pages. If a truly clean single-file branded PDF is wanted later, genCopyDeck (a typeset branded
+deck, already built and wired as 'copydeck') could back this button instead — offered, not done.
+====================================================================================
+
+====================================================================================
+DISC: "Spark (card sections polished - palette type and voice as agency-white cards) July 30 2026 - 2255.zip"
+Type: DRESS-UP (safe, additive CSS). Continued beautification while the order processed.
+
+CONTEXT: ran a health sweep first — ZERO broken internal links, ZERO missing local assets, no
+invisible same-colour text anywhere, header readability fixed, AI Studio/account/Success Path
+panels confirmed styled and readable (--bg1 is #FFFFFF, dark text is fine). The site is in good
+shape; this disc is polish, not a bug fix.
+
+WHAT WAS DONE (workspace.html, #smn-dressup-1 block, scoped to .bkmosaic):
+  - Palette sets, typography specimens and voice cards lifted from flat grey (#FAFAFA) boxes to
+    agency-white cards: hairline border, soft shadow, gentle hover lift, more padding.
+  - Typography specimen (.ts) enlarged to 30px for presence.
+  - Voice-card dot now carries the brand's own accent (var(--bk-accent)) instead of flat black.
+  - Colour swatches: taller colour block (64px), rounded chip, soft shadow + hover lift, hex set
+    in JetBrains Mono. Consistent with the deck + logo-suite dress-up.
+  Higher specificity than the base rules; no !important needed; purely visual.
+
+PROOF (jsdom): render clean; palette/type/voice sections present; the polish CSS is in the file;
+four control groups + 13 kit sections intact; prior work intact (no .bh-scrim, wa-agency slot
+present). File count 509.
+
+REMAINING HIGH-VALUE (need the Founder): (1) EAGER agency auto-at-delivery — waiting on the new
+order + Founder's OK on the look; (2) ~150 catalog fully live (needs SMN_PRINT_BASICS turned on);
+(3) any homepage / helper-panel visual dress-up is better done with the Founder's eyes on it.
+====================================================================================
+
+====================================================================================
+DISC: "Spark (agency logo now automatic - generates itself on open no click) July 30 2026 - 2330.zip"
+Type: FRONT-END. Founder: the agency logo must generate AUTOMATICALLY for a new brand, no
+click, "just like the rest, nothing holds it up." (Re-attached the old DELIVERABLE_SPEC —
+reviewed; it predates the agency/vector work, so I followed the CURRENT code, not the spec.)
+
+WHY NOT TRUE AT-DELIVERY: pre-generating at delivery would need blind edits to the paying
+delivery pipeline AND the front-end brand-loader that maps kit.logoUrls -> name.logos — and
+that loader is NOT present in the deployable code I can see (workspace-core.js has no such
+mapping; supabase-config.js is 5 lines; no direct Supabase query; __smnRealLoaded is never set
+to true in this file). Plus the image generation can't be exercised in the sandbox. Editing all
+that blind = exactly the harm the Founder warned against. So I used the SAFE, proven path.
+
+WHAT WAS DONE (js/workspace-core.js only — NOTHING in the delivery pipeline touched):
+  - The agency logo now GENERATES BY ITSELF when a brand is opened. _fireAgency() runs on render
+    for the current name if it has none yet, reusing the exact proven generate-asset path (async
+    -> poll every 6s), storing the result on the brand and repainting so it lands in the header
+    (between domain and tagline) and as the featured "Agency Custom" tile. No click.
+  - Server-side cache means re-opens are instant and cost nothing again.
+  - Self-guarding: fires once per name (window.__agFiring), skips if it already has one or is
+    firing or previously failed — no loops, no wasted calls. On hard failure it shows a manual
+    retry. Only auto-fires when signed in (a token exists), so it never fires empty pre-login.
+  - Empty tile now shows a "creating…" spinner (not a button); the button only returns as a
+    retry after a failure.
+
+PROOF (jsdom, executed): open with none -> spinner, auto-generates with NO click, polls through
+queued, shows in header + suite, agency-only take=agency, persisted, does NOT re-fire once it
+has one; hard error -> retry button, one call (no loop); already-has-one -> ZERO generate calls,
+shows both spots; four groups + 13 kit sections intact. Live pixels verified by the Founder
+opening a new brand (needs image keys; sandbox can't reach them).
+
+DIFFERENCE FROM AT-DELIVERY (honest): the FIRST open of a brand generates (~1 min, in the
+background) instead of it being pre-made at delivery; every open after is instant. If true
+pre-generation at delivery is wanted later, it's a separate backend build verified on a live
+test order. NOTE: capsule-only access (no signed-in token) holds off the auto-fire, since
+generate-asset requires a token — a pre-existing limitation; magic-link arrivals get a token.
+====================================================================================
+
+====================================================================================
+DISC: "Spark (agency logo fixed - composed from the real logo instantly no more circling) July 30 2026 - 2355.zip"
+Type: BUG FIX (front-end). Founder: the agency-grade logo "is still circling forever," and the
+July 24 disc holds the right way to make it.
+
+ROOT CAUSE: my earlier agency mark fired an AI image call (generate-asset, ~1 min) and polled.
+When the image model stalled or never produced this particular study, the poll kept getting
+'queued' and the tile span its "creating..." spinner effectively forever. The July 24 disc
+confirmed the correct pattern: the ENTIRE logo system there is COMPOSED on canvas (genLockup et
+al.) — instant, no model, never waits, never circles.
+
+THE FIX (js/workspace-core.js only; delivery pipeline untouched):
+  - New genAgencyMark(logoUrl,name,tag,C,IDEA,NM): composes the "Agency Custom" presentation of
+    the brand's REAL logo on canvas the same proven way as the lockup downloads — logo centered
+    on a clean agency-white sheet, brand name beneath, a short brand-colour rule, optional
+    tagline. Returns {filename,blob}. No AI, no network, no polling.
+  - _fireAgency() now COMPOSES (genAgencyMark -> URL.createObjectURL -> NM.agencyLogo -> paint)
+    instead of calling generate-asset. Runs automatically on brand open (no click), resolves in
+    well under a second. Requires a real logo (NM.logos[0]); if absent, the tile stays hidden
+    (no spinner). Removed the token guard (composition is local) and the dead retry button.
+  - Agency tile: image when composed; a brief spinner only while composing; NOTHING when there
+    is no real logo or the composition fails. It can no longer show a forever spinner.
+
+PROOF (jsdom, composer mocked since sandbox has no canvas): composes automatically on open with
+NO network call; shows in header + logo suite; composes exactly once (no loop); does not
+recompose once present; no real logo -> composer never called + no tile + no spinner; composer
+failure -> tile hidden, no loop; existing mark -> no recompose; four groups + 13 kit sections
+intact. File count 509.
+
+NOT VERIFIABLE HERE: the actual canvas RENDER (no canvas engine in the sandbox). It uses the
+identical mechanics as the working lockup downloads, so it will render; Founder confirms the
+look live. If the real logo is served cross-origin without CORS the canvas would taint and the
+tile hides gracefully (but genLockup uses the same path and works, so it should compose).
+====================================================================================
+
+====================================================================================
+DISC 1 of 3: "Spark (agency logo upgraded - palette swatches lighting ground and editorial hairline) July 30 2026 - 2358.zip"
+Type: FRONT-END upgrade (agency mark v2). Founder-approved: apply the agency-concepts.html
+concept-engine treatment to the agency mark, keeping the REAL logo, still composed in code.
+
+WHAT CHANGED (js/workspace-core.js, genAgencyMark only):
+  - Soft "lighting" ground: vertical gradient, white -> a 6% whisper of the brand ink (_agTint).
+  - Editorial top hairline in the brand ink.
+  - Real logo weighted and optically centred (unchanged source: NM.logos[0]).
+  - Name in the brand display face over a brand-ink rule; tagline beneath.
+  - The brand's own 3-4 colour PALETTE drawn as a rounded swatch row (_agRR) - the agency
+    brand-book signature. Palette comes from NM.palettes[0].cols (falls back safely).
+  Still canvas-composed, instant, $0, cannot circle. Signature + return shape unchanged, so the
+  auto-compose wiring from the prior disc is untouched.
+
+PROOF (jsdom + REAL node-canvas render, executed - not mocked):
+  - genAgencyMark actually RENDERS: resolves {blob, filename:agency-mark.png}; the bytes decode
+    to a valid 1400x1050 PNG; a single-colour palette and a missing tagline both render without
+    error.
+  - Auto-compose wiring: composes on open (no click), header + logo-suite both show it, composed
+    exactly once (no loop), never recomposes once present; no real logo -> composer not called,
+    no tile, no spinner; existing mark -> no recompose. Four groups + 13 kit sections intact;
+    clean-photo (no bh-scrim) fix intact. File count 509.
+
+FOUNDER CONFIRMS LIVE (the part the sandbox cannot judge): the LOOK - whether the lighting,
+logo weight, type and swatch row read "agency". The sandbox has no aesthetic judgement; it only
+proved the image renders valid and correct-sized. Iterate on feedback (bigger logo, tinted vs
+white ground, drop swatches, etc.) - all quick now that it is composed.
+====================================================================================
+
+====================================================================================
+DISC 1 (v3, SUPERSEDES the swatch-card v2): "Spark (agency mark redone in your engine agency-card style - editorial grid accent rule italic tagline) July 30 2026 - 0215.zip"
+Founder feedback: the swatch/lighting card was "nice, keep as another choice" but "NOT the
+agency mark — it should look like the pieces in my images (agency style)."
+
+FINDING: those image pieces come from genPrintPiece (the live print engine). Its agency style =
+brand DISPLAY font name (800), a short accent-colour rule (~34% wide), an ITALIC tagline (display
+italic 500), body-font contact lines, charcoal ink (SMN_INK/INK2), a weighted contained logo
+(_logoSmart), and a per-brand grid fingerprint (spine/editorial/split via smnBrandContext).
+
+WHAT WAS DONE: genAgencyMark rewritten to render that EXACT business-card-front composition as a
+standalone PNG (no PDF) — so the agency mark matches the images by construction. Removed the v2
+swatch/gradient/hairline helpers (_agTint/_agRR). Auto-compose wiring, tile, header all unchanged.
+
+PROOF (jsdom + REAL node-canvas render, executed): renders a valid 1125x675 landscape agency
+card for four different brands (grid variance exercised, no crash); tolerates a single-colour
+palette + no tagline + no contact; auto-composes on open (no click), header + suite both show it,
+once (no loop), no recompose; no real logo -> not called, no tile; four groups + 13 sections +
+clean-photo fix intact. File count 509.
+
+FOUNDER CONFIRMS LIVE: whether it now reads like the image pieces. Sandbox proved it renders
+valid + correct-ratio + matches the genPrintPiece code path; it cannot judge the final look.
+NOTE: the v2 swatch card can be re-added as a SECOND choice later if wanted (Founder liked it) —
+not included here to keep the agency mark itself correct.
+====================================================================================
+
+====================================================================================
+DISC: "Spark (wordmark engine - five code composed logo styles client gets all nicest large under the url) July 30 2026 - 0330.zip"
+Type: FRONT-END feature. Founder: "more logos for clients to choose from, do it free the easy
+way, client gets all, put the nicest one large under the URL." Built the wordmark engine.
+
+WHAT WAS DONE (js/workspace-core.js + workspace.html CSS):
+  - genWordmark(name,spec,C,IDEA,NM): composes a "logo wordmark" in code from the NAME + the
+    brand palette + real premium type. Transparent PNG, no AI, no network, $0 each. Modes:
+    brand ink / brand accent / metallic gradient (accent light->accent->dark) / silver; optional
+    4-point spark. Shrink-to-fit on long names. Helpers _agLight/_agDark/_spark added.
+  - WORDMARK_STYLES (5): Serif Luxe (Playfair, ink, spark), Spaced Caps (Marcellus, tracked),
+    Gold (Playfair, metallic gradient of the brand accent, spark), Modern Sans (Montserrat,
+    accent), Signature (Great Vibes script, accent, spark). Fonts pulled live via loadBrandFont
+    (Google Fonts); clean serif/sans fallback if a face fails.
+  - _fireWordmarks(): composes the whole set on brand open (no logo needed), once per name,
+    stores NM.wordmarks[] + NM.heroWordmark (the Serif Luxe one), then paints.
+  - HEADER: the hero wordmark now shows LARGE under the URL (.wa-wordmark) in place of the
+    agency mark. The agency mark is preserved as a tile in the logo suite (not lost).
+  - LOGO SUITE: a "Wordmark styles - pick any, you get them all" row shows the full set as tiles.
+  - CSS: .wa-wordmark (large, max 520px) + .wmshow/.wmcard tiles.
+
+PROOF (jsdom + REAL node-canvas render, executed):
+  - Composition: all 5 styles render valid 2200x560 transparent PNGs; a very long name shrinks
+    to fit; short name + gold + single-colour palette render without error.
+  - Wiring: 5 wordmarks compose automatically on open; hero selected + shows LARGE under the URL;
+    the whole set (5 labelled tiles) shows in the suite; composed exactly once (no loop); no
+    recompose on re-render; old wa-agency removed from header; agency mark preserved as a suite
+    tile; four groups + 13 kit sections + clean-photo fix intact. File count 509.
+
+FOUNDER CONFIRMS LIVE: the LOOK + the real premium FONTS. In the sandbox fonts fall back to
+system serif/sans (no Google Fonts network), so the shapes/quality of Playfair/Marcellus/
+Montserrat/Great Vibes are only visible on the deployed browser. Accent/gold styles use the
+brand's own accent colour, so on a very light-accent brand those two may read faint on white
+(the hero uses dark ink, so it is always readable). Iterate freely - all $0.
+====================================================================================
+
+====================================================================================
+DISC: "Spark (spaced caps is the hero wordmark under the url for all brands) July 30 2026 - 0400.zip"
+Type: FRONT-END one-line change. Founder: "Spaced Caps is clean for all brands to use in the
+area below the URL." Changed the hero-wordmark selection in _fireWordmarks from key 'serif'
+(Serif Luxe) to key 'caps' (Spaced Caps). The full 5-style set is unchanged; only which one is
+promoted to the large slot under the URL changed.
+
+PROOF (jsdom + real node-canvas): the hero (NM.heroWordmark) now equals the composed Spaced Caps
+tile's URL; the set still has all 5 styles; the hero renders large under the URL (.wa-wordmark
+src === heroWordmark); 5 style tiles remain in the suite; four groups + 13 kit sections intact.
+File count 509. FOUNDER CONFIRMS LIVE: the Spaced Caps look under the URL on the deployed browser.
+====================================================================================
+
+====================================================================================
+DISC: "Spark (logo pack download now includes all wordmark styles and the agency mark - one zip) July 30 2026 - 0430.zip"
+Type: FRONT-END. Founder: add the wordmarks to the download section and include them in the
+"logos" pack (the one with all the logos) as ONE download.
+
+WHAT WAS DONE (downloadLogos, js/workspace-core.js): after the real logos, the pack now also
+pulls in the WHOLE wordmark set (each style as {name}-wordmark-{key}.png) and the agency mark
+({name}-agency-mark.png), all under the same logos/ folder in the one logos.zip. They are already
+composed in the browser (blob URLs); _zfetch pulls each into the zip. No new download button —
+the existing "download logos" now delivers every mark at once.
+
+PROOF (jsdom, real downloadLogos executed with the zip/fetch machinery stubbed to record pack
+contents): the pack contains all 5 wordmark styles (serif/caps/gold/sans/script), the agency
+mark, and the 3 real logos (SVG + PNG) — 12 files in one zip filed under logos/. node --check OK;
+file count 509.
+
+FOUNDER CONFIRMS LIVE: click "download logos" on a real brand and open the zip — it should hold
+the real logos + all five wordmark styles + the agency mark. (Sandbox proved WHICH files go into
+the pack; the actual JSZip generation + browser download runs on the deployed browser via the
+same proven path the logo download already used.)
+====================================================================================
+
+====================================================================================
+DISC: "Spark (premium gemini 3 pro photo tier wired live for every order - env switch default on) July 30 2026 - 0500.zip"
+Type: BACKEND (netlify/functions/studio-engine.js). Founder order: "wire the premium api call,
+I'll pay for the best, for every order from now on; assume not wired, test and prove; go live."
+
+FINDING FIRST (truth): heroes were ALREADY on a premium tier — the ladder led with
+gemini-3.1-flash-image, which the cost formula treats as "hi" (2K, ~13.4c). The 3.9c flash
+(gemini-2.5) was only the fallback. Gemini 3 Pro (Nano Banana Pro) is the one step above and
+carries the SAME ~13.4c cost — so this is the better model at the price already paid, not more
+money. Founder himself removed Pro-preview from photos on 2026-07-27 (preview rate-limits caused
+"one bright, one aged"); re-added here per explicit order, mitigated so it can't regress.
+
+WHAT WAS DONE (generateImage): new env SMN_PHOTO_PRO, DEFAULT ON. When on, it puts
+'gemini-3-pro-image-preview' at the LEAD of the photo ladder (and is exempted from the
+preview-filter). The current premium tier (gemini-3.1-flash-image) sits immediately behind it,
+then 2.5 flash, then OpenAI — so if Pro rate-limits/unavailable the photo steps straight down to
+TODAY's tier and can never come out worse than before. Caller model overrides (logo batches)
+untouched. SMN_PHOTO_PRO=off returns to the 3.1 lead (kill switch).
+
+PROOF (real studio-engine required, global.fetch mocked to record the model called first):
+  - DEFAULT (no env): Gemini 3 Pro leads. off: 3.1 leads (kill switch). Pro unavailable -> steps
+    to premium 3.1 (never worse). Caller geminiModels override respected (no Pro forced in).
+    node --check OK. File count 509.
+
+FOUNDER CONFIRMS LIVE (cannot be sandbox-tested): the ACTUAL image quality + Pro's real
+availability/rate-limits. No image API in the sandbox — only the tier SELECTION is proven, not
+the picture. To turn OFF if Pro ever looks inconsistent: Netlify env SMN_PHOTO_PRO=off, redeploy.
+NOTE: gpt-image-1 (final fallback) still shuts down 2026-10-23 (OPENAI_IMAGE_MODEL override ready).
+STILL OPEN: Founder also asked to move the hero image bigger/under the URL on the card — NOT done
+in this disc (needs one confirm; the photo is already the top banner and the wordmark is under
+the URL). Flagged to Founder.
+====================================================================================

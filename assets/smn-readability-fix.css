@@ -1,0 +1,156 @@
+/* SMN precision readability fixes - generated from measured audit evidence, page-scoped */
+/* --- account.html --- */
+body[data-smnfix="account"] div.kicker{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="account"] h2,body[data-smnfix="account"] .account-hero h1{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+/* --- affiliate.html --- */
+body[data-smnfix="affiliate"] div.kicker{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="affiliate"] h1{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="affiliate"] h2{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="affiliate"] h3{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="affiliate"] p.aff-note{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="affiliate"] p{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+/* --- batch-test.html --- */
+body[data-smnfix="batch-test"] b{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="batch-test"] h1,body[data-smnfix="batch-test"] h2,body[data-smnfix="batch-test"] h3{font-family:'Playfair Display',Georgia,serif!important}
+body[data-smnfix="batch-test"] td.muted{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+/* --- bulk-test.html --- */
+body[data-smnfix="bulk-test"] h1,body[data-smnfix="bulk-test"] h2,body[data-smnfix="bulk-test"] h3{font-family:'Playfair Display',Georgia,serif!important}
+/* --- checkout.html --- */
+body[data-smnfix="checkout"] h1,body[data-smnfix="checkout"] h2,body[data-smnfix="checkout"] h3{font-family:'Playfair Display',Georgia,serif!important}
+/* --- clean-test.html --- */
+body[data-smnfix="clean-test"] h1,body[data-smnfix="clean-test"] h2,body[data-smnfix="clean-test"] h3{font-family:'Playfair Display',Georgia,serif!important}
+/* --- email.html --- */
+body[data-smnfix="email"] div{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+/* --- film-test.html --- */
+body[data-smnfix="film-test"] h1,body[data-smnfix="film-test"] h2,body[data-smnfix="film-test"] h3{font-family:'Playfair Display',Georgia,serif!important}
+body[data-smnfix="film-test"] span{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+/* --- find-names.html --- */
+body[data-smnfix="find-names"] h1,body[data-smnfix="find-names"] h2,body[data-smnfix="find-names"] h3{font-family:'Playfair Display',Georgia,serif!important}
+/* --- mark-preview.html --- */
+body[data-smnfix="mark-preview"] h1,body[data-smnfix="mark-preview"] h2,body[data-smnfix="mark-preview"] h3{font-family:'Playfair Display',Georgia,serif!important}
+/* --- my-brands.html --- */
+body[data-smnfix="my-brands"] div.kicker{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="my-brands"] h2{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+/* --- my-export.html --- */
+body[data-smnfix="my-export"] div.msg{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="my-export"] h1{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="my-export"] p.sub{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+/* --- name-search-test.html --- */
+body[data-smnfix="name-search-test"] h1,body[data-smnfix="name-search-test"] h2,body[data-smnfix="name-search-test"] h3{font-family:'Playfair Display',Georgia,serif!important}
+/* --- pipeline-test.html --- */
+body[data-smnfix="pipeline-test"] button.ghost{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="pipeline-test"] p.note{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+/* --- press.html --- */
+/* --- pricing.html --- */
+body[data-smnfix="pricing"] div.kicker{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="pricing"] h1,body[data-smnfix="pricing"] h2,body[data-smnfix="pricing"] h3{font-family:'Playfair Display',Georgia,serif!important}
+body[data-smnfix="pricing"] h1{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+/* --- qa-batch.html --- */
+body[data-smnfix="qa-batch"] a.hublink{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="qa-batch"] button.go{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="qa-batch"] div.badge{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="qa-batch"] h1,body[data-smnfix="qa-batch"] h2,body[data-smnfix="qa-batch"] h3{font-family:'Playfair Display',Georgia,serif!important}
+/* --- qa-export.html --- */
+body[data-smnfix="qa-export"] button.go{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="qa-export"] div.badge{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="qa-export"] h1,body[data-smnfix="qa-export"] h2,body[data-smnfix="qa-export"] h3{font-family:'Playfair Display',Georgia,serif!important}
+/* --- qh-test.html --- */
+body[data-smnfix="qh-test"] p.note{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+/* --- quality-check.html --- */
+body[data-smnfix="quality-check"] h1,body[data-smnfix="quality-check"] h2,body[data-smnfix="quality-check"] h3{font-family:'Playfair Display',Georgia,serif!important}
+/* --- raw-test.html --- */
+body[data-smnfix="raw-test"] button.ghost{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="raw-test"] p.note{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+/* --- resources.html --- */
+body[data-smnfix="resources"] div.kicker{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="resources"] h1{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="resources"] h2{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="resources"] p.res-foot-note{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="resources"] p{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+/* --- result.html --- */
+/* FIX (2026-07-14): the result page is DARK — forcing dark ink here made this line invisible
+   (WCAG contrast 1.03). Light muted grey instead: ~7:1 on #101010, comfortably AA. */
+body[data-smnfix="result"] span.rcpt-once{color:rgba(255,255,255,.6)!important;-webkit-text-fill-color:rgba(255,255,255,.6)!important}
+/* --- sample-report.html --- */
+body[data-smnfix="sample-report"] div.kicker{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="sample-report"] h1{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="sample-report"] h2{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="sample-report"] h3{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="sample-report"] p.lead{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="sample-report"] p.sub{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="sample-report"] span.badge-ok{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="sample-report"] td{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+/* --- sample.html --- */
+body[data-smnfix="sample"] div.ey{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="sample"] div.k-lbl{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="sample"] div.k-name{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="sample"] div.k-val{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="sample"] h1{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="sample"] p{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="sample"] span.k-handle{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="sample"] span.k-own{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="sample"] span.k-pill{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="sample"] span.k-swi{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+/* --- samples.html --- */
+body[data-smnfix="samples"] div.ey{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="samples"] div.k-lbl{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="samples"] div.k-name{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="samples"] div.k-val{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="samples"] h1{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="samples"] p{color:rgba(255,255,255,.85)!important;-webkit-text-fill-color:rgba(255,255,255,.85)!important}
+body[data-smnfix="samples"] span.k-handle{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="samples"] span.k-own{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="samples"] span.k-pill{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="samples"] span.k-swi{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+/* --- shoot.html --- */
+body[data-smnfix="shoot"] h1,body[data-smnfix="shoot"] h2,body[data-smnfix="shoot"] h3{font-family:'Playfair Display',Georgia,serif!important}
+/* --- success.html --- */
+body[data-smnfix="success"] p.sx-note{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+/* round-2 precision */
+body[data-smnfix="press"] main .tldr, body[data-smnfix="press"] main .tldr div, body[data-smnfix="press"] main .tldr b{color:rgba(255,255,255,.88)!important;-webkit-text-fill-color:rgba(255,255,255,.88)!important}
+body[data-smnfix="press"] div[style*="#F2F4F8"], body[data-smnfix="press"] div[style*="#EAECEF"]{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="press"] div[style*="#C6A035"], body[data-smnfix="press"] a[download]{color:#000!important;-webkit-text-fill-color:#000!important}
+body[data-smnfix="samples"] .cta-band a, body[data-smnfix="sample"] .cta-band a{background:#8E77FF!important;color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important;border-radius:999px;padding:14px 26px;text-decoration:none;font-weight:800}
+body[data-smnfix="samples"] .cta-sub, body[data-smnfix="sample"] .cta-sub{color:rgba(255,255,255,.75)!important;-webkit-text-fill-color:rgba(255,255,255,.75)!important}
+
+/* Skip links (site-wide): compliant at rest and on focus */
+a.skip-link{background:#0A0A0A!important;color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+a.skip-link:focus{background:#0A0A0A!important;color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+
+/* Post-purchase calm: no sell CTA after they've paid (Workspace standard) */
+body[data-smnfix="success"] .navCta,body[data-smnfix="my-brands"] .navCta{display:none!important}
+/* WCAG 2.2 target size: lift 22-23px header/footer links to >=24px */
+.cinNav .lnk,.cinTop .brandC,.smnFooter nav a,.footerlinks a{display:inline-block;padding-top:4px;padding-bottom:4px}
+body[data-smnfix="my-brands"] main h1,body[data-smnfix="my-brands"] .simple-page h1{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+.footnav a,a.navlink,.mark{display:inline-block;padding-top:4px;padding-bottom:4px}
+
+/* resources: internal-link block sits on a light panel — deep gold links */
+body[data-smnfix="resources"] .res-disc a{color:#7E6018!important;-webkit-text-fill-color:#7E6018!important;text-decoration:underline}
+
+/* CO-COLORLAW-ACCOUNT (Founder, 2026-07-12): the blanket ink rules above were killing dark-page text.
+   On account and my-brands, the fill now always follows each element's true color. */
+body[data-smnfix="account"] *,body[data-smnfix="my-brands"] *{-webkit-text-fill-color:currentColor!important}
+/* light panels on the dark account page keep ink lettering */
+body[data-smnfix="account"] .trust-row div,body[data-smnfix="account"] .trust-row b{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+body[data-smnfix="account"] .trust-row div{color:#5C5340!important;-webkit-text-fill-color:#5C5340!important}
+body[data-smnfix="account"] .code-card,body[data-smnfix="account"] .code-card h3{color:#17140F!important;-webkit-text-fill-color:#17140F!important}
+/* --- CO-FOOTERLAW-2 (Founder, 2026-07-12): workspace visibility restoration --- */
+/* The blanket account div rule above paints dark-plaque text ink-on-black. These
+   page-scoped overrides restore white lettering on every dark surface, and make
+   the workspace capsules white pills that read on any backdrop. */
+body[data-smnfix="account"] .studio-orient div,
+body[data-smnfix="account"] .orient-big,
+body[data-smnfix="account"] .studio-orient .orient-h1,
+body[data-smnfix="account"] .studio-orient .orient-sub,
+body[data-smnfix="account"] .studio-orient p{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="account"] .v4wel div.v4eyebrow{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="account"] .v4h1{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body[data-smnfix="account"] .v4status{color:rgba(255,255,255,.88)!important;-webkit-text-fill-color:rgba(255,255,255,.88)!important}
+/* capsules: white pills, ink lettering, visible edge — readable on black or white */
+body[data-smnfix="account"] .hub-sort,
+body[data-smnfix="account"] #hubSortBtn,
+body[data-smnfix="account"] .btn-clean{background:#FFFFFF!important;color:#17140F!important;-webkit-text-fill-color:#17140F!important;border:1.5px solid rgba(23,20,15,.28)!important}
+body[data-smnfix="account"] .hub-sort.on{background:#17140F!important;color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important;border-color:#17140F!important}
+body[data-smnfix="account"] .hub-sort.danger{color:#b42318!important;-webkit-text-fill-color:#b42318!important;border-color:rgba(180,35,24,.45)!important}
+body[data-smnfix="account"] .pf-del{background:#FFFFFF!important;color:#b42318!important;-webkit-text-fill-color:#b42318!important;border:1.5px solid rgba(180,35,24,.45)!important}
+body[data-smnfix="account"] .rail-cap,body[data-smnfix="account"] .rail-link{-webkit-text-fill-color:currentColor!important}

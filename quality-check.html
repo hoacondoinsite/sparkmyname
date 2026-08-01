@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SparkMyName — QC Name Feed (Research)</title>
+<meta content="Internal quality check tools for SparkMyName." name="description"/>
+<meta content="noindex,nofollow" name="robots"/>
+<style>
+  :root{
+    --blue:#0B5FFF; --navy:#07172F; --ink:#0E1726; --line:#24365E;
+    --paper:#FFFFFF; --sec:#3F4D63; --run:#b7791f; --done:#147A3D; --fail:#c0392b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  header{background:var(--navy);color:#fff;padding:20px 22px;}
+  header h1{margin:0;font-size:1.1875rem;letter-spacing:.2px;font-weight:800}
+  header p{margin:5px 0 0;font-size:.75rem;color:#aebbd2}
+  .wrap{max-width:1000px;margin:0 auto;padding:22px}
+  .panel{background:#FFFFFF;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:18px;}
+  label{font-weight:700;font-size:.8125rem;display:block;margin-bottom:6px;color:var(--navy)}
+  textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:12px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8125rem;resize:vertical}
+  #cats{min-height:150px}
+  #feed{min-height:340px;background:#FFFFFF;color:#dfe9fb;line-height:1.6;
+    white-space:pre-wrap;border-color:#FFFFFF}
+  .row{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin-top:14px}
+  .row .field{display:flex;flex-direction:column;gap:5px}
+  .row .field > span{font-size:.6875rem;color:var(--sec);font-weight:700;letter-spacing:.3px}
+  input[type=number]{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.8125rem;background:#FFFFFF}
+  button{border:0;border-radius:8px;padding:11px 18px;font-size:.875rem;font-weight:800;cursor:pointer}
+  .go{background:var(--blue);color:#fff}
+  .go:disabled{opacity:.5;cursor:not-allowed}
+  .ghost{background:#eef2f9;color:var(--navy)}
+  .ghost:disabled{opacity:.5;cursor:not-allowed}
+  .bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}
+  .status{font-size:.75rem;color:var(--sec);margin-left:auto}
+  .note{font-size:.75rem;color:var(--sec);line-height:1.55}
+  .conn{font-size:.75rem;color:var(--sec)}
+  .conn b{color:var(--navy)}
+  .warn{display:none;background:#FFFFFF;border:1px solid #fed7aa;color:#9a3412;
+    border-radius:10px;padding:12px 14px;font-size:.8125rem;line-height:1.5;margin-bottom:18px}
+  .warn.show{display:block}
+  .diag{font-size:.75rem;margin-top:8px;padding:10px 12px;border-radius:8px;display:none}
+  .diag.ok{display:block;background:#e6f5ec;color:#0f5c2e;border:1px solid #bfe6cd}
+  .diag.bad{display:block;background:#fbe9e7;color:#8a2418;border:1px solid #f2c4bd}
+  .feedhead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .count{font-variant-numeric:tabular-nums;color:var(--sec);font-size:.75rem}
+  footer{max-width:1000px;margin:0 auto;padding:6px 22px 40px;color:var(--sec);font-size:.6875rem;line-height:1.6}
+
+/* ===== DEVICE SAFETY (28 July 2026 sweep) =====
+   Applied to every page. Two faults were site-wide:
+   1. 100vw includes the scrollbar width, so any element using it is wider than the viewport
+      and forces a sideways scroll. overflow-x:hidden on the root stops that everywhere.
+   2. Tap targets under 44px fail Apple's and Google's minimum and are genuinely hard to hit
+      on a phone. Every interactive element now meets 44px.
+   ===== */
+html,body{overflow-x:hidden;max-width:100%}
+*{min-width:0}
+img,video,iframe,table,pre{max-width:100%}
+a,button,select,summary,[role="button"],input[type="submit"],input[type="button"]{
+  min-height:44px}
+a{display:inline-flex;align-items:center}
+a.inline-link,p a,li a,.dis a,.fnote a{display:inline;min-height:0}
+input,textarea,select{font-size:16px}
+@media(max-width:480px){
+  body{-webkit-text-size-adjust:100%}
+}
+</style>
+<link href="assets/smn-readability-fix.css?v=1" rel="stylesheet"/>
+<style>/* CO226 founder-tool aurora */
+body{background:#FFFFFF!important;color:#141414!important;font-family:'Inter',system-ui,sans-serif!important}
+h1,h2{color:#2F3B35!important;font-weight:900!important}
+h1{background:linear-gradient(92deg,#127A40,#189850 45%,#189850);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+button,input[type=submit]{background:linear-gradient(92deg,#189850,#189850)!important;color:#fff!important;border:0!important;border-radius:12px!important;font-weight:800!important}
+input,textarea,select{background:#F4F6F5!important;color:#FFFFFF!important;border:1px solid rgba(20,60,40,.2)!important;border-radius:12px!important}
+::placeholder{color:#565656!important}
+a{color:#189850!important}
+p,li,td,label,span,div{color:#404040}
+b,strong,th{color:#141414!important}
+table,td,th{border-color:rgba(20,60,40,.16)!important}
+:focus-visible{outline:3px solid #127A40!important}
+</style><style>/* CO226b tool contrast */
+label{color:#2F3B35!important}
+.fpt{background:#F4F6F5!important;color:#404040!important;border-color:rgba(20,60,40,.2)!important}
+.warn{background:#3B1220!important;color:#C0392B!important;border-color:#189850!important}
+.hublink{color:#189850!important}
+</style><link href="/favicon-32.png" rel="icon" type="image/png"/><link href="/favicon.ico" rel="shortcut icon"/><link href="/icon-192.png" rel="apple-touch-icon"/><script>
+/* ERROR BOUNDARY (2026-07-25). Audit found window.onerror: 0, unhandledrejection: 0,
+   <noscript>: 0 across every page. One thrown error inside a render function produced a blank
+   card with no message and no clue — which is exactly how this afternoon's failure presented.
+   This never swallows the error (it still reaches the console); it guarantees the user is TOLD.
+   Placed in <head> so it is armed before any page script runs. */
+(function(){
+  var shown=false;
+  function boom(what){
+    if(shown)return; shown=true;
+    try{
+      var d=document.createElement('div');
+      d.setAttribute('role','alert');
+      d.style.cssText='position:fixed;left:12px;right:12px;'+
+        'bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:2147483000;'+
+        'padding:14px 16px;border-radius:12px;background:#FDF6F8;border:1px solid #189850;'+
+        'color:#127A40;font:600 14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;'+
+        'box-shadow:0 18px 44px -12px rgba(0,0,0,.6)';
+      d.textContent='Something went wrong on this page. Reload to try again. ('+String(what).slice(0,120)+')';
+      (document.body||document.documentElement).appendChild(d);
+    }catch(e){}
+  }
+  window.addEventListener('error',function(e){ boom((e&&e.message)||'script error'); });
+  window.addEventListener('unhandledrejection',function(e){
+    var r=e&&e.reason; boom((r&&(r.message||r))||'a request failed'); });
+})();
+</script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="css/uniform.css" rel="stylesheet"/>
+<meta content="#189850" name="theme-color"/>
+<link rel="stylesheet" href="css/site-footer.css">
+</head>
+<body data-smnfix="quality-check">
+<header>
+<h1>SparkMyName — QC Name Feed</h1>
+<p>Quality-control tool · text names only · no kits, no images, no checkout, no email · zero spend</p>
+</header>
+<div class="wrap">
+<div class="warn" id="originWarn"></div>
+<div class="panel">
+<label for="cats">Paste categories — one per line</label>
+<textarea id="cats" placeholder="luxury handbag boutique
+haute couture fashion house
+designer sunglasses brand
+fine jewelry atelier
+luxury watch brand"></textarea>
+<div class="row">
+<div class="field">
+<span>NAMES PER LANE (max 8)</span>
+<input id="perLane" max="8" min="1" style="width:90px" type="number" value="6"/>
+</div>
+<div class="field">
+<span>LANES</span>
+<div id="laneBoxes" style="display:flex;gap:12px;font-size:.8125rem">
+<label style="font-weight:400;color:var(--ink)"><input checked="" class="lc" type="checkbox" value="professional"/> Professional</label>
+<label style="font-weight:400;color:var(--ink)"><input checked="" class="lc" type="checkbox" value="standard"/> Standard</label>
+<label style="font-weight:400;color:var(--ink)"><input checked="" class="lc" type="checkbox" value="clever"/> Clever</label>
+<label style="font-weight:400;color:var(--ink)"><input checked="" class="lc" type="checkbox" value="human"/> Human Touch</label>
+</div>
+</div>
+</div>
+<div class="bar">
+<button class="go" id="runBtn">▶ Run feed</button>
+<button class="ghost" disabled="" id="stopBtn">■ Stop</button>
+<button class="ghost" id="testBtn">Test connection</button>
+<span class="status" id="status">Idle.</span>
+</div>
+<div class="diag" id="diag"></div>
+<p class="conn" style="margin-top:14px">Generator endpoint: <b id="epShow"></b></p>
+<p class="note" style="margin-top:6px">
+      Calls <b>only</b> clean-names (your name generator, text). It never touches the kit-builder,
+      the art department, image generation, checkout, or email — so there is <b>no image cost and no spend</b>.
+      Your generator caps at <b>8 names per lane</b> and only returns names whose domain is still available.
+      Press <b>Test connection</b> first.
+    </p>
+</div>
+<div class="panel">
+<div class="feedhead">
+<label style="margin:0">Live feed</label>
+<span class="count" id="prog"></span>
+</div>
+<textarea id="feed" placeholder="Names will scroll in here as each category is generated…" readonly=""></textarea>
+<div class="bar">
+<button class="ghost" disabled="" id="copyBtn">Copy all</button>
+<button class="ghost" disabled="" id="txtBtn">Download.txt</button>
+<button class="ghost" id="clearBtn">Clear feed</button>
+</div>
+</div>
+</div>
+<footer class="ft"><div class="wrap">
+<div class="ftgrid">
+<div class="ftbrand">
+<a class="wm" href="index.html"><span class="mk"><svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.3l2.7 6.3 6.8.6-5.2 4.5 1.6 6.7-5.9-3.6-5.9 3.6 1.6-6.7-5.2-4.5 6.8-.6z" fill="#fff"></path></svg></span>Spark<span>MyName</span><sup class="tm">&trade;</sup></a>
+<p>Say one sentence. Get a complete brand &mdash; and everything you need to launch it.</p>
+</div>
+<div class="ftcol"><h3>Product</h3>
+<a href="how-it-works.html">How it works</a>
+<a href="what-you-get.html">What you get</a>
+<a href="see-the-work.html">See the work</a>
+<a href="pricing.html">Pricing</a>
+<a href="demo.html">Demo workspace</a>
+<a href="checkout.html" data-checkout>Get started</a></div>
+<div class="ftcol"><h3>Company</h3>
+<a href="about.html">About</a>
+<a href="success-path.html">The Success Path</a>
+<a href="affiliate.html">Affiliate program</a>
+<a href="press.html">Press</a></div>
+<div class="ftcol"><h3>Support</h3>
+<a href="support.html">Help &amp; support</a>
+<a href="status.html">Status</a>
+</div>
+<div class="ftcol"><h3>Legal</h3>
+<a href="privacy.html">Privacy</a>
+<a href="terms.html">Terms</a>
+<a href="cookies.html">Cookies</a>
+<a href="refund.html">Refunds</a>
+<a href="accessibility.html">Accessibility</a>
+<a href="security.html">Security</a></div>
+</div>
+<div class="ftlegal">
+<p>AI-generated suggestions are for informational purposes only and are not legal, trademark, tax, financial, or domain-registration advice &mdash; consult a qualified professional. We do not perform trademark clearance, and we do not build or host customer websites.</p>
+<p>&copy; 2026 SparkMyName<sup class="tm">&trade;</sup> &middot; Owned by VORREX IGNITE LLC &middot; U.S. Patent Pending (App. 19/704,386) &middot; Trademark application pending, Serial No. 50014040 &mdash; not registered.<span style="display:block;margin-top:6px;font-size:11px;opacity:.55">Site build: SPACIOUS RESKIN &middot; July 29, 2026</span></p>
+</div>
+</div></footer>
+<script>
+/* CONTRACT (verified against live clean-names.js, Jul 1 2026):
+     POST /.netlify/functions/clean-names
+       body: { seed, count:2..8, avoid:[], lanes:["professional"|"standard"|"clever"|"human"] }
+     returns 200 always:
+       ok:    { names:[{name, lane, why, domain, ...}] }
+       error: { error:"..." }        (also 200 — must read .error)
+   Only endpoint this tool ever calls. No kits, images, checkout, or email. */
+
+const FN_BASE = location.origin;
+const CLEAN_NAMES_URL = FN_BASE + "/.netlify/functions/clean-names";
+const LANE_LABEL = { professional:"Professional", standard:"Standard", clever:"Clever", human:"Human Touch" };
+
+const $ = s => document.querySelector(s);
+const feed = $("#feed");
+let stopFlag = false;
+
+$("#epShow").textContent = CLEAN_NAMES_URL;
+
+(function checkOrigin(){
+  const w = $("#originWarn");
+  if (location.protocol === "file:" || FN_BASE === "null" || !/^https?:/.test(FN_BASE)) {
+    w.innerHTML = "<b>This page is not being served from your live site.</b> It looks opened directly from a " +
+      "folder (file://). The generator is only reachable when this page is live. Deploy it, then open " +
+      "<b>https://sparkmyname.netlify.app/quality-check.html</b>.";
+    w.classList.add("show");
+  } else if (!/sparkmyname\.netlify\.app|sparkmyname\.com/.test(location.host)) {
+    w.innerHTML = "Heads up: running on <b>" + esc(location.host) + "</b>, not your live SparkMyName site. " +
+      "Calls go to <b>" + esc(CLEAN_NAMES_URL) + "</b>.";
+    w.classList.add("show");
+  }
+})();
+
+function laneList(){ return [...document.querySelectorAll(".lc")].filter(c=>c.checked).map(c=>c.value); }
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function append(text){ feed.value += text; feed.scrollTop = feed.scrollHeight; }
+
+async function callLane(seed, lane, perLane){
+  let res, data;
+  try{
+    res = await fetch(CLEAN_NAMES_URL, {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ seed, count:perLane, avoid:[], lanes:[lane] })
+    });
+  }catch(e){ return { names:[], error:"network error" }; }
+  if(!res.ok){ return { names:[], error:"HTTP "+res.status }; }
+  try{ data = await res.json(); }catch(e){ return { names:[], error:"bad JSON" }; }
+  if(data && data.error){ return { names:[], error:String(data.error) }; }
+  const arr = Array.isArray(data && data.names) ? data.names : [];
+  const names = arr.map(n => (typeof n==="string") ? n : ((n && (n.name||n.title)) || "")).filter(Boolean);
+  return { names, error:null };
+}
+
+async function run(){
+  const cats = $("#cats").value.split("\n").map(s=>s.trim()).filter(Boolean);
+  const lanes = laneList();
+  const perLane = Math.max(1, Math.min(8, parseInt($("#perLane").value)||6));
+  $("#perLane").value = perLane;
+  if(!cats.length){ $("#status").textContent="Paste at least one category."; return; }
+  if(!lanes.length){ $("#status").textContent="Select at least one lane."; return; }
+
+  stopFlag = false;
+  $("#runBtn").disabled=true; $("#stopBtn").disabled=false;
+  $("#copyBtn").disabled=true; $("#txtBtn").disabled=true;
+  $("#diag").className="diag";
+
+  const header =
+    "SparkMyName — QC Name Feed — " + new Date().toISOString().slice(0,10) + "\n" +
+    "Names per lane: " + perLane + "  ·  Lanes: " + lanes.map(l=>LANE_LABEL[l]).join(", ") + "\n" +
+    "========================================\n\n";
+  feed.value = header;
+
+  let done=0;
+  for(let i=0;i<cats.length;i++){
+    if(stopFlag){ append("\n[stopped at " + i + " of " + cats.length + "]\n"); break; }
+    const cat = cats[i];
+    $("#status").textContent = "Generating " + (i+1) + " of " + cats.length + ": " + cat;
+    append("[" + (i+1) + "] " + cat + "\n");
+
+    // fire the lanes for this category in parallel, then print in lane order
+    const results = {};
+    await Promise.all(lanes.map(async lane => { results[lane] = await callLane(cat, lane, perLane); }));
+
+    for(const lane of lanes){
+      const r = results[lane];
+      const label = LANE_LABEL[lane];
+      if(r.error){ append("  " + label + ": [error: " + r.error + "]\n"); }
+      else if(r.names.length){ append("  " + label + ": " + r.names.join(", ") + "\n"); }
+      else { append("  " + label + ": (none — model empty or domains taken)\n"); }
+    }
+    append("\n");
+    done++;
+    $("#prog").textContent = done + " / " + cats.length + " complete";
+    $("#copyBtn").disabled=false; $("#txtBtn").disabled=false;
+  }
+
+  $("#runBtn").disabled=false; $("#stopBtn").disabled=true;
+  if(!stopFlag){ $("#status").textContent = "Done — " + done + " categories."; append("[done]\n"); }
+}
+
+async function testConnection(){
+  const d = $("#diag");
+  d.className="diag"; d.textContent="";
+  $("#status").textContent="Testing connection…";
+  const r = await callLane("coffee shop", "professional", 3);
+  if(r.error){
+    d.className="diag bad";
+    d.innerHTML = "<b>Generator NOT reachable.</b> Reason: " + esc(r.error) + "<br>Endpoint: " + esc(CLEAN_NAMES_URL);
+    $("#status").textContent="Connection failed.";
+  } else {
+    d.className="diag ok";
+    d.innerHTML = "<b>Generator reachable.</b> Sample “coffee shop” names: " +
+      (r.names.length ? r.names.map(esc).join(" · ") : "(0 returned)");
+    $("#status").textContent="Connection OK.";
+  }
+}
+
+function download(name,text){
+  const b=new Blob([text],{type:"text/plain"}); const u=URL.createObjectURL(b);
+  const a=document.createElement("a"); a.href=u; a.download=name; a.click(); URL.revokeObjectURL(u);
+}
+
+$("#runBtn").onclick = run;
+$("#stopBtn").onclick = ()=>{ stopFlag=true; };
+$("#testBtn").onclick = testConnection;
+$("#copyBtn").onclick = ()=>{ navigator.clipboard.writeText(feed.value).then(()=>{ $("#status").textContent="Copied all to clipboard."; }); };
+$("#txtBtn").onclick = ()=>{ download("sparkmyname_qc_" + new Date().toISOString().slice(0,10) + "_" + Date.now() + ".txt", feed.value); };
+$("#clearBtn").onclick = ()=>{ feed.value=""; $("#prog").textContent=""; $("#copyBtn").disabled=true; $("#txtBtn").disabled=true; $("#status").textContent="Cleared."; };
+</script>
+</body>
+</html>

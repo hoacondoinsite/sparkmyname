@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Spark Design System — concept, July 27 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================================
+   SPARK DESIGN SYSTEM — CONCEPT (July 27 2026)
+   Built from evidence, not opinion. Every value below traces to a source in the
+   45-source research pass, or to a measured fault in the current workspace.
+
+   WHAT THIS REPLACES (measured from the live workspace today):
+     62 distinct font sizes  ->  7
+     38 distinct hex colors  ->  11
+     25 distinct radii       ->  5
+   ========================================================================== */
+:root{
+  /* ---- SURFACES (3). One dominant neutral system. ---------------------- */
+  --bg:        #0A1428;   /* the ground */
+  --panel:     #101F3D;   /* cards, panels */
+  --panel-up:  #16294B;   /* raised: hover, nested, active */
+
+  /* ---- INK (3). Three steps only. Was 4+ near-identical whites. -------- */
+  --ink:       #FFFFFF;   /* primary text — solid white, no shades */
+  --ink-2:     #B9CBE8;   /* secondary */
+  --ink-3:     #8399BD;   /* meta — passes 4.5:1 on --bg */
+
+  /* ---- LINE ------------------------------------------------------------ */
+  --line:      rgba(160,190,255,.18);
+  --line-str:  rgba(160,190,255,.34);
+
+  /* ---- ONE ACTION COLOR. Everything clickable-primary is this. --------- */
+  --action:    linear-gradient(92deg,#7C5CFF,#FF4D8D);
+  --action-1:  #7C5CFF;
+  --action-2:  #FF4D8D;
+
+  /* ---- ACCENTS (2), used sparingly — the 10% in 60-30-10 -------------- */
+  --cyan:      #21D4FD;
+  --amber:     #FFB020;
+
+  /* ---- SEMANTIC (2). Never large fills. Never doubles as brand. -------- */
+  --ok:        #3BE88F;
+  --stop:      #FF6B6B;
+
+  /* ---- TYPE SCALE: 16px base, 1.25 Major Third. 7 steps, no others. ---- */
+  --t-meta:    13px;   /* labels, captions            */
+  --t-body:    16px;   /* body — the accessibility floor */
+  --t-lead:    20px;   /* lead paragraphs, section heads */
+  --t-head:    25px;   /* card / panel titles         */
+  --t-title:   31px;   /* page titles                 */
+  --t-display: 39px;   /* display                     */
+  --t-hero:    49px;   /* hero                        */
+
+  /* ---- SHAPE: 5 tokens. Scale with the element's shortest side. -------- */
+  --r-sm:      8px;    /* chips, tags, small controls */
+  --r-md:      12px;   /* inputs, tiles               */
+  --r-lg:      18px;   /* cards, panels               */
+  --r-xl:      26px;   /* major containers            */
+  --r-full:    999px;  /* actions, pills, avatars     */
+
+  /* ---- SPACE: 8pt grid ------------------------------------------------- */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--ink-2);
+  font-family:Inter,system-ui,-apple-system,sans-serif;
+  font-size:var(--t-body);line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+/* living aurora behind everything — the "glass needs something to distort" rule */
+.aurora{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.30}
+.orb.a{width:620px;height:620px;background:#7C5CFF;top:-180px;left:-120px}
+.orb.b{width:520px;height:520px;background:#21D4FD;top:32%;right:-160px;opacity:.20}
+.orb.c{width:480px;height:480px;background:#FF4D8D;bottom:-200px;left:28%;opacity:.18}
+.wrap{max-width:1180px;margin:0 auto;padding:var(--s7) var(--s5) var(--s8)}
+.eyebrow{font-size:var(--t-meta);font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin:0 0 var(--s3)}
+h1{font-size:var(--t-hero);font-weight:900;letter-spacing:-.03em;line-height:1.04;color:var(--ink);margin:0 0 var(--s4)}
+h2{font-size:var(--t-title);font-weight:900;letter-spacing:-.02em;line-height:1.1;color:var(--ink);margin:0 0 var(--s3)}
+h3{font-size:var(--t-head);font-weight:800;letter-spacing:-.01em;color:var(--ink);margin:0 0 var(--s3)}
+p{margin:0 0 var(--s4);max-width:68ch}
+.lead{font-size:var(--t-lead);color:var(--ink-2)}
+section{margin:var(--s8) 0 0;padding-top:var(--s6);border-top:1px solid var(--line)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--s5)}
+.grid{display:grid;gap:var(--s4)}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+
+/* ---- THE VERDICT BOARD ---- */
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:var(--s4)}
+.v{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--s5)}
+.v .was{font-size:var(--t-meta);font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.v .num{font-size:var(--t-display);font-weight:900;letter-spacing:-.02em;color:var(--ink);line-height:1.1;margin:var(--s2) 0}
+.v .num s{color:var(--stop);text-decoration-thickness:3px;opacity:.85}
+.v .num b{background:linear-gradient(92deg,var(--cyan),var(--action-1) 55%,var(--action-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.v .why{font-size:var(--t-meta);color:var(--ink-3)}
+
+/* ---- TYPE SPECIMENS ---- */
+.spec{display:flex;align-items:baseline;gap:var(--s4);padding:var(--s3) 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.spec .tag{font-size:var(--t-meta);font-weight:700;color:var(--ink-3);min-width:150px;font-variant-numeric:tabular-nums}
+.spec .samp{color:var(--ink);font-weight:700}
+
+/* ---- SWATCHES ---- */
+.sw{border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line)}
+.sw .chip{height:74px}
+.sw .meta{padding:var(--s3);background:var(--panel)}
+.sw .nm{font-size:var(--t-meta);font-weight:800;color:var(--ink)}
+.sw .hx{font-size:var(--t-meta);color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+/* ---- BUTTONS: ONE action shape. Pills, because they read as actions. ---- */
+.btn{display:inline-flex;align-items:center;gap:var(--s2);border:0;cursor:pointer;
+  font:inherit;font-size:var(--t-body);font-weight:800;padding:14px 28px;
+  border-radius:var(--r-full);background:var(--action);color:#fff;
+  box-shadow:0 12px 30px -12px rgba(255,77,141,.55);transition:transform .16s ease,filter .16s ease}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line-str);box-shadow:none}
+.btn.ghost:hover{background:var(--panel-up)}
+.btn.sm{font-size:var(--t-meta);padding:10px 18px}
+.chipstat{display:inline-flex;align-items:center;gap:var(--s2);border-radius:var(--r-full);
+  padding:9px 18px;font-size:var(--t-meta);font-weight:700;color:var(--ink);
+  background:var(--panel-up);border:1px solid var(--line)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none}
+
+/* ---- SHAPE LADDER ---- */
+.shape{background:var(--panel-up);border:1px solid var(--line);height:88px;display:flex;
+  align-items:center;justify-content:center;font-size:var(--t-meta);font-weight:700;color:var(--ink)}
+
+/* ---- THE PAYOFF: masthead rebuilt under the new system ---- */
+.demo{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden}
+.demo-shot{aspect-ratio:21/8;background:
+  linear-gradient(115deg,#123 0%,#1b2f57 40%,#3a2a5c 100%);position:relative;display:flex;align-items:flex-end}
+.demo-shot .nm{padding:var(--s5) var(--s6);font-size:var(--t-display);font-weight:900;color:#fff;letter-spacing:-.02em;line-height:1.05}
+.demo-shot .nm span{display:block;font-size:var(--t-lead);font-weight:500;opacity:.9;margin-top:var(--s2)}
+.demo-body{padding:var(--s7) var(--s6);text-align:center}
+.mark{max-width:460px;margin:0 auto var(--s5);background:#fff;border-radius:var(--r-lg);
+  padding:var(--s4) var(--s5);display:flex;align-items:center;justify-content:center;
+  box-shadow:0 26px 56px -26px rgba(124,92,255,.6)}
+.mark .fake{font-size:34px;font-weight:900;letter-spacing:-.02em;color:#0A1428}
+.demo-dom{font-size:var(--t-head);font-weight:700;color:var(--ink-2);margin-bottom:var(--s4)}
+.quote{margin:var(--s6) 0 0;padding:var(--s5) var(--s5) var(--s5) var(--s7);position:relative;
+  border:1px solid var(--line);border-radius:var(--r-lg);background:var(--panel-up);text-align:left}
+.quote::before{content:"\201C";position:absolute;left:var(--s4);top:2px;font-size:76px;line-height:1;
+  color:var(--action-1);font-family:Georgia,serif}
+.quote .k{font-size:var(--t-meta);font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:var(--s2)}
+.quote .v{font-size:var(--t-lead);font-weight:600;color:var(--ink);line-height:1.5}
+.note{font-size:var(--t-meta);color:var(--ink-3);margin-top:var(--s3)}
+.rule-list{list-style:none;padding:0;margin:0}
+.rule-list li{padding:var(--s3) 0;border-bottom:1px solid var(--line);display:flex;gap:var(--s3);align-items:flex-start}
+.rule-list li b{color:var(--ink);font-weight:800;min-width:0}
+.tick{color:var(--ok);font-weight:900;flex:none}
+@media(max-width:640px){
+  :root{--t-hero:34px;--t-display:29px;--t-title:25px;--t-head:20px}
+  .wrap{padding:var(--s5) var(--s4) var(--s7)}
+  .demo-body{padding:var(--s5) var(--s4)}
+}
+</style>
+</head>
+<body>
+<div class="aurora"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
+
+<div class="wrap">
+
+  <p class="eyebrow">Concept · not live · July 27 2026</p>
+  <h1>A design system built<br>from evidence.</h1>
+  <p class="lead">No inherited rules. Every value below traces to a measured fault in the current
+  workspace, or to a source in the 45-source research pass. Fewer decisions, made once, applied everywhere.</p>
+
+  <section>
+    <p class="eyebrow">What we measured</p>
+    <h2>The real problem was never taste.</h2>
+    <p>It was entropy. These are counted from the live workspace stylesheet today — not estimates.</p>
+    <div class="verdict">
+      <div class="v"><div class="was">Font sizes</div><div class="num"><s>62</s> &rarr; <b>7</b></div>
+        <div class="why">Most text sat at 11–15px. The new floor is 16px.</div></div>
+      <div class="v"><div class="was">Colours</div><div class="num"><s>38</s> &rarr; <b>11</b></div>
+        <div class="why">Four near-identical whites competed. Now three ink steps.</div></div>
+      <div class="v"><div class="was">Corner radii</div><div class="num"><s>25</s> &rarr; <b>5</b></div>
+        <div class="why">Shapes disagreed on every row. Now they scale with size.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Law 1</p>
+    <h2>One type scale. Seven steps. Nothing else.</h2>
+    <p>16px base, 1.25 ratio. Body is the accessibility floor, never a design choice.
+    Hierarchy comes from <b style="color:var(--ink)">weight</b> as much as size — so the scale can stay calm
+    while the page still feels bold.</p>
+    <div class="card">
+      <div class="spec"><span class="tag">--t-hero · 49px · 900</span><span class="samp" style="font-size:var(--t-hero);font-weight:900;letter-spacing:-.03em">Beachside Audio</span></div>
+      <div class="spec"><span class="tag">--t-display · 39px · 900</span><span class="samp" style="font-size:var(--t-display);font-weight:900;letter-spacing:-.02em">Beachside Audio</span></div>
+      <div class="spec"><span class="tag">--t-title · 31px · 900</span><span class="samp" style="font-size:var(--t-title);font-weight:900">Your brand kit</span></div>
+      <div class="spec"><span class="tag">--t-head · 25px · 800</span><span class="samp" style="font-size:var(--t-head);font-weight:800">Colour palettes</span></div>
+      <div class="spec"><span class="tag">--t-lead · 20px · 500</span><span class="samp" style="font-size:var(--t-lead);font-weight:500;color:var(--ink-2)">The lead line that carries the promise.</span></div>
+      <div class="spec"><span class="tag">--t-body · 16px · 400</span><span class="samp" style="font-size:var(--t-body);font-weight:400;color:var(--ink-2)">Body copy. This is the floor — nothing a client reads goes below it.</span></div>
+      <div class="spec" style="border:0"><span class="tag">--t-meta · 13px · 700</span><span class="samp" style="font-size:var(--t-meta);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)">Labels only</span></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Law 2</p>
+    <h2>Eleven colours. Three do the work.</h2>
+    <p>Surfaces carry 60% of the screen, panels 30%, accent 10%. Semantic colours signal status only —
+    they never become brand colours, and never fill a large area.</p>
+    <div class="grid g4" style="margin-bottom:var(--s4)">
+      <div class="sw"><div class="chip" style="background:#0A1428"></div><div class="meta"><div class="nm">Ground</div><div class="hx">#0A1428</div></div></div>
+      <div class="sw"><div class="chip" style="background:#101F3D"></div><div class="meta"><div class="nm">Panel</div><div class="hx">#101F3D</div></div></div>
+      <div class="sw"><div class="chip" style="background:#16294B"></div><div class="meta"><div class="nm">Panel raised</div><div class="hx">#16294B</div></div></div>
+      <div class="sw"><div class="chip" style="background:linear-gradient(92deg,#7C5CFF,#FF4D8D)"></div><div class="meta"><div class="nm">Action</div><div class="hx">violet &rarr; pink</div></div></div>
+    </div>
+    <div class="grid g4">
+      <div class="sw"><div class="chip" style="background:#FFFFFF"></div><div class="meta"><div class="nm">Ink</div><div class="hx">#FFFFFF</div></div></div>
+      <div class="sw"><div class="chip" style="background:#B9CBE8"></div><div class="meta"><div class="nm">Ink 2</div><div class="hx">#B9CBE8</div></div></div>
+      <div class="sw"><div class="chip" style="background:#8399BD"></div><div class="meta"><div class="nm">Ink 3</div><div class="hx">#8399BD</div></div></div>
+      <div class="sw"><div class="chip" style="background:#21D4FD"></div><div class="meta"><div class="nm">Cyan · info</div><div class="hx">#21D4FD</div></div></div>
+      <div class="sw"><div class="chip" style="background:#FFB020"></div><div class="meta"><div class="nm">Amber · attention</div><div class="hx">#FFB020</div></div></div>
+      <div class="sw"><div class="chip" style="background:#3BE88F"></div><div class="meta"><div class="nm">Green · status</div><div class="hx">#3BE88F</div></div></div>
+      <div class="sw"><div class="chip" style="background:#FF6B6B"></div><div class="meta"><div class="nm">Red · stop</div><div class="hx">#FF6B6B</div></div></div>
+    </div>
+    <p class="note">Green survives — but only as an 8px dot beside words, never as a filled capsule.
+    That is the rule that fixes the masthead.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Law 3</p>
+    <h2>Five shapes, and they scale.</h2>
+    <p>Small things get small corners, big things get big corners, actions are pills.
+    Nested corners follow one formula: <b style="color:var(--ink)">inner = outer − padding</b>.</p>
+    <div class="grid g3">
+      <div><div class="shape" style="border-radius:var(--r-sm)">8px · chips</div></div>
+      <div><div class="shape" style="border-radius:var(--r-md)">12px · inputs, tiles</div></div>
+      <div><div class="shape" style="border-radius:var(--r-lg)">18px · cards</div></div>
+      <div><div class="shape" style="border-radius:var(--r-xl)">26px · containers</div></div>
+      <div><div class="shape" style="border-radius:var(--r-full)">pill · every action</div></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Law 4</p>
+    <h2>One primary action per view.</h2>
+    <p>Every action is a pill — the shape you already picked as right. One is filled; the rest are outlines.
+    Three visible maximum, then an overflow. Tabs are not buttons and must never look like them.</p>
+    <div class="card">
+      <div style="display:flex;gap:var(--s3);flex-wrap:wrap;align-items:center;margin-bottom:var(--s5)">
+        <button class="btn">&#8681; Download everything</button>
+        <button class="btn ghost">Share</button>
+        <button class="btn ghost">More</button>
+      </div>
+      <div style="display:flex;gap:var(--s5);border-bottom:1px solid var(--line);flex-wrap:wrap">
+        <span style="padding:0 0 var(--s3);font-weight:800;color:var(--ink);border-bottom:2px solid var(--action-1);margin-bottom:-1px">Launch</span>
+        <span style="padding:0 0 var(--s3);color:var(--ink-3);font-weight:600">Grow</span>
+        <span style="padding:0 0 var(--s3);color:var(--ink-3);font-weight:600">Downloads</span>
+        <span style="padding:0 0 var(--s3);color:var(--ink-3);font-weight:600">Extras</span>
+      </div>
+      <p class="note">Tabs read as tabs. Buttons read as buttons. Nothing competes.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">The payoff</p>
+    <h2>The same masthead, under the new laws.</h2>
+    <p>Photograph leads. The wordmark gets room to breathe. Availability is a quiet status, not a green slab.
+    The client's own sentence is the loudest text on the page — because it should be.</p>
+    <div class="demo">
+      <div class="demo-shot"><div class="nm">Beachside Audio Shop<span>Catch the Wave of Sound</span></div></div>
+      <div class="demo-body">
+        <div class="mark"><div class="fake">BEACHSIDE AUDIO</div></div>
+        <div class="demo-dom">beachsideaudioshop.com</div>
+        <span class="chipstat"><span class="dot"></span> Available to register</span>
+        <div class="quote">
+          <div class="k">Your idea — in your own words</div>
+          <div class="v">Audio store selling audio gear, all types large selection in Palm Beach</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">What stays</p>
+    <h2>Three rules I did not throw out.</h2>
+    <ul class="rule-list">
+      <li><span class="tick">&#10003;</span><span><b>The Truth Standard.</b> Nothing on screen may claim more than the code actually does. This is not an aesthetic rule — it is what keeps you honest with paying customers.</span></li>
+      <li><span class="tick">&#10003;</span><span><b>&trade; everywhere, &reg; nowhere.</b> The application is pending, not registered. Using &reg; early is unlawful and can jeopardise the filing.</span></li>
+      <li><span class="tick">&#10003;</span><span><b>Small tested batches.</b> One coherent change per disc, tested before it ships. This one has broken checkout before.</span></li>
+    </ul>
+    <p class="note" style="margin-top:var(--s5)">Everything else — the 12px rule, the old scale, the banned palette — is gone.
+    What replaces it is above, and it is short enough to hold in your head.</p>
+  </section>
+
+</div>
+</body>
+</html>

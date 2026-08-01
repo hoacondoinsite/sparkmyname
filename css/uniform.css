@@ -1,0 +1,49 @@
+/* ============================================================
+   SPARKMYNAME CONSISTENCY LAYER — loaded LAST on every page.
+   One font family site-wide (Sora heads / Inter body) except
+   customer-font previews (inline styles, which win over this).
+   TM: larger, superscript, upper-right — per INTA convention.
+   Capsules: 44px min tap height per Apple HIG / WCAG 2.5.5.
+   ============================================================ */
+.tm, sup.tm{font-size:.62em !important;font-weight:800 !important;
+  vertical-align:super !important;line-height:0;opacity:.9;margin-left:1px}
+button, .btn, a.btn, input[type="submit"], a[data-checkout]{min-height:44px}
+nav a{min-height:44px;display:inline-flex;align-items:center}
+
+/* ===== READABILITY GUARANTEE (Founder order, July 29 morning) =====
+   Typing areas and workspace navigation must ALWAYS be readable. */
+input, textarea, select{color:#141414 !important;background-color:#FFFFFF !important;
+  border-color:rgba(0,0,0,.28) !important;caret-color:#141414}
+input::placeholder, textarea::placeholder{color:#5A5A5A !important;opacity:1}
+.rail a, .rail button, .wsnav a, .wsnav button, .guide-nav a, .guide-nav button{
+  color:#1B241F !important;text-shadow:none !important}
+.rail .on, .wsnav .on, .rail [aria-current], .wsnav [aria-current]{
+  background:#EFEFEF !important;color:#141414 !important;border-radius:10px;font-weight:800}
+/* TM per Founder spec: closer, bigger, raised */
+.tm, sup.tm{font-size:.74em !important;font-weight:800 !important;
+  vertical-align:baseline !important;position:relative;top:-.45em;margin-left:0 !important}
+/* Mobile layout tightening */
+@media(max-width:480px){
+  html,body{overflow-x:hidden}
+  .wrap{padding-left:18px;padding-right:18px}
+  .section{padding-top:44px;padding-bottom:44px}
+  .hero-h{font-size:clamp(30px,9vw,38px)}
+  .showgrid,.mosaic,.dgrid{gap:14px}
+  .page-hero-img{margin:18px 0 6px}
+  img{max-width:100%;height:auto}
+}
+
+/* ===== EDITORIAL READING RHYTHM (site-wide, July 29) ===== */
+p{line-height:1.62}
+li{line-height:1.55}
+h1,h2,h3{letter-spacing:-.015em}
+
+/* ===== BRAND-CARD LEGIBILITY GUARANTEE (July 29) =====
+   Default ink is dark everywhere; only explicit design colors override it. */
+body{color:#141414}
+
+/* ===== CARD READABILITY — research-backed (10 sources, July 29) =====
+   Black on white, 1.55+ line-height, measured line lengths, spaced caps. */
+blockquote, figure, li, td, dd, p{line-height:1.55}
+[class*="rl-"], [class*="ov-"]{max-width:72ch}
+b[class], h3, h4{letter-spacing:.01em}

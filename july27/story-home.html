@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SparkMyName&trade; — Say one sentence. Get a whole brand.</title>
+<meta name="description" content="One sentence in, a complete brand out. Six curated names with the domains already checked, a logo suite, colors, type, the words to launch with, seven cinematic photographs. $99, one time, yours forever.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================================
+   CONCEPT PAGE — /july27/. Not linked from anywhere, not in the sitemap, not live.
+   Built on the design system set in the workspace on 27 July 2026: seven type
+   steps, five shape tokens, three ink steps. Nothing here invents a new size,
+   a new radius or a new color.
+   ========================================================================== */
+:root{
+  /* type: 16px base, 1.25 ratio */
+  --t-meta:13px; --t-body:16px; --t-lead:20px; --t-head:25px;
+  --t-title:31px; --t-display:39px; --t-hero:49px;
+  /* ink: three steps, nothing between */
+  --ink1:#FFFFFF; --ink2:#B9CBE8; --ink3:#8399BD;
+  /* surfaces */
+  --bg:#0A1428; --panel:#102143; --panel2:#0D1B38;
+  --line:rgba(160,190,255,.18);
+  /* accents */
+  --cyan:#21D4FD; --violet:#7C5CFF; --pink:#FF4D8D; --amber:#FFB020; --ok:#3BE88F;
+  /* shape */
+  --r-sm:8px; --r-md:12px; --r-lg:18px; --r-xl:26px; --r-full:999px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink2);
+  font-family:Inter,system-ui,-apple-system,sans-serif;
+  font-size:var(--t-body);line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+h1,h2,h3{color:var(--ink1);letter-spacing:-.025em;line-height:1.1;margin:0}
+p{margin:0 0 18px}
+a{color:inherit}
+.eyebrow{font-size:var(--t-meta);font-weight:800;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:14px;position:relative}
+.grad{background:linear-gradient(92deg,var(--cyan),var(--violet) 55%,var(--pink));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{display:inline-flex;align-items:center;gap:9px;border:0;cursor:pointer;
+  font:inherit;font-size:var(--t-body);font-weight:800;padding:16px 32px;
+  border-radius:var(--r-full);text-decoration:none;
+  background:linear-gradient(92deg,var(--violet),var(--pink));color:#fff;
+  box-shadow:0 16px 40px -16px rgba(255,77,141,.6);transition:transform .16s ease,filter .16s ease}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
+.btn.ghost{background:none;border:1px solid var(--line);color:var(--ink1);box-shadow:none}
+.btn.ghost:hover{background:rgba(160,190,255,.08)}
+section{padding:88px 0}
+.rule{width:38px;height:3px;border-radius:var(--r-sm);margin-bottom:20px;
+  background:linear-gradient(92deg,var(--cyan),var(--violet) 55%,var(--pink))}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(10,20,40,.86);
+  backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;
+  gap:18px;padding-top:15px;padding-bottom:15px}
+.brand{font-size:var(--t-lead);font-weight:900;color:var(--ink1);
+  letter-spacing:-.03em;text-decoration:none}
+.navlinks{display:flex;gap:26px;font-size:var(--t-meta);font-weight:700}
+.navlinks a{color:var(--ink2);text-decoration:none}
+.navlinks a:hover{color:var(--ink1)}
+.nav .btn{padding:11px 22px;font-size:var(--t-meta)}
+@media(max-width:860px){.navlinks{display:none}}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;padding:104px 0 92px}
+.hero-img{position:absolute;inset:0;z-index:0}
+.hero-img img{width:100%;height:100%;object-fit:cover;opacity:.42}
+.hero-img::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,rgba(10,20,40,.97) 30%,rgba(10,20,40,.72) 62%,rgba(10,20,40,.9) 100%)}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{font-size:clamp(var(--t-display),6.4vw,64px);font-weight:900;max-width:16ch}
+.hero .sub{font-size:clamp(var(--t-lead),2.3vw,var(--t-head));color:var(--ink1);
+  font-weight:500;max-width:40ch;margin:22px 0 34px;line-height:1.45}
+.cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.underbtn{font-size:var(--t-meta);color:var(--ink2);margin-top:18px}
+
+/* ---------- COUNT BAR ---------- */
+.counts{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:var(--panel2);padding:34px 0}
+.countgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:26px;text-align:center}
+.count .v{font-size:var(--t-title);font-weight:900;color:var(--ink1);line-height:1}
+.count .k{font-size:var(--t-meta);color:var(--ink2);margin-top:7px}
+
+/* ---------- LADDER ---------- */
+.ladder{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-top:38px}
+.step{border:1px solid var(--line);background:var(--panel2);border-radius:var(--r-lg);padding:26px 24px;
+  box-shadow:0 26px 52px -38px rgba(124,92,255,.5)}
+.step .n{width:38px;height:38px;border-radius:var(--r-full);display:grid;place-items:center;
+  font-weight:900;font-size:var(--t-body);color:#fff;margin-bottom:16px;
+  background:linear-gradient(92deg,var(--violet),var(--pink))}
+.step h3{font-size:var(--t-lead);margin-bottom:8px}
+.step p{font-size:var(--t-meta);color:var(--ink2);margin:0;line-height:1.55}
+
+/* ---------- PROBLEM ---------- */
+.problem{background:var(--panel2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:34px}
+.pcard{border:1px solid var(--line);border-radius:var(--r-lg);padding:26px 24px;background:rgba(160,190,255,.04)}
+.pcard h3{font-size:var(--t-lead);margin-bottom:10px}
+.pcard p{font-size:var(--t-meta);color:var(--ink2);margin:0;line-height:1.6}
+.punch{font-size:clamp(var(--t-head),3vw,var(--t-title));font-weight:900;color:var(--ink1);
+  max-width:24ch;margin:40px auto 0;text-align:center;line-height:1.25}
+
+/* ---------- WHAT YOU GET ---------- */
+.getgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:36px}
+.get{border:1px solid var(--line);background:var(--panel2);border-radius:var(--r-lg);padding:22px 20px;
+  transition:transform .16s ease,border-color .16s ease}
+.get:hover{transform:translateY(-3px);border-color:rgba(124,92,255,.55)}
+.get .num{font-size:var(--t-head);font-weight:900;color:var(--ink1);line-height:1}
+.get .lab{font-size:var(--t-body);font-weight:800;color:var(--ink1);margin:8px 0 5px}
+.get .d{font-size:var(--t-meta);color:var(--ink2);line-height:1.55}
+
+/* ---------- SIX NAMES ---------- */
+.six{background:var(--panel2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.funnel{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-top:34px}
+.fstep{text-align:center;border:1px solid var(--line);border-radius:var(--r-lg);padding:24px 16px;
+  background:rgba(160,190,255,.04)}
+.fstep .v{font-size:var(--t-title);font-weight:900;color:var(--ink1);line-height:1}
+.fstep.final .v{background:linear-gradient(92deg,var(--cyan),var(--violet) 55%,var(--pink));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.fstep .k{font-size:var(--t-meta);color:var(--ink2);margin-top:8px;line-height:1.5}
+
+/* ---------- WORKSPACE ---------- */
+.wsgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:34px}
+.ws{border:1px solid var(--line);background:var(--panel2);border-radius:var(--r-lg);padding:24px 22px}
+.ws h3{font-size:var(--t-lead);margin-bottom:8px}
+.ws p{font-size:var(--t-meta);color:var(--ink2);margin:0;line-height:1.6}
+
+/* ---------- PRICE ---------- */
+.price{text-align:center}
+.pricebox{border:1px solid var(--line);background:var(--panel2);border-radius:var(--r-xl);
+  padding:52px 34px;max-width:640px;margin:34px auto 0;
+  box-shadow:0 40px 90px -50px rgba(124,92,255,.7)}
+.bignum{font-size:clamp(56px,10vw,84px);font-weight:900;color:var(--ink1);line-height:1;letter-spacing:-.04em}
+.once{font-size:var(--t-lead);color:var(--ink1);font-weight:700;margin-top:8px}
+.plist{list-style:none;padding:0;margin:28px 0 30px;text-align:left;max-width:420px;
+  margin-left:auto;margin-right:auto}
+.plist li{font-size:var(--t-body);color:var(--ink1);padding:9px 0 9px 30px;position:relative}
+.plist li::before{content:"\2713";position:absolute;left:0;color:var(--ok);font-weight:900}
+
+/* ---------- CLOSE ---------- */
+.close{text-align:center}
+.close h2{font-size:clamp(var(--t-title),4.6vw,52px);max-width:18ch;margin:0 auto 20px}
+
+/* ---------- FOOTER ---------- */
+footer{border-top:1px solid var(--line);padding:44px 0 54px;background:var(--panel2)}
+.fnote{font-size:var(--t-meta);color:var(--ink3);line-height:1.7;max-width:76ch}
+.fnote b{color:var(--ink2)}
+
+h2{font-size:clamp(var(--t-title),4vw,44px);font-weight:900}
+.lead{font-size:var(--t-lead);color:var(--ink1);max-width:56ch;line-height:1.55}
+@media(max-width:640px){section{padding:64px 0}.wrap{padding:0 20px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">SparkMyName&trade;</a>
+    <div class="navlinks">
+      <a href="#how">How it works</a>
+      <a href="#get">What you get</a>
+      <a href="#six">The six names</a>
+      <a href="#workspace">Your workspace</a>
+      <a href="#price">Price</a>
+    </div>
+    <a class="btn" href="#price">Start &rarr;</a>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero" id="top">
+  <div class="hero-img">
+    <picture>
+      <source media="(max-width:720px)" srcset="assets/story-hero-mobile.jpg">
+      <img src="assets/story-hero-2k.jpg" alt="" width="2000" height="1334" fetchpriority="high">
+    </picture>
+  </div>
+  <div class="wrap">
+    <div class="eyebrow">One sentence in. A complete brand out.</div>
+    <h1>Say one sentence.<br><span class="grad">Get a whole brand.</span></h1>
+    <p class="sub">Not a list of name ideas. A finished brand &mdash; names with the domains
+      already checked, a logo suite, colors, type, the words to launch with, and cinematic
+      photography. In about fifteen minutes.</p>
+    <div class="cta">
+      <a class="btn" href="#price">Build my brand &mdash; $99</a>
+      <a class="btn ghost" href="#how">See how it works</a>
+    </div>
+    <div class="underbtn">One time. No subscription. Yours forever, royalty free.</div>
+  </div>
+</header>
+
+<!-- ===================== COUNT BAR ===================== -->
+<div class="counts">
+  <div class="wrap countgrid">
+    <div class="count"><div class="v">6</div><div class="k">curated names</div></div>
+    <div class="count"><div class="v">21</div><div class="k">domain endings checked</div></div>
+    <div class="count"><div class="v">7</div><div class="k">cinematic photographs</div></div>
+    <div class="count"><div class="v">154</div><div class="k">files to download</div></div>
+    <div class="count"><div class="v">15<span style="font-size:var(--t-lead)">min</span></div><div class="k">to delivery</div></div>
+  </div>
+</div>
+
+<!-- ===================== THE LADDER ===================== -->
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow">How it works</div><div class="rule"></div>
+    <h2>Four steps. You only do the&nbsp;first&nbsp;one.</h2>
+    <p class="lead" style="margin-top:16px">Everything after the sentence happens without you.
+      Close the tab if you like &mdash; it keeps building.</p>
+    <div class="ladder">
+      <div class="step"><div class="n">1</div>
+        <h3>You say it</h3>
+        <p>One box. Speak it or type it. &ldquo;A kayak tour company on Lake Michigan.&rdquo;
+          That is the whole input.</p></div>
+      <div class="step"><div class="n">2</div>
+        <h3>We throw most of it away</h3>
+        <p>About 150 candidate names are generated, every taken domain is discarded, and the
+          rest are scored against a professional bar.</p></div>
+      <div class="step"><div class="n">3</div>
+        <h3>Six survive</h3>
+        <p>Logos, colors, type, photography and the words to launch with are built around each
+          one. You get an email.</p></div>
+      <div class="step"><div class="n">4</div>
+        <h3>It is yours</h3>
+        <p>A workspace that stays yours for life, holding every file, ready to download and
+          use anywhere.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== THE PROBLEM ===================== -->
+<section class="problem">
+  <div class="wrap">
+    <div class="eyebrow">Why this exists</div><div class="rule"></div>
+    <h2>A free chatbot gives you a&nbsp;list. Then the work&nbsp;starts.</h2>
+    <div class="pgrid">
+      <div class="pcard"><h3>You check every domain by hand</h3>
+        <p>Twenty names, twenty searches, and most of them are gone. That is an evening you do
+          not get back.</p></div>
+      <div class="pcard"><h3>You still have no logo</h3>
+        <p>A name is not a brand. There is nothing to put on a sign, a card, a shirt or a door.</p></div>
+      <div class="pcard"><h3>You still have no files</h3>
+        <p>Nothing to send a printer. No colors, no fonts, no photographs, no words to open with.</p></div>
+    </div>
+    <div class="punch">Free AI gives you homework.<br><span class="grad">Spark hands you a finished business.</span></div>
+  </div>
+</section>
+
+<!-- ===================== WHAT YOU GET ===================== -->
+<section id="get">
+  <div class="wrap">
+    <div class="eyebrow">What arrives</div><div class="rule"></div>
+    <h2>Every count below is&nbsp;guaranteed.</h2>
+    <p class="lead" style="margin-top:16px">Not &ldquo;up to.&rdquo; Not &ldquo;starting
+      from.&rdquo; These are the numbers the system enforces before anything is delivered.</p>
+    <div class="getgrid">
+      <div class="get"><div class="num">6</div><div class="lab">Names</div>
+        <div class="d">Curated, best first, each with eight plain-language reasons it works.</div></div>
+      <div class="get"><div class="num">21</div><div class="lab">Domain endings</div>
+        <div class="d">Checked live, per name. Only names with an available .com survive.</div></div>
+      <div class="get"><div class="num">5</div><div class="lab">Logo files</div>
+        <div class="d">Primary, icon, wordmark, emblem, outline. All vector.</div></div>
+      <div class="get"><div class="num">7</div><div class="lab">Photographs</div>
+        <div class="d">Cinematic, 2K, made for your business. Yours to use anywhere.</div></div>
+      <div class="get"><div class="num">3</div><div class="lab">Color palettes</div>
+        <div class="d">Four values each, with a mood note explaining the choice.</div></div>
+      <div class="get"><div class="num">4</div><div class="lab">Font pairings</div>
+        <div class="d">Heading and body, chosen for your category.</div></div>
+      <div class="get"><div class="num">6</div><div class="lab">Taglines</div>
+        <div class="d">Plus six voice directions, six bios and three about paragraphs.</div></div>
+      <div class="get"><div class="num">6</div><div class="lab">Launch posts</div>
+        <div class="d">Ready to post, plus LinkedIn and Facebook introductions.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SIX NAMES ===================== -->
+<section class="six" id="six">
+  <div class="wrap">
+    <div class="eyebrow">The Six-Names Law</div><div class="rule"></div>
+    <h2>What we throw away is the&nbsp;product.</h2>
+    <p class="lead" style="margin-top:16px">Nineteen names sounds like a list somebody dumped
+      on you. Six sounds like a decision somebody made.</p>
+    <div class="funnel">
+      <div class="fstep"><div class="v">150</div><div class="k">names generated across six directions</div></div>
+      <div class="fstep"><div class="v">&darr;</div><div class="k">every taken .com discarded</div></div>
+      <div class="fstep"><div class="v">4.2</div><div class="k">the quality bar out of five. Below it, discarded</div></div>
+      <div class="fstep final"><div class="v">6</div><div class="k">delivered to you</div></div>
+    </div>
+    <p style="margin-top:30px;font-size:var(--t-lead);color:var(--ink1);max-width:56ch">
+      The 144 you never see are the reason the six are worth having.</p>
+  </div>
+</section>
+
+<!-- ===================== WORKSPACE ===================== -->
+<section id="workspace">
+  <div class="wrap">
+    <div class="eyebrow">Your workspace</div><div class="rule"></div>
+    <h2>A free workspace that stays yours&nbsp;for&nbsp;life.</h2>
+    <p class="lead" style="margin-top:16px">Everything lands in one place and stays there.
+      No subscription to keep it.</p>
+    <div class="wsgrid">
+      <div class="ws"><h3>154 files, ready to download</h3>
+        <p>Business cards, flyers, signage, social sets, merchandise artwork, invoices,
+          letterhead and more &mdash; already carrying your brand.</p></div>
+      <div class="ws"><h3>Eight AI tools that know your brand</h3>
+        <p>Write posts in your voice, refine your logos, check your brand health, generate
+          images. They already have your kit loaded.</p></div>
+      <div class="ws"><h3>Order anything, any time</h3>
+        <p>Need a Christmas flyer? Ask. We build it around your brand and deliver within
+          24 hours.</p></div>
+      <div class="ws"><h3>A real person on the Spark team</h3>
+        <p>Message us from inside your workspace. A human reads it and replies to your email.</p></div>
+      <div class="ws"><h3>A seven-step Success Path</h3>
+        <p>From registering the business to getting found and getting paid, in order, with
+          hand-picked tools at each step.</p></div>
+      <div class="ws"><h3>Hand it to a designer</h3>
+        <p>Want a human to take it further? Pass your brand to a partner studio. Included, no
+          extra charge.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRICE ===================== -->
+<section class="price" id="price">
+  <div class="wrap">
+    <div class="eyebrow" style="text-align:center">One price</div>
+    <h2>Ninety-nine dollars. Once.</h2>
+    <div class="pricebox">
+      <div class="bignum">$99</div>
+      <div class="once">One time. Not a subscription.</div>
+      <ul class="plist">
+        <li>Six names with the domains already checked</li>
+        <li>A full logo suite, in vector</li>
+        <li>Colors, type, and every word you need to launch</li>
+        <li>Seven cinematic photographs</li>
+        <li>154 files in a workspace that stays yours</li>
+        <li>Seven-day money back, no questions</li>
+      </ul>
+      <a class="btn" href="/index.html">Build my brand &rarr;</a>
+      <p style="font-size:var(--t-meta);color:var(--ink2);margin:20px 0 0">
+        Owned forever, royalty free. Use it anywhere &mdash; print, web, social, ads.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CLOSE ===================== -->
+<section class="close">
+  <div class="wrap">
+    <h2>You already know what your business&nbsp;is.</h2>
+    <p class="lead" style="margin:0 auto 30px">Say it in one sentence. We will hand you back
+      everything it needs to look real.</p>
+    <a class="btn" href="/index.html">Start &mdash; $99, one time</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div style="font-size:var(--t-lead);font-weight:900;color:var(--ink1);margin-bottom:14px">
+      SparkMyName&trade;</div>
+    <p class="fnote">
+      <b>Owned by VORREX IGNITE LLC.</b> U.S. Patent Pending, App. 19/704,386.
+      SparkMyName is a trademark application pending, Serial No. 50014040. It is not registered.<br><br>
+      Social handles are <b>recommended, not verified</b> &mdash; confirm availability on each
+      platform before claiming one. SparkMyName does not perform trademark clearance and does
+      not build or host customer websites.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

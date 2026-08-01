@@ -1,0 +1,305 @@
+SPARKMYNAME — WIRING TEST REPORT — July 28 2026, 11:45 PM
+Tested by loading the real pages in a simulated browser and clicking the real buttons.
+
+PROVEN (all PASS):
+1. All 165 netlify functions: syntax-checked clean, present in disc, netlify.toml points at them.
+2. checkout.html, account.html (login), supabase-config.js, netlify.toml: BYTE-IDENTICAL
+   to the 3:07 PM deploy that was working live today. Nothing in the machine was altered.
+3. Login key + URL in supabase-config.js: compared against the LIVE Supabase project
+   keys pulled directly from the Supabase account — EXACT MATCH.
+4. Homepage: mic present and wired; typing an idea + clicking "Get my brand" stores the
+   idea and carries it to checkout (verified: sessionStorage smn_idea = the typed idea).
+5. Sign in links -> account.html (the proven code-entry login). Old workspace-login.html
+   safely redirects there.
+6. Clicking "send" on the login page REPLIES with a status message ("Starting secure
+   sign-in...") — no silent buttons anywhere.
+7. No service worker in the site (nothing can pin an old version in the browser).
+8. CSP updated one word: unpkg.com allowed so the login's BACKUP script source also works.
+
+HOW TO VERIFY THE DEPLOY TOOK (with your own eyes):
+Scroll to the bottom of the live homepage. You must see:
+   "Site build: NEW THEME + FULL MACHINE · July 28, 2026 · 11:45 PM"
+If that line is NOT there, the deploy did not take (wrong folder or wrong site) —
+the disc is fine; the upload is what to redo.
+
+IMPORTANT: the earlier message "On the live site, a secure sign-in link is emailed..."
+came from an OLD marketing-only disc's placeholder page. That page no longer exists
+in this disc. If you ever see that sentence, an old build is still live.
+
+GREEN REPAINT PASS — July 29 2026, 12:35 AM
+- All 28 inside pages (workspace, login, checkout, brand kit, my brands, command,
+  guides, internal pages) repainted navy -> white-green with a deterministic map.
+- Readability audit: 329 invisible white-on-white text rules found and fixed to dark
+  ink; pale pink/blue/amber text remapped to readable deep tones; dark badges kept
+  dark with white text. Final audit: zero aurora colors, zero bare white text.
+- Wiring proof: checkout + login endpoints byte-compared before/after — IDENTICAL.
+- Smoke test: account, checkout, workspace, brand-kit, my-brands all load and run.
+
+FULL-SITE CONSISTENCY & BUG PASS — July 29 2026, ~1:45 AM (verified, not guessed)
+- LINKS: every href/src on every page checked against the disc — ZERO broken.
+- MENUS FIXED: the invisible workspace menu wording was runtime styling inside
+  js/workspace-core.js (255 aurora color refs) — repainted with the same
+  contrast-safe map + bare-white-text guard. Syntax-checked clean.
+- FONTS: one family site-wide (Sora heads / Inter body). Georgia/Playfair/serif
+  tokens repointed; font links added to all pages. Brand-card customer-font
+  previews untouched (inline styles win by design).
+- TM: SparkMyName(TM) present on every page; now superscript upper-right and
+  larger (.62em, bold) per INTA convention — one rule in css/uniform.css.
+- CAPSULES: 44px minimum tap height enforced site-wide per Apple HIG 44pt /
+  WCAG 2.5.5 (Material recommends 48dp; primary CTAs already exceed it).
+- MIC v4: mobile repeat bug fixed (finals appended once via isFinal+resultIndex,
+  iOS duplicate-final guard) + patient timing (25s start, 10s silence). PROVEN
+  by simulated iOS duplicate events -> clean transcript.
+- DEVICE SPECS: viewport, charset, theme-color, apple-touch-icon verified/added
+  on all pages (28 patched).
+- HEADERS/FOOTERS: footers identical on all marketing pages; headers identical
+  except the intentional current-page green highlight.
+- ERROR RUN: every page loaded headlessly; one real bug found (font quote
+  collision on olin/vorrex, introduced by this pass) and fixed; all pages CLEAN.
+
+EMAIL DRESS-UP PASS — July 29 2026, 1:25 AM (Founder order)
+- MOJIBAKE FIXED: every customer email is now a full UTF-8 document (meta charset) —
+  the "Chinese characters" were em-dashes read in the wrong encoding; impossible now.
+- TOP PICK FIXED: the brand name was colored with the customer's palette (invisible
+  on white). Now the name is always dark ink; the customer's palette shows as two
+  color dots labeled "Your brand colors"; the monogram tile picks a dark or white
+  letter automatically based on the tile's brightness (tested with a pale palette).
+- DRESSED UP: soft green stage, floating white card, celebration band, big green
+  "Open your workspace" button right under the headline, green-washed Top Pick card
+  with the domain in a green Available pill, warm thank-you copy.
+- Confirm email + "more names" email + catalog-order emails: same theme + charset.
+- All builders rendered + machine-audited: charset PASS, top-link-first PASS,
+  ink-name PASS, palette-as-dots PASS, no pale text PASS. All functions syntax OK.
+
+PERFORMANCE + A11Y PASS — July 29 2026, ~2:10 AM (Netlify scored 82 perf / 97 a11y)
+- SPINE & GRAVEYARD: byte-compared to the original working disc — clean-names.js
+  and all frozen engine files UNTOUCHED (old generate-names engine not even present).
+- Root causes of the 82: (1) tonight's font links on 28 machine pages had no
+  preconnect (render-blocking) -> preconnect added; (2) 3.3MB of homepage JPEGs at
+  2x display size -> all img/*.jpg resized to 960w q80 progressive, 2.2MB saved;
+  (3) images lacked lazy-loading and dimensions -> loading=lazy + decoding=async +
+  width/height added (first carousel image kept eager with fetchpriority=high);
+  (4) 30-day cache rule added for /img/*.
+- A11y: muted small-text token bumped #8A938E -> #6F7A74 (≥5:1 contrast);
+  alt-attribute sweep: zero images missing alt.
+- Final sweep: every netlify function + site JS syntax-checked clean.
+
+HEADLINE & POLISH PASS — July 29 2026 (Founder order: no orphaned words)
+- text-wrap:balance on all headings (kills widows like "Spark." alone on a line);
+  text-wrap:pretty on paragraphs.
+- 16 short green phrases locked one-per-line across 18 marketing pages
+  ("Built by Spark.", "you can run.", "a whole brand.", "the beginning." etc.) —
+  mobile-safe (unlocks under 660px so nothing overflows).
+- "Spark hands you a finished brand." — one line, green, size tuned to fit.
+- Verified: all five pages load clean after changes.
+
+IMAGE TRUTH PASS — July 29 morning (Founder caught real mismatches)
+- ROOT CAUSE FOUND: several planned industry images (medical, real estate, fitness,
+  coffee, weddings, salons, kids, contractors, finance, startups) were never
+  generated; mapping by generation order mislabeled real images. Every library
+  image was re-identified BY EYE and renamed to its true content.
+- Rebuilt: homepage mosaic now 6 true-match tiles; see-the-work strip now 4
+  true-match tiles; mislabeled treasures re-homed: BRAND TABLE = new full-width
+  statement section, SUCCESS WALL = trust section, BRAND MUSEUM = pre-footer.
+- JOURNEY BUG FIXED: panels are drawn by script; prior swaps never touched it.
+  The Founder's four numbered scenes (Dream/Brand/Launch/Grow) are now wired
+  into the script itself — verified present.
+- Checkout flow read: homepage idea carries into checkout automatically; page
+  asks only idea (prefilled) + email, then Stripe. No changes made to live commerce.
+- Bug check: 9 key pages loaded headlessly — clean. All image references resolve.
+
+READABILITY + MICS + MOBILE + TM PASS — July 29 2026, 1302
+- TYPING AREAS FIXED: root cause was see-through dark input backgrounds
+  (rgba(0,0,0,.28)) with white text — invisible on the white theme. All swapped
+  to white fields with dark ink, site-wide, plus a force-readable guarantee layer
+  (inputs/textareas/selects always dark-on-white, readable placeholders).
+- WORKSPACE SIDEBAR: rail/wsnav/guide-nav text forced readable; active tab
+  shows green-soft with deep green text.
+- ALL 6 MICROPHONES mobile-safe: homepage v4 (already), workspace one-shot (safe
+  by design), james + olin + vorrex + video-forge given duplicate-final guards;
+  video-forge's full-rebuild pattern (the actual mobile repeat cause) replaced.
+- TM SPEC (Founder): closer to the wordmark, bigger (.74em), raised. Wordmark
+  confirmed one word SparkMyName everywhere (video.html had spaced variant, fixed).
+- MOBILE: overflow guard, tightened paddings/gaps, hero size tuned, images capped.
+- All mic pages + workspace + homepage loaded headlessly: CLEAN.
+
+FULL EDITORIAL PASS — July 29 2026, 1317 (Founder order: publishing-house edit, site-wide)
+- Scope: all 47 pages including workspace, account, brands, tools and their
+  sub-pages. Visible text only — code, styles, and form internals untouched.
+- Protected zones honored: 7 legal pages word-frozen; brand-card typography
+  section untouched (customer fonts live in code templates, outside this pass).
+- Mechanics applied to 26 pages: typographic apostrophes, double-space collapse,
+  no space before punctuation, em-dash normalization, ellipsis characters,
+  standalone "i" capitalized, double-period cleanup.
+- Reading rhythm: 1.62 line height for paragraphs, tightened display headings.
+- Post-edit verification: checkout endpoint, homepage mic, journey scenes, and
+  login wiring all confirmed intact; ALL 47 pages loaded headlessly CLEAN.
+
+BRAND-CARD LEGIBILITY PASS — July 29 2026, 1336 (Founder: Sunset Strum Cafe example)
+- Root cause: two aurora text colors (#AFC2E1, #7E93B8) missed by earlier maps —
+  pale blue-gray text tokens from the old dark theme, unreadable on white — plus
+  leftover violet/cyan accents inside the card's SERVER template
+  (netlify/functions/report-template.js) and workspace renderer.
+- Repainted the full card path: report-template.js, workspace-core.js,
+  workspace.html (+ verified brand-kit, my-brands, result, brands, account clean).
+- Cards re-render from the template on each view, so existing brands like
+  Sunset Strum Cafe pick up the fix on next open — no data touched.
+- Content untouched: auto-populated logo system, palettes, and typography
+  previews (customer fonts) preserved exactly; only chrome colors corrected.
+- Added body-level dark ink default so inherited text can never fall back pale.
+
+BRAND CARD: CLEAN DOCUMENT DOCTRINE — July 29 2026, 1430 (Founder order)
+- Card interior = technical-document clean: 124 white-on-light rules -> solid
+  black (#141414); ALL gradients flattened to solids; green washes de-greened
+  to neutral; borders neutralized. One font (Inter) carries the card.
+- Green survives ONLY as spot accents: availability pill, "Confirm on
+  platform" links, diamond bullets, header ticks.
+- Photo banner title: white lettering on a solid dark band (no gradient) —
+  readable on any cover photo. (Root cause: earlier sweep whitened the scrim
+  and darkened the title.)
+- Logo system untouched, incl. its SVG gradient generator (customer deliverable).
+- Cards re-render from the template — every existing brand reads clean on next open.
+
+TYPE DARKENING + HEADER + 9 NEW INDUSTRY COVERS — July 29 2026, 1453
+- VERIFIED prior batch: ink2 -> #3A3F3C, ink3 -> #4A4F4C (≈72-75% black), zero
+  light grays left anywhere; price-line darkened + weighted 600; wordmark flex
+  gap killed (SparkMyName reads as one word + TM); header capsules matched at
+  42px (Sign in outline + Get my brand pill same size).
+- NEW COVERS: 8 PDFs + 1 SVG converted and slotted — homepage mosaic 6 -> 12
+  industries (adds Fitness, HVAC, Plumbers, Home services, Pressure washing,
+  Pet businesses); see-the-work 4 -> 7 (adds Fitness studios, Legal,
+  Photography & lifestyle). All refs verified, both pages load clean.
+- DEMO WORKSPACE PREP: proven report-key lookup by brand words via Supabase
+  (Penthouse Suite -> jd6ud21qxteclc). Founder's 20+ concept list captured for
+  the demo build session.
+
+DEMO WORKSPACE — LIVE — July 29 2026, 1519 (the crown jewel)
+- New page demo.html: a read-only walk-through of FIVE REAL brands pulled from
+  the live database — The Penthouse Suite, Ionian Bistro, Blue Note Echo,
+  Paws and Hearts, AeroVista Charter — with their real palettes, real generated
+  logo concepts (from Spark storage), real taglines, voice, about, why-it-works,
+  and real cover imagery. Data baked into the page: instant, nothing to break,
+  no logins, no forms — tap a brand name and explore.
+- Honest framing throughout: read-only demo; the paid workspace adds downloads,
+  AI Studio, Success Path, human help.
+- Tested end-to-end headlessly: page runs clean, 5 switch pills, 7 sections
+  per brand, brand switching works, real hexes render, CTA present. 7/7 PASS.
+- Homepage: "coming soon" promise replaced with the live door; Demo workspace
+  link added to the footer Product column site-wide.
+
+PASS A COMPLETE — showcase cards open their real brand (July 29 afternoon)
+- Demo cast expanded 5 -> 9 with Outlier Dialogues, Brightpath Lending,
+  Aura Revival, Tresses Atelier (real kits from the database, real film stills
+  as heroes, real logo concepts from storage).
+- Deep links added (#outlier, #paws, #brightpath, #aura ...) — the four showcase
+  cards with kits now open straight to their own brand inside the demo. The
+  three film-era brands without database kits (Romanesco, Rotor Odyssey,
+  Accident Allies) honestly keep their see-the-work links.
+- Tested: 9 pills, hash-open works, palettes render, 4 cards wired. ALL PASS.
+
+BRAND CARD: AGENCY CLEAN — (Founder order, July 29 afternoon)
+- Cover title: solid band removed; type now blends into the photo with a soft
+  natural vignette + white lettering — looks like a finished photo, no bar.
+- ZERO GREEN on the entire card path (workspace page, renderer, server
+  template): all accents, links, pills, diamonds and ticks -> solid black.
+- Type comfort: smallest labels lifted to 12px minimum.
+- Verified: no green refs remain in any card file; syntax clean; page loads.
+
+DEMO FLAGSHIP PASS — (Founder: "must be flagship presented")
+- 100% of each kit now on every demo card: added Typography directions, Social
+  bios, Facebook intros, LinkedIn intro; full post/tagline sets restored.
+  11 sections per brand (was 7), verified rendering.
+- 2K imagery given the stage: hero enlarged to 16:9 with generous max height.
+- Balanced presentation: sections now flow in self-balancing columns
+  (no gaps — each column fills evenly). 
+- "Your idea" quote: flagship treatment — Poppins 700, up to 24px.
+- REAL brand cards: same idea-quote enlargement applied (Poppins 700, up to
+  26px) in the workspace card view. Content untouched everywhere.
+
+QUICK-VIEW BRAND CARDS ON HOMEPAGE — (Founder order + 2026 research)
+- Researched current best practice: the "quick view" modal pattern (card
+  collections + modal UX, the Netflix-style peek). Best 2026 implementation is
+  the browser's NATIVE <dialog> element (~97% support, built-in backdrop,
+  focus trap, Esc) — more reliable than any third-party SaaS embed, zero cost,
+  zero external scripts, zero performance hit.
+- Built: click any wired showcase brand -> an instant in-page peek opens
+  (2K hero with name band, tagline, real palette strip, top taglines, real
+  logo concepts) with two CTAs: "Open the full brand" (demo deep-link) and
+  "Get my brand — $99". Backdrop/Esc/X all close it. No page hop.
+- Shared data layer js/demo-data.js now feeds BOTH the demo and the homepage
+  peek — one source of truth for all nine brands.
+- BUG CHECK: 8 tests — demo integrity from shared data, hash deep-links,
+  card wiring, open, correct brand, real palette, both CTAs, close. 8/8 PASS.
+
+WORKSPACE HEADER + CARD READABILITY RESEARCH PASS — July 29 afternoon
+- ROOT CAUSE of the "huge black mess": the zero-green conversion turned
+  formerly green-with-white-text elements into BLACK-with-BLACK-text —
+  28 invisible rules (account buttons, primary actions, active chips).
+  ALL cured: black surfaces now carry WHITE text (proper black buttons,
+  the agency standard). Verified: zero black-on-black rules remain.
+- Workspace left nav de-greened to black-on-light per zero-green doctrine.
+- RESEARCH (10 sources incl. UXPin, Toptal, accessibility guides): verdict —
+  black on white is the most readable pairing; body 16px/14px floors;
+  line-height 1.5-1.6; 50-75ch measures; spaced small caps; max 2-3 fonts.
+  Applied: 14px floor on card small text, 1.55 line-height layer, 72ch
+  measures on card text blocks, letter-spaced headers.
+- All key pages loaded headlessly clean; both card engines syntax-checked.
+
+21-IMAGE PLACEMENT — COMPLETE batch (Founder generated, July 29)
+- Homepage mosaic 12 -> 20 industries (medical, real estate, coffee, weddings,
+  beauty, kids, electricians, landscaping join). Order-more card -> unboxing.
+- Demo honesty: AeroVista + Blue Note now wear their OWN scenes (no borrowed
+  stills, no hotlinks).
+- Page tops dressed: About, Affiliate, 404, Guides, Pricing (premium
+  presentation as the "worth it" hero).
+- Confirmation page: thank-you moment. Ready email: celebration banner above
+  "Your brand is ready." Spark Store banner banked for launch day.
+- NOT USED (Founder attention): the luxury-boxes flat-lay shows real Cartier/
+  Hermes/Kylie marks — IP risk; needs a regenerate with fictional names only
+  before it can serve as og-share.
+- All refs verified present; all touched pages load clean; send-kit syntax OK.
+
+FINAL 8 GRAPHICS — 7 placed, 1 rejected (July 29 evening)
+- OG-SHARE BILLBOARD live: 1200x630, wired into every marketing page's head
+  (og:image + twitter card). Every shared link now shows the abundance shot.
+  Note: flat-lay uses invented names throughout.
+- Placed: hero-support (Support top), hero-successpath (Success Path top,
+  cropped to landscape), demo-door (homepage, beside the demo button),
+  hero-checkout (the prize, above What-you-get at checkout),
+  workspace-welcome (Downloads "all yours" moment),
+  email-building (craftsmanship banner atop the payment-received email).
+- REJECTED: press-kit image — real Architectural Digest / Robb Report /
+  Elle Decor mastheads; would imply coverage we don't have (trademark + truth).
+  Regenerate with invented publication names to use.
+- send-kit syntax OK; all touched pages load clean.
+
+WORKSPACE FULL INSPECTION — mathematical contrast audit — July 29 2026, 1811
+- Built a WCAG contrast auditor: parses EVERY style rule + inline style +
+  JS template across the entire workspace ecosystem, resolves CSS variables
+  per-file, computes true contrast ratios (alpha composited).
+- ROOT CAUSES FOUND (the legacy conversion wounds):
+  (1) workspace master ink token was WHITE (--ink:#FFFFFF) — white body text
+      on white page poisoning everything by inheritance. -> #141414.
+  (2) The aurora decor blobs had become giant blurred BLACK clouds floating
+      over the page (the "huge black mess"). -> retired.
+  (3) The sticky top header was still legacy near-black translucent
+      (rgba(7,6,22,.62)). -> clean white with border.
+  (4) Legacy navy translucent panels (rgba(16,33,67,.6)) -> white surfaces.
+  (5) Green action buttons: white-on-#189850 = 3.72:1, BELOW the 4.5 WCAG
+      bar -> deepened to #127A40 (5.3:1) incl. the --gold token, hovers given
+      explicit white text.
+- FIX LOOP: 315 violations fixed pass 1; recheck passes 2, 3, 4 driven to
+  ZERO real violations (only decorative divider bars whitelisted — they
+  contain no text). Photo caption chips deepened to clear the bar.
+- All 7 workspace pages loaded headlessly clean; both card engines syntax OK.
+
+DELIVERABLES WAVE — 19 images, 30-industry wall (July 29 evening)
+- Founder-generated deliverable sets, ALL invented names (verified against real
+  marks), all honest to the actual deliverable catalog.
+- 8 tile UPGRADES: Podcasts (CityTalks set), Real estate (Horizon), Landscaping
+  (GreenLine), Kids (BrightMinds), Fitness (CoreFit), Nonprofits (OpenPath),
+  Influencers (Curated Grace), Pet businesses -> Pet grooming (Paws & Polish).
+- 10 NEW industries: Hair salons, Food trucks, Bakeries, Cleaning services,
+  Home repair, Events & DJs, Yoga studios, Accountants, Community & faith,
+  Agencies & studios. Homepage wall now 30 industries.
+- All refs verified, page loads clean.

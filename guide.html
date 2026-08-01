@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Launch my brand — SparkMyName™</title><link href="manifest.webmanifest" rel="manifest"/>
+<meta content="#189850" name="theme-color"/>
+<link href="icon-192.png" rel="apple-touch-icon"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="default" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="Spark" name="apple-mobile-web-app-title"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@600&amp;display=swap" rel="stylesheet"/><style>
+/* Fonts: same local files account.html uses — no new dependency */
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url('assets/fonts/playfair-display-latin-700-normal.woff2') format('woff2')}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:800;font-display:swap;src:url('assets/fonts/playfair-display-latin-800-normal.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/inter-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('assets/fonts/inter-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url('assets/fonts/inter-latin-700-normal.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:800;font-display:swap;src:url('assets/fonts/inter-latin-800-normal.woff2') format('woff2')}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+:root{
+  --bg:#0A0A0A; --card:#111111; --card2:#161616; --line:rgba(191,155,60,.28);
+  --gold:#189850; --gold-pale:#EBD98A; --btn:#189850; --white:#FFFFFF;
+  --dim:rgba(255,255,255,.72); --green:#57C08A;
+}
+body{
+  background:#0A0A0A; color:var(--white);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; text-align:center; line-height:1.55;
+}
+/* boot curtain — no flash before we know logged in / out */
+#boot{position:fixed;inset:0;background:#0A0A0A;z-index:60;display:flex;align-items:center;justify-content:center}
+#boot .dot{width:12px;height:12px;border-radius:50%;background:var(--gold);opacity:.85;animation:pulse 1.1s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.25;transform:scale(.9)}50%{opacity:.95;transform:scale(1.15)}}
+.hide{display:none!important}
+
+.wrap{max-width:760px;margin:0 auto;padding:20px 20px 64px}
+.topbar{max-width:760px;margin:0 auto;padding:16px 20px 0;text-align:left}
+.exit{
+  display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:10px 16px;
+  background:transparent;border:1px solid rgba(255,255,255,.28);border-radius:999px;
+  color:var(--white);text-decoration:none;font-weight:600;font-size:.875rem;cursor:pointer
+}
+.exit:hover{border-color:rgba(255,255,255,.55)}
+
+h1{font-family:'Playfair Display',Georgia,serif;font-weight:800;letter-spacing:-.02em;
+  font-size:clamp(34px,6vw,52px);line-height:1.04;margin:26px 0 14px}
+.lede{font-size:clamp(17px,2.4vw,20px);color:var(--dim);margin:0 auto 8px;max-width:560px}
+.you{font-size:clamp(17px,2.4vw,20px);color:var(--gold-pale);margin:6px auto 0;max-width:560px;font-weight:600}
+.addr{color:var(--gold);font-weight:700}
+
+/* brand picker */
+.picker{margin:22px auto 4px;max-width:560px;display:grid;gap:12px}
+.picker .pk-title{color:var(--dim);font-size:.9375rem;margin:0 0 2px}
+.brandbtn{
+  min-height:46px;padding:16px 18px;border-radius:16px;cursor:pointer;text-align:left;
+  background:var(--card);border:1px solid var(--line);color:var(--white);
+  font-family:Inter,sans-serif;font-size:1.0625rem;font-weight:700
+}
+.brandbtn small{display:block;color:var(--dim);font-weight:500;font-size:.8125rem;margin-top:3px}
+.brandbtn:hover{border-color:var(--gold)}
+
+/* wish box */
+.wishwrap{max-width:560px;margin:28px auto 6px}
+.wishwrap label{display:block;color:var(--dim);font-size:.875rem;margin:0 0 8px}
+#wish{
+  width:100%;min-height:52px;background:var(--card2);border:1px solid var(--line);
+  border-radius:16px;color:var(--white);font:inherit;font-size:1rem;padding:14px 16px;outline:none
+}
+#wish::placeholder{color:rgba(255,255,255,.5)}
+#wishnote{color:var(--gold-pale);font-size:.8125rem;min-height:18px;margin:8px 2px 0}
+
+/* steps */
+#steps{display:grid;gap:16px;margin:22px auto 0;max-width:560px}
+.step{
+  background:var(--card);border:1px solid var(--line);border-radius:22px;
+  padding:24px 22px;text-align:left;transition:box-shadow .15s,border-color .15s,opacity .15s
+}
+.step.match{border-color:var(--gold);box-shadow:0 0 0 2px rgba(191,155,60,.35)}
+.step.is-done{opacity:.72}
+.step .num{
+  display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;
+  border-radius:50%;background:rgba(191,155,60,.16);border:1px solid var(--line);
+  color:var(--gold);font-weight:800;font-size:.9375rem;margin-bottom:12px
+}
+.step h3{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.5rem;
+  letter-spacing:-.01em;margin:0 0 10px;color:var(--white)}
+.step p{color:var(--dim);font-size:1rem;margin:0 0 12px}
+.step .honest{color:rgba(255,255,255,.55);font-size:.8438rem;font-style:italic;margin:0 0 12px}
+.step .donetag{display:none;color:var(--green);font-weight:700;font-size:.875rem;margin:0 0 12px}
+.step.is-done .donetag{display:block}
+
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.gold{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:46px;padding:14px 22px;border-radius:999px;cursor:pointer;
+  background-color:#189850;color:#FFFFFF;-webkit-text-fill-color:#FFFFFF;
+  border:0;text-decoration:none;font-family:Inter,sans-serif;font-weight:800;font-size:.9375rem
+}
+.gold:hover{filter:brightness(1.08)}
+.ghost{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:46px;padding:14px 20px;border-radius:999px;cursor:pointer;
+  background:transparent;border:1px solid rgba(255,255,255,.34);
+  color:var(--white);-webkit-text-fill-color:var(--white);
+  font-family:Inter,sans-serif;font-weight:700;font-size:.875rem;text-decoration:none
+}
+.ghost:hover{border-color:rgba(255,255,255,.6)}
+.ghost.on{border-color:var(--green);color:var(--green);-webkit-text-fill-color:var(--green)}
+
+/* optional tutorial helper — QUIET secondary control, never a second solid-gold button */
+.tut{margin-top:12px}
+.watch{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:46px;padding:12px 18px;border-radius:999px;cursor:pointer;
+  background:transparent;border:1px solid rgba(191,155,60,.55);
+  color:var(--gold-pale);-webkit-text-fill-color:var(--gold-pale);
+  font-family:Inter,sans-serif;font-weight:700;font-size:.875rem
+}
+.watch:hover{border-color:var(--gold);color:var(--gold);-webkit-text-fill-color:var(--gold)}
+.tutplayer{margin-top:12px}
+.tutstage{
+  position:relative;width:100%;aspect-ratio:16/9;background:#0A0A0A;
+  border:1px solid var(--line);border-radius:18px;overflow:hidden
+}
+.tutvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#0A0A0A}
+.tutcap{
+  position:absolute;left:0;right:0;bottom:0;min-height:34px;
+  padding:10px 14px;background:linear-gradient(transparent,rgba(0,0,0,.72));
+  color:#fff;font-size:.875rem;line-height:1.4;text-align:center;pointer-events:none
+}
+.tutbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
+.tutbtn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-height:46px;min-width:46px;padding:10px 16px;border-radius:999px;cursor:pointer;
+  background-color:#189850;color:#FFFFFF;-webkit-text-fill-color:#FFFFFF;
+  border:0;font-family:Inter,sans-serif;font-weight:800;font-size:.9375rem
+}
+.tutbtn:hover{filter:brightness(1.08)}
+.tutbtn.tutclose{
+  background:transparent;border:1px solid rgba(255,255,255,.34);
+  color:var(--white);-webkit-text-fill-color:var(--white);font-weight:700;font-size:.875rem
+}
+.tutbtn.tutclose:hover{border-color:rgba(255,255,255,.6)}
+
+/* final closing customer action — the LAST thing on the page */
+.final{max-width:560px;margin:34px auto 0;text-align:center}
+.final h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.625rem;margin:0 0 14px}
+.final .gold{font-size:1rem;padding:16px 28px}
+
+/* logged-out prompt */
+.gate{max-width:520px;margin:12vh auto 0;padding:0 20px;text-align:center}
+.gate h1{margin:0 0 12px}
+.gate p{color:var(--dim);font-size:1.0625rem;margin:0 auto 24px;max-width:420px}
+
+/* error */
+.errbox{max-width:520px;margin:16px auto 0;background:var(--card);border:1px solid var(--line);
+  border-radius:18px;padding:20px;color:var(--dim)}
+.errbox .gold{margin-top:14px}
+
+/* footer — dark, per Footer Law; text only, no competing links so the customer action stays last */
+.smnFoot{background:#0A0A0A;color:rgba(255,255,255,.6);padding:40px 22px 10px;text-align:center;
+  font-size:.7812rem;line-height:1.7;max-width:760px;margin:36px auto 0;border-top:1px solid rgba(191,155,60,.16)}
+.smnFoot .mk{font-family:Inter,sans-serif;font-weight:900;font-size:1.125rem;letter-spacing:-.02em;display:inline-block;margin-bottom:8px}
+.smnFoot .mk .s{color:#189850}.smnFoot .mk .n{color:#141414}
+.smnFoot .pat{color:rgba(255,255,255,.78);font-weight:700}
+@media print{.topbar,.wishwrap,.acts,.smnFoot,.final,.picker,.tut{display:none!important}
+  body{background:#fff!important;color:#111!important}.step{border-color:#ccc;break-inside:avoid}
+  .step h3,.step p,.step .honest{color:#111!important}}
+
+/* ===== DEVICE SAFETY (28 July 2026 sweep) =====
+   Applied to every page. Two faults were site-wide:
+   1. 100vw includes the scrollbar width, so any element using it is wider than the viewport
+      and forces a sideways scroll. overflow-x:hidden on the root stops that everywhere.
+   2. Tap targets under 44px fail Apple's and Google's minimum and are genuinely hard to hit
+      on a phone. Every interactive element now meets 44px.
+   ===== */
+html,body{overflow-x:hidden;max-width:100%}
+*{min-width:0}
+img,video,iframe,table,pre{max-width:100%}
+a,button,select,summary,[role="button"],input[type="submit"],input[type="button"]{
+  min-height:44px}
+a{display:inline-flex;align-items:center}
+a.inline-link,p a,li a,.dis a,.fnote a{display:inline;min-height:0}
+input,textarea,select{font-size:16px}
+@media(max-width:480px){
+  body{-webkit-text-size-adjust:100%}
+}
+
+/* ===== SHORT-SCREEN SAFETY (28 July 2026) =====
+   These layers are position:fixed and cover the screen. On a 512px-tall Z Flip cover
+   display or a 568px iPhone SE, any content taller than the viewport was unreachable
+   — the same fault that let the Founder see one brand out of hundreds. Decorative
+   layers (.aurora, .scrim) are deliberately not included; they hold nothing. ===== */
+.gate,#boot{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain}
+.gate > *,#boot > *{max-height:none}
+</style><style>
+:root{--bg:#FFFFFF;--panel:#FFFFFF;--panel2:#F4F6F5;--ink9:#141414;--soft:#404040;--faint:#565656;
+--line:rgba(20,60,40,.14);--gold:#189850;--gold-deep:#127A40;--gold-soft:#E7F5EC;--black:#FAFAFA;
+--sh:0 2px 6px rgba(20,60,40,.05),0 24px 70px -20px rgba(20,60,40,.14)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink9);font-family:'Inter',system-ui,sans-serif;line-height:1.6;min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Inter',system-ui,sans-serif;font-weight:600;color:var(--ink9);letter-spacing:-.01em;margin:0;text-wrap:balance}
+h1{font-size:clamp(38px,4.6vw,58px);line-height:1.1}
+h2{font-size:clamp(26px,3vw,38px);line-height:1.16}
+p,li{color:var(--soft);text-wrap:pretty}
+.mut{color:var(--faint)}
+.eyeb{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.eyeb::before{content:"✧";font-size:.875rem}
+.rule{width:120px;height:3px;background:var(--gold);border:0;margin:16px 0 0}
+.hd{position:sticky;top:0;z-index:60;background:rgba(10,20,40,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hd .in{max-width:1200px;margin:0 auto;padding:clamp(10px,1.3vw,14px) clamp(12px,2.6vw,28px);display:flex;align-items:center;gap:clamp(10px,2.4vw,26px)}
+.wm{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink9)}
+.wm .sp{color:var(--gold);font-size:1.25rem}
+.wm b{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:1.375rem;letter-spacing:-.01em}
+.nav{display:flex;gap:22px;margin-left:14px}
+.nav a{color:rgba(233,240,255,.82);text-decoration:none;font-size:.875rem;font-weight:500;transition:color .15s}
+.nav a:hover{color:#FFFFFF}
+.hd .rt{margin-left:auto;display:flex;align-items:center;gap:clamp(8px,1.7vw,18px)}
+.hd .lg{color:#EAF2FF;text-decoration:none;font-size:.875rem;font-weight:600;transition:color .15s}
+.gbtn,.cta{display:inline-block;border:0;border-radius:999px;padding:13px 26px;font:inherit;font-size:.9062rem;font-weight:600;cursor:pointer;background:var(--gold);color:#FFFFFF;text-decoration:none;text-align:center;transition:background .15s,transform .15s}
+.gbtn:hover,.cta:hover{background:var(--gold-deep);transform:translateY(-1px)}
+.cta.dark{background:var(--black)}
+.cta.dark:hover{background:#000}
+.cta:disabled{opacity:.6;transform:none;cursor:default}
+.glink{color:var(--gold-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.panel{max-width:1200px;margin:0 auto;padding:clamp(26px,5vw,56px) clamp(16px,2.6vw,28px) clamp(44px,6.4vw,72px);width:100%}
+.split{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(26px,5vw,52px);align-items:start}
+.zone{background:var(--panel);border:1px solid var(--line);border-radius:26px;box-shadow:var(--sh);padding:32px}
+.zblock{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:14px}
+.ztwo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.ztwo .zblock{margin:0}
+.dmod{background:var(--black);border-radius:18px;padding:20px 22px;display:flex;align-items:center;gap:20px;cursor:pointer;text-decoration:none}
+.dmod .gc{flex:none;width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#66B88A,var(--gold) 70%);display:flex;align-items:center;justify-content:center;font-size:1.625rem;color:var(--black);border:0;cursor:pointer;box-shadow:0 6px 18px rgba(24,152,80,.45)}
+.dmod b{color:#141414;font-size:1rem;font-weight:600;font-family:'Inter',sans-serif}
+.dmod span{display:block;color:#9FB4D8;font-size:.7812rem;margin-top:3px}
+.dmod.rec .gc{background:#189850;color:#fff}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
+.c{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);padding:24px}
+.c h3{font-size:1.25rem;margin-bottom:6px}
+.c p{font-size:.875rem;margin:0 0 10px}
+.chip{display:inline-block;background:var(--gold-soft);color:var(--gold-deep);border:0;border-radius:999px;padding:4px 12px;font-size:.75rem;font-weight:600}
+.dom{font-size:.8125rem;color:var(--gold-deep);font-weight:700}
+input,textarea,select{font:inherit;color:var(--ink9);background:#FFFFFF;border:1px solid var(--line);border-radius:14px;padding:13px 15px;width:100%}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(24,152,80,.14)}
+::placeholder{color:var(--faint)}
+label{font-size:.8125rem;font-weight:700;color:var(--ink9);display:block;margin:14px 0 6px}
+.ftband{background:var(--panel2);border:1px solid var(--line);border-radius:16px;margin:60px auto 30px;padding:18px 30px;font-size:.8125rem;color:var(--faint);max-width:1200px}
+.ftband .lnks{display:flex;gap:clamp(10px,1.3vw,14px) clamp(16px,2vw,22px);flex-wrap:wrap;margin-bottom:10px}
+.ftband a{color:var(--soft);text-decoration:none}
+.ftband a:hover{color:var(--ink9)}
+.needidea{border-color:#189850!important}
+.tl{position:relative;margin:30px 0 0;padding-left:26px}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--gold)}
+.tl .step{position:relative;padding:0 0 22px}
+.tl .step::before{content:"";position:absolute;left:-24px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--gold)}
+.tl b{color:var(--ink9);font-size:1rem}
+.tl p{margin:4px 0 0;font-size:.875rem}
+details.f2{border-bottom:1px solid var(--line);padding:0 4px}
+details.f2 summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:600;font-size:1rem;color:#141414!important}
+details.f2 p{padding:0 0 18px;margin:0;color:#404040!important;max-width:66ch}
+.pill{display:inline-block;border-radius:999px;padding:5px 13px;font-size:.75rem;font-weight:600}
+.p-grn{background:#E4EFE2;color:#3D6B35}.p-blu{background:#E2EAF6;color:#2F5487}.p-pur{background:#EBE6F5;color:#5A4494}.p-red{background:#F0F7F3;color:#9C3B2E}.p-gray{background:#ECEAE4;color:#404040}.p-org{background:#F4F6F5;color:#8A5A23}
+@media(max-width:980px){.split{grid-template-columns:1fr}.grid3,.grid4{grid-template-columns:1fr 1fr}.nav{display:none}.ftband{margin:40px 16px 20px}}
+@media(max-width:620px){.grid3,.grid4{grid-template-columns:1fr}.ztwo{grid-template-columns:1fr}}
+</style><style>
+/* ===== CO214: DEVICE + TOUCH + ADA LAYER (all devices) ===== */
+:focus-visible{outline:3px solid #189850!important;outline-offset:2px;border-radius:6px}
+.gbtn,.cta,button,.dmod,.nav a,.hd .lg,.arw{min-height:44px}
+.gbtn,.cta{display:inline-flex;align-items:center;justify-content:center}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.skip{position:absolute;left:-9999px;top:0;background:#141414;color:#fff;padding:12px 20px;z-index:999;border-radius:0 0 12px 0}
+.skip:focus{left:0}
+img,svg,video{max-width:100%;height:auto}
+input,select,textarea{font-size:1rem}  /* prevents iOS zoom-jump */
+.car{-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;touch-action:pan-x pan-y}
+.car>*{scroll-snap-align:start}
+@media(pointer:coarse){.arw{width:52px;height:52px}}
+@media(max-width:640px){
+  h1{font-size:clamp(32px,9vw,40px)}
+  
+  
+  /* PHONE TRIM — shorter page, faster to the sale */
+  .m-trim{display:none!important}
+  .grid4>.c:nth-child(n+5),.gridbrands>.c:nth-child(n+5){display:none}
+  
+}
+</style><style>
+/* CO214b: small-phone header + band containment */
+@media(max-width:430px){
+  
+  .wm b{font-size:1.1875rem}
+  
+  .hd .rt .gbtn,.hd .rt .cta,.hd .cta{padding:10px 14px;font-size:.8125rem}
+  .hd .lg{font-size:.8125rem}
+}
+.band{overflow:hidden!important}
+.band svg{max-width:44vw!important;right:0!important}
+@media(max-width:640px){#how{display:none!important}.band svg{display:none!important}}
+</style><style>/* CO214c: contain the carousel; never let any page scroll sideways */
+html,body{overflow-x:clip}
+.car{overflow-x:auto;max-width:100%}
+section,main{max-width:100vw}
+</style><style>
+/* ===== CO221 AURORA-NAVY FAMILY (Founder + designer approved) ===== */
+body{background:#FFFFFF!important;color:#141414}
+h1,h2{font-family:'Inter',system-ui,sans-serif!important;font-weight:900!important;letter-spacing:-.025em!important;
+ background:linear-gradient(92deg,#127A40 0%,#189850 38%,#189850 72%,#B7791F 100%);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+h3{font-family:'Inter',system-ui,sans-serif!important;font-weight:800!important;color:#2F3B35!important}
+.hd{background:rgba(10,20,40,.9)!important;border-bottom:1px solid rgba(20,60,40,.16)!important}
+.wm b{background:linear-gradient(92deg,#127A40,#189850 55%,#189850);-webkit-background-clip:text;background-clip:text;color:transparent!important;font-family:'Inter',sans-serif!important;font-weight:900!important}
+.gbtn,.cta,button.cta{background:linear-gradient(92deg,#189850,#189850)!important;color:#FFFFFF!important;font-weight:800!important;border:0!important;border-radius:12px!important;box-shadow:0 10px 26px -10px rgba(18,122,64,.5)}
+.gbtn:hover,.cta:hover{background:linear-gradient(92deg,#189850,#189850)!important;transform:translateY(-1px)}
+.cta.dark{background:linear-gradient(92deg,#127A40,#189850)!important;color:#FFFFFF!important}
+.rule{background:linear-gradient(90deg,#127A40,#189850,#189850,#B7791F)!important;height:4px!important}
+.eyeb{color:#B7791F!important}
+.glink{color:#189850!important}
+.chip{background:rgba(56,189,248,.14)!important;color:#127A40!important;border:1px solid rgba(56,189,248,.25)!important}
+.panel{color:#141414}
+.zone,.c,.catp{background:#FFFFFF!important;border:1px solid rgba(20,60,40,.16)!important;box-shadow:0 14px 44px -18px rgba(3,8,20,.8)!important}
+.zblock{background:#F4F6F5!important;border:1px solid rgba(20,60,40,.14)!important}
+p,li{color:#404040}
+.mut{color:#565656!important}
+input,textarea,select{background:#F4F6F5!important;color:#FFFFFF!important;border-color:rgba(20,60,40,.2)!important}
+::placeholder{color:#565656!important}
+label{color:#2F3B35!important}
+.dmod{background:#FAFAFA!important}
+.dmod .gc{background:radial-gradient(circle at 35% 30%,#66B88A,#189850 75%)!important;box-shadow:0 6px 24px rgba(24,152,80,.55)!important;color:#FFFFFF!important;border-radius:50%!important}
+.dmod b{color:#141414!important}
+.ftband{background:#F4F6F5!important;border:1px solid rgba(20,60,40,.16)!important;color:#565656!important}
+.ftband a{color:#404040!important}
+.tl::before{background:linear-gradient(#127A40,#189850)!important}
+.tl .step::before{background:#189850!important}
+.tl b{color:#141414!important}
+details.f2 summary{color:#141414!important}
+details.f2{border-color:rgba(20,60,40,.16)!important}
+details.f2 p{color:#404040!important}
+.catp h3{color:#127A40!important;border-color:rgba(20,60,40,.16)!important}
+.catp li{color:#404040!important}.catp li b{color:#B7791F!important}
+.dom{color:#189850!important}
+.legalpage p,.legalpage li,.legalpage td{color:#404040!important}
+.legalpage h1,.legalpage h2,.legalpage h3{color:#2F3B35!important;background:none!important;-webkit-text-fill-color:#2F3B35!important}
+.legalpage a{color:#189850!important}
+.legalpage strong,.legalpage b{color:#141414!important}
+.legalpage .tldr,.legalpage .box,.legalpage .notice,.smn22-intro{background:#F4F6F5!important;border-color:rgba(20,60,40,.16)!important;border-left-color:#189850!important}
+.smn22-intro p{color:#404040!important}
+.smn22-cta{background:#FFFFFF!important;border-color:rgba(20,60,40,.16)!important}
+.pill{filter:none}
+.p-grn{background:rgba(24,152,80,.15)!important;color:#7CEBB5!important}.p-blu{background:rgba(96,165,250,.16)!important;color:#127A40!important}
+.p-pur{background:rgba(167,139,250,.18)!important;color:#7FCCA3!important}.p-red{background:rgba(18,122,64,.16)!important;color:#8FCBA8!important}
+.p-gray{background:rgba(20,60,40,.12)!important;color:#404040!important}.p-org{background:rgba(200,155,60,.15)!important;color:#C89B3C!important}
+:focus-visible{outline-color:#127A40!important}
+[data-art].artlive::after{background:rgba(6,16,33,.7)!important}
+</style>
+<style>
+/* CO223 aurora wrap for ported page */
+body{background:#FFFFFF!important}
+.smnbar,.smnfoot,.bar{display:none!important}
+main.ported,.legalwrap,.legal,.wrap,.page,.container{background:transparent!important}
+.ported h1,.ported h2{background:linear-gradient(92deg,#127A40 0%,#189850 38%,#189850 72%,#B7791F 100%);-webkit-background-clip:text;background-clip:text;color:transparent!important;font-family:'Inter',sans-serif!important;font-weight:900!important}
+.ported,.ported p,.ported li,.ported td{color:#404040!important}
+.ported h3,.ported h4,.ported b,.ported strong,.ported summary{color:#2F3B35!important}
+.ported a{color:#189850!important}
+.ported .card,.ported .box,.ported .tldr,.ported .notice{background:#FFFFFF!important;border:1px solid rgba(20,60,40,.16)!important}
+.ported button,.ported .btn{background:linear-gradient(92deg,#189850,#189850)!important;color:#fff!important;border:0!important;border-radius:12px!important;font-weight:800!important}
+.ported input,.ported textarea,.ported select{background:#F4F6F5!important;color:#FFFFFF!important;border-color:rgba(20,60,40,.2)!important}
+</style><style>.ported a[href*="workspace"],.ported a[href*="account"]{background:linear-gradient(92deg,#189850,#189850)!important;color:#fff!important;border-radius:12px!important;padding:12px 22px!important;font-weight:800!important;text-decoration:none!important;display:inline-block}</style><style>/* CO224: designer's radius law — every button matches Open my AI Studio (12px) */
+button,.btn,.cta,.gbtn,.bzbtn,.ocaimbtn,.newbtn,.conciergebtn,.successbtn,.aistudiobtn,.arw,.dmod .gc,.gc,input[type=submit],input[type=button],.smn22-cta a,.dlhero-btn,.act{border-radius:12px!important}
+
+/* iOS zoom trap (2026-07-25): Safari force-zooms on focus when a field is under 16px.
+   Scoped to coarse pointers so desktop sizing is untouched. */
+@media (pointer: coarse) {
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"],
+  input[type="search"], input[type="password"], input:not([type]), textarea, select {
+    font-size: max(1rem, 16px) !important;
+  }
+}
+/* Header language + currency selects. */
+.hdsel{display:inline-flex;gap:8px;align-items:center;margin-right:14px}
+.hdsel select{background:rgba(16,33,67,.7);border:1px solid var(--line);color:#FFFFFF;
+  font:inherit;font-size:.8125rem;font-weight:600;border-radius:10px;padding:clamp(7px,.8vw,8px) clamp(8px,1vw,10px);
+  cursor:pointer;min-height:44px;appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M1 1l4 4 4-4' stroke='%23AFC2E1' stroke-width='1.6' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat:no-repeat;background-position:right 9px center;padding-right:26px}
+.hdsel select:hover{border-color:rgba(24,152,80,.5)}
+.hdsel select:focus-visible{outline:2px solid #189850;outline-offset:2px}
+.curnote{display:block;font-size:.6875rem;color:var(--faint);margin-top:4px;line-height:1.3}
+@media(max-width:820px){.curnote{display:none}}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(max-width:820px){.hdsel{margin-right:8px}}
+/* BRACE RESTORED (2026-07-26). This media query was never closed, so every rule after it
+   — the globe, the currency glyph, the select padding — was swallowed inside it and only
+   applied below 520px. On any wider screen the header symbols were unstyled. Caused by a
+   sloppy slice when this block was extracted for reuse across the site; it landed on 26
+   pages. postcss found it in one run; nothing else had ever parsed the CSS. */
+@media(max-width:520px){.hdsel select[id="cur"]{display:none}}
+/* Symbol-led language and currency controls. */
+.hdsel-i{font-size:.875rem;line-height:1;opacity:.85;flex:none;
+  font-variant-emoji:text;color:#141414}
+#curSym{font-weight:800;min-width:12px;text-align:center}
+.hdsel select{padding-left:6px}
+@media(max-width:520px){.hdsel-i{font-size:.8125rem}}
+.tm{font-size:.55em;font-weight:700;vertical-align:super;line-height:1;margin-left:1px;opacity:.85}
+</style><link href="/favicon-32.png" rel="icon" type="image/png"/><meta content="The step-by-step guide to launching your brand with your SparkMyName&lt;sup class=" name="description" tm"=""/>™ kit — domain, profiles, and first posts."&gt;<link href="https://sparkmyname.netlify.app/guide.html" rel="canonical"/><meta content="Launch my brand — SparkMyName&lt;sup class=" property="og:title" tm"=""/>™"&gt;<meta content="The step-by-step guide to launching your brand with your SparkMyName&lt;sup class=" property="og:description" tm"=""/>™ kit — domain, profiles, and first posts."&gt;<meta content="website" property="og:type"/><meta content="https://sparkmyname.netlify.app/guide.html" property="og:url"/><meta content="https://sparkmyname.netlify.app/og-card.png" property="og:image"/><meta content="SparkMyName&lt;sup class=" property="og:site_name" tm"=""/>™"&gt;<meta content="summary_large_image" name="twitter:card"/><meta content="https://sparkmyname.netlify.app/og-card.png" name="twitter:image"/><script>
+/* ERROR BOUNDARY (2026-07-25). Audit found window.onerror: 0, unhandledrejection: 0,
+   <noscript>: 0 across every page. One thrown error inside a render function produced a blank
+   card with no message and no clue — which is exactly how this afternoon's failure presented.
+   This never swallows the error (it still reaches the console); it guarantees the user is TOLD.
+   Placed in <head> so it is armed before any page script runs. */
+(function(){
+  var shown=false;
+  function boom(what){
+    if(shown)return; shown=true;
+    try{
+      var d=document.createElement('div');
+      d.setAttribute('role','alert');
+      d.style.cssText='position:fixed;left:12px;right:12px;'+
+        'bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:2147483000;'+
+        'padding:14px 16px;border-radius:12px;background:#FDF6F8;border:1px solid #189850;'+
+        'color:#127A40;font:600 14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;'+
+        'box-shadow:0 18px 44px -12px rgba(0,0,0,.6)';
+      d.textContent='Something went wrong on this page. Reload to try again. ('+String(what).slice(0,120)+')';
+      (document.body||document.documentElement).appendChild(d);
+    }catch(e){}
+  }
+  window.addEventListener('error',function(e){ boom((e&&e.message)||'script error'); });
+  window.addEventListener('unhandledrejection',function(e){
+    var r=e&&e.reason; boom((r&&(r.message||r))||'a request failed'); });
+})();
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="css/uniform.css" rel="stylesheet"/>
+<link rel="stylesheet" href="css/site-footer.css">
+</head><body>
+<header class="hd"><div class="in">
+<a class="wm" href="index.html"><span class="sp">✧</span><b>SparkMyName<sup class="tm">™</sup></b></a>
+<nav class="nav">
+<a data-i18n="nav1" href="features.html">Features</a><a data-i18n="nav2" href="how-it-works.html">How It Works</a><a data-i18n="nav3" href="deliverables.html">Deliverables</a><a data-i18n="nav4" href="pricing.html">Pricing</a><a data-i18n="nav5" href="resources.html">Resources</a>
+</nav>
+<!-- CANONICAL HEADER (2026-07-25, Founder order). One shape on every customer page:
+       wordmark, four destinations, language, currency, log in. Nothing else belongs here —
+       "Start Your Spark" was a sales button living in navigation furniture, and it appeared on
+       29 pages while the homepage had already dropped it.
+       Language and currency lead with a SYMBOL rather than a word, so the control reads at a
+       glance in any language and stays narrow enough for a phone: a globe for language, the
+       actual currency glyph for money. The select keeps its own accessible name. -->
+<span class="rt">
+<span class="hdsel">
+<label class="sr-only" for="lang">Language</label>
+<span aria-hidden="true" class="hdsel-i">🌐</span>
+<select aria-label="Language" id="lang">
+<option value="en">EN</option><option value="es">ES</option><option value="fr">FR</option>
+<option value="de">DE</option><option value="pt">PT</option>
+</select>
+<label class="sr-only" for="cur">Currency</label>
+<span aria-hidden="true" class="hdsel-i" id="curSym">$</span>
+<select aria-label="Currency" id="cur">
+<option value="USD">USD</option><option value="EUR">EUR</option>
+<option value="GBP">GBP</option><option value="JPY">JPY</option>
+<option value="BRL">BRL</option><option value="INR">INR</option>
+</select>
+</span>
+<a class="lg" data-i18n="login" href="account.html">Log in</a>
+</span>
+</div></header>
+<div class="wrap" style="margin-top:18px"><div class="page-hero-img"><img src="img/hero-guides.webp" alt="A stack of premium guide books" width="960" height="640" loading="lazy" decoding="async" style="width:100%;border-radius:18px;border:1px solid rgba(0,0,0,.1)"></div></div>
+
+<main class="ported" style="max-width:900px;margin:0 auto;padding:48px 24px">
+<div id="boot"><span class="dot"></span></div>
+<!-- LOGGED OUT -->
+<div class="gate hide" id="view-out">
+<h1>Open my Workspace</h1>
+<p>Your brand and this guide live in your Workspace. Open it to begin.</p>
+<a class="gold" href="account.html">Open my Workspace</a>
+</div>
+<!-- LOGGED IN -->
+<div class="hide" id="view-in">
+<div class="topbar">
+<a class="exit" href="account.html">✕ Close — back to my brands</a>
+</div>
+<div class="wrap">
+<h2>Your brand is real.<br/>Here’s how to launch it.</h2>
+<p class="lede" id="lede">Six small steps. Do them in any order. Nothing here can be undone by mistake.</p>
+<p class="you" id="you"></p>
+<!-- brand picker (only when more than one) -->
+<div class="picker hide" id="picker">
+<p class="pk-title">You have more than one brand. Which one do you want to launch?</p>
+<div id="brandlist"></div>
+</div>
+<!-- wish box -->
+<div class="wishwrap hide" id="wishwrap">
+<label for="wish">Tell me what you want to do…</label>
+<input autocomplete="off" id="wish" placeholder="Type a few words, like “register” or “trademark”…" type="text"/>
+<div id="wishnote"></div>
+</div>
+<div id="steps"></div>
+<div id="errslot"></div>
+<!-- FINAL customer action — last actionable thing on the page -->
+<div class="final hide" id="final">
+<h2>That’s it. You’re ready to go.</h2>
+<a class="gold" href="account.html" id="final-cta">Open my Workspace</a>
+</div>
+</div>
+<div class="smnFoot">
+<div class="mk"><span class="s">Spark</span><span class="n">MyName</span></div>
+<div>You own your brand by registering the domain and securing your rights. SparkMyName does not provide trademark clearance or legal advice — always run your own trademark check before using any name.</div>
+<div style="margin-top:8px">© 2026 SparkMyName<sup class="tm">™</sup> · VORREX IGNITE LLC · <span class="pat">U.S. Patent Pending (App. 19/704,386)</span></div>
+</div>
+</div>
+<!-- EXACT auth stack, mirrored from account.html -->
+<script defer="" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js?v=20260618u"></script>
+<script>
+(function(){
+  "use strict";
+  var URL = window.SMN_SUPABASE_URL, KEY = window.SMN_SUPABASE_ANON_KEY;
+  var sb = null;
+  try {
+    sb = window.supabase.createClient(URL, KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storage: window.localStorage } });
+  } catch (e) { sb = null; }
+
+  var S = { token: '', booted: false, brands: [], active: null };
+  var $ = function(id){ return document.getElementById(id); };
+  function showOut(){ $('boot').classList.add('hide'); $('view-in').classList.add('hide'); $('view-out').classList.remove('hide'); }
+  function showIn(){ $('boot').classList.add('hide'); $('view-out').classList.add('hide'); $('view-in').classList.remove('hide'); }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  /* ---------- the six launch steps (built with the customer's real name + web address) ---------- */
+  function stepDefs(name, addr){
+    var A = esc(addr), N = esc(name);
+    return [
+      { key:'domain', title:'Claim your web address', video:'tutorialdomain',
+        body:'Type <strong class="addr">'+A+'</strong> into a web-address seller’s search box to make it yours. Once it’s yours, nobody else can take it.',
+        honest:'', gold:{label:'Copy my web address', act:'copyaddr'},
+        words:'web address domain website url address claim buy dot com '+A },
+      { key:'trademark', title:'Check and protect your name', video:'tutorialtrademark',
+        body:'Do a free trademark search for <strong>'+N+'</strong> on the government’s own website. If it’s open, you can start to register it as yours.',
+        honest:'This helps you check and register — it is not legal advice.',
+        gold:{label:'Open free trademark search', href:'https://tmsearch.uspto.gov/'},
+        words:'trademark protect name uspto brand logo copyright clearance legal '+N },
+      { key:'ein', title:'Get your Tax ID (EIN)', video:'tutorialein',
+        body:'Your business needs a Tax ID, called an EIN. It’s free from the IRS — never pay another site for it.',
+        honest:'', gold:{label:'Get my EIN free at IRS.gov', href:'https://www.irs.gov/businesses/small-businesses-self-employed/apply-for-an-employer-identification-number-ein-online'},
+        words:'ein tax id irs employer number free' },
+      { key:'register', title:'Register your business', video:'tutorialregister',
+        body:'Sign up your business on your state’s official website. This makes <strong>'+N+'</strong> a real, legal business.',
+        honest:'', gold:{label:'Open the official business guide', href:'https://www.usa.gov/register-business'},
+        words:'register business llc state license incorporate form company official' },
+      { key:'print', title:'Print your things', video:'tutorialprint',
+        body:'Print your cards, flyers, and signs for <strong>'+N+'</strong> — at our store or anywhere you like. Your choice.',
+        honest:'', gold:{label:'Open my things in Workspace', href:'account.html'},
+        words:'print cards flyers signs merch store business cards stickers things' },
+      { key:'launch', title:'Launch your pages', video:'tutoriallaunch',
+        body:'Your first posts are written and waiting in your Workspace. Open them and share <strong>'+N+'</strong> with the world.',
+        honest:'', gold:{label:'Open my first posts', href:'account.html'},
+        words:'launch posts social pages publish instagram facebook workspace share' }
+    ];
+  }
+
+  function doneKey(brandId, stepKey){ return 'smn_guide_done::'+brandId+'::'+stepKey; }
+  function isDone(brandId, stepKey){ try { return localStorage.getItem(doneKey(brandId, stepKey)) === '1'; } catch(e){ return false; } }
+  function setDone(brandId, stepKey, v){ try { if(v) localStorage.setItem(doneKey(brandId, stepKey),'1'); else localStorage.removeItem(doneKey(brandId, stepKey)); } catch(e){} }
+
+  /* ---------- optional tutorial reel (read-only; text stays primary; never blocks) ----------
+     Asynchronously asks tutorial-manifest if a reel exists for this step's slug.
+     If shots are present → reveal the QUIET secondary "Watch how" control.
+     If empty/missing/error → the control never appears; the step stays text-only. */
+  function wireVideo(card, slug){
+    var tut = card.querySelector('.tut'); if(!tut) return;
+    fetch('/.netlify/functions/tutorial-manifest?reel='+encodeURIComponent(slug))
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(m){
+        var g = m && m.brands && m.brands[slug];
+        var shots = (g && g.shots ? g.shots : []).filter(Boolean);
+        if (!shots.length) return; // graceful: no button, no player, no error
+        var caps  = (g && g.captions) ? g.captions : [];
+        var watch  = tut.querySelector('[data-watch]');
+        var player = tut.querySelector('.tutplayer');
+        var vid    = tut.querySelector('.tutvid');
+        var capBox = tut.querySelector('.tutcap');
+        var playBtn= tut.querySelector('[data-tplay]');
+        var muteBtn= tut.querySelector('[data-tmute]');
+        var closeBtn=tut.querySelector('[data-tclose]');
+        var i = 0, durs = [], started = false;
+        function offAt(k){ var t=0; for(var j=0;j<k;j++) t+=(durs[j]||8); return t; }
+        function showCap(){
+          if (!caps.length){ capBox.textContent = 'Muted by default — tap the speaker to hear it.'; return; }
+          var t = offAt(i) + (vid.currentTime||0), c = null;
+          for (var k=0;k<caps.length;k++){ if (t>=caps[k].s && t<caps[k].e){ c=caps[k]; break; } }
+          capBox.textContent = c ? c.t : '';
+        }
+        function playShot(k){
+          i = k; vid.src = shots[k]; try{ vid.load(); }catch(e){}
+          try{ var p = vid.play(); if (p && p.catch) p.catch(function(){}); }catch(e){}
+          showCap();
+        }
+        vid.addEventListener('ended', function(){
+          if (vid.duration && !isNaN(vid.duration)) durs[i] = vid.duration;
+          var ni = i+1; if (ni>=shots.length) ni = 0; playShot(ni);
+        });
+        vid.addEventListener('timeupdate', function(){
+          if (vid.duration && !isNaN(vid.duration)) durs[i] = vid.duration;
+          showCap();
+        });
+        watch.classList.remove('hide'); // reveal only now that a rendered reel exists
+        watch.addEventListener('click', function(){
+          player.classList.remove('hide'); watch.classList.add('hide');
+          started = true; vid.muted = true; // NEVER autoplay with sound
+          muteBtn.innerHTML = '&#128263;'; muteBtn.setAttribute('aria-label','Unmute');
+          playBtn.innerHTML = '&#10074;&#10074;'; playBtn.setAttribute('aria-label','Pause');
+          playShot(0);
+        });
+        playBtn.addEventListener('click', function(){
+          if (!started) return;
+          if (vid.paused){ try{ vid.play(); }catch(e){} playBtn.innerHTML='&#10074;&#10074;'; playBtn.setAttribute('aria-label','Pause'); }
+          else { try{ vid.pause(); }catch(e){} playBtn.innerHTML='&#9654;'; playBtn.setAttribute('aria-label','Play'); }
+        });
+        muteBtn.addEventListener('click', function(){
+          vid.muted = !vid.muted;
+          muteBtn.innerHTML = vid.muted ? '&#128263;' : '&#128266;';
+          muteBtn.setAttribute('aria-label', vid.muted ? 'Unmute' : 'Mute');
+        });
+        closeBtn.addEventListener('click', function(){
+          try{ vid.pause(); }catch(e){}
+          player.classList.add('hide'); watch.classList.remove('hide'); started = false;
+        });
+      })
+      .catch(function(){ /* stay text-only; never surface an error to the customer */ });
+  }
+
+  function renderSteps(brand){
+    var defs = stepDefs(brand.name, brand.addr);
+    var host = $('steps'); host.innerHTML = '';
+    defs.forEach(function(d, i){
+      var card = document.createElement('div');
+      card.className = 'step'; card.setAttribute('data-key', d.key);
+      card.setAttribute('data-words', (d.title+' '+d.words).toLowerCase());
+      if (isDone(brand.id, d.key)) card.classList.add('is-done');
+
+      var gold;
+      if (d.gold.href){ gold = '<a class="gold" href="'+d.gold.href+'"'+(d.gold.href.indexOf('http')===0?' target="_blank" rel="noopener"':'')+'>'+esc(d.gold.label)+'</a>'; }
+      else { gold = '<button type="button" class="gold" data-act="'+d.gold.act+'" data-addr="'+esc(brand.addr)+'">'+esc(d.gold.label)+'</button>'; }
+
+      card.innerHTML =
+        '<span class="num">'+(i+1)+'</span>'+
+        '<h3>'+esc(d.title)+'</h3>'+
+        '<p>'+d.body+'</p>'+
+        (d.honest ? '<p class="honest">'+esc(d.honest)+'</p>' : '')+
+        '<p class="donetag">✓ You marked this done.</p>'+
+        '<div class="acts">'+
+          gold+
+          '<button type="button" class="ghost" data-print="1">Save it (print)</button>'+
+          '<button type="button" class="ghost mark'+(isDone(brand.id,d.key)?' on':'')+'" data-mark="'+d.key+'">'+(isDone(brand.id,d.key)?'Not done yet':'Mark done')+'</button>'+
+        '</div>'+
+        (d.video ?
+          '<div class="tut" data-slug="'+esc(d.video)+'">'+
+            '<button type="button" class="watch hide" data-watch>&#9654; Watch how (30s)</button>'+
+            '<div class="tutplayer hide">'+
+              '<div class="tutstage">'+
+                '<video class="tutvid" playsinline preload="auto" muted></video>'+
+                '<div class="tutcap" aria-live="polite"></div>'+
+              '</div>'+
+              '<div class="tutbar">'+
+                '<button type="button" class="tutbtn" data-tplay aria-label="Pause">&#10074;&#10074;</button>'+
+                '<button type="button" class="tutbtn" data-tmute aria-label="Unmute">&#128263;</button>'+
+                '<button type="button" class="tutbtn tutclose" data-tclose aria-label="Close video">&#10005; Close video</button>'+
+              '</div>'+
+            '</div>'+
+          '</div>' : '');
+      host.appendChild(card);
+      if (d.video) wireVideo(card, d.video);
+    });
+
+    // wire buttons
+    host.querySelectorAll('[data-print]').forEach(function(b){ b.addEventListener('click', function(){ window.print(); }); });
+    host.querySelectorAll('[data-act="copyaddr"]').forEach(function(b){
+      b.addEventListener('click', function(){
+        var a = b.getAttribute('data-addr')||'';
+        var done = function(){ var t=b.textContent; b.textContent='Copied ✓'; setTimeout(function(){ b.textContent=t; }, 1600); };
+        try { if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(a).then(done, done); } else { done(); } } catch(e){ done(); }
+      });
+    });
+    host.querySelectorAll('[data-mark]').forEach(function(b){
+      b.addEventListener('click', function(){
+        var key = b.getAttribute('data-mark');
+        var card = b.closest('.step');
+        var now = !card.classList.contains('is-done');
+        setDone(brand.id, key, now);
+        card.classList.toggle('is-done', now);
+        b.classList.toggle('on', now);
+        b.textContent = now ? 'Not done yet' : 'Mark done';
+      });
+    });
+
+    $('wishwrap').classList.remove('hide');
+    $('final').classList.remove('hide');
+  }
+
+  /* free-text keyword filter — client side only, no AI, no backend */
+  function wireWish(){
+    var inp = $('wish'); if(!inp) return;
+    inp.addEventListener('input', function(){
+      var q = inp.value.trim().toLowerCase();
+      var cards = $('steps').querySelectorAll('.step');
+      var note = $('wishnote');
+      if (!q){ cards.forEach(function(c){ c.classList.remove('hide'); c.classList.remove('match'); }); note.textContent=''; return; }
+      var terms = q.split(/\s+/).filter(Boolean);
+      var shown = 0;
+      cards.forEach(function(c){
+        var words = c.getAttribute('data-words')||'';
+        var hit = terms.some(function(t){ return words.indexOf(t) !== -1; });
+        c.classList.toggle('hide', !hit);
+        c.classList.toggle('match', hit);
+        if (hit) shown++;
+      });
+      note.textContent = shown ? ('Showing '+shown+' step'+(shown===1?'':'s')+' that match.') : 'No step matched — clear the box to see all six.';
+    });
+  }
+
+  function showError(){
+    var slot = $('errslot');
+    slot.innerHTML = '<div class="errbox">Something didn’t go through — your brand is safe. Please try again.<br><button type="button" class="gold" id="retry">Try again</button></div>';
+    var r = $('retry'); if(r) r.addEventListener('click', function(){ slot.innerHTML=''; loadAll(S.token); });
+  }
+
+  function personalize(brand){
+    S.active = brand;
+    $('you').innerHTML = esc(brand.name)+' is ready. Your web address is <span class="addr">'+esc(brand.addr)+'</span>.';
+    renderSteps(brand);
+  }
+
+  function renderPicker(){
+    var host = $('brandlist'); host.innerHTML = '';
+    S.brands.forEach(function(b){
+      var btn = document.createElement('button');
+      btn.type='button'; btn.className='brandbtn';
+      btn.innerHTML = esc(b.name)+'<small>'+esc(b.addr)+'</small>';
+      btn.addEventListener('click', function(){ $('picker').classList.add('hide'); personalize(b); window.scrollTo({top:0,behavior:'smooth'}); });
+      host.appendChild(btn);
+    });
+    $('picker').classList.remove('hide');
+    $('you').textContent = 'Pick a brand below to see its launch steps.';
+  }
+
+  /* ---------- read-only loads (only the two allowed endpoints) ---------- */
+  function loadReportNames(id){
+    return fetch('/.netlify/functions/report-data?r='+encodeURIComponent(id))
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var names = (d && d.names) || [];
+        var top = names[0] || null;
+        if (!top) return null;
+        return { id:id, name:top.name || 'Your brand', addr:(top.domain || (String(top.name||'brand').toLowerCase().replace(/[^a-z0-9]/g,'')+'.com')) };
+      });
+  }
+
+  function loadAll(token){
+    S.booted = true;
+    fetch('/.netlify/functions/my-reports', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ access_token: token }) })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var reports = (d && d.reports) || [];
+        if (!reports.length){
+          // No brands yet — send them to their workspace kindly.
+          $('you').innerHTML = 'Your brands live in your Workspace.';
+          $('final').classList.remove('hide');
+          return;
+        }
+        return Promise.all(reports.map(function(rep){ return loadReportNames(rep.id).catch(function(){ return null; }); }))
+          .then(function(list){
+            S.brands = list.filter(Boolean);
+            // Never dead-end: if a specific brand can't be matched, still show the six steps.
+            if (!S.brands.length){ try{console.warn('[guide] reports found but no brand names resolved — showing steps unpersonalized');}catch(e){} showStepsFallback(); return; }
+            if (S.brands.length === 1){ personalize(S.brands[0]); }
+            else { renderPicker(); }
+            wireWish();
+          });
+      })
+      .catch(function(){ try{console.warn('[guide] brand lookup failed — showing steps unpersonalized');}catch(e){} showStepsFallback(); });
+  }
+
+  // The written six steps are always safe and complete on their own (SOP: never block the customer).
+  // If we can't match a specific brand, show the steps with gentle generic wording instead of an error.
+  function showStepsFallback(){
+    var slot = $('errslot'); if(slot) slot.innerHTML='';
+    $('you').innerHTML = 'Here are your six steps to launch. Open your <a class="addr" href="account.html">Workspace</a> to see them filled in with your brand.';
+    renderSteps({ id:'generic', name:'your brand', addr:'your web address' });
+    wireWish();
+  }
+
+  /* ---------- boot: gate exactly like account.html ---------- */
+  function boot(){
+    if (!sb){ showOut(); return; }
+    sb.auth.getSession()
+      .then(function(r){
+        var s = r && r.data ? r.data.session : null;
+        if (s && s.access_token){ S.token = s.access_token; showIn(); if(!S.booted) loadAll(s.access_token); }
+        else { showOut(); }
+      })
+      .catch(function(){ showOut(); });
+    sb.auth.onAuthStateChange(function(_e, s){
+      if (s && s.access_token){ S.token = s.access_token; showIn(); if(!S.booted) loadAll(s.access_token); }
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+</main>
+<footer class="ft"><div class="wrap">
+<div class="ftgrid">
+<div class="ftbrand">
+<a class="wm" href="index.html"><span class="mk"><svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.3l2.7 6.3 6.8.6-5.2 4.5 1.6 6.7-5.9-3.6-5.9 3.6 1.6-6.7-5.2-4.5 6.8-.6z" fill="#fff"></path></svg></span>Spark<span>MyName</span><sup class="tm">&trade;</sup></a>
+<p>Say one sentence. Get a complete brand &mdash; and everything you need to launch it.</p>
+</div>
+<div class="ftcol"><h3>Product</h3>
+<a href="how-it-works.html">How it works</a>
+<a href="what-you-get.html">What you get</a>
+<a href="see-the-work.html">See the work</a>
+<a href="pricing.html">Pricing</a>
+<a href="demo.html">Demo workspace</a>
+<a href="checkout.html" data-checkout>Get started</a></div>
+<div class="ftcol"><h3>Company</h3>
+<a href="about.html">About</a>
+<a href="success-path.html">The Success Path</a>
+<a href="affiliate.html">Affiliate program</a>
+<a href="press.html">Press</a></div>
+<div class="ftcol"><h3>Support</h3>
+<a href="support.html">Help &amp; support</a>
+<a href="status.html">Status</a>
+</div>
+<div class="ftcol"><h3>Legal</h3>
+<a href="privacy.html">Privacy</a>
+<a href="terms.html">Terms</a>
+<a href="cookies.html">Cookies</a>
+<a href="refund.html">Refunds</a>
+<a href="accessibility.html">Accessibility</a>
+<a href="security.html">Security</a></div>
+</div>
+<div class="ftlegal">
+<p>AI-generated suggestions are for informational purposes only and are not legal, trademark, tax, financial, or domain-registration advice &mdash; consult a qualified professional. We do not perform trademark clearance, and we do not build or host customer websites.</p>
+<p>&copy; 2026 SparkMyName<sup class="tm">&trade;</sup> &middot; Owned by VORREX IGNITE LLC &middot; U.S. Patent Pending (App. 19/704,386) &middot; Trademark application pending, Serial No. 50014040 &mdash; not registered.<span style="display:block;margin-top:6px;font-size:11px;opacity:.55">Site build: SPACIOUS RESKIN &middot; July 29, 2026</span></p>
+</div>
+</div></footer>
+<script>
+/* LANGUAGE + CURRENCY (2026-07-25, Founder order).
+   Both engines are the Founder's own, recovered from the July-19 build and re-verified:
+     - i18n  : a table keyed by language, applied to every [data-i18n] element
+     - money : a rate table applied to every [data-price] element
+   TWO HONEST NOTES.
+   1. The July-19 table was written for THAT page's copy. Its keys do not match this page, so
+      reusing it verbatim would have translated nothing. The table below is written for the
+      strings that actually exist here — nav, log in, and the hero eyebrow. Anything without a
+      data-i18n marker stays in English rather than silently doing nothing.
+   2. The rates are fixed, not live. They are honest approximations for display only, and the
+      charge is always USD $99 at Stripe — which the note under the selector says out loud.
+      A live rate feed would need an API key and a cache; this does not pretend to be one. */
+(function(){
+  var T={
+    en:{nav1:'Features',nav2:'How It Works',nav3:'Deliverables',nav4:'Pricing',login:'Log in',eyeb:'From idea to legacy'},
+    es:{nav1:'Funciones',nav2:'Cómo funciona',nav3:'Entregables',nav4:'Precios',login:'Iniciar sesión',eyeb:'De la idea al legado'},
+    fr:{nav1:'Fonctionnalités',nav2:'Comment ça marche',nav3:'Livrables',nav4:'Tarifs',login:'Se connecter',eyeb:'De l\u2019idée à l\u2019héritage'},
+    de:{nav1:'Funktionen',nav2:'So funktioniert es',nav3:'Leistungen',nav4:'Preise',login:'Anmelden',eyeb:'Von der Idee zum Vermächtnis'},
+    pt:{nav1:'Recursos',nav2:'Como funciona',nav3:'Entregáveis',nav4:'Preços',login:'Entrar',eyeb:'Da ideia ao legado'}
+  };
+  var SYM={USD:'$',EUR:'\u20AC',GBP:'\u00A3',JPY:'\u00A5',BRL:'R$',INR:'\u20B9'};
+  var RATE={USD:1,EUR:.93,GBP:.79,JPY:155,BRL:5.1,INR:83};
+
+  function applyLang(){
+    var el=document.getElementById('lang');
+    var code=(el&&T[el.value])?el.value:'en';
+    var d=T[code]||T.en;
+    document.querySelectorAll('[data-i18n]').forEach(function(n){
+      var k=n.getAttribute('data-i18n'); if(d[k]!=null) n.textContent=d[k];
+    });
+    try{ document.documentElement.setAttribute('lang',code); }catch(e){}
+    try{ localStorage.setItem('smn_lang',code); }catch(e){}
+  }
+  function applyCur(){
+    var el=document.getElementById('cur');
+    var c=(el&&RATE[el.value])?el.value:'USD';
+    var r=RATE[c], sym=SYM[c];
+    document.querySelectorAll('[data-price]').forEach(function(n){
+      var base=parseFloat(n.getAttribute('data-price'));
+      if(isNaN(base)) return;
+      n.textContent = sym + Math.round(base*r).toLocaleString('en-US');
+    });
+    /* The header leads with the currency GLYPH, so it has to follow the selection. Without
+       this the control would show a dollar sign while prices read in euros. */
+    var gs=document.getElementById('curSym');
+    if(gs) gs.textContent = sym;
+    /* COMMERCE & CX LAW: the page price must always equal the Stripe charge. Converted
+       amounts are a courtesy for readers abroad, and the moment one is shown the page says
+       plainly what will actually be billed. Silence here would be a false price. */
+    var note=document.getElementById('curnote');
+    if(!note && el && el.parentNode){
+      note=document.createElement('small'); note.id='curnote'; note.className='curnote';
+      el.parentNode.appendChild(note);
+    }
+    if(note) note.textContent = (c==='USD') ? '' : 'Approximate \u2014 billed as USD $99';
+    try{ localStorage.setItem('smn_cur',c); }catch(e){}
+  }
+
+  function boot(){
+    var lang=document.getElementById('lang'), cur=document.getElementById('cur');
+    /* remembered choice first, then the browser's own language */
+    try{
+      var savedL=localStorage.getItem('smn_lang'), savedC=localStorage.getItem('smn_cur');
+      if(lang&&savedL&&T[savedL]) lang.value=savedL;
+      else if(lang){ var nav=(navigator.language||'en').slice(0,2); if(T[nav]) lang.value=nav; }
+      if(cur&&savedC&&RATE[savedC]) cur.value=savedC;
+      else if(cur&&lang){ var map={es:'EUR',fr:'EUR',de:'EUR',pt:'BRL'}; if(map[lang.value]) cur.value=map[lang.value]; }
+    }catch(e){}
+    if(lang) lang.addEventListener('change',applyLang);
+    if(cur)  cur.addEventListener('change',applyCur);
+    applyLang(); applyCur();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
+  else boot();
+})();
+</script>
+</body></html>

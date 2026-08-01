@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /SPARK%20BACKUP/
+Disallow: /july19/
+Allow: /
+Sitemap: https://sparkmyname.netlify.app/sitemap.xml

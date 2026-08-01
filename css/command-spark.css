@@ -1,0 +1,21 @@
+/* COMMAND CENTERS — SPARK SKIN (explicit Founder order, July 31 2026 night).
+   Olin + Vorrex keep every wire and every element; this layer only fixes the clothes:
+   true ink on clean white, aurora accents, Spark buttons. Legibility is the law. */
+body{background:#F3F7FF !important;color:#16202C !important}
+h1,h2,h3,h4,h5,b,strong,label,th{color:#101A28 !important}
+p,span,div,td,li,small{color:#26333F}
+a{color:#7C5CFF !important}
+a:hover{color:#5F3FE8 !important}
+[class*="card"],[class*="panel"],[class*="box"],section{background:#FFFFFF;border-color:rgba(124,92,255,.18) !important}
+[class*="card"]{box-shadow:0 10px 30px -18px rgba(20,40,90,.25)}
+input,select,textarea{background:#FFFFFF !important;color:#16202C !important;border:1px solid rgba(22,32,44,.25) !important;border-radius:10px}
+input::placeholder,textarea::placeholder{color:#8A99AF !important}
+button,[class*="btn"],.act{background:linear-gradient(90deg,#7C5CFF,#FF4D8D) !important;color:#FFFFFF !important;
+  border:0 !important;border-radius:12px !important;font-weight:800}
+button:hover,[class*="btn"]:hover{filter:brightness(1.06)}
+button:disabled{opacity:.55}
+[style*="background:#189850"],[style*="background:#0E6B38"]{background:linear-gradient(90deg,#21D4FD,#7C5CFF) !important;color:#fff !important}
+table{background:#FFFFFF}
+tr:nth-child(even) td{background:#F7FAFF}
+hr{border-color:rgba(124,92,255,.18)}
+::selection{background:rgba(124,92,255,.25)}

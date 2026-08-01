@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="noindex,nofollow" name="robots"/>
+<title>Art Director — SparkMyName (Founder)</title>
+<meta content="Internal art direction tools for SparkMyName." name="description"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@600&amp;display=swap" rel="stylesheet"/><style>
+:root{--bg:#FFFFFF;--panel:#FFFFFF;--panel2:#F4F6F5;--ink9:#141414;--soft:#404040;--faint:#565656;
+--line:rgba(20,60,40,.14);--gold:#189850;--gold-deep:#127A40;--gold-soft:#E7F5EC;--black:#FAFAFA;
+--sh:0 2px 6px rgba(20,60,40,.05),0 24px 70px -20px rgba(20,60,40,.14)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink9);font-family:'Inter',system-ui,sans-serif;line-height:1.6;min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Inter',system-ui,sans-serif;font-weight:600;color:var(--ink9);letter-spacing:-.01em;margin:0;text-wrap:balance}
+h1{font-size:clamp(38px,4.6vw,58px);line-height:1.1}
+h2{font-size:clamp(26px,3vw,38px);line-height:1.16}
+p,li{color:var(--soft);text-wrap:pretty}
+.mut{color:var(--faint)}
+.eyeb{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.eyeb::before{content:"✧";font-size:.875rem}
+.rule{width:120px;height:3px;background:var(--gold);border:0;margin:16px 0 0}
+.hd{position:sticky;top:0;z-index:60;background:rgba(10,20,40,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hd .in{max-width:1200px;margin:0 auto;padding:clamp(10px,1.3vw,14px) clamp(12px,2.6vw,28px);display:flex;align-items:center;gap:clamp(10px,2.4vw,26px)}
+.wm{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink9)}
+.wm .sp{color:var(--gold);font-size:1.25rem}
+.wm b{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:1.375rem;letter-spacing:-.01em}
+.nav{display:flex;gap:22px;margin-left:14px}
+.nav a{color:rgba(233,240,255,.82);text-decoration:none;font-size:.875rem;font-weight:500;transition:color .15s}
+.nav a:hover{color:#FFFFFF}
+.hd .rt{margin-left:auto;display:flex;align-items:center;gap:clamp(8px,1.7vw,18px)}
+.hd .lg{color:#EAF2FF;text-decoration:none;font-size:.875rem;font-weight:600;transition:color .15s}
+.gbtn,.cta{display:inline-block;border:0;border-radius:999px;padding:13px 26px;font:inherit;font-size:.9062rem;font-weight:600;cursor:pointer;background:var(--gold);color:#FFFFFF;text-decoration:none;text-align:center;transition:background .15s,transform .15s}
+.gbtn:hover,.cta:hover{background:var(--gold-deep);transform:translateY(-1px)}
+.cta.dark{background:var(--black)}
+.cta.dark:hover{background:#000}
+.cta:disabled{opacity:.6;transform:none;cursor:default}
+.glink{color:var(--gold-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.panel{max-width:1200px;margin:0 auto;padding:clamp(26px,5vw,56px) clamp(16px,2.6vw,28px) clamp(44px,6.4vw,72px);width:100%}
+.split{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(26px,5vw,52px);align-items:start}
+.zone{background:var(--panel);border:1px solid var(--line);border-radius:26px;box-shadow:var(--sh);padding:32px}
+.zblock{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:14px}
+.ztwo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.ztwo .zblock{margin:0}
+.dmod{background:var(--black);border-radius:18px;padding:20px 22px;display:flex;align-items:center;gap:20px;cursor:pointer;text-decoration:none}
+.dmod .gc{flex:none;width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#66B88A,var(--gold) 70%);display:flex;align-items:center;justify-content:center;font-size:1.625rem;color:var(--black);border:0;cursor:pointer;box-shadow:0 6px 18px rgba(24,152,80,.45)}
+.dmod b{color:#141414;font-size:1rem;font-weight:600;font-family:'Inter',sans-serif}
+.dmod span{display:block;color:#9FB4D8;font-size:.7812rem;margin-top:3px}
+.dmod.rec .gc{background:#189850;color:#fff}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
+.c{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);padding:24px}
+.c h3{font-size:1.25rem;margin-bottom:6px}
+.c p{font-size:.875rem;margin:0 0 10px}
+.chip{display:inline-block;background:var(--gold-soft);color:var(--gold-deep);border:0;border-radius:999px;padding:4px 12px;font-size:.75rem;font-weight:600}
+.dom{font-size:.8125rem;color:var(--gold-deep);font-weight:700}
+input,textarea,select{font:inherit;color:var(--ink9);background:#FFFFFF;border:1px solid var(--line);border-radius:14px;padding:13px 15px;width:100%}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(24,152,80,.14)}
+::placeholder{color:var(--faint)}
+label{font-size:.8125rem;font-weight:700;color:var(--ink9);display:block;margin:14px 0 6px}
+.ftband{background:var(--panel2);border:1px solid var(--line);border-radius:16px;margin:60px auto 30px;padding:18px 30px;font-size:.8125rem;color:var(--faint);max-width:1200px}
+.ftband .lnks{display:flex;gap:clamp(10px,1.3vw,14px) clamp(16px,2vw,22px);flex-wrap:wrap;margin-bottom:10px}
+.ftband a{color:var(--soft);text-decoration:none}
+.ftband a:hover{color:var(--ink9)}
+.needidea{border-color:#189850!important}
+.tl{position:relative;margin:30px 0 0;padding-left:26px}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--gold)}
+.tl .step{position:relative;padding:0 0 22px}
+.tl .step::before{content:"";position:absolute;left:-24px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--gold)}
+.tl b{color:var(--ink9);font-size:1rem}
+.tl p{margin:4px 0 0;font-size:.875rem}
+details.f2{border-bottom:1px solid var(--line);padding:0 4px}
+details.f2 summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:600;font-size:1rem;color:#141414!important}
+details.f2 p{padding:0 0 18px;margin:0;color:#404040!important;max-width:66ch}
+.pill{display:inline-block;border-radius:999px;padding:5px 13px;font-size:.75rem;font-weight:600}
+.p-grn{background:#E4EFE2;color:#3D6B35}.p-blu{background:#E2EAF6;color:#2F5487}.p-pur{background:#EBE6F5;color:#5A4494}.p-red{background:#F0F7F3;color:#9C3B2E}.p-gray{background:#ECEAE4;color:#404040}.p-org{background:#F4F6F5;color:#8A5A23}
+@media(max-width:980px){.split{grid-template-columns:1fr}.grid3,.grid4{grid-template-columns:1fr 1fr}.nav{display:none}.ftband{margin:40px 16px 20px}}
+@media(max-width:620px){.grid3,.grid4{grid-template-columns:1fr}.ztwo{grid-template-columns:1fr}}
+
+/* ===== DEVICE SAFETY (28 July 2026 sweep) =====
+   Applied to every page. Two faults were site-wide:
+   1. 100vw includes the scrollbar width, so any element using it is wider than the viewport
+      and forces a sideways scroll. overflow-x:hidden on the root stops that everywhere.
+   2. Tap targets under 44px fail Apple's and Google's minimum and are genuinely hard to hit
+      on a phone. Every interactive element now meets 44px.
+   ===== */
+html,body{overflow-x:hidden;max-width:100%}
+*{min-width:0}
+img,video,iframe,table,pre{max-width:100%}
+a,button,select,summary,[role="button"],input[type="submit"],input[type="button"]{
+  min-height:44px}
+a{display:inline-flex;align-items:center}
+a.inline-link,p a,li a,.dis a,.fnote a{display:inline;min-height:0}
+input,textarea,select{font-size:16px}
+@media(max-width:480px){
+  body{-webkit-text-size-adjust:100%}
+}
+</style><style>
+/* ===== CO221 AURORA-NAVY FAMILY (Founder + designer approved) ===== */
+body{background:#FFFFFF!important;color:#141414}
+h1,h2{font-family:'Inter',system-ui,sans-serif!important;font-weight:900!important;letter-spacing:-.025em!important;
+ background:linear-gradient(92deg,#127A40 0%,#189850 38%,#189850 72%,#B7791F 100%);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+h3{font-family:'Inter',system-ui,sans-serif!important;font-weight:800!important;color:#2F3B35!important}
+.hd{background:rgba(10,20,40,.9)!important;border-bottom:1px solid rgba(20,60,40,.16)!important}
+.wm b{background:linear-gradient(92deg,#127A40,#189850 55%,#189850);-webkit-background-clip:text;background-clip:text;color:transparent!important;font-family:'Inter',sans-serif!important;font-weight:900!important}
+.gbtn,.cta,button.cta{background:linear-gradient(92deg,#189850,#189850)!important;color:#FFFFFF!important;font-weight:800!important;border:0!important;border-radius:12px!important;box-shadow:0 10px 26px -10px rgba(18,122,64,.5)}
+.gbtn:hover,.cta:hover{background:linear-gradient(92deg,#189850,#189850)!important;transform:translateY(-1px)}
+.cta.dark{background:linear-gradient(92deg,#127A40,#189850)!important;color:#FFFFFF!important}
+.rule{background:linear-gradient(90deg,#127A40,#189850,#189850,#B7791F)!important;height:4px!important}
+.eyeb{color:#B7791F!important}
+.glink{color:#189850!important}
+.chip{background:rgba(56,189,248,.14)!important;color:#127A40!important;border:1px solid rgba(56,189,248,.25)!important}
+.panel{color:#141414}
+.zone,.c,.catp{background:#FFFFFF!important;border:1px solid rgba(20,60,40,.16)!important;box-shadow:0 14px 44px -18px rgba(3,8,20,.8)!important}
+.zblock{background:#F4F6F5!important;border:1px solid rgba(20,60,40,.14)!important}
+p,li{color:#404040}
+.mut{color:#565656!important}
+input,textarea,select{background:#F4F6F5!important;color:#FFFFFF!important;border-color:rgba(20,60,40,.2)!important}
+::placeholder{color:#565656!important}
+label{color:#2F3B35!important}
+.dmod{background:#FAFAFA!important}
+.dmod .gc{background:radial-gradient(circle at 35% 30%,#66B88A,#189850 75%)!important;box-shadow:0 6px 24px rgba(24,152,80,.55)!important;color:#FFFFFF!important;border-radius:50%!important}
+.dmod b{color:#141414!important}
+.ftband{background:#F4F6F5!important;border:1px solid rgba(20,60,40,.16)!important;color:#565656!important}
+.ftband a{color:#404040!important}
+.tl::before{background:linear-gradient(#127A40,#189850)!important}
+.tl .step::before{background:#189850!important}
+.tl b{color:#141414!important}
+details.f2 summary{color:#141414!important}
+details.f2{border-color:rgba(20,60,40,.16)!important}
+details.f2 p{color:#404040!important}
+.catp h3{color:#127A40!important;border-color:rgba(20,60,40,.16)!important}
+.catp li{color:#404040!important}.catp li b{color:#B7791F!important}
+.dom{color:#189850!important}
+.legalpage p,.legalpage li,.legalpage td{color:#404040!important}
+.legalpage h1,.legalpage h2,.legalpage h3{color:#2F3B35!important;background:none!important;-webkit-text-fill-color:#2F3B35!important}
+.legalpage a{color:#189850!important}
+.legalpage strong,.legalpage b{color:#141414!important}
+.legalpage .tldr,.legalpage .box,.legalpage .notice,.smn22-intro{background:#F4F6F5!important;border-color:rgba(20,60,40,.16)!important;border-left-color:#189850!important}
+.smn22-intro p{color:#404040!important}
+.smn22-cta{background:#FFFFFF!important;border-color:rgba(20,60,40,.16)!important}
+.pill{filter:none}
+.p-grn{background:rgba(24,152,80,.15)!important;color:#7CEBB5!important}.p-blu{background:rgba(96,165,250,.16)!important;color:#127A40!important}
+.p-pur{background:rgba(167,139,250,.18)!important;color:#7FCCA3!important}.p-red{background:rgba(18,122,64,.16)!important;color:#8FCBA8!important}
+.p-gray{background:rgba(20,60,40,.12)!important;color:#404040!important}.p-org{background:rgba(200,155,60,.15)!important;color:#C89B3C!important}
+:focus-visible{outline-color:#127A40!important}
+[data-art].artlive::after{background:rgba(6,16,33,.7)!important}
+</style><style>/* CO224: designer's radius law — every button matches Open my AI Studio (12px) */
+button,.btn,.cta,.gbtn,.bzbtn,.ocaimbtn,.newbtn,.conciergebtn,.successbtn,.aistudiobtn,.arw,.dmod .gc,.gc,input[type=submit],input[type=button],.smn22-cta a,.dlhero-btn,.act{border-radius:12px!important}
+
+/* iOS zoom trap (2026-07-25): Safari force-zooms on focus when a field is under 16px.
+   Scoped to coarse pointers so desktop sizing is untouched. */
+@media (pointer: coarse) {
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"],
+  input[type="search"], input[type="password"], input:not([type]), textarea, select {
+    font-size: max(1rem, 16px) !important;
+  }
+}
+</style><link href="/favicon-32.png" rel="icon" type="image/png"/><script>
+/* ERROR BOUNDARY (2026-07-25). Audit found window.onerror: 0, unhandledrejection: 0,
+   <noscript>: 0 across every page. One thrown error inside a render function produced a blank
+   card with no message and no clue — which is exactly how this afternoon's failure presented.
+   This never swallows the error (it still reaches the console); it guarantees the user is TOLD.
+   Placed in <head> so it is armed before any page script runs. */
+(function(){
+  var shown=false;
+  function boom(what){
+    if(shown)return; shown=true;
+    try{
+      var d=document.createElement('div');
+      d.setAttribute('role','alert');
+      d.style.cssText='position:fixed;left:12px;right:12px;'+
+        'bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:2147483000;'+
+        'padding:14px 16px;border-radius:12px;background:#FDF6F8;border:1px solid #189850;'+
+        'color:#127A40;font:600 14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;'+
+        'box-shadow:0 18px 44px -12px rgba(0,0,0,.6)';
+      d.textContent='Something went wrong on this page. Reload to try again. ('+String(what).slice(0,120)+')';
+      (document.body||document.documentElement).appendChild(d);
+    }catch(e){}
+  }
+  window.addEventListener('error',function(e){ boom((e&&e.message)||'script error'); });
+  window.addEventListener('unhandledrejection',function(e){
+    var r=e&&e.reason; boom((r&&(r.message||r))||'a request failed'); });
+})();
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="css/uniform.css" rel="stylesheet"/>
+<meta content="#189850" name="theme-color"/>
+<link href="/apple-touch-icon.png" rel="apple-touch-icon"/>
+</head><body>
+<header class="hd"><div class="in">
+<a class="wm" href="index.html"><span class="sp">✧</span><b>SparkMyName</b></a>
+<nav class="nav">
+<a href="features.html">Features</a><a href="how-it-works.html">How It Works</a><a href="deliverables.html">Deliverables</a><a href="pricing.html">Pricing</a><a href="resources.html">Resources ▾</a>
+</nav>
+<span class="rt"><a class="lg" href="account.html">Log in</a><a class="gbtn" href="checkout.html">Start Your Spark</a></span>
+</div></header>
+<main class="panel"><span class="eyeb">Founder tool</span>
+<h1 style="margin-top:12px">Site Art Director</h1><hr class="rule"/>
+<p style="max-width:62ch;margin:16px 0 0">Nine classy accents, art-directed for the cream-and-gold family. Enter your founder key once, shoot candidates on your existing 2K pipeline, tap the winner — the live site dresses itself instantly. No redeploy. Textless law enforced by the shoot function itself.</p>
+<div class="zone" style="max-width:520px;margin-top:22px"><label for="fkey">Founder key</label><input autocomplete="off" id="fkey" placeholder="ORDER_START_KEY" type="password"/></div>
+<div class="grid3" style="margin-top:26px"><div class="c" data-surface="brands-hero"><h3>The portfolio atelier</h3>
+<p style="font-size:.8125rem;min-height:74px">A quiet artisan studio shelf styled with cream linen, brass tools, ivory ceramics and a small stack of letterpress cards, warm golden-hour side light, shallow depth of field, editorial photography, cream and antique-gold palette.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="cta" onclick="shoot('brands-hero')" style="padding:10px 16px;font-size:.8125rem">Shoot 2 candidates</button>
+<button class="cta dark" onclick="clearArt('brands-hero')" style="padding:10px 16px;font-size:.8125rem">Remove from site</button></div>
+<div class="cands" id="c-brands-hero" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"></div>
+<div class="mut" id="s-brands-hero" style="font-size:.75rem;margin-top:6px"></div></div><div class="c" data-surface="detail-names"><h3>Naming, made physical</h3>
+<p style="font-size:.8125rem;min-height:74px">Macro photograph of blind-embossed thick cotton paper cards fanned on warm cream linen beside a brass hand seal, soft raking light, editorial, cream and antique-gold palette.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="cta" onclick="shoot('detail-names')" style="padding:10px 16px;font-size:.8125rem">Shoot 2 candidates</button>
+<button class="cta dark" onclick="clearArt('detail-names')" style="padding:10px 16px;font-size:.8125rem">Remove from site</button></div>
+<div class="cands" id="c-detail-names" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"></div>
+<div class="mut" id="s-detail-names" style="font-size:.75rem;margin-top:6px"></div></div><div class="c" data-surface="detail-brandkit"><h3>The identity table</h3>
+<p style="font-size:.8125rem;min-height:74px">Overhead flat-lay of a designer’s warm workspace: cream paper swatches, gold-foil edge details, a brass ruler and fine pencil on oak, soft morning light, editorial, cream and antique-gold palette.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="cta" onclick="shoot('detail-brandkit')" style="padding:10px 16px;font-size:.8125rem">Shoot 2 candidates</button>
+<button class="cta dark" onclick="clearArt('detail-brandkit')" style="padding:10px 16px;font-size:.8125rem">Remove from site</button></div>
+<div class="cands" id="c-detail-brandkit" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"></div>
+<div class="mut" id="s-detail-brandkit" style="font-size:.75rem;margin-top:6px"></div></div><div class="c" data-surface="detail-domains"><h3>A place online</h3>
+<p style="font-size:.8125rem;min-height:74px">A minimal storefront awning corner in warm cream canvas with antique-gold trim against soft morning sky, architectural detail photograph, editorial, shallow depth.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="cta" onclick="shoot('detail-domains')" style="padding:10px 16px;font-size:.8125rem">Shoot 2 candidates</button>
+<button class="cta dark" onclick="clearArt('detail-domains')" style="padding:10px 16px;font-size:.8125rem">Remove from site</button></div>
+<div class="cands" id="c-detail-domains" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"></div>
+<div class="mut" id="s-detail-domains" style="font-size:.75rem;margin-top:6px"></div></div><div class="c" data-surface="detail-legal"><h3>Papers in order</h3>
+<p style="font-size:.8125rem;min-height:74px">A neat stack of thick cream documents tied with natural twine beside a brass fountain pen on warm oak, soft window light, editorial still life, cream and antique-gold palette.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="cta" onclick="shoot('detail-legal')" style="padding:10px 16px;font-size:.8125rem">Shoot 2 candidates</button>
+<button class="cta dark" onclick="clearArt('detail-legal')" style="padding:10px 16px;font-size:.8125rem">Remove from site</button></div>
+<div class="cands" id="c-detail-legal" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"></div>
+<div class="mut" id="s-detail-legal" style="font-size:.75rem;margin-top:6px"></div></div><div class="c" data-surface="detail-roadmap"><h3>The path ahead</h3>
+<p style="font-size:.8125rem;min-height:74px">An architectural blueprint drawn in fine gold ink on warm cream paper, rolled edge, brass paperweight, soft raking light, macro editorial photograph.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="cta" onclick="shoot('detail-roadmap')" style="padding:10px 16px;font-size:.8125rem">Shoot 2 candidates</button>
+<button class="cta dark" onclick="clearArt('detail-roadmap')" style="padding:10px 16px;font-size:.8125rem">Remove from site</button></div>
+<div class="cands" id="c-detail-roadmap" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"></div>
+<div class="mut" id="s-detail-roadmap" style="font-size:.75rem;margin-top:6px"></div></div><div class="c" data-surface="detail-gtm"><h3>Open for business</h3>
+<p style="font-size:.8125rem;min-height:74px">Warm close-up of a hand-thrown ceramic bell and a small brass 'open' era shopkeeper bell on a cream shelf, golden hour, editorial still life, no lettering.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="cta" onclick="shoot('detail-gtm')" style="padding:10px 16px;font-size:.8125rem">Shoot 2 candidates</button>
+<button class="cta dark" onclick="clearArt('detail-gtm')" style="padding:10px 16px;font-size:.8125rem">Remove from site</button></div>
+<div class="cands" id="c-detail-gtm" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"></div>
+<div class="mut" id="s-detail-gtm" style="font-size:.75rem;margin-top:6px"></div></div><div class="c" data-surface="how-hero"><h3>One sentence in</h3>
+<p style="font-size:.8125rem;min-height:74px">Macro of a warm ribbon microphone in brass and cream against soft-focus golden bokeh, editorial product photograph, cream and antique-gold palette.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="cta" onclick="shoot('how-hero')" style="padding:10px 16px;font-size:.8125rem">Shoot 2 candidates</button>
+<button class="cta dark" onclick="clearArt('how-hero')" style="padding:10px 16px;font-size:.8125rem">Remove from site</button></div>
+<div class="cands" id="c-how-hero" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"></div>
+<div class="mut" id="s-how-hero" style="font-size:.75rem;margin-top:6px"></div></div><div class="c" data-surface="result-hero"><h3>It’s ready</h3>
+<p style="font-size:.8125rem;min-height:74px">Champagne-gold tissue paper unfolding out of a cream gift box on warm linen, soft directional light, celebratory but calm, editorial still life.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="cta" onclick="shoot('result-hero')" style="padding:10px 16px;font-size:.8125rem">Shoot 2 candidates</button>
+<button class="cta dark" onclick="clearArt('result-hero')" style="padding:10px 16px;font-size:.8125rem">Remove from site</button></div>
+<div class="cands" id="c-result-hero" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"></div>
+<div class="mut" id="s-result-hero" style="font-size:.75rem;margin-top:6px"></div></div></div>
+</main>
+<script>
+function key(){return document.getElementById('fkey').value.trim();}
+function say(sf,m){document.getElementById('s-'+sf).textContent=m;}
+function shoot(sf){
+ if(!key()){say(sf,'Enter your founder key first.');return;}
+ var card=document.querySelector('[data-surface="'+sf+'"]');
+ var prompt=card.querySelector('p').textContent;
+ say(sf,'Shooting two 2K candidates… (about a minute)');
+ fetch('/.netlify/functions/art-shoot',{method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({key:key(),surface:'site-'+sf,prompt:prompt,n:2,size:'2K'})})
+ .then(function(r){return r.json();}).then(function(d){
+  var box=document.getElementById('c-'+sf);box.innerHTML='';
+  if(!d||!d.ok||!d.candidates||!d.candidates.length){say(sf,'No candidates: '+((d&&d.errors&&d.errors[0])||'try again'));return;}
+  d.candidates.forEach(function(c){
+   var w=document.createElement('div');
+   w.innerHTML='<img src="'+c.url+'" style="width:100%;border-radius:12px;border:1px solid rgba(20,60,40,.14);display:block" alt="candidate" decoding="async">'+
+    '<button class="cta" style="width:100%;margin-top:6px;padding:9px;font-size:.7812rem">Use this on the site</button>';
+   w.querySelector('button').onclick=function(){pick(sf,c.url,this);};
+   box.appendChild(w);
+  });
+  say(sf,'Tap the one you love.');
+ }).catch(function(){say(sf,'Network hiccup — try again.');});
+}
+function pick(sf,url,btn){btn.disabled=true;btn.textContent='Setting…';
+ fetch('/.netlify/functions/site-art',{method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({key:key(),surface:sf,url:url})}).then(function(r){return r.json();})
+ .then(function(d){btn.textContent=d&&d.ok?'✓ Live on the site':'Failed — retry';say(sf,d&&d.ok?'This shot is now dressing the live site.':'Save failed.');})
+ .catch(function(){btn.textContent='Failed — retry';btn.disabled=false;});}
+function clearArt(sf){if(!key()){say(sf,'Enter your founder key first.');return;}
+ fetch('/.netlify/functions/site-art',{method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({key:key(),surface:sf,url:''})}).then(function(r){return r.json();})
+ .then(function(d){say(sf,d&&d.ok?'Removed — the slot returns to its styled look.':'Failed.');});}
+</script>
+</body></html>

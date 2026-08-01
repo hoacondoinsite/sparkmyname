@@ -1,0 +1,136 @@
+/* film-player.css — full-screen brand film player.
+   Controls live in one bar along the bottom edge of the film, as ordered:
+   play/pause, rewind, restart, scrub, volume, CC, fullscreen, close. */
+
+.smnfp-veil{
+  position:fixed; inset:0; z-index:9999;
+  background:rgba(6,10,16,.94);
+  display:none; align-items:center; justify-content:center;
+  padding:24px;
+}
+.smnfp-veil.open{ display:flex; }
+
+.smnfp-shell{
+  position:relative; width:100%; max-width:1180px;
+  background:#000; border-radius:14px; overflow:hidden;
+  box-shadow:0 30px 90px rgba(0,0,0,.6);
+}
+
+.smnfp-stage{ position:relative; width:100%; aspect-ratio:16/9; background:#000; }
+.smnfp-stage video{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; opacity:0; transition:opacity .12s linear; background:#000;
+}
+.smnfp-stage video.live{ opacity:1; }
+
+/* title + close sit on top of the film */
+.smnfp-top{
+  position:absolute; left:0; right:0; top:0; z-index:3;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; padding:14px 16px;
+  background:linear-gradient(to bottom,rgba(0,0,0,.62),rgba(0,0,0,0));
+  transition:opacity .25s ease;
+}
+.smnfp-title{ color:#fff; font-weight:700; font-size:15px; letter-spacing:.01em; }
+.smnfp-title span{ display:block; font-weight:500; font-size:12.5px; color:#c9d4e4; margin-top:2px; }
+
+.smnfp-x{
+  flex:0 0 auto; width:40px; height:40px; border-radius:10px;
+  border:1px solid rgba(255,255,255,.28); background:rgba(0,0,0,.45);
+  color:#fff; font-size:19px; line-height:1; cursor:pointer;
+}
+.smnfp-x:hover{ background:rgba(255,255,255,.16); }
+
+/* big centre play — also the replay button at the end */
+.smnfp-big{
+  position:absolute; inset:0; z-index:4; margin:auto;
+  width:82px; height:82px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.5); background:rgba(0,0,0,.5);
+  color:#fff; font-size:30px; cursor:pointer; display:none;
+}
+.smnfp-big.show{ display:block; }
+.smnfp-big:hover{ background:rgba(0,0,0,.72); }
+
+/* captions */
+.smnfp-cc{
+  position:absolute; left:50%; transform:translateX(-50%);
+  bottom:86px; z-index:3; max-width:82%;
+  padding:8px 14px; border-radius:8px;
+  background:rgba(0,0,0,.78); color:#fff;
+  font-size:17px; line-height:1.42; text-align:center;
+  display:none; pointer-events:none; text-shadow:0 1px 2px rgba(0,0,0,.9);
+}
+.smnfp-cc.on{ display:block; }
+
+/* the bottom control line */
+.smnfp-bar{
+  position:absolute; left:0; right:0; bottom:0; z-index:5;
+  padding:10px 14px 12px;
+  background:linear-gradient(to top,rgba(0,0,0,.86),rgba(0,0,0,.42) 62%,rgba(0,0,0,0));
+  transition:opacity .25s ease;
+}
+.smnfp-shell.idle .smnfp-bar,
+.smnfp-shell.idle .smnfp-top{ opacity:0; }
+
+.smnfp-seek{
+  width:100%; height:20px; margin:0 0 4px; display:block;
+  -webkit-appearance:none; appearance:none; background:transparent; cursor:pointer;
+}
+.smnfp-seek::-webkit-slider-runnable-track{ height:5px; border-radius:3px; background:rgba(255,255,255,.3); }
+.smnfp-seek::-moz-range-track{ height:5px; border-radius:3px; background:rgba(255,255,255,.3); }
+.smnfp-seek::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:14px; height:14px; margin-top:-4.5px;
+  border-radius:50%; background:#fff; border:none;
+}
+.smnfp-seek::-moz-range-thumb{ width:14px; height:14px; border-radius:50%; background:#fff; border:none; }
+.smnfp-seek:focus-visible{ outline:2px solid #fff; outline-offset:3px; }
+
+.smnfp-row{ display:flex; align-items:center; gap:8px; }
+
+.smnfp-btn{
+  flex:0 0 auto; min-width:38px; height:38px; padding:0 9px;
+  border-radius:9px; border:1px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.08); color:#fff;
+  font-size:14px; line-height:1; cursor:pointer;
+}
+.smnfp-btn:hover{ background:rgba(255,255,255,.2); }
+.smnfp-btn:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
+.smnfp-btn.act{ background:#fff; color:#0b1220; border-color:#fff; }
+
+.smnfp-time{
+  flex:0 0 auto; color:#e8eef7; font-size:12.5px;
+  font-variant-numeric:tabular-nums; padding:0 4px; white-space:nowrap;
+}
+.smnfp-gap{ flex:1 1 auto; }
+
+.smnfp-vol{
+  width:96px; height:20px; -webkit-appearance:none; appearance:none;
+  background:transparent; cursor:pointer;
+}
+.smnfp-vol::-webkit-slider-runnable-track{ height:4px; border-radius:3px; background:rgba(255,255,255,.3); }
+.smnfp-vol::-moz-range-track{ height:4px; border-radius:3px; background:rgba(255,255,255,.3); }
+.smnfp-vol::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:12px; height:12px; margin-top:-4px;
+  border-radius:50%; background:#fff; border:none;
+}
+.smnfp-vol::-moz-range-thumb{ width:12px; height:12px; border-radius:50%; background:#fff; border:none; }
+
+/* loading + honest failure */
+.smnfp-note{
+  position:absolute; inset:0; z-index:6; display:none;
+  align-items:center; justify-content:center; text-align:center;
+  padding:30px; color:#e8eef7; font-size:15px; line-height:1.55;
+  background:rgba(0,0,0,.72);
+}
+.smnfp-note.show{ display:flex; }
+
+@media (max-width:640px){
+  .smnfp-veil{ padding:0; }
+  .smnfp-shell{ border-radius:0; max-width:100%; }
+  .smnfp-vol{ width:64px; }
+  .smnfp-cc{ font-size:15px; bottom:80px; max-width:92%; }
+  .smnfp-btn{ min-width:34px; height:34px; padding:0 7px; font-size:13px; }
+}
+@media (prefers-reduced-motion:reduce){
+  .smnfp-stage video,.smnfp-bar,.smnfp-top{ transition:none; }
+}

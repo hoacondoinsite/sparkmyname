@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Features — SparkMyName™</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@600&amp;display=swap" rel="stylesheet"/><style>
+:root{--bg:#FFFFFF;--panel:#FFFFFF;--panel2:#F4F6F5;--ink9:#141414;--soft:#404040;--faint:#565656;
+--line:rgba(20,60,40,.14);--gold:#189850;--gold-deep:#127A40;--gold-soft:#E7F5EC;--black:#FAFAFA;
+--sh:0 2px 6px rgba(20,60,40,.05),0 24px 70px -20px rgba(20,60,40,.14)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink9);font-family:'Inter',system-ui,sans-serif;line-height:1.6;min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased}
+h1,h2,
+/* HEADING LEVELS (2026-07-25, Founder order). This page jumped h1 -> h3 with no h2, which tells
+   a screen-reader user navigating by heading that a level is missing. There were no h2 elements
+   at all, so every h3 was promoted to h2 and h2 given the appearance h3 already had. The page
+   looks identical; the document now has a level for every step. */
+h2,h3{font-family:'Inter',system-ui,sans-serif;font-weight:600;color:var(--ink9);letter-spacing:-.01em;margin:0;text-wrap:balance}
+h1{font-size:clamp(38px,4.6vw,58px);line-height:1.1}
+h2{font-size:clamp(26px,3vw,38px);line-height:1.16}
+p,li{color:var(--soft);text-wrap:pretty}
+.mut{color:var(--faint)}
+.eyeb{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.eyeb::before{content:"✧";font-size:.875rem}
+.rule{width:120px;height:3px;background:var(--gold);border:0;margin:16px 0 0}
+.hd{position:sticky;top:0;z-index:60;background:rgba(10,20,40,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hd .in{max-width:1200px;margin:0 auto;padding:clamp(10px,1.3vw,14px) clamp(12px,2.6vw,28px);display:flex;align-items:center;gap:clamp(10px,2.4vw,26px)}
+.wm{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink9)}
+.wm .sp{color:var(--gold);font-size:1.25rem}
+.wm b{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:1.375rem;letter-spacing:-.01em}
+.nav{display:flex;gap:22px;margin-left:14px}
+.nav a{color:rgba(233,240,255,.82);text-decoration:none;font-size:.875rem;font-weight:500;transition:color .15s}
+.nav a:hover{color:#FFFFFF}
+.hd .rt{margin-left:auto;display:flex;align-items:center;gap:clamp(8px,1.7vw,18px)}
+.hd .lg{color:#EAF2FF;text-decoration:none;font-size:.875rem;font-weight:600;transition:color .15s}
+.gbtn,.cta{display:inline-block;border:0;border-radius:999px;padding:13px 26px;font:inherit;font-size:.9062rem;font-weight:600;cursor:pointer;background:var(--gold);color:#FFFFFF;text-decoration:none;text-align:center;transition:background .15s,transform .15s}
+.gbtn:hover,.cta:hover{background:var(--gold-deep);transform:translateY(-1px)}
+.cta.dark{background:var(--black)}
+.cta.dark:hover{background:#000}
+.cta:disabled{opacity:.6;transform:none;cursor:default}
+.glink{color:var(--gold-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.panel{max-width:1200px;margin:0 auto;padding:clamp(26px,5vw,56px) clamp(16px,2.6vw,28px) clamp(44px,6.4vw,72px);width:100%}
+.split{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(26px,5vw,52px);align-items:start}
+.zone{background:var(--panel);border:1px solid var(--line);border-radius:26px;box-shadow:var(--sh);padding:32px}
+.zblock{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:14px}
+.ztwo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.ztwo .zblock{margin:0}
+.dmod{background:var(--black);border-radius:18px;padding:20px 22px;display:flex;align-items:center;gap:20px;cursor:pointer;text-decoration:none}
+.dmod .gc{flex:none;width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#66B88A,var(--gold) 70%);display:flex;align-items:center;justify-content:center;font-size:1.625rem;color:var(--black);border:0;cursor:pointer;box-shadow:0 6px 18px rgba(24,152,80,.45)}
+.dmod b{color:#141414;font-size:1rem;font-weight:600;font-family:'Inter',sans-serif}
+.dmod span{display:block;color:#9FB4D8;font-size:.7812rem;margin-top:3px}
+.dmod.rec .gc{background:#189850;color:#fff}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
+.c{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);padding:24px}
+.c h3{font-size:1.25rem;margin-bottom:6px}
+.c p{font-size:.875rem;margin:0 0 10px}
+.chip{display:inline-block;background:var(--gold-soft);color:var(--gold-deep);border:0;border-radius:999px;padding:4px 12px;font-size:.75rem;font-weight:600}
+.dom{font-size:.8125rem;color:var(--gold-deep);font-weight:700}
+input,textarea,select{font:inherit;color:var(--ink9);background:#FFFFFF;border:1px solid var(--line);border-radius:14px;padding:13px 15px;width:100%}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(24,152,80,.14)}
+::placeholder{color:var(--faint)}
+label{font-size:.8125rem;font-weight:700;color:var(--ink9);display:block;margin:14px 0 6px}
+.ftband{background:var(--panel2);border:1px solid var(--line);border-radius:16px;margin:60px auto 30px;padding:18px 30px;font-size:.8125rem;color:var(--faint);max-width:1200px}
+.ftband .lnks{display:flex;gap:clamp(10px,1.3vw,14px) clamp(16px,2vw,22px);flex-wrap:wrap;margin-bottom:10px}
+.ftband a{color:var(--soft);text-decoration:none}
+.ftband a:hover{color:var(--ink9)}
+.needidea{border-color:#189850!important}
+.tl{position:relative;margin:30px 0 0;padding-left:26px}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--gold)}
+.tl .step{position:relative;padding:0 0 22px}
+.tl .step::before{content:"";position:absolute;left:-24px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--gold)}
+.tl b{color:var(--ink9);font-size:1rem}
+.tl p{margin:4px 0 0;font-size:.875rem}
+details.f2{border-bottom:1px solid var(--line);padding:0 4px}
+details.f2 summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:600;font-size:1rem;color:#141414!important}
+details.f2 p{padding:0 0 18px;margin:0;color:#404040!important;max-width:66ch}
+.pill{display:inline-block;border-radius:999px;padding:5px 13px;font-size:.75rem;font-weight:600}
+.p-grn{background:#E4EFE2;color:#3D6B35}.p-blu{background:#E2EAF6;color:#2F5487}.p-pur{background:#EBE6F5;color:#5A4494}.p-red{background:#F0F7F3;color:#9C3B2E}.p-gray{background:#ECEAE4;color:#404040}.p-org{background:#F4F6F5;color:#8A5A23}
+@media(max-width:980px){.split{grid-template-columns:1fr}.grid3,.grid4{grid-template-columns:1fr 1fr}.nav{display:none}.ftband{margin:40px 16px 20px}}
+@media(max-width:620px){.grid3,.grid4{grid-template-columns:1fr}.ztwo{grid-template-columns:1fr}}
+
+/* ===== DEVICE SAFETY (28 July 2026 sweep) =====
+   Applied to every page. Two faults were site-wide:
+   1. 100vw includes the scrollbar width, so any element using it is wider than the viewport
+      and forces a sideways scroll. overflow-x:hidden on the root stops that everywhere.
+   2. Tap targets under 44px fail Apple's and Google's minimum and are genuinely hard to hit
+      on a phone. Every interactive element now meets 44px.
+   ===== */
+html,body{overflow-x:hidden;max-width:100%}
+*{min-width:0}
+img,video,iframe,table,pre{max-width:100%}
+a,button,select,summary,[role="button"],input[type="submit"],input[type="button"]{
+  min-height:44px}
+a{display:inline-flex;align-items:center}
+a.inline-link,p a,li a,.dis a,.fnote a{display:inline;min-height:0}
+input,textarea,select{font-size:16px}
+@media(max-width:480px){
+  body{-webkit-text-size-adjust:100%}
+}
+</style><style>
+/* ===== CO214: DEVICE + TOUCH + ADA LAYER (all devices) ===== */
+:focus-visible{outline:3px solid #189850!important;outline-offset:2px;border-radius:6px}
+.gbtn,.cta,button,.dmod,.nav a,.hd .lg,.arw{min-height:44px}
+.gbtn,.cta{display:inline-flex;align-items:center;justify-content:center}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.skip{position:absolute;left:-9999px;top:0;background:#141414;color:#fff;padding:12px 20px;z-index:999;border-radius:0 0 12px 0}
+.skip:focus{left:0}
+img,svg,video{max-width:100%;height:auto}
+input,select,textarea{font-size:1rem}  /* prevents iOS zoom-jump */
+.car{-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;touch-action:pan-x pan-y}
+.car>*{scroll-snap-align:start}
+@media(pointer:coarse){.arw{width:52px;height:52px}}
+@media(max-width:640px){
+  h1{font-size:clamp(32px,9vw,40px)}
+  
+  
+  /* PHONE TRIM — shorter page, faster to the sale */
+  .m-trim{display:none!important}
+  .grid4>.c:nth-child(n+5),.gridbrands>.c:nth-child(n+5){display:none}
+  
+}
+</style><style>
+/* CO214b: small-phone header + band containment */
+@media(max-width:430px){
+  
+  .wm b{font-size:1.1875rem}
+  
+  .hd .rt .gbtn,.hd .rt .cta,.hd .cta{padding:10px 14px;font-size:.8125rem}
+  .hd .lg{font-size:.8125rem}
+}
+.band{overflow:hidden!important}
+.band svg{max-width:44vw!important;right:0!important}
+@media(max-width:640px){#how{display:none!important}.band svg{display:none!important}}
+</style><style>/* CO214c: contain the carousel; never let any page scroll sideways */
+html,body{overflow-x:clip}
+.car{overflow-x:auto;max-width:100%}
+section,main{max-width:100vw}
+</style><link href="manifest.webmanifest" rel="manifest"/>
+<meta content="#189850" name="theme-color"/>
+<link href="icon-192.png" rel="apple-touch-icon"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="default" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="Spark" name="apple-mobile-web-app-title"/>
+<style>
+/* ===== CO221 AURORA-NAVY FAMILY (Founder + designer approved) ===== */
+body{background:#FFFFFF!important;color:#141414}
+h1,h2{font-family:'Inter',system-ui,sans-serif!important;font-weight:900!important;letter-spacing:-.025em!important;
+ background:linear-gradient(92deg,#127A40 0%,#189850 38%,#189850 72%,#B7791F 100%);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+h3{font-family:'Inter',system-ui,sans-serif!important;font-weight:800!important;color:#2F3B35!important}
+.hd{background:rgba(10,20,40,.9)!important;border-bottom:1px solid rgba(20,60,40,.16)!important}
+.wm b{background:linear-gradient(92deg,#127A40,#189850 55%,#189850);-webkit-background-clip:text;background-clip:text;color:transparent!important;font-family:'Inter',sans-serif!important;font-weight:900!important}
+.gbtn,.cta,button.cta{background:linear-gradient(92deg,#189850,#189850)!important;color:#FFFFFF!important;font-weight:800!important;border:0!important;border-radius:12px!important;box-shadow:0 10px 26px -10px rgba(18,122,64,.5)}
+.gbtn:hover,.cta:hover{background:linear-gradient(92deg,#189850,#189850)!important;transform:translateY(-1px)}
+.cta.dark{background:linear-gradient(92deg,#127A40,#189850)!important;color:#FFFFFF!important}
+.rule{background:linear-gradient(90deg,#127A40,#189850,#189850,#B7791F)!important;height:4px!important}
+.eyeb{color:#B7791F!important}
+.glink{color:#189850!important}
+.chip{background:rgba(56,189,248,.14)!important;color:#127A40!important;border:1px solid rgba(56,189,248,.25)!important}
+.panel{color:#141414}
+.zone,.c,.catp{background:#FFFFFF!important;border:1px solid rgba(20,60,40,.16)!important;box-shadow:0 14px 44px -18px rgba(3,8,20,.8)!important}
+.zblock{background:#F4F6F5!important;border:1px solid rgba(20,60,40,.14)!important}
+p,li{color:#404040}
+.mut{color:#565656!important}
+input,textarea,select{background:#F4F6F5!important;color:#FFFFFF!important;border-color:rgba(20,60,40,.2)!important}
+::placeholder{color:#565656!important}
+label{color:#2F3B35!important}
+.dmod{background:#FAFAFA!important}
+.dmod .gc{background:radial-gradient(circle at 35% 30%,#66B88A,#189850 75%)!important;box-shadow:0 6px 24px rgba(24,152,80,.55)!important;color:#FFFFFF!important;border-radius:50%!important}
+.dmod b{color:#141414!important}
+.ftband{background:#F4F6F5!important;border:1px solid rgba(20,60,40,.16)!important;color:#565656!important}
+.ftband a{color:#404040!important}
+.tl::before{background:linear-gradient(#127A40,#189850)!important}
+.tl .step::before{background:#189850!important}
+.tl b{color:#141414!important}
+details.f2 summary{color:#141414!important}
+details.f2{border-color:rgba(20,60,40,.16)!important}
+details.f2 p{color:#404040!important}
+.catp h3{color:#127A40!important;border-color:rgba(20,60,40,.16)!important}
+.catp li{color:#404040!important}.catp li b{color:#B7791F!important}
+.dom{color:#189850!important}
+.legalpage p,.legalpage li,.legalpage td{color:#404040!important}
+.legalpage h1,.legalpage h2,.legalpage h3{color:#2F3B35!important;background:none!important;-webkit-text-fill-color:#2F3B35!important}
+.legalpage a{color:#189850!important}
+.legalpage strong,.legalpage b{color:#141414!important}
+.legalpage .tldr,.legalpage .box,.legalpage .notice,.smn22-intro{background:#F4F6F5!important;border-color:rgba(20,60,40,.16)!important;border-left-color:#189850!important}
+.smn22-intro p{color:#404040!important}
+.smn22-cta{background:#FFFFFF!important;border-color:rgba(20,60,40,.16)!important}
+.pill{filter:none}
+.p-grn{background:rgba(24,152,80,.15)!important;color:#7CEBB5!important}.p-blu{background:rgba(96,165,250,.16)!important;color:#127A40!important}
+.p-pur{background:rgba(167,139,250,.18)!important;color:#7FCCA3!important}.p-red{background:rgba(18,122,64,.16)!important;color:#8FCBA8!important}
+.p-gray{background:rgba(20,60,40,.12)!important;color:#404040!important}.p-org{background:rgba(200,155,60,.15)!important;color:#C89B3C!important}
+:focus-visible{outline-color:#127A40!important}
+[data-art].artlive::after{background:rgba(6,16,33,.7)!important}
+</style><style>/* CO224: designer's radius law — every button matches Open my AI Studio (12px) */
+button,.btn,.cta,.gbtn,.bzbtn,.ocaimbtn,.newbtn,.conciergebtn,.successbtn,.aistudiobtn,.arw,.dmod .gc,.gc,input[type=submit],input[type=button],.smn22-cta a,.dlhero-btn,.act{border-radius:12px!important}
+/* Header language + currency selects. */
+.hdsel{display:inline-flex;gap:8px;align-items:center;margin-right:14px}
+.hdsel select{background:rgba(16,33,67,.7);border:1px solid var(--line);color:#FFFFFF;
+  font:inherit;font-size:.8125rem;font-weight:600;border-radius:10px;padding:clamp(7px,.8vw,8px) clamp(8px,1vw,10px);
+  cursor:pointer;min-height:44px;appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M1 1l4 4 4-4' stroke='%23AFC2E1' stroke-width='1.6' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat:no-repeat;background-position:right 9px center;padding-right:26px}
+.hdsel select:hover{border-color:rgba(24,152,80,.5)}
+.hdsel select:focus-visible{outline:2px solid #189850;outline-offset:2px}
+.curnote{display:block;font-size:.6875rem;color:var(--faint);margin-top:4px;line-height:1.3}
+@media(max-width:820px){.curnote{display:none}}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(max-width:820px){.hdsel{margin-right:8px}}
+/* BRACE RESTORED (2026-07-26). This media query was never closed, so every rule after it
+   — the globe, the currency glyph, the select padding — was swallowed inside it and only
+   applied below 520px. On any wider screen the header symbols were unstyled. Caused by a
+   sloppy slice when this block was extracted for reuse across the site; it landed on 26
+   pages. postcss found it in one run; nothing else had ever parsed the CSS. */
+@media(max-width:520px){.hdsel select[id="cur"]{display:none}}
+/* Symbol-led language and currency controls. */
+.hdsel-i{font-size:.875rem;line-height:1;opacity:.85;flex:none;
+  font-variant-emoji:text;color:#141414}
+#curSym{font-weight:800;min-width:12px;text-align:center}
+.hdsel select{padding-left:6px}
+@media(max-width:520px){.hdsel-i{font-size:.8125rem}}
+.tm{font-size:.55em;font-weight:700;vertical-align:super;line-height:1;margin-left:1px;opacity:.85}
+</style><link href="/favicon-32.png" rel="icon" type="image/png"/><meta content="Everything SparkMyName&lt;sup class=" name="description" tm"=""/>™ includes for $99 — the tools, the deliverables, and the free online workspace."&gt;<link href="https://sparkmyname.netlify.app/features.html" rel="canonical"/><meta content="Features — SparkMyName&lt;sup class=" property="og:title" tm"=""/>™"&gt;<meta content="Everything SparkMyName&lt;sup class=" property="og:description" tm"=""/>™ includes for $99 — the tools, the deliverables, and the free online workspace."&gt;<meta content="website" property="og:type"/><meta content="https://sparkmyname.netlify.app/features.html" property="og:url"/><meta content="https://sparkmyname.netlify.app/og-card.png" property="og:image"/><meta content="SparkMyName&lt;sup class=" property="og:site_name" tm"=""/>™"&gt;<meta content="summary_large_image" name="twitter:card"/><meta content="https://sparkmyname.netlify.app/og-card.png" name="twitter:image"/><script>
+/* ERROR BOUNDARY (2026-07-25). Audit found window.onerror: 0, unhandledrejection: 0,
+   <noscript>: 0 across every page. One thrown error inside a render function produced a blank
+   card with no message and no clue — which is exactly how this afternoon's failure presented.
+   This never swallows the error (it still reaches the console); it guarantees the user is TOLD.
+   Placed in <head> so it is armed before any page script runs. */
+(function(){
+  var shown=false;
+  function boom(what){
+    if(shown)return; shown=true;
+    try{
+      var d=document.createElement('div');
+      d.setAttribute('role','alert');
+      d.style.cssText='position:fixed;left:12px;right:12px;'+
+        'bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:2147483000;'+
+        'padding:14px 16px;border-radius:12px;background:#FDF6F8;border:1px solid #189850;'+
+        'color:#127A40;font:600 14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;'+
+        'box-shadow:0 18px 44px -12px rgba(0,0,0,.6)';
+      d.textContent='Something went wrong on this page. Reload to try again. ('+String(what).slice(0,120)+')';
+      (document.body||document.documentElement).appendChild(d);
+    }catch(e){}
+  }
+  window.addEventListener('error',function(e){ boom((e&&e.message)||'script error'); });
+  window.addEventListener('unhandledrejection',function(e){
+    var r=e&&e.reason; boom((r&&(r.message||r))||'a request failed'); });
+})();
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="css/uniform.css" rel="stylesheet"/>
+<link rel="stylesheet" href="css/site-footer.css">
+</head>
+<body>
+<a class="skip" href="#main22">Skip to main content</a>
+<header class="hd"><div class="in">
+<a class="wm" href="index.html"><span class="sp">✧</span><b>SparkMyName<sup class="tm">™</sup></b></a>
+<nav class="nav">
+<a data-i18n="nav1" href="features.html">Features</a><a data-i18n="nav2" href="how-it-works.html">How It Works</a><a data-i18n="nav3" href="deliverables.html">Deliverables</a><a data-i18n="nav4" href="pricing.html">Pricing</a><a data-i18n="nav5" href="resources.html">Resources</a>
+</nav>
+<!-- CANONICAL HEADER (2026-07-25, Founder order). One shape on every customer page:
+       wordmark, four destinations, language, currency, log in. Nothing else belongs here —
+       "Start Your Spark" was a sales button living in navigation furniture, and it appeared on
+       29 pages while the homepage had already dropped it.
+       Language and currency lead with a SYMBOL rather than a word, so the control reads at a
+       glance in any language and stays narrow enough for a phone: a globe for language, the
+       actual currency glyph for money. The select keeps its own accessible name. -->
+<span class="rt">
+<span class="hdsel">
+<label class="sr-only" for="lang">Language</label>
+<span aria-hidden="true" class="hdsel-i">🌐</span>
+<select aria-label="Language" id="lang">
+<option value="en">EN</option><option value="es">ES</option><option value="fr">FR</option>
+<option value="de">DE</option><option value="pt">PT</option>
+</select>
+<label class="sr-only" for="cur">Currency</label>
+<span aria-hidden="true" class="hdsel-i" id="curSym">$</span>
+<select aria-label="Currency" id="cur">
+<option value="USD">USD</option><option value="EUR">EUR</option>
+<option value="GBP">GBP</option><option value="JPY">JPY</option>
+<option value="BRL">BRL</option><option value="INR">INR</option>
+</select>
+</span>
+<a class="lg" data-i18n="login" href="account.html">Log in</a>
+</span>
+</div></header>
+<main class="panel" id="main22"><div class="split">
+<div><span class="eyeb">FEATURES</span>
+<h1 style="margin-top:14px">One idea in. A whole business out.</h1><hr class="rule"/>
+<p style="font-size:1.0312rem;max-width:48ch;margin:20px 0 0">Everything Spark builds and everything you keep — the complete picture.</p>
+<div class="heroextra"></div>
+</div>
+<div class="zone"><div class="zblock"><b>One purchase, four pillars</b><p style="margin:6px 0 0;font-size:.875rem">Brand, AI Studio, Success Path, Command Center — all included in the one-time $99.</p></div>
+<div class="ztwo"><div class="zblock"><b>8 AI tools</b><p style="margin:6px 0 0;font-size:.8438rem">Tuned to your brand.</p></div><div class="zblock"><b>Lifetime access</b><p style="margin:6px 0 0;font-size:.8438rem">No renewals, ever.</p></div></div>
+<a class="dmod" href="checkout.html" style="text-decoration:none"><span class="gc">✦</span><span><b>Start Your Spark</b><span>$99 one time.</span></span></a></div>
+</div><section style="margin-top:56px"><div class="grid3">
+<div class="c"><h2>Whole-brand build</h2><p>Naming, identity, and launch deliverables created around your one sentence.</p><a class="glink" href="deliverables.html">See deliverables →</a></div>
+<div class="c"><h2>AI Studio</h2><p>Eight tools already tuned to your brand — names, content, images, and more.</p><a class="glink" href="workspace.html">Open the Studio →</a></div>
+<div class="c"><h2>Success Path</h2><p>Guided setup and launch, tracked step by step to first revenue.</p><a class="glink" href="roadmap.html">See the roadmap →</a></div>
+<div class="c"><h2>Command Center</h2><p>Your lifetime workspace — every file, tool, and step in one place.</p><a class="glink" href="workspace.html">Open Command Center →</a></div>
+<div class="c"><h2>Concierge</h2><p>A real person on the Spark team, right inside your Command Center.</p><a class="glink" href="support.html">Talk to a human →</a></div>
+<div class="c"><h2>Honest availability</h2><p>Web addresses are checked at delivery — we only show what’s open.</p><a class="glink" href="domains.html">How it works →</a></div>
+</div><a class="cta" href="checkout.html" style="margin-top:34px;display:inline-block">Start Your Spark →</a></section></main>
+<footer class="ft"><div class="wrap">
+<div class="ftgrid">
+<div class="ftbrand">
+<a class="wm" href="index.html"><span class="mk"><svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.3l2.7 6.3 6.8.6-5.2 4.5 1.6 6.7-5.9-3.6-5.9 3.6 1.6-6.7-5.2-4.5 6.8-.6z" fill="#fff"></path></svg></span>Spark<span>MyName</span><sup class="tm">&trade;</sup></a>
+<p>Say one sentence. Get a complete brand &mdash; and everything you need to launch it.</p>
+</div>
+<div class="ftcol"><h3>Product</h3>
+<a href="how-it-works.html">How it works</a>
+<a href="what-you-get.html">What you get</a>
+<a href="see-the-work.html">See the work</a>
+<a href="pricing.html">Pricing</a>
+<a href="demo.html">Demo workspace</a>
+<a href="checkout.html" data-checkout>Get started</a></div>
+<div class="ftcol"><h3>Company</h3>
+<a href="about.html">About</a>
+<a href="success-path.html">The Success Path</a>
+<a href="affiliate.html">Affiliate program</a>
+<a href="press.html">Press</a></div>
+<div class="ftcol"><h3>Support</h3>
+<a href="support.html">Help &amp; support</a>
+<a href="status.html">Status</a>
+</div>
+<div class="ftcol"><h3>Legal</h3>
+<a href="privacy.html">Privacy</a>
+<a href="terms.html">Terms</a>
+<a href="cookies.html">Cookies</a>
+<a href="refund.html">Refunds</a>
+<a href="accessibility.html">Accessibility</a>
+<a href="security.html">Security</a></div>
+</div>
+<div class="ftlegal">
+<p>AI-generated suggestions are for informational purposes only and are not legal, trademark, tax, financial, or domain-registration advice &mdash; consult a qualified professional. We do not perform trademark clearance, and we do not build or host customer websites.</p>
+<p>&copy; 2026 SparkMyName<sup class="tm">&trade;</sup> &middot; Owned by VORREX IGNITE LLC &middot; U.S. Patent Pending (App. 19/704,386) &middot; Trademark application pending, Serial No. 50014040 &mdash; not registered.<span style="display:block;margin-top:6px;font-size:11px;opacity:.55">Site build: SPACIOUS RESKIN &middot; July 29, 2026</span></p>
+</div>
+</div></footer>
+<script>
+/* LANGUAGE + CURRENCY (2026-07-25, Founder order).
+   Both engines are the Founder's own, recovered from the July-19 build and re-verified:
+     - i18n  : a table keyed by language, applied to every [data-i18n] element
+     - money : a rate table applied to every [data-price] element
+   TWO HONEST NOTES.
+   1. The July-19 table was written for THAT page's copy. Its keys do not match this page, so
+      reusing it verbatim would have translated nothing. The table below is written for the
+      strings that actually exist here — nav, log in, and the hero eyebrow. Anything without a
+      data-i18n marker stays in English rather than silently doing nothing.
+   2. The rates are fixed, not live. They are honest approximations for display only, and the
+      charge is always USD $99 at Stripe — which the note under the selector says out loud.
+      A live rate feed would need an API key and a cache; this does not pretend to be one. */
+(function(){
+  var T={
+    en:{nav1:'Features',nav2:'How It Works',nav3:'Deliverables',nav4:'Pricing',login:'Log in',eyeb:'From idea to legacy'},
+    es:{nav1:'Funciones',nav2:'Cómo funciona',nav3:'Entregables',nav4:'Precios',login:'Iniciar sesión',eyeb:'De la idea al legado'},
+    fr:{nav1:'Fonctionnalités',nav2:'Comment ça marche',nav3:'Livrables',nav4:'Tarifs',login:'Se connecter',eyeb:'De l\u2019idée à l\u2019héritage'},
+    de:{nav1:'Funktionen',nav2:'So funktioniert es',nav3:'Leistungen',nav4:'Preise',login:'Anmelden',eyeb:'Von der Idee zum Vermächtnis'},
+    pt:{nav1:'Recursos',nav2:'Como funciona',nav3:'Entregáveis',nav4:'Preços',login:'Entrar',eyeb:'Da ideia ao legado'}
+  };
+  var SYM={USD:'$',EUR:'\u20AC',GBP:'\u00A3',JPY:'\u00A5',BRL:'R$',INR:'\u20B9'};
+  var RATE={USD:1,EUR:.93,GBP:.79,JPY:155,BRL:5.1,INR:83};
+
+  function applyLang(){
+    var el=document.getElementById('lang');
+    var code=(el&&T[el.value])?el.value:'en';
+    var d=T[code]||T.en;
+    document.querySelectorAll('[data-i18n]').forEach(function(n){
+      var k=n.getAttribute('data-i18n'); if(d[k]!=null) n.textContent=d[k];
+    });
+    try{ document.documentElement.setAttribute('lang',code); }catch(e){}
+    try{ localStorage.setItem('smn_lang',code); }catch(e){}
+  }
+  function applyCur(){
+    var el=document.getElementById('cur');
+    var c=(el&&RATE[el.value])?el.value:'USD';
+    var r=RATE[c], sym=SYM[c];
+    document.querySelectorAll('[data-price]').forEach(function(n){
+      var base=parseFloat(n.getAttribute('data-price'));
+      if(isNaN(base)) return;
+      n.textContent = sym + Math.round(base*r).toLocaleString('en-US');
+    });
+    /* The header leads with the currency GLYPH, so it has to follow the selection. Without
+       this the control would show a dollar sign while prices read in euros. */
+    var gs=document.getElementById('curSym');
+    if(gs) gs.textContent = sym;
+    /* COMMERCE & CX LAW: the page price must always equal the Stripe charge. Converted
+       amounts are a courtesy for readers abroad, and the moment one is shown the page says
+       plainly what will actually be billed. Silence here would be a false price. */
+    var note=document.getElementById('curnote');
+    if(!note && el && el.parentNode){
+      note=document.createElement('small'); note.id='curnote'; note.className='curnote';
+      el.parentNode.appendChild(note);
+    }
+    if(note) note.textContent = (c==='USD') ? '' : 'Approximate \u2014 billed as USD $99';
+    try{ localStorage.setItem('smn_cur',c); }catch(e){}
+  }
+
+  function boot(){
+    var lang=document.getElementById('lang'), cur=document.getElementById('cur');
+    /* remembered choice first, then the browser's own language */
+    try{
+      var savedL=localStorage.getItem('smn_lang'), savedC=localStorage.getItem('smn_cur');
+      if(lang&&savedL&&T[savedL]) lang.value=savedL;
+      else if(lang){ var nav=(navigator.language||'en').slice(0,2); if(T[nav]) lang.value=nav; }
+      if(cur&&savedC&&RATE[savedC]) cur.value=savedC;
+      else if(cur&&lang){ var map={es:'EUR',fr:'EUR',de:'EUR',pt:'BRL'}; if(map[lang.value]) cur.value=map[lang.value]; }
+    }catch(e){}
+    if(lang) lang.addEventListener('change',applyLang);
+    if(cur)  cur.addEventListener('change',applyCur);
+    applyLang(); applyCur();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
+  else boot();
+})();
+</script>
+</body></html>

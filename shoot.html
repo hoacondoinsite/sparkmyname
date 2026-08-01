@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Founder Shoot Kit — SparkMyName</title>
+<meta name="description" content="Internal photography tools for SparkMyName.">
+<meta property="og:image" content="https://sparkmyname.netlify.app/img/og-share.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sparkmyname.netlify.app/img/og-share.jpg">
+<style>
+:root{--blue:#0B5FFF;--navy:#07172F;--ink:#0E1726;--slate:#404040;--line:#24365E;--paper:#FFFFFF}
+*{box-sizing:border-box}body{margin:0;font:400 16px/1.6 Inter,-apple-system,BlinkMacSystemFont,Arial,sans-serif;color:var(--ink);background:#fff}
+.wrap{max-width:960px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:1.625rem;color:var(--navy);margin:0 0 4px}
+.sub{color:var(--slate);font-size:.875rem;margin:0 0 22px}
+label{display:block;font:700 13px/1.3 Inter,Arial,sans-serif;color:var(--slate);margin:16px 0 6px;letter-spacing:.03em}
+input,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font:500 15px/1.5 Inter,Arial,sans-serif;color:var(--ink)}
+textarea{min-height:120px;resize:vertical}
+.row{display:flex;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
+.btn{background:var(--blue);color:#fff;border:none;border-radius:12px;padding:13px 22px;font:800 15px/1 Inter,Arial,sans-serif;cursor:pointer}
+.btn[disabled]{opacity:.5;cursor:wait}
+.note{font-size:.8125rem;color:var(--slate)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.cand{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--paper)}
+.cand img{display:block;width:100%;height:auto}
+.cand .u{padding:10px 12px;font:600 12px/1.5 Inter,Arial,sans-serif;color:var(--slate);word-break:break-all}
+#status{margin-top:14px;font:600 14px/1.5 Inter,Arial,sans-serif;color:var(--blue);min-height:20px}
+.foot{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font:400 12px/1.55 Inter,Arial,sans-serif;color:var(--slate)}
+
+/* ===== DEVICE SAFETY (28 July 2026 sweep) =====
+   Applied to every page. Two faults were site-wide:
+   1. 100vw includes the scrollbar width, so any element using it is wider than the viewport
+      and forces a sideways scroll. overflow-x:hidden on the root stops that everywhere.
+   2. Tap targets under 44px fail Apple's and Google's minimum and are genuinely hard to hit
+      on a phone. Every interactive element now meets 44px.
+   ===== */
+html,body{overflow-x:hidden;max-width:100%}
+*{min-width:0}
+img,video,iframe,table,pre{max-width:100%}
+a,button,select,summary,[role="button"],input[type="submit"],input[type="button"]{
+  min-height:44px}
+a{display:inline-flex;align-items:center}
+a.inline-link,p a,li a,.dis a,.fnote a{display:inline;min-height:0}
+input,textarea,select{font-size:16px}
+@media(max-width:480px){
+  body{-webkit-text-size-adjust:100%}
+}
+</style>
+<link rel="stylesheet" href="assets/smn-readability-fix.css?v=1">
+<style>/* CO226 founder-tool aurora */
+body{background:#FFFFFF!important;color:#141414!important;font-family:'Inter',system-ui,sans-serif!important}
+h1,h2{color:#2F3B35!important;font-weight:900!important}
+h1{background:linear-gradient(92deg,#127A40,#189850 45%,#189850);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+button,input[type=submit]{background:linear-gradient(92deg,#189850,#189850)!important;color:#fff!important;border:0!important;border-radius:12px!important;font-weight:800!important}
+input,textarea,select{background:#F4F6F5!important;color:#FFFFFF!important;border:1px solid rgba(20,60,40,.2)!important;border-radius:12px!important}
+::placeholder{color:#565656!important}
+a{color:#189850!important}
+p,li,td,label,span,div{color:#404040}
+b,strong,th{color:#141414!important}
+table,td,th{border-color:rgba(20,60,40,.16)!important}
+:focus-visible{outline:3px solid #127A40!important}
+</style><style>/* CO226b tool contrast */
+.fpt{background:#F4F6F5!important;color:#404040!important;border-color:rgba(20,60,40,.2)!important}
+.warn{background:#3B1220!important;color:#C0392B!important;border-color:#189850!important}
+.hublink{color:#189850!important}
+
+/* iOS zoom trap (2026-07-25): Safari force-zooms on focus when a field is under 16px.
+   Scoped to coarse pointers so desktop sizing is untouched. */
+@media (pointer: coarse) {
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"],
+  input[type="search"], input[type="password"], input:not([type]), textarea, select {
+    font-size: max(1rem, 16px) !important;
+  }
+}
+</style><link rel="icon" type="image/png" href="/favicon-32.png"><link rel="shortcut icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/icon-192.png"><script>
+/* ERROR BOUNDARY (2026-07-25). Audit found window.onerror: 0, unhandledrejection: 0,
+   <noscript>: 0 across every page. One thrown error inside a render function produced a blank
+   card with no message and no clue — which is exactly how this afternoon's failure presented.
+   This never swallows the error (it still reaches the console); it guarantees the user is TOLD.
+   Placed in <head> so it is armed before any page script runs. */
+(function(){
+  var shown=false;
+  function boom(what){
+    if(shown)return; shown=true;
+    try{
+      var d=document.createElement('div');
+      d.setAttribute('role','alert');
+      d.style.cssText='position:fixed;left:12px;right:12px;'+
+        'bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:2147483000;'+
+        'padding:14px 16px;border-radius:12px;background:#FDF6F8;border:1px solid #189850;'+
+        'color:#127A40;font:600 14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;'+
+        'box-shadow:0 18px 44px -12px rgba(0,0,0,.6)';
+      d.textContent='Something went wrong on this page. Reload to try again. ('+String(what).slice(0,120)+')';
+      (document.body||document.documentElement).appendChild(d);
+    }catch(e){}
+  }
+  window.addEventListener('error',function(e){ boom((e&&e.message)||'script error'); });
+  window.addEventListener('unhandledrejection',function(e){
+    var r=e&&e.reason; boom((r&&(r.message||r))||'a request failed'); });
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/uniform.css">
+<meta name="theme-color" content="#189850">
+<link rel="stylesheet" href="css/site-footer.css">
+</head>
+<body data-smnfix="shoot">
+<div class="wrap">
+<h1>Founder Shoot Kit</h1>
+<p class="sub">Commission cinematic candidates on the live engine — textless scenes per the locked Graphic SOP. You are the creative director: generate a small batch, pick the winners by eye (the 3-second gate), and hand the winning URLs to the build. Not linked anywhere; requires your founder key. ~13¢ per candidate.</p>
+
+<label for="k">Founder key (ORDER_START_KEY)</label>
+<input id="k" type="password" autocomplete="off" placeholder="paste the key from Netlify env">
+
+<label for="s">Surface (where this image will live)</label>
+<input id="s" type="text" placeholder="e.g. homepage-hero">
+
+<label for="p">Scene prompt (textless — the brand layer is always vector, never AI)</label>
+<textarea id="p">A cinematic, award-winning commercial brand HERO photograph for a branding studio. The hero of the frame is [HERO SUBJECT]. Setting and atmosphere: [SCENE CUES]. It must instantly communicate the category and make [AUDIENCE] feel [TONE]. Dramatic cinematic lighting, ultra-detailed, photoreal, shallow depth of field, rich atmosphere, flagship advertising-campaign quality, a single strong focal point, clear visual hierarchy, balanced negative space, expensive-looking. CRITICAL: absolutely NO text, words, letters, numbers, signage, logos, labels, or typography of any kind anywhere — a purely visual, text-free scene.</textarea>
+
+<div class="row">
+  <span class="note">Candidates:</span>
+  <input id="n" type="number" min="1" max="4" value="2" style="width:80px">
+  <button class="btn" id="go" onclick="shoot()">Generate candidates</button>
+  <span class="note">Batch cap 4 · Pro 2K · 16:9</span>
+</div>
+<div id="status"></div>
+<div class="grid" id="out"></div>
+
+<div class="foot">Founder tool — confidential. © 2026 SparkMyName. Owned by VORREX IGNITE LLC. All rights reserved. U.S. Patent Pending (App. 19/704,386).</div>
+</div>
+<script>
+async function shoot(){
+  var k=document.getElementById('k').value.trim();
+  var s=document.getElementById('s').value.trim()||'surface';
+  var p=document.getElementById('p').value.trim();
+  var n=Math.max(1,Math.min(4,parseInt(document.getElementById('n').value||'2',10)));
+  var st=document.getElementById('status'),out=document.getElementById('out'),btn=document.getElementById('go');
+  if(!k){st.textContent='Paste your founder key first.';return;}
+  if(!p){st.textContent='Write the scene prompt.';return;}
+  btn.disabled=true;st.textContent='In the studio — generating '+n+' candidate'+(n>1?'s':'')+'… (about 25s each)';
+  try{
+    var r=await fetch('/.netlify/functions/art-shoot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:k,surface:s,prompt:p,n:n})});
+    var d=await r.json().catch(function(){return {};});
+    if(r.status===403){st.textContent='Key refused.';btn.disabled=false;return;}
+    var c=(d&&d.candidates)||[];
+    st.textContent=c.length?('Done — '+c.length+' candidate'+(c.length>1?'s':'')+'. Pick your winners and send me the URLs.'):('No candidates returned. '+((d.errors||[]).join(' · ')||''));
+    c.forEach(function(x){
+      var div=document.createElement('div');div.className='cand';
+      div.innerHTML='<img src="'+x.url+'" alt="candidate" decoding="async"><div class="u">'+x.url+'</div>';
+      out.prepend(div);
+    });
+  }catch(e){st.textContent='Request failed — is the site deployed and the key set?';}
+  btn.disabled=false;
+}
+</script>
+
+<footer class="ft"><div class="wrap">
+<div class="ftgrid">
+<div class="ftbrand">
+<a class="wm" href="index.html"><span class="mk"><svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.3l2.7 6.3 6.8.6-5.2 4.5 1.6 6.7-5.9-3.6-5.9 3.6 1.6-6.7-5.2-4.5 6.8-.6z" fill="#fff"></path></svg></span>Spark<span>MyName</span><sup class="tm">&trade;</sup></a>
+<p>Say one sentence. Get a complete brand &mdash; and everything you need to launch it.</p>
+</div>
+<div class="ftcol"><h3>Product</h3>
+<a href="how-it-works.html">How it works</a>
+<a href="what-you-get.html">What you get</a>
+<a href="see-the-work.html">See the work</a>
+<a href="pricing.html">Pricing</a>
+<a href="demo.html">Demo workspace</a>
+<a href="checkout.html" data-checkout>Get started</a></div>
+<div class="ftcol"><h3>Company</h3>
+<a href="about.html">About</a>
+<a href="success-path.html">The Success Path</a>
+<a href="affiliate.html">Affiliate program</a>
+<a href="press.html">Press</a></div>
+<div class="ftcol"><h3>Support</h3>
+<a href="support.html">Help &amp; support</a>
+<a href="status.html">Status</a>
+</div>
+<div class="ftcol"><h3>Legal</h3>
+<a href="privacy.html">Privacy</a>
+<a href="terms.html">Terms</a>
+<a href="cookies.html">Cookies</a>
+<a href="refund.html">Refunds</a>
+<a href="accessibility.html">Accessibility</a>
+<a href="security.html">Security</a></div>
+</div>
+<div class="ftlegal">
+<p>AI-generated suggestions are for informational purposes only and are not legal, trademark, tax, financial, or domain-registration advice &mdash; consult a qualified professional. We do not perform trademark clearance, and we do not build or host customer websites.</p>
+<p>&copy; 2026 SparkMyName<sup class="tm">&trade;</sup> &middot; Owned by VORREX IGNITE LLC &middot; U.S. Patent Pending (App. 19/704,386) &middot; Trademark application pending, Serial No. 50014040 &mdash; not registered.<span style="display:block;margin-top:6px;font-size:11px;opacity:.55">Site build: SPACIOUS RESKIN &middot; July 29, 2026</span></p>
+</div>
+</div></footer>
+</body></html>

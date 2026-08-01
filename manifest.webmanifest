@@ -1,0 +1,30 @@
+{
+ "name": "SparkMyName",
+ "short_name": "Spark",
+ "description": "Turn one idea into a real business \u2014 names, brand, launch kit, and your lifetime Command Center.",
+ "start_url": "/",
+ "scope": "/",
+ "id": "/july22/",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#0A1428",
+ "theme_color": "#7C5CFF",
+ "icons": [
+  {
+   "src": "/july22/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "/july22/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "/july22/icon-512-maskable.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+SPARKMYNAME OFFICIAL COLOR TOKENS
+=================================
+Spark Green (primary):       #189850
+Spark Green (deep, AA-safe):  #127A40
+Spark Green (bright):         #33F28B
+Warm Amber (logo accent):     #B7791F
+Ink (near-black):             #141414
+Ink (secondary):             #3A3F3C
+White (base):                #FFFFFF
+Soft Panel:                  #F4F6F5
+
+The SparkMyName mark is a white-green identity on white. The wordmark gradient
+runs Spark Green into Warm Amber. The earlier gold/black identity is retired.

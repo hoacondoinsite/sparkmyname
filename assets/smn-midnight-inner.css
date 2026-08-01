@@ -1,0 +1,186 @@
+/* ============================================================
+   SMN MIDNIGHT INNER (CO139) — Founder directive, inner pages
+   Scope: body.mgInner only. Solid black void · white/gold type
+   · steel metadata (#8E8E93, founder-specified) · zero borders
+   · massive vertical air. Print stays light. Money path
+   excluded this tranche.
+   ============================================================ */
+body.mgInner{background:#050608!important;color:#F2F4F8;overflow-x:hidden}
+body.mgInner main,body.mgInner section,body.mgInner .sec,body.mgInner .wrap,body.mgInner .wrapC{
+background:transparent!important;border:0!important;box-shadow:none!important}
+body.mgInner main>section,body.mgInner .sec{padding-top:clamp(3.5rem,7vw,10rem)!important;padding-bottom:0!important}
+/* header/footer join the void */
+body.mgInner header,body.mgInner .cinTop{background:rgba(5,6,8,.85)!important;border-bottom:0!important;backdrop-filter:blur(12px)}
+body.mgInner footer,body.mgInner .cinFoot{background:transparent!important;border-top:0!important;margin-top:clamp(4rem,7vw,10rem)}
+body.mgInner .cinTop .brand,body.mgInner header a{color:#F2F4F8!important}
+body.mgInner .cinTop .brand em,body.mgInner .cinTop .brand .mk{color:#E7D9A8!important}
+/* type law: gold titles · white copy · steel metadata */
+body.mgInner h1{font-size:clamp(2.2rem,3.5vw,4rem)!important;line-height:1.1}
+body.mgInner .eyebrow,body.mgInner .meta,body.mgInner small,body.mgInner .finePrint{color:#8E8E93!important;letter-spacing:.06em}
+body.mgInner a{color:#E7D9A8}
+/* panels: black glass + gold trace (no white boxes survive) */
+body.mgInner .card,body.mgInner .panel,body.mgInner .tile,body.mgInner .box,
+body.mgInner [class*="card"]:not(.pf-card):not(.pf-featured):not(.kit-tile):not(.db):not(.name-card),body.mgInner [class*="Card"]:not([class*="swatch"]),body.mgInner .res-card,
+body.mgInner .kit,body.mgInner .v4kit,body.mgInner .nameRow{
+background:rgba(255,255,255,.02)!important;border:1px solid rgba(212,175,55,.18)!important;
+border-radius:14px!important;box-shadow:none!important;color:#F2F4F8!important}
+body.mgInner [class*="card"]:not(.pf-card):not(.pf-featured):not(.kit-tile):not(.db):not(.name-card),body.mgInner [class*="card"]:not(.pf-card):not(.pf-featured):not(.kit-tile):not(.db):not(.name-card){color:#E7D9A8!important}
+/* inputs become dark instruments */
+body.mgInner input,body.mgInner textarea,body.mgInner select{
+background:#0A0B0E!important;color:#F2F4F8!important;border:1px solid rgba(212,175,55,.3)!important}
+body.mgInner input::placeholder,body.mgInner textarea::placeholder{color:#8E8E93!important}
+/* buttons: gold ghosts; primary actions keep their own inline styling */
+/* imagery breathes; masks reserved for the per-page art pass */
+body.mgInner img[src*="logo"],body.mgInner img[src*="favicon"],body.mgInner img[src*="mark"]{border-radius:0}
+/* PRINT PROTECTION — paper stays paper */
+@media print{
+body.mgInner,body.mgInner *{background:#FFFFFF!important;color:#171410!important;border-color:#DDD!important}
+}
+@media (max-width:768px){
+body.mgInner main>section,body.mgInner .sec{padding-top:clamp(2.4rem,9vw,4rem)!important}
+}
+
+/* ============================================================
+   CO140 — THE CINEMA SCROLL ENGINE (structural half)
+   ============================================================ */
+/* workspace detail views: white sub-cards become glass on the void */
+/* TYPE B · ALTERNATING CINEMA SCROLL — applied to case-study cards */
+body.mgInner .storyScroll>*,body.mgInner .sample-flow>*,body.mgInner.storyOn main .card:not(.pf-card):not(.pf-featured):not(.kit-tile){max-width:1600px;margin-left:auto;margin-right:auto}
+body.mgInner.storyOn main .card:not(.pf-card):not(.pf-featured):not(.kit-tile){display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:clamp(2rem,4vw,6rem);padding:clamp(3rem,7vw,12rem) clamp(1rem,3vw,4rem)!important;max-width:1680px}
+body.mgInner.storyOn main .card:not(.pf-card):not(.pf-featured):not(.kit-tile):nth-of-type(even){flex-direction:row-reverse}
+body.mgInner.storyOn main .card>:first-child{flex:0 0 42%;display:flex;flex-direction:column;justify-content:center}
+body.mgInner.storyOn main .card>:last-child{flex:0 0 53%;position:relative;overflow:hidden}
+body.mgInner.storyOn main .card:not(.pf-card):not(.pf-featured):not(.kit-tile) :is(h2,h3){position:relative;z-index:2;margin-right:-8%}
+body.mgInner .section-label{font-family:Inter,sans-serif;text-transform:uppercase;font-size:.85rem;letter-spacing:.25em;color:#8E8E93!important;display:inline-block;margin-bottom:1rem}
+/* industrial melt + monochrome-until-hover — hover devices only (touch stays vivid) */
+body.mgInner.storyOn main .card:not(.pf-card):not(.pf-featured):not(.kit-tile) img{width:100%;display:block;
+mask-image:linear-gradient(to right,rgba(0,0,0,0) 0%,rgba(0,0,0,1) 15%,rgba(0,0,0,1) 85%,rgba(0,0,0,0) 100%);
+-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,0) 0%,rgba(0,0,0,1) 15%,rgba(0,0,0,1) 85%,rgba(0,0,0,0) 100%)}
+/* CO141: grayscale-dim treatment — cinematic on every device, wakes on hover */
+body.mgInner.storyOn main .card:not(.pf-card):not(.pf-featured):not(.kit-tile) img{filter:grayscale(30%) brightness(90%);transition:filter .6s cubic-bezier(0.16,1,0.3,1)}
+body.mgInner.storyOn main .card:not(.pf-card):not(.pf-featured):not(.kit-tile):hover img{filter:grayscale(0%) brightness(100%)}
+/* handheld: vertical continuum, never cramped */
+@media (max-width:992px){
+body.mgInner.storyOn main .card,body.mgInner.storyOn main .card:not(.pf-card):not(.pf-featured):not(.kit-tile):nth-of-type(even){flex-direction:column;padding:3rem 1.5rem!important}
+body.mgInner.storyOn main .card>:first-child,body.mgInner.storyOn main .card>:last-child{flex:0 0 100%;width:100%}
+body.mgInner.storyOn main .card:not(.pf-card):not(.pf-featured):not(.kit-tile) :is(h2,h3){margin-right:0}}
+
+/* CO141 STORY MODULE REFINEMENTS */
+body.mgInner.storyOn main .card:not(.pf-card):not(.pf-featured):not(.kit-tile) :is(h2,h3){color:#FFFFFF!important;font-family:'Playfair Display',Didot,serif;font-weight:400;font-size:clamp(2.5rem,4vw,4.5rem)!important;line-height:1.05!important;letter-spacing:-.02em}
+body.mgInner.storyOn main .card:not(.pf-card):not(.pf-featured):not(.kit-tile) :is(h2 em,h3 em),body.mgInner.storyOn main .card .gold-highlight{color:#D4AF37!important;font-style:normal}
+body.mgInner.storyOn main .card:not(.pf-card):not(.pf-featured):not(.kit-tile) p{color:#E5E5EA!important;font-size:1.15rem!important;line-height:1.75!important}
+body.mgInner.storyOn main .card:not(.pf-card):not(.pf-featured):not(.kit-tile) img{mask-image:radial-gradient(circle at center,rgba(0,0,0,1) 70%,rgba(0,0,0,0) 100%);-webkit-mask-image:radial-gradient(circle at center,rgba(0,0,0,1) 70%,rgba(0,0,0,0) 100%)}
+@media (max-width:992px){
+body.mgInner.storyOn main .card:not(.pf-card):not(.pf-featured):not(.kit-tile) img{mask-image:linear-gradient(to bottom,rgba(0,0,0,1) 85%,rgba(0,0,0,0) 100%);-webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,1) 85%,rgba(0,0,0,0) 100%);filter:grayscale(0%) brightness(100%)}
+body.mgInner.storyOn main .card>:first-child{margin-bottom:2.5rem}}
+
+/* ============================================================
+   CO142 — HUB BLACKOUT: the workspace's OWN tokens flipped
+   ============================================================ */
+/* flip the hub's private design tokens at the body level (beats its :root) */
+body.mgInner{--ink:#F2F4F8;--muted:#8E8E93;--line:rgba(212,175,55,.22);
+--soft:#07080B;--white:#0A0B0E;--orange:#E7D9A8;--shadow:none;--bg:#050608}
+/* the brown eyebrow + any hardcoded-brown text goes gold */
+body.mgInner .v4eyebrow,body.mgInner [style*="7E6018"]{color:#E7D9A8!important}
+/* brown/gold-gradient capsules & pills -> black shells with gold trace */
+body.mgInner .hub-sort,body.mgInner [style*="B58A25"],body.mgInner [style*="A8802A"],body.mgInner [style*="96721F"]{
+background:#0A0B0E!important;background-image:none!important;color:#E7D9A8!important;
+border:1px solid rgba(212,175,55,.5)!important}
+body.mgInner .v4hero{box-shadow:none!important;border:1px solid rgba(212,175,55,.22)}
+/* THE OPENED BRAND (the big card): black-and-gold shell, palette LIVES in color */
+/* status colors stay functional */
+body.mgInner .ok,body.mgInner [style*="177A3D"]{color:#3ECF7A!important}
+body.mgInner .err,body.mgInner [style*="b42318"]{color:#FF6B5A!important}
+
+/* ============================================================
+   CO143 — HUB REFACTOR (founder sheet, mapped verbatim)
+   ============================================================ */
+/* 2 · unified premium header */
+body.mgInner .studio-top{background:#000!important;border-bottom:1px solid rgba(214,175,55,.15)!important;padding:1rem 0}
+body.mgInner .studio-top .logo{color:#FFF!important;font-weight:700!important;letter-spacing:-.02em!important}
+body.mgInner .studio-top .logo-mark,body.mgInner .studio-top .logo span{color:#D4AF37!important;background:transparent!important}
+/* 3 · plaque & orient */
+body.mgInner .studio-orient{background:#000!important;border:0!important;box-shadow:none!important;text-align:center!important;padding:4rem 2rem 2rem!important}
+body.mgInner .orient-big{color:#8E8E93!important;font-size:.9rem!important;letter-spacing:.25em!important;text-transform:uppercase!important;font-weight:700!important}
+body.mgInner .orient-h1{font-family:'Playfair Display',serif!important;color:#FFF!important;font-size:clamp(2.5rem,5vw,4.5rem)!important;margin-top:.5rem!important}
+/* 6 · clean global footer */
+body.mgInner footer.footer{background:#000!important;border-top:1px solid rgba(214,175,55,.15)!important;color:#8E8E93!important}
+body.mgInner footer.footer a{color:#FFF!important}
+body.mgInner footer.footer a:hover{color:#D4AF37!important}
+
+
+/* ===== CO145 — CARD SANCTITY (Founder ruling): the card is a sealed instrument ===== */
+body.mgInner .pf-card,body.mgInner .pf-featured{border-color:#ECE7DB!important}
+body.mgInner .pf-card,body.mgInner .pf-card *,body.mgInner .pf-featured,body.mgInner .pf-featured *{filter:none!important;mask-image:none!important;-webkit-mask-image:none!important}
+
+/* ============================================================
+   CO146 — THE ROLL POLISH (all devices: fold, phone, tablet,
+   laptop, desktop). One rhythm, zero drift, nothing off-page.
+   ============================================================ */
+/* absolute overflow armor: nothing ever runs off the page */
+body.mgInner *{min-width:0}
+body.mgInner img,body.mgInner video,body.mgInner svg{max-width:100%!important;height:auto}
+body.mgInner p,body.mgInner h1,body.mgInner h2,body.mgInner h3,body.mgInner a,body.mgInner button{overflow-wrap:break-word}
+/* phones + folded devices: full-bleed math replaced with honest 100% (kills the left drift) */
+@media (max-width:768px){
+body.mgInner [style*="calc(50% - 50vw)"]{width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}
+body.mgInner .heroCin,body.mgInner .heroCin .wrapC,body.mgInner .heroCin img,body.mgInner .heroPlate,body.mgInner .heroStage,
+body.mgInner #cineStage,body.mgInner section.catStrip img,body.mgInner #boardroom img,body.mgInner #how img.secImg,body.mgInner .gSec img.secImg{
+width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}
+/* ONE mobile rhythm — the toilet-paper law: constant, continuous, no blank sheets */
+body.mgInner main>section,body.mgInner .sec{padding-top:clamp(26px,6.5vw,40px)!important;padding-bottom:0!important}
+body.mgInner .capHead{margin-bottom:14px!important}
+/* melts soften so small images keep their subjects */
+body.mgInner .heroStage::after{background:linear-gradient(180deg,#050608 0%,rgba(5,6,8,0) 8%,rgba(5,6,8,0) 92%,#050608 100%)!important}
+body.mgInner section.catStrip .imgWrap::after,body.mgInner #boardroom .imgWrap::after,body.mgInner #how .imgWrap::after,body.mgInner .gSec .imgWrap::after{
+background:linear-gradient(to bottom,#050608 0%,transparent 7%,transparent 93%,#050608 100%)!important}
+/* wall + theater breathe tight and centered */
+body.mgInner #pmGrid{gap:8px!important;padding-left:8px!important;padding-right:8px!important}
+body.mgInner #preview-reserved .capHead,body.mgInner .wrapC{padding-left:14px!important;padding-right:14px!important}
+body.mgInner #cineBar{gap:8px!important;padding:8px 10px calc(8px + env(safe-area-inset-bottom))!important}
+body.mgInner #cineVol{width:64px!important}
+}
+/* tablets & small laptops: rhythm scales smoothly, air never doubles */
+@media (min-width:769px) and (max-width:1200px){
+body.mgInner main>section,body.mgInner .sec{padding-top:clamp(40px,4.5vw,72px)!important;padding-bottom:0!important}
+}
+
+/* ============================================================
+   CO149 — CHROME CREAM PURGE (sheet intent, sanctity-safe)
+   Flips the second cream token (--ice) + dynamic section air.
+   Cards (.kit-tile/.pf-*) remain sovereign — NOT targeted.
+   ============================================================ */
+body.mgInner{--ice:#050608;--cream:#050608}
+/* dynamic, viewport-scaled section air (kills boxed-in desktop / squished mobile) */
+body.mgInner .account-shell,body.mgInner main.account-shell{background:transparent!important}
+body.mgInner .account-card-grid{gap:clamp(1.5rem,3vw,4rem)!important;padding:clamp(1.5rem,4vw,6rem) clamp(1rem,3vw,2rem)!important}
+/* chrome text that referenced cream directly -> theme ink (never inside a card) */
+body.mgInner .rail-id-tx b:not(.pf-card *):not(.kit-tile *){color:#E7D9A8!important}
+
+/* CO150: cinematic gradient dividers (founder sheet) */
+body.mgInner hr,hr.cinematic-divider{height:1px;background:linear-gradient(to right,rgba(214,175,55,.2),rgba(0,0,0,0));margin:6rem 0;border:none!important}
+
+/* ============================================================
+   CO162 — WORKSPACE CARD READABILITY (Founder order):
+   white cards keep DARK ink inside — the theme's light ink
+   stops at the card border. Standard card anatomy: dark
+   title top-left, meta under it, actions row below.
+   ============================================================ */
+body.mgInner .pf-card,body.mgInner .pf-featured{--ink:#171410;color:#3A3630}
+body.mgInner .pf-card .pf-name,body.mgInner .pf-featured .pf-name{
+color:#171410!important;text-align:left!important;margin:0 0 12px!important;opacity:1!important}
+body.mgInner .pf-card .pf-body,body.mgInner .pf-featured .pf-body{padding:clamp(20px,2.4vw,30px)!important}
+body.mgInner .pf-card .pf-body :is(p,span,div,small,time){color:#4A4438}
+body.mgInner .pf-card .pf-body :is(h1,h2,h3,h4){color:#171410!important}
+
+/* ============================================================
+   CO164 — WORKSPACE CARD COMPOSITION (Founder):
+   right panel vertically CENTERED — name, air, then actions.
+   ============================================================ */
+body.mgInner .pf-card .pf-body,body.mgInner .pf-featured .pf-body{
+display:flex!important;flex-direction:column!important;justify-content:center!important;
+align-items:stretch!important;min-height:100%!important;gap:0!important}
+body.mgInner .pf-card .pf-name,body.mgInner .pf-featured .pf-name{margin:0 0 22px!important}
+body.mgInner .pf-card .pf-actions,body.mgInner .pf-featured .pf-actions{
+display:flex!important;justify-content:space-between!important;align-items:center!important;
+gap:16px!important;width:100%!important;margin:0!important}

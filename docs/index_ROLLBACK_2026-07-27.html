@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SparkMyName&trade; — Everything you need to launch. All in one place.</title>
+<meta name="description" content="Turn one idea into a complete brand for $99 — names with available domains, logos, colors, launch words, and a free online workspace. Delivered in minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Inter:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A1428;--panel:#102143;--panel2:#0D1B38;--ink9:#EAF2FF;--soft:#AFC2E1;--faint:#7E93B8;
+--line:rgba(148,180,255,.18);--gold:#7C5CFF;--gold-deep:#21D4FD;--gold-soft:#16335F;--black:#061021;
+--sh:0 2px 6px rgba(148,180,255,.05),0 24px 70px -20px rgba(148,180,255,.14);--r:22px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink9);font-family:'Inter',system-ui,sans-serif;line-height:1.6;display:flex;flex-direction:column;min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased}
+
+.pg{max-width:1200px;margin:0 auto;padding:0 28px;width:100%}
+.serif{font-family:'Inter',system-ui,sans-serif}
+h1,h2{font-family:'Inter',system-ui,sans-serif;font-weight:600;color:var(--ink9);letter-spacing:-.01em;margin:0;text-wrap:balance}
+h1{font-size:clamp(40px,5vw,64px);line-height:1.08}
+h2{font-size:clamp(28px,3.2vw,40px);line-height:1.15}
+p,li{text-wrap:pretty;color:var(--soft)}
+.eyeb{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.eyeb::before{content:"✧";font-size:.875rem}
+.gbtn{display:inline-block;border:0;border-radius:12px;padding:13px 26px;font:inherit;font-size:.9062rem;font-weight:600;cursor:pointer;background:var(--gold);color:#FFFFFF;text-decoration:none;text-align:center;transition:background .15s,transform .15s}
+.gbtn:hover{background:var(--gold-deep);transform:translateY(-1px)}
+.glink{color:var(--gold-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+/* ===== light header per reference ===== */
+.hd{position:sticky;top:0;z-index:60;background:rgba(10,20,40,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hd .in{max-width:1200px;margin:0 auto;padding:clamp(10px,1.3vw,14px) clamp(12px,2.6vw,28px);display:flex;align-items:center;gap:clamp(10px,2.4vw,26px)}
+.wm{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink9)}
+.wm .sp{color:var(--gold);font-size:1.25rem}
+.wm b{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:1.375rem;letter-spacing:-.01em}
+.nav{display:flex;gap:22px;margin-left:14px}
+.nav a{color:var(--soft);text-decoration:none;font-size:.875rem;font-weight:500}
+.nav a:hover{color:var(--ink9)}
+.hd .rt{margin-left:auto;display:flex;align-items:center;gap:clamp(8px,1.7vw,18px)}
+.hd .lg{color:var(--ink9);text-decoration:none;font-size:.875rem;font-weight:600}
+/* ===== hero ===== */
+.hero{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:start;padding:64px 0 40px}
+.hero h1 .ul{box-shadow:inset 0 -10px 0 var(--gold-soft)}
+.hero .sub{max-width:44ch;font-size:1.0312rem;margin:22px 0 0}
+.blt{list-style:none;padding:0;margin:24px 0 0}
+.blt li{display:flex;align-items:center;gap:12px;padding:8px 0;color:var(--soft);font-size:.9688rem}
+.blt .ic{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.875rem}
+.trust{margin:24px 0 0;font-size:.875rem;font-weight:600;color:var(--gold-deep)}
+.starthere{position:relative;height:80px;margin-top:6px}
+.starthere .cw{position:absolute;right:40px;top:0;font-family:'Caveat',cursive;font-size:1.5rem;color:var(--gold-deep);transform:rotate(-8deg)}
+.starthere svg{position:absolute;right:-6px;top:26px}
+/* ===== command card ===== */
+.cc{background:var(--panel);border:1px solid var(--line);border-radius:26px;box-shadow:var(--sh);padding:clamp(24px,3vw,30px) clamp(20px,3vw,30px) clamp(20px,2.6vw,26px)}
+.cc .top{display:flex;align-items:center;justify-content:space-between}
+.cc .lb{font-size:.7188rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.cc .lb::before{content:"✦ ";color:var(--gold)}
+.cc .ticons{color:var(--faint);font-size:.9375rem;letter-spacing:8px}
+.cc .ti{font-family:'Inter',system-ui,sans-serif;font-size:1.6875rem;font-weight:600;margin:12px 0 4px}
+.cc .hp{font-size:.8438rem;color:var(--soft);margin:0 0 14px;max-width:34ch}
+textarea,select,input{font:inherit;color:var(--ink9);background:#102143;border:1px solid var(--line);border-radius:14px;padding:13px 15px;width:100%}
+textarea:focus,select:focus,input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(79,142,247,.14)}
+::placeholder{color:var(--faint)}
+.cc-row{display:flex;gap:10px;margin:12px 0 4px;align-items:center}
+.cc-row select{width:auto;flex:1;border-radius:999px;padding:9px 14px;font-size:.8438rem;color:var(--soft)}
+.cc-row .cnt{flex:none;font-size:.75rem;color:var(--faint)}
+.cc .eg{font-size:.8125rem;color:var(--faint);margin:10px 0 14px}
+.cc .eg::before{content:"✧ ";color:var(--gold)}
+.vmod{background:var(--black);border-radius:18px;padding:20px 18px 16px;text-align:center;cursor:pointer;margin-top:6px}
+.vmod .row{display:flex;align-items:center;justify-content:center;gap:14px}
+.vmod .wave{color:#6B655C;font-size:.8125rem;letter-spacing:2px;user-select:none}
+.vmod .mic{width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#93C5FD,var(--gold) 70%);color:#061021;font-size:1.4375rem;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(79,142,247,.45)}
+.vmod b{display:block;color:#EAF2FF;font-size:.8438rem;font-weight:600;margin-top:12px}
+.vmod.rec .mic{background:#F87171;color:#fff}
+/* ===== dark band ===== */
+.band{background:var(--black);border-radius:26px;color:#EAF2FF;margin:26px 0 0;padding:clamp(38px,5vw,52px) clamp(28px,5.4vw,56px);display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(28px,3.8vw,40px);align-items:center;position:relative;overflow:hidden}
+.band h2{color:#EAF2FF}
+.band p{color:#9FB4D8;font-size:.9375rem;margin:12px 0 0}
+.band .mw{display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:2}
+.band .bigmic{width:92px;height:92px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#93C5FD,var(--gold) 70%);color:#061021;font-size:2.125rem;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s;box-shadow:0 10px 30px rgba(79,142,247,.5)}
+.band .bigmic:hover{transform:scale(1.05)}
+.band .bigmic.rec{background:#F87171;color:#fff}
+.band .mw b{font-size:.9375rem;color:#EAF2FF}
+.band .mw span{font-size:.7812rem;color:#9FB4D8}
+.band .wires{position:absolute;right:-40px;bottom:-60px;width:340px;height:240px;opacity:.5;pointer-events:none}
+.band .spk{position:absolute;top:34px;right:38%;color:var(--gold);font-size:1.125rem}
+/* ===== brands carousel ===== */
+.sec{padding:76px 0 0}
+.chead{text-align:center}
+.chead h2{display:inline-block;position:relative;padding:0 26px}
+.chead h2::before,.chead h2::after{content:"";position:absolute;top:55%;width:70px;height:1px;background:var(--line)}
+.chead h2::before{right:100%}.chead h2::after{left:100%}
+.carwrap{position:relative;margin-top:34px}
+.car{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px}
+.car::-webkit-scrollbar{display:none}
+.bcard{flex:0 0 214px;scroll-snap-align:start;background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);padding:26px 20px;text-align:center}
+.bcard .mono{width:46px;height:46px;border-radius:13px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:1.25rem;background:var(--gold-soft);color:var(--gold-deep)}
+.bcard b{font-size:1.0312rem;color:var(--ink9)}
+.bcard p{font-size:.8125rem;color:var(--soft);margin:6px 0 14px;min-height:40px}
+.pill{display:inline-block;border-radius:999px;padding:5px 13px;font-size:.75rem;font-weight:600}
+.p-grn{background:#E4EFE2;color:#3D6B35}.p-blu{background:#E2EAF6;color:#2F5487}.p-pur{background:#EBE6F5;color:#5A4494}.p-red{background:#F8E4E1;color:#9C3B2E}.p-gray{background:#ECEAE4;color:#AFC2E1}.p-org{background:#F6E9DA;color:#8A5A23}
+.arw{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--soft);font-size:1rem;cursor:pointer;box-shadow:var(--sh);z-index:3}
+.arw:hover{color:var(--ink9);border-color:var(--gold)}
+.arw.l{left:-16px}.arw.r{right:-16px}
+.morelink{display:block;text-align:center;margin-top:26px}
+/* ===== bento deliverables ===== */
+.dsec{background:var(--panel2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:76px;padding:70px 0 76px}
+.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:minmax(150px,auto);gap:16px;margin-top:38px}
+.bx{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px 24px;overflow:hidden}
+.bx 
+.bx .lic{color:var(--gold);font-size:1.375rem;margin-bottom:12px;display:block}
+.bx h3{font-family:'Inter',system-ui,sans-serif;font-size:1.25rem;font-weight:600;margin:0 0 8px;color:var(--ink9)}
+.bx p{font-size:.8438rem;margin:0 0 12px}
+.bx a{font-size:.8438rem}
+.bx.tall{grid-row:span 2}
+.bx.wide{grid-column:span 2}
+.bx.tint{background:var(--gold-soft);border-color:#E0CE9F}
+.hstrip{display:flex;align-items:center;gap:18px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 24px;margin-top:16px;flex-wrap:wrap}
+.hstrip .ic{flex:none;width:44px;height:44px;border-radius:50%;background:var(--gold-soft);color:var(--gold-deep);display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+.hstrip b{color:var(--ink9);font-size:.9375rem}
+.hstrip span{color:var(--soft);font-size:.8438rem}
+.hstrip a{margin-left:auto}
+/* ===== price / steps / faq (kept from set, restyled to cream) ===== */
+.pr{text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:26px;box-shadow:var(--sh);padding:64px 44px;margin-top:76px}
+.pr .n{font-family:'Inter',system-ui,sans-serif;font-size:clamp(54px,6.5vw,86px);font-weight:700;color:var(--ink9);line-height:1}
+.pr .n em{font-style:normal;color:var(--gold)}
+.pr ul{list-style:none;padding:0;margin:20px auto 28px;max-width:52ch}
+.pr li{padding:6px 0;font-size:1rem}
+.st{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.sp1{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px}
+.sp1 .n{font-size:.75rem;font-weight:700;color:var(--gold);letter-spacing:.14em;margin-bottom:12px}
+.sp1 h3{font-family:'Inter',system-ui,sans-serif;font-size:1.1875rem;font-weight:600;margin:0 0 6px}
+.sp1 p{font-size:.875rem;margin:0}
+.faqw{max-width:760px;margin:0 auto;padding-bottom:84px}
+details.f2{border-bottom:1px solid var(--line);padding:0 4px}
+details.f2 summary{cursor:pointer;list-style:none;padding:20px 0;font-weight:600;font-size:1.0312rem;color:#EAF2FF!important;display:flex;justify-content:space-between;align-items:center}
+details.f2 summary::after{content:"+";font-size:1.375rem;font-weight:400;color:var(--faint)}
+details.f2[open] summary::after{content:"–"}
+details.f2 p{padding:0 0 20px;margin:0;color:#AFC2E1!important;max-width:64ch}
+@media(max-width:980px){.hero,.band{grid-template-columns:1fr}.nav{display:none}.bento{grid-template-columns:1fr 1fr}.bx.tall{grid-row:span 1}.bx.wide{grid-column:span 2}.st{grid-template-columns:1fr}.starthere{display:none}}
+@media(max-width:620px){.bento{grid-template-columns:1fr}.bx.wide{grid-column:span 1}.cc-row{flex-wrap:wrap}.hstrip a{margin-left:0}}
+</style>
+<style>
+.ftband{background:#0D1B38;border-radius:12px;margin:60px 28px 30px;padding:18px 30px;font-size:.8125rem;color:#9FB4D8;max-width:1200px;margin-left:auto;margin-right:auto}
+.ftband .lnks{display:flex;gap:clamp(10px,1.3vw,14px) clamp(16px,2vw,22px);flex-wrap:wrap;margin-bottom:10px}
+.ftband a{color:#9FB4D8;text-decoration:none}
+.ftband a:hover{color:#EAF2FF}
+</style><style>
+/* ===== CO214: DEVICE + TOUCH + ADA LAYER (all devices) ===== */
+:focus-visible{outline:3px solid #7C5CFF!important;outline-offset:2px;border-radius:6px}
+.gbtn,.cta,button,.dmod,.nav a,.hd .lg,.arw{min-height:44px}
+.gbtn,.cta{display:inline-flex;align-items:center;justify-content:center}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.skip{position:absolute;left:-9999px;top:0;background:#061021;color:#fff;padding:12px 20px;z-index:999;border-radius:0 0 12px 0}
+.skip:focus{left:0}
+img,svg,video{max-width:100%;height:auto}
+input,select,textarea{font-size:1rem}  /* prevents iOS zoom-jump */
+.car{-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;touch-action:pan-x pan-y}
+.car>*{scroll-snap-align:start}
+@media(pointer:coarse){.arw{width:52px;height:52px}}
+@media(max-width:640px){
+  h1{font-size:clamp(32px,9vw,40px)}
+  
+  
+  /* PHONE TRIM — shorter page, faster to the sale */
+  .m-trim{display:none!important}
+  .grid4>.c:nth-child(n+5),.gridbrands>.c:nth-child(n+5){display:none}
+  
+}
+</style><style>
+/* CO214b: small-phone header + band containment */
+@media(max-width:430px){
+  
+  .wm b{font-size:1.1875rem}
+  
+  .hd .rt .gbtn,.hd .rt .cta,.hd .cta{padding:10px 14px;font-size:.8125rem}
+  .hd .lg{font-size:.8125rem}
+}
+.band{overflow:hidden!important}
+.band svg{max-width:44vw!important;right:0!important}
+@media(max-width:640px){#how{display:none!important}.band svg{display:none!important}}
+</style><style>/* CO214c: contain the carousel; never let any page scroll sideways */
+html,body{overflow-x:clip}
+.car{overflow-x:auto;max-width:100%}
+section,main{max-width:100vw}
+</style><link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#7C5CFF">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Spark">
+<style>
+/* ===== JAMES CUT — navy experiment (Founder + designer, 2026-07-22) ===== */
+body{background:#0A1428!important;color:#EAF2FF}
+h1,h2{font-family:'Inter',system-ui,sans-serif!important;font-weight:900!important;letter-spacing:-.025em!important;
+ background:linear-gradient(92deg,#21D4FD 0%,#7C5CFF 38%,#FF4D8D 72%,#FFB020 100%);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+h3{font-family:'Inter',system-ui,sans-serif!important;font-weight:800!important;color:#DBEAFE!important;letter-spacing:-.01em}
+.hd{background:rgba(10,20,40,.9)!important;border-bottom:1px solid rgba(148,180,255,.16)!important}
+.wm b{background:linear-gradient(92deg,#21D4FD,#7C5CFF 55%,#FF4D8D);-webkit-background-clip:text;background-clip:text;color:transparent!important;font-family:'Inter',sans-serif!important;font-weight:900!important}
+.gbtn,.cta{background:linear-gradient(92deg,#7C5CFF,#FF4D8D)!important;color:#FFFFFF!important;font-weight:800!important;border:0!important;box-shadow:0 10px 26px -10px rgba(255,77,141,.5)}
+.gbtn:hover,.cta:hover{background:linear-gradient(92deg,#7C5CFF,#FF4D8D)!important;transform:translateY(-1px)}
+.cta.dark{background:linear-gradient(92deg,#21D4FD,#7C5CFF)!important;color:#FFFFFF!important}
+.rule{background:linear-gradient(90deg,#21D4FD,#7C5CFF,#FF4D8D,#FFB020)!important;height:4px!important}
+.eyeb{color:#FFB020!important}
+.chip{background:rgba(56,189,248,.14)!important;color:#93C5FD!important;border:1px solid rgba(56,189,248,.25)!important}
+.pill{filter:none}
+.p-grn{background:rgba(52,211,153,.15);color:#6EE7B7}.p-blu{background:rgba(96,165,250,.16);color:#93C5FD}
+.p-pur{background:rgba(167,139,250,.16);color:#C4B5FD}.p-red{background:rgba(248,113,113,.14);color:#FCA5A5}
+.p-gray{background:rgba(148,180,255,.12);color:#AFC2E1}.p-org{background:rgba(251,191,36,.14);color:#FCD34D}
+input,textarea,select{background:#0D1B38!important;color:#EAF2FF!important;border-color:rgba(148,180,255,.2)!important}
+::placeholder{color:#7E93B8!important}
+.dmod .gc{background:radial-gradient(circle at 35% 30%,#FF8FB0,#7C5CFF 75%)!important;box-shadow:0 6px 24px rgba(124,92,255,.55)!important;color:#FFFFFF!important}
+.jic{width:26px;height:26px;flex:none;stroke:#38BDF8;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+.ftband{background:#0D1B38!important;border:1px solid rgba(148,180,255,.16)!important;color:#7E93B8!important}
+.ftband a{color:#AFC2E1!important}
+:focus-visible{outline-color:#38BDF8!important}
+</style><style>.glink,.bx .glink{color:#C4B5FD!important}.morelink{color:#C4B5FD!important}</style><style>/* CO224: designer's radius law — every button matches Open my AI Studio (12px) */
+button,.btn,.cta,.gbtn,.bzbtn,.ocaimbtn,.newbtn,.conciergebtn,.successbtn,.aistudiobtn,.arw,.dmod .gc,.gc,input[type=submit],input[type=button],.smn22-cta a,.dlhero-btn,.act{border-radius:12px!important}
+
+/* SAFE AREAS (2026-07-25). This page declares viewport-fit=cover, which deliberately extends
+   content under the notch and the home indicator. The audit found ZERO env(safe-area-inset-*)
+   anywhere in the codebase, so on an iPhone in landscape the notch overlaps real content.
+   max() keeps it a no-op on every device without insets, and @supports keeps it inert on
+   browsers that do not understand env(). */
+@supports (padding: max(0px)) {
+  body { padding-left: max(0px, env(safe-area-inset-left));
+         padding-right: max(0px, env(safe-area-inset-right)); }
+}
+
+/* iOS zoom trap (2026-07-25): Safari force-zooms on focus when a field is under 16px.
+   Scoped to coarse pointers so desktop sizing is untouched. */
+@media (pointer: coarse) {
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"],
+  input[type="search"], input[type="password"], input:not([type]), textarea, select {
+    font-size: max(1rem, 16px) !important;
+  }
+}
+
+/* Header language + currency selects. */
+.hdsel{display:inline-flex;gap:8px;align-items:center;margin-right:14px}
+.hdsel select{background:rgba(16,33,67,.7);border:1px solid var(--line);color:#EAF2FF;
+  font:inherit;font-size:.8125rem;font-weight:600;border-radius:10px;padding:clamp(7px,.8vw,8px) clamp(8px,1vw,10px);
+  cursor:pointer;min-height:38px;appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M1 1l4 4 4-4' stroke='%23AFC2E1' stroke-width='1.6' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat:no-repeat;background-position:right 9px center;padding-right:26px}
+.hdsel select:hover{border-color:rgba(124,92,255,.5)}
+.hdsel select:focus-visible{outline:2px solid #7C5CFF;outline-offset:2px}
+.curnote{display:block;font-size:.6875rem;color:var(--faint);margin-top:4px;line-height:1.3}
+@media(max-width:820px){.curnote{display:none}}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(max-width:820px){.hdsel{margin-right:8px}}
+@media(max-width:520px){.hdsel select[id="cur"]{display:none}}
+
+/* Symbol-led language and currency controls. */
+.hdsel-i{font-size:.875rem;line-height:1;opacity:.85;flex:none;
+  font-variant-emoji:text;color:#EAF2FF}
+#curSym{font-weight:800;min-width:12px;text-align:center}
+.hdsel select{padding-left:6px}
+@media(max-width:520px){.hdsel-i{font-size:.8125rem}}
+
+/* Home hero art. The scrim matches every other art slot on the site so type stays readable
+   over any shot, and the aspect ratio holds the space before the image arrives — no jump. */
+.homeart{position:relative;margin:26px 0 0;padding:0;border-radius:18px;overflow:hidden;
+  aspect-ratio:16/9;background:var(--panel2);border:1px solid var(--line)}
+.homeart .homeart-img{position:absolute;inset:0;display:block;
+  background-image:url("https://jfjeuejvqltloaltkifc.supabase.co/storage/v1/object/public/brand-headers/shoot/https-sparkmyname-netlify-app/1785037544485-1.png");background-size:cover;background-position:center;
+  background-repeat:no-repeat}
+.homeart::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,16,33,0) 40%,rgba(6,16,33,.55) 100%)}
+.homeart.artlive::after{background:rgba(6,16,33,.7)!important}
+@media(max-width:900px){.homeart{margin-top:20px}}
+
+.tm{font-size:.55em;font-weight:700;vertical-align:super;line-height:1;margin-left:1px;opacity:.85}
+</style><link rel="icon" type="image/png" href="/favicon-32.png"><link rel="canonical" href="https://sparkmyname.netlify.app/"><meta property="og:title" content="SparkMyName&trade; — Everything you need to launch. All in one place."><meta property="og:description" content="Turn one idea into a complete brand for $99 — names with available domains, logos, colors, launch words, and a free online workspace. Delivered in minutes."><meta property="og:type" content="website"><meta property="og:url" content="https://sparkmyname.netlify.app/"><meta property="og:image" content="https://sparkmyname.netlify.app/og-card.png"><meta property="og:site_name" content="SparkMyName&trade;"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://sparkmyname.netlify.app/og-card.png"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "SparkMyName", "url": "https://sparkmyname.netlify.app/", "logo": "https://sparkmyname.netlify.app/icon-512.png", "image": "https://sparkmyname.netlify.app/og-card.png", "description": "SparkMyName turns one idea into a complete brand \u2014 names with available domains, logos, colors, and launch words \u2014 delivered to a free online workspace.", "parentOrganization": {"@type": "Organization", "name": "VORREX IGNITE LLC"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "SparkMyName", "url": "https://sparkmyname.netlify.app/"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "SparkMyName \u2014 Business in a Box", "description": "A complete brand for one flat price: name ideas with domains checked at delivery, logos, colors, fonts, launch words, and a free online workspace.", "image": "https://sparkmyname.netlify.app/og-card.png", "brand": {"@type": "Brand", "name": "SparkMyName"}, "offers": {"@type": "Offer", "price": "99.00", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://sparkmyname.netlify.app/pricing.html"}}</script><script>
+/* ERROR BOUNDARY (2026-07-25). Audit found window.onerror: 0, unhandledrejection: 0,
+   <noscript>: 0 across every page. One thrown error inside a render function produced a blank
+   card with no message and no clue — which is exactly how this afternoon's failure presented.
+   This never swallows the error (it still reaches the console); it guarantees the user is TOLD.
+   Placed in <head> so it is armed before any page script runs. */
+(function(){
+  var shown=false;
+  function boom(what){
+    if(shown)return; shown=true;
+    try{
+      var d=document.createElement('div');
+      d.setAttribute('role','alert');
+      d.style.cssText='position:fixed;left:12px;right:12px;'+
+        'bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:2147483000;'+
+        'padding:14px 16px;border-radius:12px;background:#2A1220;border:1px solid #FF4D8D;'+
+        'color:#FFE8F0;font:600 14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;'+
+        'box-shadow:0 18px 44px -12px rgba(0,0,0,.6)';
+      d.textContent='Something went wrong on this page. Reload to try again. ('+String(what).slice(0,120)+')';
+      (document.body||document.documentElement).appendChild(d);
+    }catch(e){}
+  }
+  window.addEventListener('error',function(e){ boom((e&&e.message)||'script error'); });
+  window.addEventListener('unhandledrejection',function(e){
+    var r=e&&e.reason; boom((r&&(r.message||r))||'a request failed'); });
+})();
+</script>
+</head>
+<body>
+<a class="skip" href="#main22">Skip to main content</a>
+
+<header class="hd"><div class="in">
+  <a class="wm" href="index.html"><span class="sp">&#10023;</span><b>SparkMyName&trade;</b></a>
+  <nav class="nav">
+    <a href="features.html" data-i18n="nav1">Features</a><a href="how-it-works.html" data-i18n="nav2">How It Works</a><a href="deliverables.html" data-i18n="nav3">Deliverables</a><a href="pricing.html" data-i18n="nav4">Pricing</a><a href="resources.html" data-i18n="nav5">Resources</a>
+  </nav>
+  <!-- CANONICAL HEADER (2026-07-25, Founder order). One shape on every customer page:
+       wordmark, four destinations, language, currency, log in. Nothing else belongs here —
+       "Start Your Spark" was a sales button living in navigation furniture, and it appeared on
+       29 pages while the homepage had already dropped it.
+       Language and currency lead with a SYMBOL rather than a word, so the control reads at a
+       glance in any language and stays narrow enough for a phone: a globe for language, the
+       actual currency glyph for money. The select keeps its own accessible name. -->
+  <span class="rt">
+    <span class="hdsel">
+      <label class="sr-only" for="lang">Language</label>
+      <span class="hdsel-i" aria-hidden="true">&#127760;</span>
+      <select id="lang" aria-label="Language">
+        <option value="en">EN</option><option value="es">ES</option><option value="fr">FR</option>
+        <option value="de">DE</option><option value="pt">PT</option>
+      </select>
+      <label class="sr-only" for="cur">Currency</label>
+      <span class="hdsel-i" id="curSym" aria-hidden="true">$</span>
+      <select id="cur" aria-label="Currency">
+        <option value="USD">USD</option><option value="EUR">EUR</option>
+        <option value="GBP">GBP</option><option value="JPY">JPY</option>
+        <option value="BRL">BRL</option><option value="INR">INR</option>
+      </select>
+    </span>
+    <a class="lg" href="account.html" data-i18n="login">Log in</a>
+  </span>
+</div></header>
+<main id="main22">
+
+<div class="pg">
+  <section class="hero">
+    <div>
+      <span class="eyeb" data-i18n="eyeb">From idea to legacy</span>
+      <h1 style="margin-top:16px">Everything you <span class="ul">need to launch.</span> All in one place.</h1>
+      <p class="sub">Spark is your command center for turning ideas into real businesses. From the perfect name to a full launch kit — built for first-time founders, by people who've been there.</p>
+      <ul class="blt">
+        <li><svg class="jic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> AI-powered naming &amp; validation</li>
+        <li><svg class="jic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> Brand identity, domains &amp; legal docs</li>
+        <li><svg class="jic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> Step-by-step launch guidance</li>
+      </ul>
+      <p class="trust" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="color:var(--gold);font-size:.9375rem">✧</span><span style="font-weight:600;color:var(--soft);font-size:.8438rem">One-time <span data-price="99">$99</span> · No subscription · 7-day money-back guarantee</span></p>
+      <!-- HOME HERO ART (2026-07-25, Founder order). index.html was the ONE page of 42 with no
+     art slot; the other 27 customer pages all carry one. This uses the same Accent Registry
+     pattern — data-art names the surface, and site-art.js can swap the shot from the Art
+     Director without touching this file. The URL below is the current shot, set as the
+     default so the page never depends on the registry being reachable. -->
+<figure class="homeart" data-art="home-hero" role="img"
+        aria-label="A Spark brand, built from a single sentence">
+  <span class="homeart-img"></span>
+</figure>
+<div class="starthere">
+        <span class="cw">Start here</span>
+        <svg width="120" height="52" viewBox="0 0 120 52" fill="none"><path d="M6 8 C 40 44, 80 46, 108 24" stroke="#21D4FD" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 7"/><path d="M100 18 L110 23 L102 32" stroke="#21D4FD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      </div>
+    </div>
+
+    <div class="cc">
+      <div class="top"><span class="lb">Spark Command Center</span><span class="ticons">✧ ◷ ⚙</span></div>
+      <div class="ti">What's the spark?</div>
+      <p class="hp">Describe your idea in your own words. We'll handle the rest.</p>
+      <textarea id="seed2" aria-label="Describe your business idea" rows="4" maxlength="500" placeholder="e.g. An AI-powered journaling app that helps busy people reflect and grow..."></textarea>
+      <div class="cc-row">
+        <span class="cnt" id="cnt">0/500</span>
+      </div>
+      <p class="eg">Not sure where to start? <a class="glink" href="examples.html" id="tryEg">Try an example</a></p>
+      <div class="vmod" id="voiceBox" role="button" tabindex="0" aria-label="Voice input">
+        <div class="row"><span class="wave">||ıı|ıı||ı</span><span class="mic">🎤</span><span class="wave">ı||ıı|ıı||</span></div>
+        <b>Tap the mic and tell us your idea</b>
+      </div>
+      <button class="gbtn" style="width:100%;margin-top:14px" onclick="startCheckout()">Launch My Business for <span data-price="99">$99</span></button>
+    </div>
+  </section>
+</div>
+
+<div class="pg">
+  
+</div>
+
+<div class="pg"><section class="sec" id="brands">
+  <div class="chead">
+    <span class="eyeb" style="justify-content:center">Real brands. Real launches.</span><br>
+    <h2 style="margin-top:12px">Brands launched with Spark</h2>
+  </div>
+  <div class="carwrap">
+    <button class="arw l" id="carL" aria-label="Scroll brands left" aria-label="Previous">‹</button>
+    <div class="car" id="car"><div class="bcard"><span class="mono">A</span><b>Aura Revival</b><p style="min-height:56px">Holistic wellness and rejuvenation services.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">aurarevival.net</span></p><span class="pill p-grn">Wellness</span></div><div class="bcard"><span class="mono">B</span><b>Brightpath Lending</b><p style="min-height:56px">Clear, supportive mortgage guidance.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">brightpathlending.net</span></p><span class="pill p-blu">Finance</span></div><div class="bcard"><span class="mono">N</span><b>Neighborhood Drugstore</b><p style="min-height:56px">Personal care for your family's health.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">neighborhooddrugstore.com</span></p><span class="pill p-blu">Pharmacy</span></div><div class="bcard"><span class="mono">G</span><b>Glam Caravan</b><p style="min-height:56px">The full salon experience, brought to you.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">glamcaravan.com</span></p><span class="pill p-red">Beauty</span></div><div class="bcard"><span class="mono">S</span><b>Signature Handyman</b><p style="min-height:56px">Home improvement with personal craftsmanship.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">signaturehandymansolutions.net</span></p><span class="pill p-org">Home services</span></div><div class="bcard"><span class="mono">I</span><b>IronSpan Construction</b><p style="min-height:56px">Building tomorrow's foundations with precision.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">ironspanconstruction.com</span></p><span class="pill p-gray">Construction</span></div><div class="bcard"><span class="mono">L</span><b>LawnEssence</b><p style="min-height:56px">Lawns transformed into lush landscapes.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">lawnessence.com</span></p><span class="pill p-grn">Landscaping</span></div><div class="bcard"><span class="mono">P</span><b>Palacio del Caribe</b><p style="min-height:56px">A luxury tropical resort in Puerto Rico.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">palaciodelcaribe.com</span></p><span class="pill p-pur">Hospitality</span></div><div class="bcard"><span class="mono">P</span><b>Paws and Hearts</b><p style="min-height:56px">Rescuing, rehabilitating, and rehoming animals.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">pawsandhearts.net</span></p><span class="pill p-org">Animal shelter</span></div><div class="bcard"><span class="mono">P</span><b>Peace Advocates</b><p style="min-height:56px">Uniting voices for peace through advocacy.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">peaceadvocates.net</span></p><span class="pill p-gray">Nonprofit</span></div><div class="bcard"><span class="mono">R</span><b>Radiant Revival</b><p style="min-height:56px">Biohacking and recovery, holistically blended.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">radiantrevival.net</span></p><span class="pill p-grn">Wellness</span></div><div class="bcard"><span class="mono">R</span><b>Radiant Renewal Roundtable</b><p style="min-height:56px">Expert midlife health and hormone insights.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">radiantrenewalroundtable.com</span></p><span class="pill p-pur">Podcast</span></div><div class="bcard"><span class="mono">S</span><b>Silk & Ivory Bridal</b><p style="min-height:56px">Elegant dresses for your unforgettable day.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">silkivorybridal.com</span></p><span class="pill p-red">Bridal</span></div><div class="bcard"><span class="mono">S</span><b>Sculpted Skylines</b><p style="min-height:56px">Welcoming spaces that bring people together.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">sculptedskylines.net</span></p><span class="pill p-gray">Real estate</span></div><div class="bcard"><span class="mono">V</span><b>Vinello Pizzeria</b><p style="min-height:56px">Gourmet pizza meets fine wine.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">vinellopizzeria.com</span></p><span class="pill p-pur">Restaurant</span></div><div class="bcard"><span class="mono">Z</span><b>Zest Quest</b><p style="min-height:56px">Healthy cooking made joyful.<br><span style="font-size:.7188rem;color:#21D4FD;font-weight:700">zestquest.net</span></p><span class="pill p-grn">Food & media</span></div></div>
+    <button class="arw r" id="carR" aria-label="Scroll brands right" aria-label="Next">›</button>
+  </div>
+  <a class="glink morelink" href="brands.html">See more success stories →</a>
+</section></div>
+
+<div class="dsec" id="deliverables"><div class="pg">
+  <div class="chead">
+    <span class="eyeb" style="justify-content:center">Deliverables you can count on</span><br>
+    <h2 style="margin-top:12px">Everything you need. Done for you.</h2>
+  </div>
+  <div class="bento">
+    <div class="bx tall"><span class="lic" style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.28);display:inline-flex;align-items:center;justify-content:center"><svg class="jic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></span><h3>Name Ideas &amp; Validation</h3><p>Shortlist of premium names with domain and social availability, plus instant feedback and scoring.</p><a class="glink" href="name-ideas.html">Learn more →</a></div>
+    <div class="bx"><span class="lic" style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.28);display:inline-flex;align-items:center;justify-content:center"><svg class="jic" viewBox="0 0 24 24" aria-hidden="true"><path d="m17 3 4 4L8 20l-5 1 1-5L17 3z"/><path d="m14 6 4 4"/></svg></span><h3>Brand Identity Kit</h3><p>Logo concepts, color palette, typography, and brand guidelines to launch confidently.</p><a class="glink" href="brand-kit.html">Learn more →</a></div>
+    <div class="bx"><span class="lic" style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.28);display:inline-flex;align-items:center;justify-content:center"><svg class="jic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></span><h3>Domains &amp; Digital Assets</h3><p>The perfect .com found and checked, with your essential digital assets ready to claim.</p><a class="glink" href="domains.html">Learn more →</a></div>
+    <div class="bx"><span class="lic" style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.28);display:inline-flex;align-items:center;justify-content:center"><svg class="jic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7l-5-5z"/><path d="M14 2v5h5M9 13h6M9 17h6"/></svg></span><h3>Legal &amp; Business Docs</h3><p>EIN, LLC operating agreement, privacy policy, terms of service and more—done right.</p><a class="glink" href="legal-docs.html">Learn more →</a></div>
+    <div class="bx tint"><span class="lic" style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.28);display:inline-flex;align-items:center;justify-content:center"><svg class="jic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H15a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h6.5"/></svg></span><h3>Launch Roadmap</h3><p>Step-by-step plan tailored to your idea, so you always know what to do next.</p><a class="glink" href="roadmap.html">Learn more →</a></div>
+    <div class="bx wide"><span class="lic" style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.28);display:inline-flex;align-items:center;justify-content:center"><svg class="jic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11v3l14 4V6L3 11z"/><path d="M17 7a4 4 0 0 1 0 9M7 15v4a1.5 1.5 0 0 0 3 0v-3"/></svg></span><h3>Go-to-Market Essentials</h3><p>Positioning, launch posts, content templates, and materials ready to share.</p><a class="glink" href="go-to-market.html">Learn more →</a></div>
+  </div>
+  </div>
+</div>
+
+<div class="pg"><section class="sec" id="how">
+  <span class="eyeb">How it works</span>
+  <h2 style="margin-top:12px">Three steps. One business.</h2>
+  <div class="st">
+    <div class="sp1"><div class="n">STEP 1</div><h3>Speak or type your idea</h3><p>One sentence is all Spark needs to begin.</p></div>
+    <div class="sp1"><div class="n">STEP 2</div><h3>Spark builds your full brand automatically</h3><p>Names, identity, and launch materials arrive built around your idea.</p></div>
+    <div class="sp1"><div class="n">STEP 3</div><h3>Launch and grow inside your Command Center</h3><p>Your tools, files, and guided path stay with you as you grow.</p></div>
+  </div>
+</section></div>
+
+<div class="pg"><section class="sec faqw" id="faq">
+  <h2>Quick answers</h2>
+  <div style="margin-top:20px;border-top:1px solid var(--line)">
+    <details class="f2"><summary>What do I get for <span data-price="99">$99</span>?</summary><p>Your full brand — names with checked web addresses, a logo suite, colors, fonts, and launch words — plus tailored deliverables for your business type, 8 built-in AI tools, and lifetime access to your Command Center.</p></details>
+    <details class="f2"><summary>Is it really one-time?</summary><p>Yes. <span data-price="99">$99</span> once. No subscription, no renewals, no hidden costs. Everything you receive is yours forever.</p></details>
+    <details class="f2"><summary>How fast do I get everything?</summary><p>Your core brand kit &mdash; names, logos, colors, and launch words &mdash; arrives within 15 minutes. Everything in your brand kit arrives together &mdash; nothing ordered separately.</p></details>
+    <details class="f2"><summary>Can't I just use free AI?</summary><p>Free AI gives you ideas and homework. Spark hands you a finished, organized brand — checked names, real files, and a guided launch path — with nothing left for you to assemble.</p></details>
+  </div>
+</section></div>
+
+<script>
+function $(id){return document.getElementById(id);}
+function toast(m){var t=$('t22');if(!t){t=document.createElement('div');t.id='t22';t.style.cssText='position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#061021;color:#EAF2FF;border-radius:12px;padding:13px 20px;font-size:.875rem;font-weight:600;z-index:200;opacity:0;transition:.3s';document.body.appendChild(t);}t.textContent=m;t.style.opacity=1;clearTimeout(window._t22);window._t22=setTimeout(function(){t.style.opacity=0;},3000);}
+function fullSeed(){
+  var s=($('seed2').value||'').trim();
+  var extra=[];
+  if(s&&extra.length)s+=' — '+extra.join(', ').toLowerCase();
+  return s;
+}
+function save(){try{var s=fullSeed();sessionStorage.setItem('smn_seed',s);sessionStorage.setItem('seed',s);}catch(e){}}
+(function(){var q=new URLSearchParams(location.search).get('idea');if(q){$('seed2').value=q;$('cnt').textContent=q.length+'/500';try{sessionStorage.setItem('smn_seed',q);sessionStorage.setItem('seed',q);}catch(e){}}})();
+['seed2'].forEach(function(id){$(id).addEventListener('input',save);$(id).addEventListener('change',save);});
+$('seed2').addEventListener('input',function(){$('cnt').textContent=this.value.length+'/500';});
+function startCheckout(){
+  var s=fullSeed();
+  if(!s){toast('One quick thing — type or speak your idea first. One sentence is all we need.');$('seed2').focus();return;}
+  save(); location.href='checkout.html';
+}
+$('carL').addEventListener('click',function(){$('car').scrollBy({left:-260,behavior:'smooth'});});
+$('carR').addEventListener('click',function(){$('car').scrollBy({left:260,behavior:'smooth'});});
+(function(){
+  /* CO211 mic v2: the old recognizer used single-shot mode, so Chrome ended the
+     session at the first breath. Now: continuous + interim results, live text into
+     the idea box, auto-finish after 3s of silence, tap again to finish early. */
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var box=$('voiceBox'), big=$('bigMic');
+  var boxLbl=box?box.querySelector('b'):null; var bigLbl=big&&big.parentElement?big.parentElement.querySelector('b'):null;
+  function setUI(on){
+    [box,big].forEach(function(el){if(el)el.classList.toggle('rec',on);});
+    if(boxLbl)boxLbl.textContent=on?'Listening… tap to finish':'Tap the mic and tell us your idea';
+    if(bigLbl)bigLbl.textContent=on?'Listening…':'Tap to speak';
+  }
+  if(!SR){
+    [box,big].forEach(function(el){if(el)el.addEventListener('click',function(){toast('Voice input needs Chrome or Safari — you can type your idea instead.');});});
+    return;
+  }
+  var rec=new SR(); rec.lang='en-US'; rec.continuous=true; rec.interimResults=true;
+  var on=false, closing=false, base='', captured='', silT=null;
+  function render(interim){
+    var v=(base?base+' ':'')+captured+(interim?(captured?' ':'')+interim:'');
+    $('seed2').value=v.trim();
+    var c=$('cnt'); if(c)c.textContent=$('seed2').value.length+'/500';
+  }
+  function armSilence(){ clearTimeout(silT); silT=setTimeout(function(){ if(on)finish(); },3000); }
+  function start(){
+    if(on){ finish(); return; }             /* tap while listening = finish */
+    on=true; closing=false;
+    base=($('seed2').value||'').trim(); captured='';
+    setUI(true); armSilence();
+    try{rec.start();}catch(e){}
+  }
+  function finish(){
+    if(!on)return; on=false; closing=true; clearTimeout(silT);
+    try{rec.stop();}catch(e){}
+    setUI(false); render(''); save();
+    var got=$('seed2').value;
+    if(got)toast('Got it — "'+got.slice(0,60)+(got.length>60?'…':'')+'"');
+    $('seed2').scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  rec.onresult=function(ev){
+    var interim='';
+    for(var i=ev.resultIndex;i<ev.results.length;i++){
+      var t=ev.results[i][0].transcript;
+      if(ev.results[i].isFinal){ captured=(captured?captured+' ':'')+t.trim(); }
+      else interim+=t;
+    }
+    render(interim.trim()); armSilence();
+  };
+  rec.onend=function(){
+    /* Chrome ends the stream on its own pauses — restart while the user is mid-thought */
+    if(on&&!closing){ try{rec.start();}catch(e){} }
+    else setUI(false);
+  };
+  rec.onerror=function(ev){
+    if(ev&&(ev.error==='not-allowed'||ev.error==='service-not-allowed')){
+      on=false;closing=true;clearTimeout(silT);setUI(false);
+      toast('The mic is blocked — allow microphone access in your browser, or type your idea.');
+    }
+    /* 'no-speech'/'aborted' are normal pauses; onend's restart handles them */
+  };
+  if(box)box.addEventListener('click',start);
+  if(big)big.addEventListener('click',start);
+  window.__smnMic={start:start,finish:finish,isOn:function(){return on;}};
+})();
+</script>
+</main>
+<footer class="ftband">
+  <div class="lnks">
+    <a href="index.html">Home</a><a href="brands.html">Spark portfolio</a><a href="pricing.html">Pricing</a><a href="resources.html">Resources</a><a href="support.html">Support</a><a href="status.html">Status</a><a href="affiliate.html">Affiliate</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="cookies.html">Cookies</a><a href="refund.html">Refunds</a><a href="security.html">Security</a><a href="accessibility.html">Accessibility</a><a href="press.html">Press</a>
+  </div>
+  <div>AI-generated suggestions are for informational purposes only and are not legal, trademark, tax, financial, or domain-registration advice — consult a qualified professional. We do not perform trademark clearance.</div>
+  <div style="margin-top:6px">© 2026 SparkMyName&trade;. Owned by VORREX IGNITE LLC. All rights reserved. &nbsp;·&nbsp; U.S. Patent Pending (App. 19/704,386)</div>
+</footer>
+
+<script>
+/* LANGUAGE + CURRENCY (2026-07-25, Founder order).
+   Both engines are the Founder's own, recovered from the July-19 build and re-verified:
+     - i18n  : a table keyed by language, applied to every [data-i18n] element
+     - money : a rate table applied to every [data-price] element
+   TWO HONEST NOTES.
+   1. The July-19 table was written for THAT page's copy. Its keys do not match this page, so
+      reusing it verbatim would have translated nothing. The table below is written for the
+      strings that actually exist here — nav, log in, and the hero eyebrow. Anything without a
+      data-i18n marker stays in English rather than silently doing nothing.
+   2. The rates are fixed, not live. They are honest approximations for display only, and the
+      charge is always USD $99 at Stripe — which the note under the selector says out loud.
+      A live rate feed would need an API key and a cache; this does not pretend to be one. */
+(function(){
+  var T={
+    en:{nav1:'Features',nav2:'How It Works',nav3:'Deliverables',nav4:'Pricing',login:'Log in',eyeb:'From idea to legacy'},
+    es:{nav1:'Funciones',nav2:'Cómo funciona',nav3:'Entregables',nav4:'Precios',login:'Iniciar sesión',eyeb:'De la idea al legado'},
+    fr:{nav1:'Fonctionnalités',nav2:'Comment ça marche',nav3:'Livrables',nav4:'Tarifs',login:'Se connecter',eyeb:'De l\u2019idée à l\u2019héritage'},
+    de:{nav1:'Funktionen',nav2:'So funktioniert es',nav3:'Leistungen',nav4:'Preise',login:'Anmelden',eyeb:'Von der Idee zum Vermächtnis'},
+    pt:{nav1:'Recursos',nav2:'Como funciona',nav3:'Entregáveis',nav4:'Preços',login:'Entrar',eyeb:'Da ideia ao legado'}
+  };
+  var SYM={USD:'$',EUR:'\u20AC',GBP:'\u00A3',JPY:'\u00A5',BRL:'R$',INR:'\u20B9'};
+  var RATE={USD:1,EUR:.93,GBP:.79,JPY:155,BRL:5.1,INR:83};
+
+  function applyLang(){
+    var el=document.getElementById('lang');
+    var code=(el&&T[el.value])?el.value:'en';
+    var d=T[code]||T.en;
+    document.querySelectorAll('[data-i18n]').forEach(function(n){
+      var k=n.getAttribute('data-i18n'); if(d[k]!=null) n.textContent=d[k];
+    });
+    try{ document.documentElement.setAttribute('lang',code); }catch(e){}
+    try{ localStorage.setItem('smn_lang',code); }catch(e){}
+  }
+  function applyCur(){
+    var el=document.getElementById('cur');
+    var c=(el&&RATE[el.value])?el.value:'USD';
+    var r=RATE[c], sym=SYM[c];
+    document.querySelectorAll('[data-price]').forEach(function(n){
+      var base=parseFloat(n.getAttribute('data-price'));
+      if(isNaN(base)) return;
+      n.textContent = sym + Math.round(base*r).toLocaleString('en-US');
+    });
+    /* The header leads with the currency GLYPH, so it has to follow the selection. Without
+       this the control would show a dollar sign while prices read in euros. */
+    var gs=document.getElementById('curSym');
+    if(gs) gs.textContent = sym;
+    /* COMMERCE & CX LAW: the page price must always equal the Stripe charge. Converted
+       amounts are a courtesy for readers abroad, and the moment one is shown the page says
+       plainly what will actually be billed. Silence here would be a false price. */
+    var note=document.getElementById('curnote');
+    if(!note && el && el.parentNode){
+      note=document.createElement('small'); note.id='curnote'; note.className='curnote';
+      el.parentNode.appendChild(note);
+    }
+    if(note) note.textContent = (c==='USD') ? '' : 'Approximate \u2014 billed as USD $99';
+    try{ localStorage.setItem('smn_cur',c); }catch(e){}
+  }
+
+  function boot(){
+    var lang=document.getElementById('lang'), cur=document.getElementById('cur');
+    /* remembered choice first, then the browser's own language */
+    try{
+      var savedL=localStorage.getItem('smn_lang'), savedC=localStorage.getItem('smn_cur');
+      if(lang&&savedL&&T[savedL]) lang.value=savedL;
+      else if(lang){ var nav=(navigator.language||'en').slice(0,2); if(T[nav]) lang.value=nav; }
+      if(cur&&savedC&&RATE[savedC]) cur.value=savedC;
+      else if(cur&&lang){ var map={es:'EUR',fr:'EUR',de:'EUR',pt:'BRL'}; if(map[lang.value]) cur.value=map[lang.value]; }
+    }catch(e){}
+    if(lang) lang.addEventListener('change',applyLang);
+    if(cur)  cur.addEventListener('change',applyCur);
+    applyLang(); applyCur();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
+  else boot();
+})();
+</script>
+</body></html>

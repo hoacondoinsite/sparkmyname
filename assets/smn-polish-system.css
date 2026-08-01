@@ -1,0 +1,837 @@
+/* SparkMyName™ unified polish layer — adapted 2026-07-03 to the production design tokens.
+   Loads AFTER each page's base stylesheet. Preserves approved palette, fonts, and display-line systems. */
+:root{
+  --smn-cream:#FFFFFF; --smn-paper:#FFFFFF; --smn-ink:#171410; --smn-muted:#3E3A32;
+  --smn-gold:#A8802A; --smn-gold-dark:#7E6018; --smn-line:#ECE7DB;
+  --smn-shadow:0 18px 50px rgba(46,34,12,.10); --smn-radius:18px; --smn-max:1180px;
+  --smn-body:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --smn-serif:"Playfair Display",Georgia,serif;
+}
+body{background:var(--smn-cream);color:var(--smn-ink);font-family:var(--smn-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,.display,.hero-title{font-family:var(--smn-serif);color:var(--smn-ink)}
+h2{font-weight:700;line-height:1.08;letter-spacing:-.018em}
+.eyebrow,.kicker,.section-kicker{color:var(--smn-gold-dark);font-family:var(--smn-body);font-weight:800;letter-spacing:.22em;text-transform:uppercase}
+.card,.panel,.smn-card{background:rgba(255,253,248,.92);border:1px solid var(--smn-line);border-radius:var(--smn-radius);box-shadow:var(--smn-shadow)}
+img[src*="hero-sphere"]{border-radius:22px;box-shadow:0 24px 70px rgba(30,20,5,.14)}
+.indGrid .indTile,.industry-tile,.sample-tile{transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+.indGrid .indTile:hover,.industry-tile:hover,.sample-tile:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(37,25,8,.16);filter:saturate(1.04)}
+.featRow>*,.deliverables-grid>*,.package-grid>*{min-height:100%}
+@media (max-width:760px){.eyebrow,.kicker,.section-kicker{letter-spacing:.14em}}
+
+/* 2026-07-04 homepage reorder: industries as one compact mosaic of breadth */
+@media(min-width:760px){.indGrid{grid-template-columns:repeat(5,1fr)!important;gap:10px!important}}
+.indGrid .indTile{cursor:default}
+.indGrid .indTile img{height:78px!important;object-fit:cover}
+.indGrid .indTile b{font-size:11.5px!important}
+.sampleGridBtns{display:grid!important;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:700px){.sampleGridBtns{grid-template-columns:1fr}}
+
+/* 2026-07-04 PM polish: hero why-line, package hierarchy, wide capture, aligned proof */
+.whyLine{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:clamp(20px,2.6vw,30px);letter-spacing:-.015em;color:#171410;margin:10px auto 0;max-width:88%}
+.wygLine{font:800 13px/1 Inter,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#7E6018;margin:12px 0 6px}
+.pkgLede{max-width:80%!important;margin-left:auto!important;margin-right:auto!important;text-align:justify;text-align-last:center}
+@media(min-width:1000px){.kitGrid.kitSix{grid-template-columns:repeat(4,1fr)!important;gap:16px!important}}
+@media(min-width:700px) and (max-width:999px){.kitGrid.kitSix{grid-template-columns:repeat(2,1fr)!important}}
+.procStrip .howRow{max-width:100%!important;width:100%}
+.procStrip .wrapC{max-width:1160px!important}
+.procStrip h2{font-size:clamp(30px,4vw,44px)}
+.heroCapSec .wrapC{max-width:1160px!important}
+.heroCapSec .heroStage,.heroCapSec .capCard{max-width:100%!important;width:100%!important}
+.chipsRow{display:flex!important;width:100%;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-start}
+@media(min-width:760px){.chipsRow .chip{flex:1;justify-content:center;text-align:center;display:inline-flex;align-items:center}}
+.indGrid .indTile b{display:none!important}
+.indGrid .indTile img{height:96px!important}
+.indGrid .indTile::after{display:none!important;content:none!important}
+.sampleGridBtns .photoCard img,.sampleGridBtns .photoCard{height:96px!important;min-height:96px!important}
+.sampleGridBtns{margin-top:14px}
+@media print{.whyLine{margin-top:6px}}
+
+/* 2026-07-04 sub-hero mosaic: one 2K image, three live doors */
+.mosaicWrap{position:relative;margin-top:26px;border-radius:26px;overflow:hidden;box-shadow:0 2px 4px rgba(43,33,10,.05),0 34px 80px -34px rgba(43,33,10,.35)}
+.mosaicWrap img{display:block;width:100%;height:auto}
+.mosBtn{position:absolute;bottom:0;width:33.2%;height:32.5%;background:transparent;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:0 0 3.2% 2.2%;text-align:left}
+.mosBtn b{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:clamp(15px,2.1vw,27px);color:#fff;letter-spacing:-.015em;text-shadow:0 2px 14px rgba(0,0,0,.55)}
+.mosBtn span{margin-top:6px;font:800 clamp(9px,1vw,12.5px)/1 Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#171410;background:rgba(255,255,255,.92);border-radius:999px;padding:.6em 1.1em}
+.mosBtn:hover span{background:#fff}
+.mosBtn:focus-visible{outline:3px solid #C6A035;outline-offset:-3px;border-radius:18px}
+@media(max-width:640px){.mosBtn b{font-size:13px}.mosBtn span{display:none}}
+
+/* 2026-07-04 hero restack + baked-title mosaic */
+.heroStacked .wrapC{display:block!important;text-align:center}
+.heroStacked .heroEd{max-width:900px;margin:0 auto}
+.heroStacked .posLine{justify-content:center;margin-bottom:18px}
+.heroStacked .heroStage{margin:6px auto 26px;max-width:1160px}
+.heroStacked .heroBelow{margin-top:8px}
+.heroStacked .heroCtaRow,.heroStacked .heroChips{justify-content:center}
+#samples .mosaicWrap{margin-top:0}
+.mosBtn{height:28.3%!important;padding-bottom:2.6%!important}
+
+/* 2026-07-04 cinematic hero lines: globe-width, one piece */
+.heroLine{max-width:1160px;margin:0 auto}
+.heroLine img{display:block;width:100%;height:auto}
+.heroStacked .heroEd{max-width:1160px}
+.heroStacked .heroLine+.heroLine{margin-top:6px}
+.heroStacked .heroBelow .heroLine{margin-bottom:10px}
+
+/* 2026-07-04 THE WORDMARK: SparkMyName(tm) — CamelCase, editorial serif, gradient spark */
+.brand,.brandC{text-transform:none!important;letter-spacing:-.022em!important;font-family:'Playfair Display',Georgia,serif!important;font-weight:700!important;font-size:23px!important;gap:8px!important}
+.brand em,.brandC em{font-style:normal!important;color:#A8802A!important}
+.brand sup,.brandC sup{font-size:.4em!important;line-height:0;position:relative;top:-.85em;margin-left:1px;letter-spacing:0!important}
+.brand .mk,.brandC .mk{font-size:21px!important;background:linear-gradient(180deg,#D8B95C,#C6A035 55%,#21D4FD);-webkit-background-clip:text;background-clip:text;color:transparent!important;transform:translateY(-1px)}
+@media(max-width:560px){.brand,.brandC{font-size:19px!important}}
+
+/* 2026-07-04 THE LOGO LAW v2: all-gold SparkMyName(tm), zero gaps, proud TM, living spark */
+.brand,.brandC{gap:0!important}
+.brand .mk,.brandC .mk{margin-right:9px}
+.brand,.brandC,.brand em,.brandC em,.brandC em{color:transparent!important;background:linear-gradient(180deg,#D8B95C,#C6A035 52%,#21D4FD);-webkit-background-clip:text;background-clip:text}
+.brand sup,.brandC sup{font-size:.62em!important;font-weight:800;top:-.62em;margin-left:2px;background:linear-gradient(180deg,#D8B95C,#21D4FD);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+@keyframes smnTwinkle{0%,100%{opacity:1;transform:translateY(-1px) scale(1)}50%{opacity:.55;transform:translateY(-1px) scale(.88) rotate(8deg)}}
+.brand .mk,.brandC .mk{animation:smnTwinkle 2.8s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.brand .mk,.brandC .mk{animation:none}}
+/* cinematic header bar */
+.cinTop,header.top{background:linear-gradient(180deg,#FFFEFB,#FFFFFF)!important;border-bottom:1px solid transparent!important;border-image:linear-gradient(90deg,transparent,#E2CE96 30%,#C6A035 50%,#E2CE96 70%,transparent) 1!important;box-shadow:0 10px 30px -22px rgba(43,33,10,.35)}
+/* tighten header-to-eyebrow breathing without bleed */
+.heroCin{padding-top:26px!important}
+.heroStacked .posLine,.heroStacked .heroEd:first-child{margin-bottom:12px}
+.heroStacked .heroStage{margin-top:2px!important}
+
+/* 2026-07-04 THE STORY PLATE: one image, three doors */
+.storyPlate{position:relative;border-radius:26px;overflow:hidden}
+.storyPlate .mosBtn{height:12.76%!important;padding-bottom:1.25%!important}
+#storyBoards{max-width:1160px;margin:10px auto 0}
+
+/* 2026-07-04 the living mark: the true favicon spark, twinkling everywhere */
+.brand .mk,.brandC .mk{font-size:0!important;width:22px;height:22px;background:url(../favicon-v3.svg?v=3) center/contain no-repeat!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:transparent!important;display:inline-block}
+@keyframes smnBreathe{0%,100%{opacity:1;transform:translateY(-1px) scale(1)}50%{opacity:.62;transform:translateY(-1px) scale(.9) rotate(10deg)}}
+.brand .mk,.brandC .mk{animation:smnBreathe 3s ease-in-out infinite}
+/* gentle light sweep across the story plate — GPU-cheap, motion-safe */
+.storyPlate::after{content:'';position:absolute;top:0;left:-40%;width:34%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,244,214,.05) 45%,rgba(255,244,214,.09) 50%,rgba(255,244,214,.05) 55%,transparent);transform:skewX(-12deg);animation:smnSweep 9.5s ease-in-out infinite;pointer-events:none}
+@keyframes smnSweep{0%,55%{left:-40%}90%,100%{left:120%}}
+@media(prefers-reduced-motion:reduce){.brand .mk,.brandC .mk,.storyPlate::after{animation:none}}
+
+/* 2026-07-04 FINAL LOOK: clean header, tight trust line, generous mic, category strip */
+.trustLine{padding:26px 0 0;text-align:center}
+.trustLine .eyebrow{margin:0}
+.trustLine+.sec{padding-top:14px!important}
+.heroCapSec{padding-top:14px!important}
+.catStrip{padding-top:10px!important}
+.catImg{display:block;width:100%;max-width:1160px;margin:18px auto 0;height:auto;border-radius:14px;box-shadow:0 22px 54px -26px rgba(43,33,10,.4)}
+#micBtn{width:74px!important;height:74px!important}
+.heroCin{padding-top:22px!important}
+
+/* 2026-07-04 100% match: gold guarantee band + tap-to-speak */
+.guarCard{background:linear-gradient(180deg,#C9A855,#B08E35)!important;border:0!important;border-radius:20px!important;color:#241B08!important;box-shadow:0 24px 60px -28px rgba(120,90,20,.55)}
+.guarCard .eyebrow{color:#3D2E0C!important}
+.guarCard h2,.guarCard .lede,.guarCard p{color:#241B08!important}
+.guarCard a{color:#241B08!important;text-decoration:underline}
+#micBtn{position:relative}
+#micBtn::after{content:'Tap to speak';position:absolute;top:105%;left:50%;transform:translateX(-50%);font:700 11px/1 Inter,sans-serif;letter-spacing:.04em;color:#7E6018;white-space:nowrap}
+
+/* 2026-07-04 exact-pixel sections */
+.imgSec{padding-top:6px!important;padding-bottom:6px!important}
+.secImg{display:block;width:100%;max-width:1160px;margin:0 auto;height:auto}
+.imgWrap{position:relative;max-width:1160px;margin:0 auto}
+.bandLink{position:absolute;bottom:4.5%;height:5.5%;display:block}
+
+/* 2026-07-04 TIGHTEN: big gold trust header, gaps out everywhere */
+.heroCin{padding-bottom:0!important}
+.heroCin .heroStage{margin-bottom:0!important}
+.trustLine{padding:14px 0 0!important;margin:0}
+.trustLine .eyebrow{font-size:clamp(21px,2.5vw,33px)!important;font-weight:800!important;letter-spacing:.16em!important;color:#A8802A!important;line-height:1.25;max-width:1120px;margin:0 auto!important;text-indent:.16em}
+.heroCapSec{padding-top:10px!important;padding-bottom:8px!important}
+.heroCapSec .heroStage{margin-top:0!important}
+.imgSec{padding-top:0!important;padding-bottom:0!important}
+.catStrip{padding-top:0!important;padding-bottom:0!important}
+.catStrip .eyebrow{margin-bottom:4px}
+.catImg{margin-top:8px!important}
+.capCard{padding-bottom:18px!important}
+.capGuar{font-size:clamp(16px,1.7vw,21px)!important;font-weight:800!important;margin:14px 0 0!important}
+.capGuar .tk{font-size:1.05em}
+#guideLine:empty{display:none;margin:0}
+.note{margin:16px auto 10px!important}
+footer,.siteFoot{margin-top:8px!important}
+
+/* 2026-07-04 box-2 exact: head outside, prompt lead, spark chips, spark CTA */
+.capHead{max-width:1160px;margin:26px auto 14px}
+.capHead .eyebrow{margin-bottom:6px}
+.capH2{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:clamp(30px,3.6vw,44px);letter-spacing:-.015em;color:#171410;margin:0 0 10px}
+.capLede{font:500 16.5px/1.6 Inter,sans-serif;color:#5C5340;margin:0 auto;max-width:820px}
+.chipsRow{flex-wrap:wrap}
+.chipsLead{flex-basis:100%;font:600 13.5px/1 Inter,sans-serif;color:#6B6046;margin-bottom:10px}
+.chipsRow .chip::before{content:'\2726';color:#A8802A;margin-right:7px;font-size:.85em}
+#capCta{position:relative}
+#capCta::after{content:'\2726';position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:20px;color:#fff}
+.capGuar{font-size:15px!important;font-weight:800!important}
+
+/* 2026-07-04 FOUNDER EVENING PASS: crisp HTML trust bar, exact lede lines, prominent eyebrow */
+.trustBar{background:#080400;display:flex;align-items:center;justify-content:center;gap:clamp(14px,2.6vw,34px);padding:20px 18px 24px;flex-wrap:wrap}
+.trustBar span{display:inline-flex;align-items:center;gap:9px;font:800 clamp(10.5px,1.05vw,13px)/1 Inter,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#F3ECDD;white-space:nowrap}
+.trustBar svg{width:17px;height:17px;color:#C6A035;flex:none}
+.trustBar i{width:1px;height:15px;background:rgba(198,160,53,.45)}
+@media(max-width:820px){.trustBar{gap:12px 18px;padding:16px 12px 20px}.trustBar i{display:none}}
+.capLede{max-width:1120px!important}
+.capHead .eyebrow{font-size:clamp(17px,1.9vw,24px)!important;font-weight:800!important;letter-spacing:.24em!important}
+
+/* 2026-07-04 EXACT-MATCH FOOTER: six columns, social row, split fine print */
+@media(min-width:961px){.footGridSix{grid-template-columns:1.55fr repeat(5,1fr)!important;gap:28px!important}}
+.socRow{display:flex;gap:9px;margin-top:16px}
+.soc{width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--smn-line);border-radius:7px;color:#8A7A55;background:#fff}
+.footFineRow{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;border-top:1px solid var(--smn-line);margin-top:34px;padding-top:20px;flex-wrap:wrap}
+.footFineL{max-width:760px;margin:0!important;font-size:11.5px!important;line-height:1.6!important;color:#8A8069}
+.footFineL a{color:#8A8069;text-decoration:underline}
+.footFineR{margin:0!important;font-size:12.5px!important;text-align:right;color:#5C5340;white-space:nowrap}
+@media(max-width:760px){.footFineRow{flex-direction:column;align-items:flex-start}.footFineR{text-align:left;white-space:normal}}
+
+/* 2026-07-04 AGENCY AT WORK: editorial transition block between proof and package */
+.agencySec{padding-top:34px!important;padding-bottom:38px!important}
+.agencyImg{border-radius:26px;box-shadow:0 3px 6px rgba(43,33,10,.06),0 34px 80px -32px rgba(43,33,10,.38)}
+@media(max-width:640px){.agencySec{padding-top:22px!important;padding-bottom:24px!important}.agencyImg{border-radius:16px}}
+
+/* 2026-07-04 CAPTURE REFINEMENT PASS — same content, elegant proportions.
+   Flow: eyebrow -> headline -> support -> input -> chips -> benefits -> CTA */
+.heroCapSec{padding-top:6px!important;padding-bottom:8px!important}
+.capHead{margin:16px auto 8px!important}
+.capHead .eyebrow{font-size:13.5px!important;font-weight:800!important;letter-spacing:.26em!important;margin-bottom:10px!important;color:#7E6018!important}
+.capH2{font-size:clamp(27px,2.9vw,38px)!important;line-height:1.06!important;letter-spacing:-.014em;margin:0 auto 8px!important;max-width:680px}
+.capLede{font-size:15.5px!important;line-height:1.55!important;max-width:1000px!important;color:#5C5340}
+.heroStage .capCard{margin-top:14px!important;padding:clamp(20px,2.4vw,26px) clamp(20px,2.4vw,28px) 16px!important}
+/* integrated microphone: anchored to the input line, not floating mid-air */
+.search{align-items:flex-start!important;padding:10px 14px 12px 16px!important}
+.search textarea{min-height:138px!important}
+#micBtn{align-self:flex-start!important;margin-top:10px;margin-right:6px}
+#micBtn::after{letter-spacing:.05em}
+/* calm, even chips */
+.chipsRow{margin-top:12px!important;gap:8px!important}
+.chipsLead{margin-bottom:8px!important;font-weight:600!important;color:#6B6046}
+.chip{font-weight:600!important;padding:10px 14px!important}
+/* quiet benefits row in support of the CTA */
+.capAssure{margin:12px 0 2px!important;gap:6px 18px!important}
+.capAssure li{font-size:13.5px!important;font-weight:600!important;color:#6B6046!important}
+/* the CTA leads the lower half */
+#capCta{margin-top:16px;font-size:16.5px!important;padding-top:17px!important;padding-bottom:17px!important}
+.capGuar{font-size:13.5px!important;font-weight:700!important;margin:11px 0 0!important;color:#6B6046!important}
+
+/* 2026-07-04 FINAL DRESS-UP: one design system, one rhythm, hero to footer */
+/* unified corner language — every image plate speaks with the same radius */
+.secImg{border-radius:18px}
+.catImg{border-radius:18px!important}
+@media(max-width:640px){.secImg,.catImg{border-radius:12px}}
+/* consistent section rhythm: quiet, even breathing between every movement */
+.imgSec{padding-top:14px!important;padding-bottom:14px!important}
+.catStrip{padding-top:14px!important;padding-bottom:6px!important}
+.heroCapSec{padding-bottom:14px!important}
+/* examples row -> agency photo read as one proof movement, then a fuller pause into the package */
+.agencySec{padding-top:10px!important;padding-bottom:30px!important}
+/* one refined eyebrow voice everywhere on the page */
+.catStrip .eyebrow{font-size:13.5px!important;font-weight:800!important;letter-spacing:.26em!important;color:#7E6018!important;margin-bottom:2px}
+/* trademark note: quiet, elegant measure */
+.note{font-size:13px!important;color:#8A8069!important;line-height:1.65;max-width:680px!important;margin:22px auto 12px!important}
+/* mobile rhythm: proportional, never cramped, never gaping */
+@media(max-width:640px){
+  .imgSec{padding-top:8px!important;padding-bottom:8px!important}
+  .agencySec{padding-top:6px!important;padding-bottom:18px!important}
+  .capH2{font-size:25px!important}
+  .capLede{font-size:14.5px!important}
+  .heroStage .capCard{margin-top:10px!important}
+  .capHead{margin-top:10px!important}
+}
+
+/* 2026-07-04 GLOBAL RESPONSIVE SYSTEM — every page, mobile first */
+/* section labels: refined but present — they guide the story now */
+.capHead .eyebrow,.catStrip .eyebrow{font-size:clamp(14.5px,1.55vw,17px)!important;letter-spacing:.24em!important;color:#6E5412!important;margin-bottom:12px!important}
+.catStrip .eyebrow{margin-bottom:8px!important}
+@media(max-width:640px){.capHead .eyebrow,.catStrip .eyebrow{font-size:13px!important;letter-spacing:.18em!important}}
+/* one container system: no sideways scroll, ever */
+html,body{overflow-x:hidden}
+img,video{max-width:100%;height:auto}
+p,li,td,.footFine{overflow-wrap:break-word}
+/* tables (order summaries, sample reports) scroll gracefully on phones */
+@media(max-width:640px){table{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}}
+/* inner-page heading scale on phones: present, never oversized */
+@media(max-width:640px){
+  main h1{font-size:clamp(26px,7.4vw,34px)!important;line-height:1.12!important}
+  main h2:not(.capH2){font-size:clamp(20px,5.6vw,26px)!important;line-height:1.18!important}
+  main p{line-height:1.6}
+}
+/* forms: iOS-safe input sizing and honest tap targets sitewide */
+@media(max-width:640px){
+  input,select,textarea{font-size:16px!important}
+  .btn,button.btn,a.btn,.studioBtn,.chip{min-height:44px}
+}
+/* prose measure on text-heavy pages (legal, support, resources) */
+main .wrap p,main .wrapC p{max-width:76ch}
+
+/* 2026-07-04 EYEBROW CENTERING FIX — HOW IT WORKS sits dead-center over the headline */
+.capHead{text-align:center!important}
+.capHead .eyebrow,.catStrip .eyebrow{display:block!important;width:auto!important;max-width:none!important;float:none!important;margin-left:auto!important;margin-right:auto!important;text-align:center!important;text-indent:.24em!important;padding:0!important}
+/* guarantee line centered beneath the CTA */
+.capGuar{display:block!important;text-align:center!important;width:100%!important}
+
+/* 2026-07-04 THE COMPLETE BRAND PACKAGE — 8 live category cards */
+.pkgSec{padding:26px 0 34px!important}
+.pkgSec .capHead{margin:0 auto 18px!important}
+.pkgIntro{max-width:640px!important}
+.pkgGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1160px;margin:0 auto}
+.pkgCard{background:rgba(255,253,248,.92);border:1px solid var(--smn-line);border-radius:16px;box-shadow:0 2px 4px rgba(43,33,10,.04),0 18px 44px -26px rgba(43,33,10,.22);padding:22px 20px 18px;text-align:left}
+.pkgIco{display:inline-flex;width:40px;height:40px;align-items:center;justify-content:center;border-radius:12px;background:linear-gradient(180deg,#FBF4E0,#F3E7C6);color:#A8802A;margin-bottom:12px}
+.pkgIco svg{width:21px;height:21px}
+.pkgCard b{display:block;font:800 12.5px/1 Inter,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#7E6018;margin:0 0 10px}
+.pkgCard ul{list-style:none;margin:0;padding:0}
+.pkgCard li{font:500 13.5px/1.5 Inter,sans-serif;color:#4A4234;padding:4px 0 4px 18px;position:relative}
+.pkgCard li::before{content:'\2713';position:absolute;left:0;color:#A8802A;font-weight:800;font-size:.85em;top:6px}
+.pkgCard li+li{border-top:1px solid rgba(236,231,219,.6)}
+@media(max-width:1000px){.pkgGrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){
+  .pkgGrid{grid-template-columns:1fr;gap:12px}
+  .pkgCard{padding:18px 18px 14px}
+  .pkgSec{padding:18px 0 24px!important}
+}
+
+/* 2026-07-04 MOBILE FLOW PASS — Galaxy Fold review: balance, size, rhythm */
+/* live section labels above steps + examples (both sizes, one voice) */
+.secLabel{display:block;text-align:center;font-size:clamp(15px,1.7vw,18px)!important;font-weight:800!important;letter-spacing:.22em!important;text-transform:uppercase;color:#6E5412!important;margin:0 0 12px!important;text-indent:.22em}
+.catStrip .secLabel{margin-bottom:10px!important}
+/* desktop keeps the wide strip; mobile gets the readable tile grid */
+.catMob{display:none}
+@media(max-width:640px){
+  .catDesk{display:none}
+  .catMob{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:100%}
+  .catMob figure{margin:0}
+  .catMob img{width:100%;height:auto;border-radius:10px;display:block}
+  .catMob figcaption{font:700 10.5px/1.25 Inter,sans-serif;color:#3E3A32;text-align:center;margin-top:5px}
+  /* chips: balanced 2x2, centered */
+  .chipsRow{display:grid!important;grid-template-columns:1fr 1fr;gap:8px}
+  .chipsLead{grid-column:1/-1;text-align:center;margin-bottom:2px!important}
+  .chip{width:100%;justify-content:center;display:inline-flex;align-items:center;text-align:center;padding:11px 8px!important;font-size:13px!important}
+  /* package: two columns, compact — half the scroll */
+  .pkgGrid{grid-template-columns:1fr 1fr!important;gap:9px!important}
+  .pkgCard{padding:14px 12px 10px!important;border-radius:13px}
+  .pkgIco{width:30px;height:30px;border-radius:9px;margin-bottom:8px}
+  .pkgIco svg{width:16px;height:16px}
+  .pkgCard b{font-size:10.5px!important;letter-spacing:.1em!important;margin-bottom:6px!important}
+  .pkgCard li{font-size:11.5px!important;line-height:1.4!important;padding:3px 0 3px 14px!important}
+  .pkgCard li::before{top:4px;font-size:.8em}
+  /* section labels louder on the phone */
+  .secLabel{font-size:15px!important;letter-spacing:.16em!important;margin-bottom:9px!important}
+  .capHead .eyebrow,.catStrip .eyebrow{font-size:15px!important;letter-spacing:.16em!important}
+  /* tighten the vertical rhythm — the gaps Peter flagged */
+  .imgSec{padding-top:5px!important;padding-bottom:5px!important}
+  .catStrip{padding-top:6px!important;padding-bottom:4px!important}
+  .agencySec{padding-top:5px!important;padding-bottom:10px!important}
+  .pkgSec{padding:12px 0 18px!important}
+  .heroCapSec{padding-bottom:8px!important}
+  /* founder mobile composite: hotspots recalculated for the stacked layout */
+  .blContact{left:9.5%!important;width:11%!important;bottom:4%!important;height:4.5%!important}
+  .blRefund{left:21.5%!important;width:12%!important;bottom:4%!important;height:4.5%!important}
+}
+
+/* 2026-07-04 GUARANTEE PAIR — two checks, centered under Get My Brand */
+.capGuar{display:flex!important;justify-content:center!important;align-items:center;gap:36px;flex-wrap:wrap}
+.capGuar .gItem{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+@media(max-width:640px){.capGuar{gap:16px}.capGuar .gItem{white-space:normal}}
+
+/* 2026-07-04 PACKAGE MEDALLIONS — black-and-gold jewelry icons, hero's own language */
+.pkgIco2{display:block;width:44px;height:44px;margin-bottom:12px;border-radius:12px;box-shadow:0 8px 18px -8px rgba(43,33,10,.5)}
+@media(max-width:640px){.pkgIco2{width:34px;height:34px;margin-bottom:8px;border-radius:9px}}
+
+/* 2026-07-04 EVENING NOTES — founder live card, wide capture head, tight rhythm */
+/* founder: full-width live card, readable personal serif */
+.fSec{padding:12px 0 8px!important}
+.fCard{display:flex;gap:34px;align-items:flex-start;background:rgba(255,253,248,.92);border:1px solid var(--smn-line);border-radius:18px;box-shadow:0 2px 4px rgba(43,33,10,.04),0 22px 54px -28px rgba(43,33,10,.24);padding:30px;max-width:1160px;margin:0 auto}
+.fPhoto{flex:0 0 300px;width:300px;height:auto;border-radius:14px;display:block}
+.fBody{flex:1;min-width:0}
+.fEyebrow{font-size:13.5px!important;letter-spacing:.2em!important;color:#6E5412!important;margin:2px 0 12px!important;text-align:left!important}
+.fQuote{margin:0;font:600 18.5px/1.62 'Playfair Display',Georgia,serif;font-style:normal;color:#241E12;letter-spacing:.002em}
+.fStrong{font:700 15.5px/1.5 Inter,sans-serif;color:#171410;margin:16px 0 4px}
+.fSig{font:500 14px/1.4 Inter,sans-serif;color:#6B6046;margin:0}
+.gSec{padding-top:6px!important}
+@media(max-width:760px){.fCard{flex-direction:column;gap:18px;padding:20px}.fPhoto{width:100%;flex:none;max-width:420px;margin:0 auto}.fQuote{font-size:16px}}
+/* capture head: spans the page, everything tighter */
+.capH2{max-width:none!important;font-size:clamp(30px,3.9vw,52px)!important}
+.capLede{max-width:1160px!important;font-size:clamp(15.5px,1.55vw,18.5px)!important;line-height:1.5!important}
+.capHead{margin:12px auto 6px!important}
+.heroStage .capCard{margin-top:10px!important}
+/* prompts lead centered above the chips */
+.chipsLead{text-align:center!important;flex-basis:100%!important;width:100%}
+/* the gold bar sits close under the benefits */
+.capAssure{margin:10px 0 0!important}
+#capCta{margin-top:10px!important}
+.capCard{padding-bottom:14px!important}
+/* section labels: dead-center, always */
+.secLabel{width:100%!important;margin-left:auto!important;margin-right:auto!important;text-align:center!important;display:block!important;float:none!important}
+/* white space out: proof flows tight into the package, band into the note */
+.agencySec{padding-bottom:12px!important}
+.pkgSec{padding:8px 0 22px!important}
+.pkgSec .capHead{margin:0 auto 14px!important}
+.catStrip{padding-top:4px!important}
+.imgSec{padding-top:6px!important;padding-bottom:6px!important}
+.note{margin:8px auto 8px!important}
+@media(max-width:640px){.pkgSec{padding:8px 0 16px!important}.capH2{font-size:26px!important}.capLede{font-size:14.5px!important}}
+
+/* ===== SMN A11Y LAYER (CO102): keyboard focus, reduced motion, touch targets ===== */
+:focus-visible{outline:3px solid #8E77FF;outline-offset:3px;border-radius:4px}
+a:focus-visible,button:focus-visible,[role=button]:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #8E77FF;outline-offset:3px}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+@media (pointer:coarse){a,button,[role=button]{min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center}}
+.smn-skip{position:absolute;left:-9999px;top:0;background:#0A1830;color:#fff;padding:12px 20px;z-index:9999;border-radius:0 0 8px 0;font:600 14px/1 Inter,sans-serif}
+.smn-skip:focus{left:0}
+
+/* ===== SMN LAYOUT ELEVATION (CO111): desktop breathing room, flush full-bleed hero, standard header ===== */
+@media (min-width:1280px){.wrapC{max-width:1400px!important}}
+@media (min-width:1750px){.wrapC{max-width:1520px!important}}
+.cinTop .in{max-width:none!important;width:100%!important;padding:0 clamp(20px,2.6vw,44px)!important;display:flex!important;justify-content:space-between!important;align-items:center!important}
+.cinTop .brand{font-size:clamp(22px,1.9vw,30px)!important}
+.heroCin{padding-top:0!important;margin-top:0!important}
+.heroCin .wrapC{max-width:none!important;padding:0!important}
+.heroCin .heroEd{display:none!important}
+.heroPlate{width:100vw!important;max-width:100vw!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important;border-radius:0!important;overflow:hidden}
+.heroPlate img{width:100%!important;height:auto!important;display:block!important;border-radius:0!important}
+html,body{overflow-x:clip}
+
+/* ===== SMN RESPONSIVE COMPOSITION (CO113): composed chapters, device-true ===== */
+/* Header: intentional bar with breathing room, all devices */
+.cinTop .in{padding-top:16px!important;padding-bottom:16px!important;gap:14px}
+.cinNav{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+/* Opening promise: a real band framed like the hero */
+#promiseBand{padding:clamp(34px,4.5vw,64px) clamp(20px,4vw,64px) clamp(22px,3vw,44px);text-align:center;background:linear-gradient(180deg,#FBF8F0,#F4EFE2)}
+#promiseBand h1{margin:0}
+/* Objection: full-width navy chapter beneath the hero */
+#objectionBand{background:linear-gradient(180deg,#0A1830,#0D2244 60%,#0A1830);border-bottom:1px solid #1B3358;padding:clamp(44px,5.5vw,78px) 0!important}
+#objectionBand h2{color:#EBE9B9!important}
+#objectionBand p{color:#B9C3D6!important}
+/* Capture chapter framing */
+.heroCapSec{padding-top:clamp(40px,5vw,72px)!important;padding-bottom:clamp(36px,4.5vw,64px)!important}
+/* Proof wall + grid: major-chapter width on big screens */
+#premiereWall>div{max-width:min(1620px,94vw)!important}
+#pmGrid{max-width:min(1620px,94vw);margin-left:auto;margin-right:auto}
+/* Package / workspace / founder: same composed system */
+.pkgSec,.fSec{padding-top:clamp(44px,5vw,76px)!important;padding-bottom:clamp(44px,5vw,76px)!important}
+#workspace{background:linear-gradient(180deg,#0A1830,#0D2244 60%,#091529);padding:clamp(48px,5.5vw,80px) 0!important;border-top:3px solid #C6A035}
+#workspace h2{color:#fff!important}
+#workspace p{color:#B9C3D6!important}
+#workspace .eyebrow{color:#C6A035!important}
+#trustStrip{padding-bottom:clamp(30px,3.5vw,52px)!important}
+#yourturn{padding:clamp(44px,5vw,72px) 0 clamp(56px,6vw,88px)!important}
+/* Footer aligns to the same page system */
+.cinFoot .in{max-width:1400px!important;padding-left:clamp(20px,2.6vw,44px)!important;padding-right:clamp(20px,2.6vw,44px)!important}
+@media (min-width:1750px){.cinFoot .in{max-width:1520px!important}}
+/* Tablet & phone: bands keep order, spacing scales via clamp; grids already fluid */
+@media (max-width:768px){
+  .cinTop .in{padding-top:12px!important;padding-bottom:12px!important}
+  #promiseBand{padding-top:26px!important}
+  .cinNav a{font-size:12.5px!important}
+}
+
+/* ===== SMN RHYTHM TUNING (CO114): continuous chapters, no cream deserts ===== */
+/* top band stays attached to the hero on every breakpoint */
+#promiseBand{padding-bottom:clamp(16px,2vw,30px)!important}
+/* capture -> proof -> examples -> placeholder: one continuous run */
+.heroCapSec{padding-bottom:clamp(22px,2.6vw,38px)!important}
+#premiereWall{padding-top:clamp(40px,5vw,64px)!important;padding-bottom:clamp(40px,5vw,64px)!important}
+#how{padding-top:clamp(26px,3vw,44px)!important;padding-bottom:clamp(22px,2.6vw,38px)!important}
+#preview-reserved{padding-top:clamp(14px,1.8vw,26px)!important;padding-bottom:clamp(14px,1.8vw,26px)!important}
+#preview-reserved>.wrapC{padding-top:26px!important;padding-bottom:26px!important}
+/* package + workspace read as one working-product block */
+.pkgSec{padding-top:clamp(30px,3.6vw,52px)!important;padding-bottom:clamp(22px,2.6vw,38px)!important}
+#workspace{padding-top:clamp(40px,4.6vw,64px)!important;padding-bottom:clamp(40px,4.6vw,64px)!important}
+/* founder + trust as one trust block */
+.fSec{padding-bottom:clamp(10px,1.2vw,18px)!important}
+#trustStrip{padding-top:0!important;padding-bottom:clamp(22px,2.6vw,36px)!important}
+/* your turn + footer as the closing block */
+#yourturn{padding-top:clamp(28px,3.2vw,46px)!important;padding-bottom:clamp(24px,2.8vw,40px)!important}
+.cinFoot{margin-top:0!important}
+/* mobile: keep the lower stack grouped, no voids */
+@media (max-width:768px){
+  #premiereWall,#workspace{padding-top:34px!important;padding-bottom:34px!important}
+  #preview-reserved{padding-top:10px!important;padding-bottom:10px!important}
+  #yourturn{padding-top:22px!important;padding-bottom:18px!important}
+  .fSec{padding-bottom:8px!important}
+}
+
+/* ===== SMN DESKTOP WIDTH SYSTEM (CO115): one width, wide measures, no center squeeze ===== */
+:root{--pageW:1400px}
+@media (min-width:1750px){:root{--pageW:1520px}}
+/* loosen narrow inner text measures inside major bands (desktop breathes, mobile unaffected) */
+#promiseBand p{max-width:min(1160px,94%)!important;margin-left:auto!important;margin-right:auto!important}
+#objectionBand .wrapC,#workspace .wrapC,#preview-reserved .wrapC,#yourturn .wrapC{max-width:var(--pageW)!important}
+#objectionBand p,#workspace p{max-width:min(1120px,94%)!important;margin-left:auto!important;margin-right:auto!important}
+#preview-reserved p{max-width:min(1040px,94%)!important;margin-left:auto!important;margin-right:auto!important}
+.capHead{max-width:none!important}
+.capHead .capLede{max-width:min(1100px,94%)!important;margin-left:auto!important;margin-right:auto!important}
+/* capture card and founder card occupy confident widths */
+.heroCapSec .capCard{max-width:min(1120px,100%)!important;margin-left:auto!important;margin-right:auto!important}
+.fCard{max-width:min(1280px,100%)!important;margin-left:auto!important;margin-right:auto!important}
+/* package grid stages its eight cards across the full system */
+.pkgGrid{max-width:var(--pageW)!important;margin-left:auto!important;margin-right:auto!important;gap:clamp(14px,1.6vw,24px)!important}
+/* examples chapter aligns to the system */
+#how .wrapC{max-width:var(--pageW)!important}
+#how img{width:100%!important;height:auto!important}
+
+/* ===== SMN CINEMATIC FLOW (CO116): one continuous picture, stage-scale type, no dead air ===== */
+/* Round 1+4: kill the dead air at the top; the story starts immediately */
+.cinTop .in{padding-top:12px!important;padding-bottom:12px!important}
+#promiseBand{padding:clamp(18px,2.2vw,34px) clamp(20px,4vw,64px) clamp(16px,2vw,30px)!important}
+/* Round 5: the opening line performs across the whole stage */
+#promiseBand h1{font-size:clamp(40px,5.6vw,92px)!important;line-height:1.06!important;letter-spacing:.005em;text-wrap:balance}
+#promiseBand p{font-size:clamp(16px,1.35vw,20px)!important;line-height:1.55!important;text-wrap:balance}
+/* Round 2: film cuts between dark chapters — gold rules echo the header bar */
+#objectionBand{border-top:3px solid #C6A035}
+/* Round 3: reading rhythm — bigger type, controlled measures, no run-on lines */
+.capLede,#objectionBand p,#workspace p,#preview-reserved p{font-size:clamp(15.5px,1.22vw,19px)!important;line-height:1.68!important;text-wrap:pretty}
+.capH2,#objectionBand h2,#workspace h2,#preview-reserved h2,#yourturn h2{font-size:clamp(28px,3.2vw,46px)!important;line-height:1.15!important;text-wrap:balance}
+.eyebrow{letter-spacing:.22em!important}
+/* Round 4: gap tightening through the middle of the film */
+.heroCapSec{padding-top:clamp(26px,3vw,44px)!important}
+#how{padding-top:clamp(20px,2.4vw,36px)!important}
+#yourturn{padding-top:clamp(22px,2.6vw,38px)!important}
+/* Round 6: pills and cards sit on the same visual beat */
+#trustStrip .wrapC{gap:9px!important}
+/* Round 7: phones — the same movie, one column, nothing crushed */
+@media (max-width:768px){
+  #promiseBand h1{font-size:clamp(34px,9.4vw,44px)!important}
+  #promiseBand{padding-top:14px!important}
+}
+
+/* ===== SMN GOLD LOGIN PILL (CO121): the workspace login wears the gold capsule everywhere ===== */
+.studioBtn{background:linear-gradient(180deg,#8E77FF,#7E6018 55%,#6F5514)!important;color:#fff!important;
+ font:800 13.5px/1 Inter,sans-serif!important;border-radius:999px!important;padding:12px 20px!important;
+ text-decoration:none!important;display:inline-flex!important;align-items:center;gap:8px;
+ box-shadow:0 10px 26px -10px rgba(198,160,53,.55);border:0!important;white-space:nowrap}
+.studioBtn:hover{filter:brightness(1.06)}
+.studioBtn svg{stroke:#fff!important}
+
+/* ===== SMN CINEMA WALL (CO122): 3 across on every device, image tiles ===== */
+#pmGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:clamp(10px,1.4vw,20px)!important;max-width:min(1400px,96vw)!important;margin-left:auto;margin-right:auto}
+
+/* ===== SMN CINE PREVIEW (CO124): wide, tall, agency-grade stage ===== */
+#preview-reserved{padding-top:clamp(30px,3.4vw,52px)!important;padding-bottom:clamp(30px,3.4vw,52px)!important}
+#preview-reserved>.wrapC{border:0!important;padding:0!important}
+@media (max-width:640px){#cineStage{aspect-ratio:4/5!important;border-radius:14px!important}#cineVol{width:70px!important}}
+
+/* ===== SMN MARQUEE (CO127): full-bleed cinematic theater band ===== */
+#preview-reserved{width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);
+ background:radial-gradient(130% 120% at 50% 0%,#0D2244 0%,#071328 55%,#050A16 100%)!important;
+ border-top:3px solid #C6A035;border-bottom:3px solid #C6A035;
+ padding:clamp(40px,4.8vw,72px) clamp(14px,2.5vw,40px)!important}
+#preview-reserved .eyebrow{color:#C6A035!important}
+#preview-reserved h2{color:#fff!important}
+#preview-reserved .capHead p:not(.eyebrow){color:#B9C3D6!important}
+#preview-reserved>.wrapC{max-width:min(1620px,94vw)!important}
+#cineStage{max-width:min(1620px,94vw);margin:0 auto;border:1px solid #C6A035!important;
+ box-shadow:0 0 0 1px rgba(198,160,53,.25),0 40px 110px -30px rgba(198,160,53,.28),0 30px 80px -30px rgba(0,0,0,.7)!important;border-radius:18px!important}
+
+/* ===== SMN CINE CONTROLS v4 (CO130): discoverable, human ===== */
+#cineBar{gap:14px!important;padding:12px 16px!important}
+#cinePP,#cineRe,#cineMute,#cineExit{min-width:44px;min-height:44px}
+#cineTrack:hover #cineKnob{transform:translateX(-9px) scale(1.15)}
+video{cursor:pointer}
+@media (max-width:640px){#cineKnob{width:22px!important;height:22px!important;transform:translateX(-11px)!important}}
+
+/* ===== SMN ULTRAWIDE STAGE (CO131): big monitors get a big show ===== */
+#promiseBand p{font-size:clamp(16px,1.05vw,24px)!important;max-width:min(74%,1720px)!important}
+@media (min-width:1900px){
+  .wrapC{max-width:1720px!important}
+  .cinFoot .in{max-width:1720px!important}
+  #premiereWall>div,#pmGrid,#preview-reserved>.wrapC,#cineStage{max-width:min(1840px,92vw)!important}
+}
+
+/* ===== SMN WIDESCREEN TRUE-UP (CO132): nothing lives at 1160 anymore ===== */
+.catImg{max-width:100%!important}
+.secImg{max-width:100%!important}
+.imgWrap{max-width:100%!important}
+.fCard{max-width:min(1560px,100%)!important}
+.heroCapSec .capCard{max-width:min(1360px,100%)!important}
+#promiseBand{padding-left:clamp(16px,2vw,40px)!important;padding-right:clamp(16px,2vw,40px)!important}
+
+/* ===== SMN WIDE-MONITOR TUNE (CO132) ===== */
+@media (min-width:1600px){
+  .wrapC{max-width:1560px!important}
+  .heroCapSec .capCard{max-width:min(1280px,100%)!important}
+}
+/* the 1-2-3 strip box spans its column instead of floating small */
+#how .wrapC>div,#how .steps,#how .stepStrip{max-width:100%!important}
+#how img.secImg{width:100%!important;height:auto!important}
+#yourturn,#yourturn .wrapC{text-align:center!important}
+#yourturn p,#yourturn h2{margin-left:auto!important;margin-right:auto!important}
+
+/* ============================================================
+   SMN MIDNIGHT PRO (CO136) — the researched redesign, homepage
+   Laws encoded: no pure black/white · 4.5:1 body contrast ·
+   elevation by lighter surface · air-only separation · 3
+   emphasis levels · unique white CTA · 66ch measures · 1.8
+   body leading · heavier weights on dark · framed light images
+   ============================================================ */
+body#mgHome{--nBg0:#081020;--nBg1:#0C1B36;--nCard:#102544;--nCardHi:#132C52;
+--nLine:rgba(198,160,53,.38);--nGold:#FFB020;--nGoldHi:#E7D9A8;
+--nInk:#F1F4F9;--nBody:#C7D0E0;--nMut:#8FA0BC;
+background:linear-gradient(180deg,#0C1B36 0%,#081020 26%,#081020 100%) fixed!important;
+background-color:#081020!important}
+/* ONE CANVAS · AIR RHYTHM (96–150px chapter air, halved on phones) */
+body#mgHome main>section,body#mgHome .sec{background:transparent!important;border:0!important;
+padding-top:clamp(48px,4.8vw,150px)!important;padding-bottom:0!important}
+body#mgHome #promiseBand{padding-top:clamp(28px,3vw,64px)!important}
+/* HEADER & FOOTER JOIN */
+body#mgHome .cinTop{background:rgba(8,16,32,.88)!important;backdrop-filter:blur(12px);border-bottom:1px solid var(--nLine)!important}
+body#mgHome .cinTop .brand,body#mgHome .cinTop a{color:var(--nInk)!important}
+body#mgHome .cinTop .brand em,body#mgHome .cinTop .brand .mk{color:var(--nGoldHi)!important}
+body#mgHome .cinFoot{background:#060C1A!important;border-top:1px solid var(--nLine)!important;margin-top:clamp(56px,6vw,150px)}
+body#mgHome .cinFoot,body#mgHome .cinFoot a,body#mgHome .cinFoot p,body#mgHome .cinFoot div,body#mgHome .cinFoot li{color:var(--nMut)!important}
+body#mgHome .cinFoot h4,body#mgHome .cinFoot strong,body#mgHome .cinFoot .brand{color:var(--nGoldHi)!important}
+/* TYPE — gold headlines where legible, soft-white body (never pure white), heavier + taller on dark */
+body#mgHome h1,body#mgHome h2,body#mgHome h3{color:var(--nGoldHi)!important;letter-spacing:.01em}
+body#mgHome .eyebrow{color:var(--nGold)!important}
+body#mgHome p,body#mgHome li{color:var(--nBody)!important;line-height:1.8!important;font-weight:500}
+body#mgHome p{max-width:66ch}
+body#mgHome .wrapC>p,body#mgHome .capHead p{margin-left:auto;margin-right:auto}
+body#mgHome small,body#mgHome .finePrint{color:var(--nMut)!important}
+body#mgHome #promiseBand p strong{color:var(--nGoldHi)!important}
+/* CARDS — elevation by LIGHTER SURFACE, not shadow */
+body#mgHome .capCard,body#mgHome .pkgGrid>*,body#mgHome .fCard{background:var(--nCard)!important;border:1px solid var(--nLine)!important;box-shadow:none!important}
+body#mgHome .pkgGrid>*{border-radius:16px}
+body#mgHome .pkgGrid>* *{color:var(--nBody)!important}
+body#mgHome .pkgGrid>* h3,body#mgHome .pkgGrid>* strong,body#mgHome .pkgGrid>* [class*=ttl]{color:var(--nGoldHi)!important}
+body#mgHome .fCard *{color:var(--nBody)!important}
+body#mgHome .fCard strong{color:var(--nInk)!important}
+body#mgHome .capCard:hover,body#mgHome .pkgGrid>*:hover{background:var(--nCardHi)!important}
+/* THE MIC — dark instrument */
+body#mgHome #seed{background:#0A1830!important;color:var(--nInk)!important;border:1px solid var(--nLine)!important}
+body#mgHome #seed::placeholder{color:#7E8BA6!important}
+/* TRUST PILLS */
+body#mgHome #trustStrip a{background:var(--nCard)!important;color:var(--nBody)!important;border:1px solid var(--nLine)!important}
+/* LIGHT BAKED IMAGES — framed prints on the dark table (research law) */
+body#mgHome #how img,body#mgHome section.catStrip img,body#mgHome #boardroom img{border-radius:18px;border:1px solid var(--nLine);display:block}
+body#mgHome .guaranteeBand img,body#mgHome .goldBand img{border-radius:18px}
+/* GOLD = ACCENT ONLY: demote non-money gold buttons to ghost outline */
+body#mgHome .studioBtn{background:transparent!important;color:var(--nGoldHi)!important;border:1.5px solid var(--nGold)!important}
+/* FOCUS VISIBLE on dark (WCAG 2.4.7) */
+body#mgHome a:focus-visible,body#mgHome button:focus-visible,body#mgHome [tabindex]:focus-visible{outline:2px solid var(--nGoldHi)!important;outline-offset:2px}
+/* WORKING WIDTH — wide stage, readable measures */
+body#mgHome .wrapC{max-width:min(1760px,92vw)!important}
+@media (max-width:640px){body#mgHome main>section,body#mgHome .sec{padding-top:clamp(34px,9vw,56px)!important}}
+
+/* ============================================================
+   SMN BLACKOUT (CO137) — FOUNDER FINAL FORM
+   Solid black canvas · white or gold type only · zero
+   separation (hero melted in) · every scenic image full-bleed
+   edge to edge · images are the only color on the page
+   ============================================================ */
+body#mgHome{--kInk:#F2F4F8;--kBody:#E6E9EF;--kMut:rgba(242,244,248,.62);
+--kGold:#FFB020;--kGoldHi:#E7D9A8;--kCard:#0A0B0E;
+background:#050608!important;background-image:none!important}
+/* ZERO SEPARATION — every band, border, and tinted panel dies */
+body#mgHome main>section,body#mgHome .sec,body#mgHome #objectionBand,body#mgHome section.catStrip,
+body#mgHome #boardroom,body#mgHome #premiereWall,body#mgHome #preview-reserved,body#mgHome #promiseBand{
+background:transparent!important;border:0!important}
+body#mgHome .cinTop{background:rgba(5,6,8,.82)!important;border-bottom:0!important;backdrop-filter:blur(12px)}
+body#mgHome .cinFoot{background:transparent!important;border-top:0!important}
+/* TYPE — white or gold. Nothing else. */
+body#mgHome h1,body#mgHome h2,body#mgHome h3{color:var(--kGoldHi)!important}
+body#mgHome .eyebrow{color:var(--kGold)!important}
+body#mgHome p,body#mgHome li,body#mgHome .capLede{color:var(--kBody)!important}
+body#mgHome small,body#mgHome .finePrint,body#mgHome .cinFoot,body#mgHome .cinFoot a,body#mgHome .cinFoot p,body#mgHome .cinFoot div{color:var(--kMut)!important}
+body#mgHome .cinFoot h4,body#mgHome .cinFoot strong,body#mgHome .cinFoot .brand{color:var(--kGoldHi)!important}
+body#mgHome .pkgGrid>* *,body#mgHome .fCard *,body#mgHome #trustStrip a{color:var(--kBody)!important}
+body#mgHome .pkgGrid>* h3,body#mgHome .pkgGrid>* strong,body#mgHome .pkgGrid>* [class*=ttl],body#mgHome .fCard strong{color:var(--kGoldHi)!important}
+/* COMPONENT PANELS — black glass with a gold hairline (gold is type-law legal) */
+body#mgHome .capCard,body#mgHome .pkgGrid>*,body#mgHome .fCard,body#mgHome #trustStrip a{
+background:var(--kCard)!important;border:1px solid rgba(201,166,72,.4)!important;box-shadow:none!important}
+body#mgHome #seed{background:#07080B!important;color:var(--kInk)!important;border:1px solid rgba(201,166,72,.4)!important}
+/* HERO — MELTED INTO THE PAGE */
+body#mgHome .heroCin,body#mgHome .heroCin .wrapC{max-width:100vw!important;width:100vw!important;margin-left:calc(50% - 50vw)!important;padding:0!important;background:transparent!important}
+body#mgHome .heroCin img,body#mgHome .heroPlate,body#mgHome .heroStage{border-radius:0!important;border:0!important;box-shadow:none!important;width:100vw!important;max-width:100vw!important}
+body#mgHome .heroStage{position:relative}
+body#mgHome .heroStage::after{content:"";position:absolute;inset:0;pointer-events:none;
+background:linear-gradient(180deg,#050608 0%,rgba(5,6,8,0) 14%,rgba(5,6,8,0) 84%,#050608 100%),
+linear-gradient(90deg,#050608 0%,rgba(5,6,8,0) 9%,rgba(5,6,8,0) 91%,#050608 100%)}
+/* EVERY SCENIC IMAGE — FULL BLEED, EDGE TO EDGE, COLOR STAYS */
+body#mgHome section.catStrip .wrapC,body#mgHome #boardroom .wrapC,body#mgHome #how .wrapC,body#mgHome .gSec .wrapC{max-width:100vw!important;padding-left:0!important;padding-right:0!important}
+body#mgHome section.catStrip img,body#mgHome #boardroom img,body#mgHome #how img.secImg,body#mgHome .gSec img.secImg{
+width:100vw!important;max-width:100vw!important;margin-left:calc(50% - 50vw)!important;border-radius:0!important;border:0!important;display:block}
+body#mgHome section.catStrip .capHead,body#mgHome #boardroom .capHead{max-width:min(1760px,92vw);margin:0 auto}
+/* THE WALL + THEATER — to the edges like the hero */
+body#mgHome #premiereWall>div,body#mgHome #pmGrid{max-width:100vw!important;padding-left:clamp(8px,1vw,18px)!important;padding-right:clamp(8px,1vw,18px)!important}
+body#mgHome #preview-reserved>.wrapC{max-width:100vw!important;padding-left:0!important;padding-right:0!important}
+body#mgHome #cineStage{max-width:100vw!important;width:100vw!important;margin-left:calc(50% - 50vw)!important;border-radius:0!important;border-left:0!important;border-right:0!important;border-top:0!important;border-bottom:0!important;box-shadow:none!important}
+body#mgHome #preview-reserved .capHead{max-width:min(1760px,92vw);margin-left:auto;margin-right:auto}
+/* text blocks stay readable inside the black — headlines poster-fit, body 66ch centered */
+body#mgHome .wrapC{max-width:min(1760px,92vw)!important}
+body#mgHome p{max-width:66ch}
+
+/* ============================================================
+   SMN DIRECTOR'S CUT (CO138) — WPP/Kennedy directive, triaged
+   ============================================================ */
+/* overflow lock: full-bleed can never cause horizontal wiggle */
+body#mgHome{overflow-x:hidden!important}
+html:has(body#mgHome){overflow-x:hidden}
+/* EVERY scenic image melts into the void (top+bottom alpha), like the hero */
+body#mgHome section.catStrip .imgWrap,body#mgHome #boardroom .imgWrap,body#mgHome #how .imgWrap,body#mgHome .gSec .imgWrap,
+body#mgHome section.catStrip picture,body#mgHome #boardroom picture,body#mgHome #how picture,body#mgHome .gSec picture{position:relative;display:block}
+body#mgHome section.catStrip .imgWrap::after,body#mgHome #boardroom .imgWrap::after,body#mgHome #how .imgWrap::after,body#mgHome .gSec .imgWrap::after{
+content:"";position:absolute;inset:0;pointer-events:none;
+background:linear-gradient(to bottom,#050608 0%,transparent 13%,transparent 87%,#050608 100%)}
+/* DRAMATIC TYPE CONTRAST — massive editorial titles vs microscopic metadata */
+body#mgHome h2{font-size:clamp(2.3rem,3.8vw,4.2rem)!important;line-height:1.08!important;letter-spacing:-.015em}
+body#mgHome .eyebrow{font-size:clamp(.68rem,.8vw,.85rem)!important;letter-spacing:.34em!important}
+/* GLASS-TRACE PANELS — faint white glass, gold structural hairline, premium hover */
+body#mgHome .capCard,body#mgHome .pkgGrid>*,body#mgHome .fCard,body#mgHome #trustStrip a{
+background:rgba(255,255,255,.02)!important;border:1px solid rgba(212,175,55,.18)!important;border-radius:14px!important;transition:all .4s ease}
+body#mgHome .pkgGrid>*{padding:clamp(1.6rem,2.2vw,3rem)!important}
+body#mgHome .pkgGrid>*:hover,body#mgHome .capCard:hover{background:rgba(255,255,255,.045)!important;border-color:rgba(212,175,55,.4)!important;transform:translateY(-3px)}
+/* PREMIUM GRID AIR — wall + package gaps breathe on wide glass (3-across stays, founder law) */
+body#mgHome #pmGrid{gap:clamp(14px,2.4vw,4rem)!important}
+body#mgHome .pkgGrid{gap:clamp(16px,2vw,3rem)!important}
+body#mgHome #premiereWall>div,body#mgHome #pmGrid{padding-left:clamp(10px,2vw,4rem)!important;padding-right:clamp(10px,2vw,4rem)!important}
+/* muted metadata — lawful dimmed white, never gray-blue */
+body#mgHome .finePrint,body#mgHome small{color:rgba(242,244,248,.58)!important;letter-spacing:.02em}
+
+/* ============================================================
+   CO146 — THE ROLL POLISH (all devices: fold, phone, tablet,
+   laptop, desktop). One rhythm, zero drift, nothing off-page.
+   ============================================================ */
+/* absolute overflow armor: nothing ever runs off the page */
+body#mgHome *{min-width:0}
+body#mgHome img,body#mgHome video,body#mgHome svg{max-width:100%!important;height:auto}
+body#mgHome p,body#mgHome h1,body#mgHome h2,body#mgHome h3,body#mgHome a,body#mgHome button{overflow-wrap:break-word}
+/* phones + folded devices: full-bleed math replaced with honest 100% (kills the left drift) */
+@media (max-width:768px){
+body#mgHome [style*="calc(50% - 50vw)"]{width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}
+body#mgHome .heroCin,body#mgHome .heroCin .wrapC,body#mgHome .heroCin img,body#mgHome .heroPlate,body#mgHome .heroStage,
+body#mgHome #cineStage,body#mgHome section.catStrip img,body#mgHome #boardroom img,body#mgHome #how img.secImg,body#mgHome .gSec img.secImg{
+width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}
+/* ONE mobile rhythm — the toilet-paper law: constant, continuous, no blank sheets */
+body#mgHome main>section,body#mgHome .sec{padding-top:clamp(26px,6.5vw,40px)!important;padding-bottom:0!important}
+body#mgHome .capHead{margin-bottom:14px!important}
+/* melts soften so small images keep their subjects */
+body#mgHome .heroStage::after{background:linear-gradient(180deg,#050608 0%,rgba(5,6,8,0) 8%,rgba(5,6,8,0) 92%,#050608 100%)!important}
+body#mgHome section.catStrip .imgWrap::after,body#mgHome #boardroom .imgWrap::after,body#mgHome #how .imgWrap::after,body#mgHome .gSec .imgWrap::after{
+background:linear-gradient(to bottom,#050608 0%,transparent 7%,transparent 93%,#050608 100%)!important}
+/* wall + theater breathe tight and centered */
+body#mgHome #pmGrid{gap:8px!important;padding-left:8px!important;padding-right:8px!important}
+body#mgHome #preview-reserved .capHead,body#mgHome .wrapC{padding-left:14px!important;padding-right:14px!important}
+body#mgHome #cineBar{gap:8px!important;padding:8px 10px calc(8px + env(safe-area-inset-bottom))!important}
+body#mgHome #cineVol{width:64px!important}
+}
+/* tablets & small laptops: rhythm scales smoothly, air never doubles */
+@media (min-width:769px) and (max-width:1200px){
+body#mgHome main>section,body#mgHome .sec{padding-top:clamp(40px,4.5vw,72px)!important;padding-bottom:0!important}
+}
+
+/* CO148 film reset: smooth scene fade-in, no black frames */
+body#mgHome #cineStage video{opacity:0;transition:opacity .5s ease}
+body#mgHome #cineStage video.cineFadeIn{opacity:1}
+
+/* ============================================================
+   CO151 — FOUNDER EYES: bright trust bar + one-line wall lede
+   ============================================================ */
+/* the promise bar: WHITE words, GOLD icons, out of the shadows */
+body#mgHome .trustBar{opacity:1!important}
+body#mgHome .trustBar span{color:#F2F4F8!important;font-weight:800!important;letter-spacing:.14em;opacity:1!important}
+body#mgHome .trustBar svg{color:#E7D9A8!important;stroke:#E7D9A8!important;width:18px;height:18px;opacity:1!important}
+body#mgHome .trustBar i{background:rgba(212,175,55,.35)!important}
+/* the wall lede: one clean line on desktop, tight air */
+body#mgHome #premiereWall p{white-space:nowrap;max-width:none!important;font-size:clamp(13px,1.15vw,17px)!important;margin:0 auto 26px!important;color:#DDE3EE!important}
+@media (max-width:900px){body#mgHome #premiereWall p{white-space:normal;max-width:34ch!important;text-wrap:balance}}
+
+/* ============================================================
+   CO153 — FOUNDER'S MANUAL CUTS (spoken, July 7 2026)
+   ============================================================ */
+/* hero goes right up: promise band tightened to nothing under the headline */
+body#mgHome #promiseBand{padding-bottom:0!important;padding-top:clamp(16px,2vw,34px)!important}
+body#mgHome .heroCin{margin-top:0!important;padding-top:0!important}
+/* trust bar: PURE white words AND pure white icons (founder override of gold) */
+body#mgHome .trustBar span{color:#FFFFFF!important}
+body#mgHome .trustBar svg{color:#FFFFFF!important;stroke:#FFFFFF!important}
+/* "A name is free." hugs the trust bar */
+body#mgHome #objectionBand{padding-top:clamp(14px,1.6vw,28px)!important}
+body#mgHome #objectionBand h2{margin-bottom:0!important}
+/* the matrix heading sits right under it; boxes move up */
+body#mgHome #advantage-matrix{padding-top:clamp(14px,1.8vw,30px)!important}
+body#mgHome #advantage-matrix h2{margin-bottom:1.6rem!important}
+/* no blank tail inside a shorter card: boxes end where their words end */
+body#mgHome #advantage-matrix .advantage-matrix-container>div{align-items:start}
+
+/* ============================================================
+   CO154 — MOBILE TRUTH: the 8-point spacing law + founder cuts
+   (Headings sit 8-12px from their words. Sections 24-32px on
+   phones. Everything touches what it belongs to. Site-wide.)
+   ============================================================ */
+/* the deleted headline's band collapses to nothing; matrix takes its place */
+body#mgHome #objectionBand{display:none!important}
+body#mgHome #advantage-matrix{padding-top:clamp(20px,2.4vw,44px)!important}
+/* THE HEADING-GAP LAW (all screens): a heading touches its words */
+body#mgHome .capHead h2,body#mgHome #advantage-matrix h2,body#mgHome #premiereWall h2,body#mgHome h2{margin-bottom:12px!important}
+body#mgHome .capHead p,body#mgHome #premiereWall p{margin-top:0!important}
+body#mgHome .capHead{margin-bottom:clamp(14px,1.6vw,24px)!important}
+/* THE FILM STRAP: readable, pure white, real size */
+body#mgHome #preview-reserved .capHead+div,body#mgHome #cineStage~div{color:#FFFFFF!important}
+body#mgHome #preview-reserved [style*="SOUND ON"],body#mgHome #preview-reserved div:last-child{font-size:clamp(12px,1.4vw,15px)!important;letter-spacing:.14em!important;color:#FFFFFF!important;opacity:1!important;margin-top:12px}
+/* PHOTO COLLAGE (brands-for-everyone strip): never past the glass edge */
+body#mgHome section.catStrip{overflow:hidden!important}
+@media (max-width:1024px){
+body#mgHome section.catStrip img{width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}}
+/* MOBILE RHYTHM v2 — the 8-point system, hard law on phones */
+@media (max-width:768px){
+body#mgHome main>section,body#mgHome .sec{padding-top:clamp(20px,5.5vw,30px)!important}
+body#mgHome h2{margin-bottom:8px!important;line-height:1.12!important}
+body#mgHome p{margin-top:0!important;margin-bottom:10px!important;line-height:1.55!important}
+body#mgHome .capHead{margin-bottom:10px!important}
+body#mgHome #pmGrid{margin-top:8px!important}
+body#mgHome #advantage-matrix h2{margin-bottom:12px!important}
+body#mgHome .advantage-matrix-container>div{gap:14px!important}
+}
+
+/* ============================================================
+   CO157 — PHOTO WALL: streaming-grade tile layout
+   (centered play affordance, gradient-anchored labels)
+   ============================================================ */
+/* the play ring: dead center, glassy, white glyph — the universal pattern */
+body#mgHome #pmGrid>div>div:first-child{
+top:50%!important;left:50%!important;transform:translate(-50%,-50%);
+width:clamp(48px,5.4vw,72px)!important;height:clamp(48px,5.4vw,72px)!important;
+background:rgba(0,0,0,.52)!important;border:2.5px solid #E7D9A8!important;
+backdrop-filter:blur(4px);color:#FFFFFF!important;font-size:clamp(16px,1.8vw,24px)!important;
+transition:transform .25s cubic-bezier(.2,.8,.2,1),background .25s;box-shadow:0 6px 24px rgba(0,0,0,.45)}
+body#mgHome #pmGrid>div:hover>div:first-child{transform:translate(-50%,-50%) scale(1.09);background:rgba(0,0,0,.66)!important}
+body#mgHome #pmGrid>div:hover{transform:translateY(-4px)}
+/* labels: anchored on the baked gradient, white Playfair name, gold mono domain */
+body#mgHome #pmGrid>div [style*="Playfair"]{color:#FFFFFF!important;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+
+/* ============================================================
+   CO161 — TOP CORRIDOR: hero, ask-box, film, wall — welded
+   ============================================================ */
+body#mgHome .heroCin{margin-bottom:0!important;padding-bottom:0!important}
+body#mgHome section.heroCapSec{padding-top:0!important;margin-top:0!important;padding-bottom:clamp(10px,1.2vw,20px)!important}
+body#mgHome #preview-reserved{padding-top:0!important;margin-top:0!important;padding-bottom:0!important}
+body#mgHome #premiereWall{padding-top:clamp(10px,1.4vw,24px)!important;margin-top:0!important}
+
+/* ============================================================
+   CO163 — ASK BOX: full page width, dead center (Founder)
+   ============================================================ */
+body#mgHome .heroCapSec{width:100%!important}
+body#mgHome .heroCapSec .wrapC{max-width:min(1520px,94vw)!important;width:min(1520px,94vw)!important;
+margin:0 auto!important;padding-left:0!important;padding-right:0!important;transform:none!important}
+body#mgHome .heroCapSec .heroStage{width:100%!important;max-width:none!important;margin:0 auto!important;transform:none!important;left:auto!important;right:auto!important}
+
+/* ============================================================
+   CO166 — BRIGHT & TIGHT (Founder punch list)
+   ============================================================ */
+/* 1. promise bar: bigger, a touch lower, PURE WHITE words+icons */
+body#mgHome .trustBar{margin-top:clamp(16px,2vw,30px)!important}
+body#mgHome .trustBar span{color:#FFFFFF!important;font-size:clamp(13.5px,1.35vw,17px)!important;opacity:1!important}
+body#mgHome .trustBar svg{color:#FFFFFF!important;stroke:#FFFFFF!important;opacity:1!important;width:20px;height:20px}
+/* 2. every homepage eyebrow: readable bright */
+body#mgHome .eyebrow{color:#FFFFFF!important;opacity:1!important}
+/* 3. theater heading + sub: bright on the void; sub ONE LINE on desktop */
+body#mgHome #preview-reserved .capHead h2{color:#F5EFD8!important}
+body#mgHome #preview-reserved .capHead p{color:#FFFFFF!important;opacity:1!important}
+@media (min-width:1025px){
+body#mgHome #preview-reserved .capHead p{white-space:nowrap!important;max-width:none!important;width:max-content!important;margin-left:auto!important;margin-right:auto!important;font-size:clamp(14px,1.15vw,18px)!important}}
+/* 4. GLOBAL GAP LAW — the whole homepage rolls tight (desktop included) */
+body#mgHome main>section{padding-top:clamp(22px,2.8vw,52px)!important;padding-bottom:clamp(22px,2.8vw,52px)!important}
+body#mgHome .capHead{margin-bottom:clamp(10px,1.2vw,18px)!important}
+/* corridor zero-gaps RE-ASSERTED after the global law (must win) */
+body#mgHome .heroCin{margin-bottom:0!important;padding-bottom:0!important}
+body#mgHome section.heroCapSec{padding-top:0!important;margin-top:0!important;padding-bottom:clamp(10px,1.2vw,20px)!important}
+body#mgHome #preview-reserved{padding-top:0!important;margin-top:0!important;padding-bottom:0!important}
+body#mgHome #premiereWall{padding-top:clamp(10px,1.4vw,24px)!important;margin-top:0!important}
+body#mgHome #promiseBand{padding-bottom:0!important}

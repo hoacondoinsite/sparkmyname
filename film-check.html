@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Film Check &mdash; SparkMyName</title>
+<link rel="icon" type="image/png" href="/favicon-32.png">
+<link rel="stylesheet" href="css/film-player.css">
+<style>
+  body{margin:0;background:#0d1220;color:#e8eef7;
+       font:16px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Arial,sans-serif;
+       padding:28px 18px 60px}
+  .wrap{max-width:860px;margin:0 auto}
+  h1{font-size:24px;margin:0 0 6px}
+  .sub{color:#9fb0c8;margin:0 0 22px;font-size:14.5px}
+  .step{border:1px solid #24304a;background:#131b2e;border-radius:12px;
+        padding:14px 16px;margin:0 0 12px}
+  .step h2{font-size:15.5px;margin:0 0 6px;display:flex;gap:9px;align-items:center}
+  .dot{width:11px;height:11px;border-radius:50%;background:#5a6a86;flex:0 0 auto}
+  .ok .dot{background:#3BE88F} .bad .dot{background:#FF5C7A} .warn .dot{background:#FFB020}
+  .msg{font-size:14px;color:#c3d1e6;margin:0}
+  .msg b{color:#fff}
+  code{background:#0a0f1c;border:1px solid #24304a;border-radius:5px;
+       padding:1px 6px;font-size:12.5px;color:#9fe0ff;word-break:break-all}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13.5px}
+  th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #24304a}
+  th{color:#9fb0c8;font-weight:600}
+  button{font:inherit;font-size:14px;padding:10px 16px;border-radius:9px;
+         border:1px solid #3a4a6b;background:#1c2740;color:#fff;cursor:pointer;margin:4px 6px 0 0}
+  button:hover{background:#27354f}
+  button.go{background:#7C5CFF;border-color:#7C5CFF}
+  .verdict{border-radius:12px;padding:16px;margin:20px 0 0;font-size:15px;line-height:1.6}
+  .verdict.ok{background:#0f2a1e;border:1px solid #1f7a4d}
+  .verdict.bad{background:#2a1218;border:1px solid #7a2130}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Film Check</h1>
+  <p class="sub">A private diagnostic page. Nothing here is linked from the site and no visitor can find it.
+     It tests the whole chain, one link at a time, and says in plain words where it breaks.</p>
+
+  <div class="step" id="s1"><h2><span class="dot"></span>1. Is the player code on this site?</h2><p class="msg">Checking&hellip;</p></div>
+  <div class="step" id="s2"><h2><span class="dot"></span>2. Is the caption file loaded?</h2><p class="msg">Waiting&hellip;</p></div>
+  <div class="step" id="s3"><h2><span class="dot"></span>3. Can the site reach the film list?</h2><p class="msg">Waiting&hellip;</p></div>
+  <div class="step" id="s4"><h2><span class="dot"></span>4. Which films are finished?</h2><p class="msg">Waiting&hellip;</p></div>
+  <div class="step" id="s5"><h2><span class="dot"></span>5. Will a real scene actually play in this browser?</h2><p class="msg">Waiting&hellip;</p></div>
+
+  <div id="verdict"></div>
+
+  <div style="margin-top:18px">
+    <button class="go" id="btnPlay" disabled>Play Rotor Odyssey now</button>
+    <button id="btnAgain">Run the check again</button>
+  </div>
+</div>
+
+<script src="js/film-captions.js"></script>
+<script src="js/film-player.js"></script>
+<script>
+(function(){
+  var MAN=null, firstSlug=null;
+  function set(id, state, html){
+    var el=document.getElementById(id);
+    el.className='step '+state;
+    el.querySelector('.msg').innerHTML=html;
+  }
+  function verdict(state, html){
+    var v=document.getElementById('verdict');
+    v.className='verdict '+state; v.innerHTML=html;
+  }
+
+  function run(){
+    document.getElementById('btnPlay').disabled=true;
+    verdict('','');
+
+    /* 1 — did film-player.js load and define its API? */
+    if(window.SMNFilm && typeof window.SMNFilm.open==='function'){
+      set('s1','ok','<b>Yes.</b> <code>js/film-player.js</code> loaded and the player is ready.');
+    } else {
+      set('s1','bad','<b>No.</b> <code>js/film-player.js</code> did not load, or it hit an error before finishing. '+
+        'That alone stops every film. Most often this means the newest disc has not been deployed yet.');
+      set('s2','warn','Skipped.'); set('s3','warn','Skipped.');
+      set('s4','warn','Skipped.'); set('s5','warn','Skipped.');
+      verdict('bad','<b>Stopped at step 1.</b> The player code is not running on this page. '+
+        'Deploy the newest disc, hard-refresh, and run this check again.');
+      return;
+    }
+
+    /* 2 — captions */
+    var n = window.SMN_CAPTIONS ? Object.keys(window.SMN_CAPTIONS).length : 0;
+    if(n) set('s2','ok','<b>Yes.</b> Narration text loaded for <b>'+n+'</b> films, so CC will work.');
+    else  set('s2','warn','<b>Not loaded.</b> Films will still play, but the CC button will be off.');
+
+    /* 3 + 4 — the manifest */
+    set('s3','','Asking <code>/.netlify/functions/premiere-manifest</code>&hellip;');
+    fetch('/.netlify/functions/premiere-manifest',{cache:'no-store'})
+      .then(function(r){
+        if(!r.ok) throw new Error('The server answered '+r.status);
+        return r.json();
+      })
+      .then(function(j){
+        MAN=j;
+        var brands=(j&&j.brands)||{};
+        var keys=Object.keys(brands);
+        if(!keys.length){
+          set('s3','warn','<b>Reached it, but it is empty.</b> The film list came back with no films in it.');
+          set('s4','bad','Nothing to list. The manifest holds no films.');
+          verdict('bad','<b>The film list is empty.</b> The site and player are fine &mdash; there is simply '+
+            'nothing registered to play. This is a storage question, not a code question.');
+          return;
+        }
+        set('s3','ok','<b>Yes.</b> The film list came back with <b>'+keys.length+'</b> films.');
+
+        var rows='<table><tr><th>Film</th><th>Scenes</th><th>Narration</th><th>Music</th></tr>';
+        keys.forEach(function(k){
+          var b=brands[k]||{}; var sc=(b.shots||[]).filter(Boolean).length;
+          if(sc && !firstSlug) firstSlug=k;
+          rows+='<tr><td>'+k+'</td><td>'+(sc||'<b style="color:#FF5C7A">0</b>')+'</td><td>'+
+                (b.voice?'yes':'&mdash;')+'</td><td>'+(b.music?'yes':'&mdash;')+'</td></tr>';
+        });
+        rows+='</table>';
+        var ready=keys.filter(function(k){return ((brands[k].shots)||[]).filter(Boolean).length;}).length;
+        set('s4', ready?'ok':'bad', '<b>'+ready+'</b> of '+keys.length+' films have scenes and are ready to play.'+rows);
+
+        /* 5 — actually load a real scene in THIS browser */
+        var slug = brands.odyssey5 && (brands.odyssey5.shots||[]).length ? 'odyssey5' : firstSlug;
+        if(!slug){ set('s5','bad','No film has any scenes, so there is nothing to test.'); return; }
+        var url=(brands[slug].shots||[])[0];
+        set('s5','','Loading the first scene of <b>'+slug+'</b> from storage&hellip;');
+        var v=document.createElement('video');
+        v.preload='metadata'; v.muted=true;
+        var settled=false;
+        function good(){
+          if(settled) return; settled=true;
+          set('s5','ok','<b>Yes.</b> The scene loaded from storage and this browser can play it'+
+            (isFinite(v.duration)?' ('+v.duration.toFixed(1)+' seconds long)':'')+'.');
+          document.getElementById('btnPlay').disabled=false;
+          verdict('ok','<b>Everything passed.</b> The player is live, the film list is reachable, and a real '+
+            'scene plays in this browser. Press <b>Play Rotor Odyssey now</b> to watch it with sound and captions.');
+        }
+        function bad(why){
+          if(settled) return; settled=true;
+          set('s5','bad','<b>No.</b> The scene would not load. '+why+
+            '<br><br>The address it tried was:<br><code>'+url+'</code>');
+          verdict('bad','<b>Stopped at step 5.</b> The site and the film list are healthy, but the video file '+
+            'itself would not come through. Open the address above in a new tab &mdash; if that also fails, the file '+
+            'is unreadable in storage rather than broken in the code.');
+        }
+        v.addEventListener('loadedmetadata', good);
+        v.addEventListener('error', function(){ bad('The browser reported an error fetching it.'); });
+        setTimeout(function(){ bad('It timed out after 12 seconds.'); },12000);
+        v.src=url;
+      })
+      .catch(function(e){
+        set('s3','bad','<b>No.</b> The film list could not be reached. '+
+          '<br>Reason given: <code>'+(e&&e.message?e.message:'unknown')+'</code>');
+        set('s4','warn','Skipped.'); set('s5','warn','Skipped.');
+        verdict('bad','<b>Stopped at step 3.</b> The page could not reach '+
+          '<code>/.netlify/functions/premiere-manifest</code>. Open that address directly in a new tab. '+
+          'If it shows text there but fails here, the site is blocking its own request.');
+      });
+  }
+
+  document.getElementById('btnAgain').addEventListener('click', run);
+  document.getElementById('btnPlay').addEventListener('click', function(){
+    var slug=(MAN&&MAN.brands&&MAN.brands.odyssey5)?'odyssey5':firstSlug;
+    window.SMNFilm.open(slug,{name:'Rotor Odyssey',cat:'Helicopter charters',
+      source:'premiere',opener:document.getElementById('btnPlay')});
+  });
+  run();
+})();
+</script>
+</body>
+</html>

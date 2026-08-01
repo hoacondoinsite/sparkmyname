@@ -1,0 +1,55 @@
+/* ============================================================
+   SPARKMYNAME DESIGN LAW — inner/legal page enforcement.
+   Styling only; copy frozen per the Legal-Copy Freeze.
+   Scoped to body.mgInner main — the global footer is untouched.
+   Laws applied: Color (one gold #7C5CFF, white on dark, no cream),
+   Type (Playfair headings / Inter body), Readability (incl.
+   -webkit-text-fill-color trap), Card & Capsule (#101010 boxes,
+   gold-tinted edge, light text).
+   ============================================================ */
+body.mgInner main h1,body.mgInner main h2,body.mgInner main h3,
+body.mgInner main h4,body.mgInner main h5,body.mgInner main h6{
+  font-family:'Playfair Display',Georgia,serif!important;
+  color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body.mgInner main,body.mgInner main p,body.mgInner main li,
+body.mgInner main td,body.mgInner main dd,body.mgInner main dt,
+body.mgInner main figcaption,body.mgInner main blockquote,
+body.mgInner main label,body.mgInner main span{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;
+  color:rgba(255,255,255,.82)!important;-webkit-text-fill-color:rgba(255,255,255,.82)!important}
+body.mgInner main th{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important}
+body.mgInner main b,body.mgInner main strong{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body.mgInner main small{color:rgba(255,255,255,.62)!important;-webkit-text-fill-color:rgba(255,255,255,.62)!important}
+body.mgInner main .kicker,body.mgInner main .eyebrow{
+  color:#7C5CFF!important;-webkit-text-fill-color:#7C5CFF!important}
+body.mgInner main a:not(.btn){color:#7C5CFF!important;-webkit-text-fill-color:#7C5CFF!important}
+body.mgInner main a.btn,body.mgInner main button.btn{color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body.mgInner main a:not(.btn):hover{color:#EBD98A!important;-webkit-text-fill-color:#EBD98A!important}
+/* Card & Capsule Law: no white or cream boxes on a dark page */
+body.mgInner main .tldr,body.mgInner main .notice,body.mgInner main .faq-item,
+body.mgInner main .asset-download-card,body.mgInner main .card,
+body.mgInner main .callout,body.mgInner main .in{
+  background:#101010!important;border:1px solid rgba(191,155,60,.30)!important;border-radius:14px}
+body.mgInner main .tldr *,body.mgInner main .notice *,body.mgInner main .asset-download-card *{
+  color:rgba(255,255,255,.82)!important;-webkit-text-fill-color:rgba(255,255,255,.82)!important}
+body.mgInner main .tldr b,body.mgInner main .tldr strong,
+body.mgInner main .notice b,body.mgInner main .notice strong,
+body.mgInner main .asset-download-card b,body.mgInner main .asset-download-card strong{
+  color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body.mgInner main .tldr a:not(.btn),body.mgInner main .notice a:not(.btn),body.mgInner main .asset-download-card a:not(.btn){
+  color:#7C5CFF!important;-webkit-text-fill-color:#7C5CFF!important}
+body.mgInner main .tldr a.btn,body.mgInner main .notice a.btn,body.mgInner main .asset-download-card a.btn{
+  color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+body.mgInner main hr{border-color:rgba(191,155,60,.25)!important;background:none}
+body.mgInner main table,body.mgInner main td,body.mgInner main th{border-color:rgba(255,255,255,.14)!important}
+body.mgInner main code,body.mgInner main pre{
+  background:#101010!important;color:#EBD98A!important;
+  border:1px solid rgba(191,155,60,.25)!important;border-radius:8px}
+
+/* Playfair for law enforcement on pages without local @font-face */
+@font-face{font-family:'Playfair Display';src:url('fonts/playfair-display-latin-700-normal.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+/* Skip links: hidden until keyboard focus, readable when focused */
+a.skip-link{position:absolute!important;left:-9999px!important;top:auto!important;background:#0A0A0A!important;color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important}
+a.skip-link:focus{left:12px!important;top:12px!important;background:#0A0A0A!important;color:#FFFFFF!important;
+ -webkit-text-fill-color:#FFFFFF!important;padding:10px 14px!important;border-radius:8px!important;z-index:9999!important;outline:2px solid #7C5CFF}

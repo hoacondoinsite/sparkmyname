@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Custom Artwork — Private Testing Harness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================================
+   customartwork.html — PRIVATE walled-garden testing harness.
+   Gold/cream + Playfair/Inter. Zero translateY (no hover jitter). Self-contained
+   CSS (the Tailwind Play CDN isn't in the site CSP, so it would be blocked live).
+   ========================================================================= */
+:root{
+  --bg:#12100B; --panel:#1B1710; --panel2:#221C12; --line:#3A2F1C;
+  --gold:#D4AF37; --gold-lt:#F3E7AA; --gold-dk:#A9863F;
+  --cream:#F6EEDA; --ink:#F6EEDA; --dim:#B9AE93; --muted:#8C8065;
+  --green:#3BAE6B; --red:#E0715A; --amber:#E0A83C;
+  --disp:'Playfair Display', Georgia, serif; --body:'Inter', system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:radial-gradient(120% 80% at 50% -10%, #241d12 0%, var(--bg) 60%); color:var(--ink);
+  font-family:var(--body); line-height:1.6; min-height:100vh; -webkit-font-smoothing:antialiased}
+.wrap{max-width:940px; margin:0 auto; padding:30px 20px 90px}
+
+/* header */
+.head{text-align:center; margin-bottom:26px}
+.head .badge{display:inline-block; font:700 11px var(--body); letter-spacing:.28em; text-transform:uppercase;
+  color:#12100B; background:linear-gradient(135deg,var(--gold-lt),var(--gold)); padding:5px 12px; border-radius:999px}
+.head h1{font-family:var(--disp); font-weight:800; font-size:clamp(30px,5vw,46px); margin:14px 0 4px;
+  background:linear-gradient(135deg,var(--gold-lt),var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent}
+.head p{color:var(--dim); font-size:15px; margin:0}
+
+/* panel */
+.panel{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:20px; margin-bottom:20px}
+.panel h2{font-family:var(--disp); font-weight:700; font-size:19px; margin:0 0 14px; color:var(--cream)}
+
+/* chat */
+.chat{display:flex; flex-direction:column; gap:12px; max-height:340px; overflow-y:auto; padding:4px 4px 8px}
+.msg{max-width:82%; padding:12px 15px; border-radius:14px; font-size:15px}
+.msg.bot{align-self:flex-start; background:var(--panel2); border:1px solid var(--line); border-top-left-radius:4px; color:var(--cream)}
+.msg.user{align-self:flex-end; background:linear-gradient(135deg,var(--gold-dk),var(--gold)); color:#161206; border-top-right-radius:4px; font-weight:600}
+.inrow{display:flex; gap:10px; margin-top:14px}
+.inrow input{flex:1; background:var(--panel2); border:1px solid var(--line); color:var(--cream);
+  border-radius:12px; padding:13px 15px; font:400 15px var(--body); outline:none}
+.inrow input:focus{border-color:var(--gold)}
+button{font:700 14px var(--body); cursor:pointer; border:none; border-radius:12px; transition:filter .15s ease, box-shadow .15s ease, background .15s ease}
+.btn-gold{background:linear-gradient(135deg,var(--gold-lt),var(--gold)); color:#161206; padding:13px 20px}
+.btn-gold:hover{filter:brightness(1.06); box-shadow:0 0 0 3px rgba(212,175,55,.18)}
+.btn-gold:disabled{filter:grayscale(.5) brightness(.8); cursor:not-allowed; box-shadow:none}
+.btn-ghost{background:transparent; border:1px solid var(--line); color:var(--cream); padding:11px 16px}
+.btn-ghost:hover{border-color:var(--gold); background:var(--panel2)}
+
+/* confirm fields */
+.confirm{display:none; margin-top:16px; border-top:1px solid var(--line); padding-top:16px}
+.confirm.show{display:block}
+.confirm .sentence{font-family:var(--disp); font-style:italic; font-size:17px; color:var(--gold-lt); margin-bottom:14px}
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:16px}
+.fld label{display:block; font:700 11px var(--body); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:5px}
+.fld input{width:100%; background:var(--panel2); border:1px solid var(--line); color:var(--cream); border-radius:10px; padding:10px 12px; font:500 14px var(--body); outline:none}
+.fld input:focus{border-color:var(--gold)}
+
+/* status ticker */
+.ticker{display:none; align-items:center; gap:14px; margin-top:16px; padding:14px 16px; background:var(--panel2); border:1px solid var(--line); border-radius:12px}
+.ticker.show{display:flex}
+.spin{width:20px; height:20px; border:3px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:sp 1s linear infinite; flex:none}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ticker .st{font-weight:600; color:var(--cream)}
+.ticker .sub{font-size:13px; color:var(--dim)}
+.ticker .cost{margin-left:auto; font:700 13px var(--body); color:var(--gold)}
+
+/* gallery */
+.gallery{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:18px}
+.card{background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden}
+.card .preview{background:#0D0B07; display:flex; align-items:center; justify-content:center; min-height:220px}
+.card .preview img{width:100%; height:auto; display:block}
+.card .body{padding:16px}
+.card .fn{font:600 14px var(--body); color:var(--cream); word-break:break-word}
+.card .meta{font-size:12.5px; color:var(--dim); margin:6px 0 14px}
+.card .tierpill{display:inline-block; font:700 10px var(--body); letter-spacing:.06em; text-transform:uppercase; color:#161206; background:var(--gold); padding:2px 8px; border-radius:6px; margin-left:6px}
+.card .acts{display:flex; flex-direction:column; gap:8px}
+.card .acts .row{display:flex; gap:8px; flex-wrap:wrap}
+.card .acts a, .card .acts button{font-size:12.5px; padding:9px 12px; border-radius:10px; text-decoration:none; text-align:center}
+.card .acts a{background:var(--panel2); border:1px solid var(--line); color:var(--cream); flex:1}
+.card .acts a:hover{border-color:var(--gold)}
+.card .reject{background:transparent; border:1px solid rgba(224,113,90,.5); color:var(--red)}
+.card .reject:hover{background:rgba(224,113,90,.1)}
+.card.attention{border-color:var(--amber)}
+.card .att-note{padding:16px; color:var(--amber); font-size:14px}
+.empty{color:var(--muted); text-align:center; padding:30px; font-size:14px}
+.disclaim{font-size:11.5px; color:var(--muted); margin-top:6px; line-height:1.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <span class="badge">Private &middot; Founder Sandbox</span>
+    <h1>Custom Artwork</h1>
+    <p>Walled-garden testing harness &mdash; not linked, not live. Generate &rarr; poll &rarr; review.</p>
+  </div>
+
+  <!-- INTAKE -->
+  <div class="panel">
+    <h2>Describe what you want to make</h2>
+    <div class="chat" id="chat">
+      <div class="msg bot">Tell me what to build &mdash; e.g. <em>"an 18x36 poster for a $10 lunch special at Slice on the Go, running August and September."</em> I'll read it back and you confirm before we generate.</div>
+    </div>
+    <div class="inrow">
+      <input id="say" type="text" placeholder="Type your request&hellip;" autocomplete="off">
+      <button class="btn-gold" id="sendBtn">Read it</button>
+    </div>
+
+    <!-- CONFIRM (editable extracted params) -->
+    <div class="confirm" id="confirm">
+      <div class="sentence" id="sentence"></div>
+      <div class="grid" id="fields"></div>
+      <button class="btn-gold" id="genBtn">Generate Artwork</button>
+    </div>
+
+    <!-- STATUS TICKER -->
+    <div class="ticker" id="ticker">
+      <div class="spin" id="spin"></div>
+      <div>
+        <div class="st" id="stTitle">Working&hellip;</div>
+        <div class="sub" id="stSub">Your piece is being generated. This can take a minute.</div>
+      </div>
+      <div class="cost" id="stCost"></div>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="panel">
+    <h2>Delivered assets</h2>
+    <div class="gallery" id="gallery"><div class="empty" id="galleryEmpty">Nothing yet. Generate something above.</div></div>
+  </div>
+
+</div>
+
+<script>
+/* =========================================================================
+   CONFIG — fill these for your environment. (Values below are safe test defaults.)
+   ========================================================================= */
+const CONFIG = {
+  ENQUEUE_URL: '/.netlify/functions/deliverable-enqueue',       // creates the order, kicks the runner
+  STATUS_URL:  '/.netlify/functions/deliverable-status',        // server-side status (no RLS needed)
+  REJECT_URL:  '/.netlify/functions/deliverable-reject',        // writes olin_handoffs
+  // ONE thing to fill: your SMN_FOUNDER_TOKEN. This page is noindex + should stay
+  // login-gated; never put this token on a public page.
+  FOUNDER_TOKEN: 'slicetest2026',
+  // A real brand to test against (Brickstone Pizza):
+  TEST_REPORT_ID: '7ub8tcfe8op6f2',
+  TEST_NAME_SLUG: 'slice-on-the-go'
+};
+/* No Supabase client in the browser: status comes from a server-side function that
+   runs with the service role, so there's no RLS to open and no public key exposed. */
+
+/* ---------------- intake + natural-language parse ---------------- */
+const $ = (id)=>document.getElementById(id);
+function addMsg(text, who){ const d=document.createElement('div'); d.className='msg '+who; d.innerHTML=text; $('chat').appendChild(d); $('chat').scrollTop=$('chat').scrollHeight; }
+
+const TYPES = [
+  ['poster','poster'],['flyer','flyer'],['banner','banner'],['menu','menu'],['sign','signage'],
+  ['business card','businesscard'],['t-shirt','tshirt'],['tshirt','tshirt'],['tee','tshirt'],
+  ['mug','mug'],['tote','tote'],['hat','hat'],['sticker','sticker'],
+  ['instagram','social'],['social','social'],['story','social'],['post','social']
+];
+const NAMED_SIZE = { businesscard:[3.5,2], poster:[18,36], flyer:[8.5,11], banner:[24,72], social:[10.8,10.8], tshirt:[12,16], mug:[9,3.5], tote:[14,16], sticker:[3,3] };
+const MONTHS = 'january|february|march|april|may|june|july|august|september|october|november|december';
+
+function parseBrief(text){
+  // type: WORD-BOUNDARY match so "design" doesn't match "sign" and "poster" doesn't match "post"
+  let type='poster';
+  for(const [kw,norm] of TYPES){
+    const re = new RegExp('\\b'+kw.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','i');
+    if(re.test(text)){ type=norm; break; }
+  }
+  // size: "18x36", "18 x 36 in", "18 by 36"
+  let w=null,h=null;
+  const m = text.match(/(\d+(?:\.\d+)?)\s*(?:x|×|by)\s*(\d+(?:\.\d+)?)/i);
+  if(m){ w=parseFloat(m[1]); h=parseFloat(m[2]); }
+  else if(NAMED_SIZE[type]){ [w,h]=NAMED_SIZE[type]; }
+  // price
+  const pm = text.match(/\$\s?\d+(?:\.\d{2})?/); const price = pm ? pm[0].replace(/\s/,'') : '';
+  // dates (collect month mentions, de-duped, in order)
+  const dm = (text.toLowerCase().match(new RegExp(MONTHS,'gi'))||[]).map(s=>s[0].toUpperCase()+s.slice(1));
+  const dates = [...new Set(dm)].join(' & ');
+  // brand: prefer "at <name>" (captures full name incl. lowercase connectors, up to a comma/clause);
+  // else "for <Capitalized name>" (capital-first so it won't grab "our grand opening").
+  let brand='';
+  let bm = text.match(/\bat\s+(.+?)(?=,|\s+(?:running|during|starting|this)\b|$)/i);
+  if(!bm) bm = text.match(/\bfor\s+([A-Z][\w'&.\-]*(?:\s+[A-Z0-9][\w'&.\-]*)*)/);
+  if(bm){ brand = bm[1].replace(/[,.]$/,'').trim(); }
+  return { type, widthIn:w, heightIn:h, price, dates, brand, offer:text.trim() };
+}
+
+let PARSED = null;
+function renderConfirm(p){
+  PARSED = p;
+  const nice = (p.type||'piece').replace('social','social graphic').replace('businesscard','business card');
+  $('sentence').innerHTML = `Here's what I got: a <b>${p.widthIn||'?'}&times;${p.heightIn||'?'} in ${nice}</b>`
+    + (p.brand?` for <b>${escapeHtml(p.brand)}</b>`:'') + (p.price?` &mdash; <b>${escapeHtml(p.price)}</b>`:'')
+    + (p.dates?`, running <b>${escapeHtml(p.dates)}</b>`:'') + `. Edit anything, then generate.`;
+  const fields = [
+    ['type','Type',p.type],['widthIn','Width (in)',p.widthIn||''],['heightIn','Height (in)',p.heightIn||''],
+    ['brand','Brand',p.brand||''],['price','Price',p.price||''],['dates','Dates',p.dates||'']
+  ];
+  $('fields').innerHTML = fields.map(([k,label,v])=>
+    `<div class="fld"><label>${label}</label><input data-k="${k}" value="${escapeHtml(String(v))}"></div>`).join('');
+  $('confirm').classList.add('show');
+}
+function collectFields(){
+  const o = { ...PARSED };
+  document.querySelectorAll('#fields input').forEach(i=>{ o[i.dataset.k] = i.value.trim(); });
+  o.widthIn = parseFloat(o.widthIn)||null; o.heightIn = parseFloat(o.heightIn)||null;
+  return o;
+}
+function escapeHtml(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+$('sendBtn').addEventListener('click', doRead);
+$('say').addEventListener('keydown', e=>{ if(e.key==='Enter') doRead(); });
+function doRead(){
+  const txt = $('say').value.trim(); if(!txt) return;
+  addMsg(escapeHtml(txt),'user'); $('say').value='';
+  const p = parseBrief(txt);
+  addMsg(`Got it. Confirm or edit the details below, then hit <b>Generate Artwork</b>.`,'bot');
+  renderConfirm(p);
+}
+
+/* ---------------- submit + idempotent request ---------------- */
+$('genBtn').addEventListener('click', submitJob);
+let ACTIVE = false;
+async function submitJob(){
+  if(ACTIVE) return;                                   // hard guard against double-fire
+  const p = collectFields();
+  if(!(p.widthIn>0)||!(p.heightIn>0)){ alert('Please set a width and height in inches.'); return; }
+  ACTIVE = true;
+  const gen = $('genBtn'); gen.disabled = true; gen.textContent = 'Generating&hellip; please wait';
+
+  const requestId = (crypto.randomUUID && crypto.randomUUID()) || ('req_'+Date.now()+Math.random().toString(36).slice(2));
+  const payload = {
+    founderToken: CONFIG.FOUNDER_TOKEN,
+    reportId: CONFIG.TEST_REPORT_ID, nameSlug: CONFIG.TEST_NAME_SLUG,
+    deliverableType: p.type, widthIn: p.widthIn, heightIn: p.heightIn,
+    brief: { offer: p.offer, price: p.price, dates: p.dates, details: p.offer, brandName: p.brand, mustWords: [p.price, p.dates].filter(Boolean) },
+    requestId
+  };
+
+  showTicker('Submitting&hellip;','Sending your brief to the studio.');
+  try{
+    const r = await fetch(CONFIG.ENQUEUE_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const data = await r.json();
+    if(!r.ok || !data.orderId){ throw new Error(data.error || ('HTTP '+r.status)); }
+    showTicker('Working&hellip;','Order '+data.orderId.slice(0,14)+'&hellip; is generating. This can take a minute.');
+    pollOrder(data.orderId, data.jobId, p);
+  }catch(err){
+    stuck('Couldn\u2019t start: '+escapeHtml(String(err.message||err)));
+    resetGen();
+  }
+}
+function resetGen(){ ACTIVE=false; const g=$('genBtn'); g.disabled=false; g.innerHTML='Generate Artwork'; }
+function showTicker(title,sub){ $('ticker').classList.add('show'); $('spin').style.display=''; $('stTitle').innerHTML=title; $('stSub').innerHTML=sub; }
+function stuck(msg){ $('spin').style.display='none'; $('stTitle').textContent='Heads up'; $('stSub').innerHTML=msg; $('stCost').textContent=''; }
+
+/* ---------------- smart backoff polling ----------------
+   2s -> 5s -> 10s with jitter; pauses when the tab is hidden; stops on a terminal
+   state (delivered / attention / failed); gives up after a ceiling and tells you. */
+async function pollOrder(orderId, jobId, p){
+  const started = Date.now();
+  const CEILING_MS = 4*60*1000;
+  let step = 0;
+  const delays = [2000,2000,3000,5000,5000,10000];    // then holds at 10s
+  async function tick(){
+    if(document.hidden){ return schedule(3000); }      // don't poll a hidden tab
+    let order=null;
+    try{
+      const res = await fetch(CONFIG.STATUS_URL + '?orderId=' + encodeURIComponent(orderId));
+      if(res.ok) order = await res.json();
+    }catch(e){ /* transient; keep polling */ }
+    if(order){
+      if(order.status==='delivered' && order.assets && order.assets.length){ hideTicker(); addToGallery(order.assets[0], orderId, p); resetGen(); return; }
+      if(order.status==='attention'){ hideTicker(); addAttentionCard(orderId); resetGen(); return; }
+      if(order.status==='failed'){ stuck('That job failed. Check the worker logs.'); resetGen(); return; }
+    }
+    if(Date.now()-started > CEILING_MS){ stuck('Still working after a few minutes &mdash; it\u2019ll land in the gallery (or we\u2019ll email you). You can stop watching.'); resetGen(); return; }
+    schedule(delays[Math.min(step++, delays.length-1)]);
+  }
+  function schedule(base){ const jitter=Math.random()*600; setTimeout(tick, base+jitter); }
+  schedule(1500);
+}
+function hideTicker(){ $('ticker').classList.remove('show'); }
+
+/* ---------------- gallery ---------------- */
+function addToGallery(asset, orderId, p){
+  $('galleryEmpty') && $('galleryEmpty').remove();
+  const c = document.createElement('div'); c.className='card';
+  const f = asset.fulfillment || { kind:'digital', options:[] };
+  const partners = (f.options||[]).map(o=>`<a href="${escapeHtml(o.url)}" target="_blank" rel="noopener nofollow">${escapeHtml(o.name)}</a>`).join('');
+  c.innerHTML = `
+    <div class="preview"><img src="${escapeHtml(asset.assetUrl)}" alt="${escapeHtml(asset.fileName||'asset')}" loading="lazy"></div>
+    <div class="body">
+      <div class="fn">${escapeHtml(asset.fileName||'artwork.png')}</div>
+      <div class="meta">${escapeHtml((asset.widthIn||p.widthIn)+'')}&times;${escapeHtml((asset.heightIn||p.heightIn)+'')} in &middot; ${escapeHtml(asset.px||'')} &middot; ${escapeHtml(String(asset.dpi||''))} DPI<span class="tierpill">${escapeHtml(asset.tier||'')}</span></div>
+      <div class="acts">
+        <div class="row">
+          <a href="${escapeHtml(asset.assetUrl)}" download="${escapeHtml(asset.fileName||'artwork.png')}">Download File</a>
+        </div>
+        ${partners?`<div class="row">${partners}</div><div class="disclaim">${escapeHtml(f.note||'')}</div>`:''}
+        <div class="row"><button class="reject" style="flex:1">Reject / Send to Olin</button></div>
+      </div>
+    </div>`;
+  c.querySelector('.reject').addEventListener('click', ()=>rejectToOlin(orderId, asset, c));
+  $('gallery').prepend(c);
+}
+function addAttentionCard(orderId){
+  $('galleryEmpty') && $('galleryEmpty').remove();
+  const c=document.createElement('div'); c.className='card attention';
+  c.innerHTML=`<div class="att-note"><b>Routed to Olin.</b><br>The automated QA flagged this one (order ${escapeHtml(orderId.slice(0,14))}&hellip;). A human designer will finish it.</div>`;
+  $('gallery').prepend(c);
+}
+
+/* ---------------- reject -> olin_handoffs (real columns) ---------------- */
+async function rejectToOlin(orderId, asset, cardEl){
+  const why = prompt('What\u2019s wrong with it? (goes to Olin)') || 'rejected in test harness';
+  const btn = cardEl.querySelector('.reject'); btn.disabled=true; btn.textContent='Sending&hellip;';
+  try{
+    const r = await fetch(CONFIG.REJECT_URL, { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ founderToken: CONFIG.FOUNDER_TOKEN, orderId, why }) });
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    btn.textContent='Sent to Olin \u2713'; btn.style.borderColor='var(--green)'; btn.style.color='var(--green)';
+  }catch(e){ btn.disabled=false; btn.textContent='Reject failed \u2014 retry'; }
+}
+</script>
+</body>
+</html>

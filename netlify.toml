@@ -1,0 +1,100 @@
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[build]
+  functions = "netlify/functions"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), camera=(), microphone=(self)"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # 2026-07-30: api.openai.com added to connect-src. The realtime voice intake POSTs its
+    # WebRTC offer to api.openai.com/v1/realtime/calls; without it the browser blocks the
+    # call and the panel reports 'Load failed'. Removing it silently kills voice.
+    # Enforcing CSP (was report-only in _headers). media-src added so the film's
+    # Veo scenes / voice / music load from Supabase storage — without it the
+    # sparkfilm1 player would be blocked. Single source of truth: this file.
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' blob: https://*.supabase.co; connect-src 'self' https://*.supabase.co https://api.stripe.com https://api.openai.com; frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://www.youtube.com"
+
+[[headers]]
+  for = "/styles.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/smn.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# THE WORKSPACE CORE (2026-07-26). 441KB was moved out of workspace.html so the browser can
+# reuse it between visits. There was no rule for /js/*, so it depended on an undocumented
+# platform default — this makes it deterministic.
+# must-revalidate, NOT a long max-age: the filename carries no content hash, so a long cache
+# would serve a stale core after a deploy and the workspace would run yesterday's code against
+# today's markup. With an ETag a repeat visit costs a ~200 byte 304 instead of 441KB, which is
+# the whole benefit, without the risk.
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# CO-48 (2026-07-06): the Watchdog finally gets a pulse — every 5 minutes it revives
+# stalled tasks, wakes the foreman, and resurrects stuck claims. Starvation is over.
+[functions."order-watchdog"]
+  schedule = "*/5 * * * *"
+
+# Finance Center: send the referral statement on the last day of each month and a
+# friendly reminder on the 9th (due the 10th). Runs daily; the function decides.
+[functions."finance-cron"]
+  schedule = "0 13 * * *"
+
+# UNDELIVERED ORDER SWEEP (2026-07-26). A paying customer's finished brand sat in the database
+# for four days with no email and nothing noticed. The delivery backstop protects a single run;
+# it cannot help when the run itself dies. This asks the only question that matters — is there
+# a finished brand that never reached the person who paid for it — and reports. It never emails
+# a customer. Once a day at 14:00 UTC, an hour after the finance run so they do not collide.
+[functions."undelivered-sweep"]
+  schedule = "0 14 * * *"
+
+# API ROUTE MAPPING (2026-07-26)
+# The Smart Command Bar posts to /api/generate-asset. Netlify serves functions from
+# /.netlify/functions/, so without this rule that path 404s.
+#
+# status = 200 is a REWRITE, not a redirect: the browser keeps the /api/ URL and — the part
+# that actually matters here — the POST method and JSON body survive. A 301/302 would turn
+# the POST into a GET and the body would vanish.
+#
+# force = true so the rule wins even if a file ever appears at that path.
+#
+# NOTE: this project also has a root _redirects file (two /july22/ rules). Netlify processes
+# netlify.toml rules first, then _redirects, so both continue to work. Recorded here so a
+# future session does not "discover" the split and consolidate one of them away.
+[[redirects]]
+  from = "/api/generate-asset"
+  to = "/.netlify/functions/generate-asset"
+  status = 200
+  force = true
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Sandbox agency-OS worker tick (isolated; sandbox_ tables only)
+[functions."sandbox-tick"]
+  schedule = "* * * * *"

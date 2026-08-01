@@ -1,0 +1,103 @@
+SPARKMYNAME — API DEPRECATION SWEEP — VERIFICATION REPORT
+Checkpoint: July 29 2026, 2015 (evening)
+Instruction: "do it first" — clear SparkMyName's exposure to OpenAI model shutdowns.
+Standard applied: PROVE, don't guess. Nothing below is claimed as working unless a
+grep-proof, node --check, or wiring trace confirmed it. Falsifiable checks shown.
+
+RESULT: The sweep's two code changes were ALREADY correctly in place on this disc
+(dated 2026-07-29 1819, produced after the July 27 banked note). This pass VERIFIED
+them line-by-line, ran a full syntax sweep of all 162 function files, and confirmed
+there is no hidden exposure to any other dying OpenAI endpoint. No new code edits were
+required. One human action remains (TTS ear-check) that only the Founder can perform.
+
+------------------------------------------------------------------------------------
+1) IMAGE FALLBACK — netlify/functions/studio-engine.js   (gpt-image-1 shuts 2026-10-23)
+------------------------------------------------------------------------------------
+STATE: Env override present and correctly wired. Default intentionally left as the
+       currently-live model, flip-ready to gpt-image-2.
+
+   Line 151:  var IMG_MODEL = process.env.OPENAI_IMAGE_MODEL || 'gpt-image-1';
+   Line 158:  body: JSON.stringify({ model:IMG_MODEL, prompt:prompt, size:'1536x1024', n:1 })
+   Line 162/163: response objects report model:IMG_MODEL
+
+PROOF:
+   - "gpt-image-1" appears in CODE on exactly one line (151), the env-overridable default.
+     All other matches are comments. (grep, comment lines excluded)
+   - IMG_MODEL is threaded into the request body AND both response variants (grep, above).
+   - Endpoint wiring intact: OPENAI_URL = https://api.openai.com/v1/images/generations
+     used by the guarded fetch at line 156.
+   - node --check studio-engine.js -> SYNTAX OK.
+
+DECISION (honest, per Truth Standard): the default is NOT flipped to gpt-image-2 in code
+   right now. Reason: from this build sandbox I cannot reach OpenAI's API to verify that
+   gpt-image-2 is live and accepting the identical request shape TODAY. Flipping the
+   default to a model I have not verified would risk breaking a fallback that currently
+   works. gpt-image-1 remains live until 2026-10-23. Migration is a one-word env flip
+   (set OPENAI_IMAGE_MODEL=gpt-image-2 in Netlify) the moment gpt-image-2 is confirmed
+   live — no code change, no redeploy of this file needed. This is the last-resort tier
+   behind Gemini, so it is a safety net, not the live path.
+
+------------------------------------------------------------------------------------
+2) SEARCH HARNESS — netlify/functions/name-search-test.js  (gpt-4o-search-preview DEAD)
+------------------------------------------------------------------------------------
+STATE: Fully repointed. Dead parameter removed. Standalone (not wired to any page).
+
+   Line 8:   const SEARCH_MODEL = process.env.SEARCH_MODEL || 'gpt-5.6-terra';
+   Line 56:  model: SEARCH_MODEL   (threaded into request; also reported at lines 63, 84)
+
+PROOF:
+   - "gpt-4o-search-preview" appears in CODE nowhere — only in one explanatory comment.
+   - "web_search_options" appears in CODE nowhere — only in one comment noting its removal.
+     (Both confirmed by grep with comment lines excluded.)
+   - Request body (lines 55-59) contains ONLY: model, max_tokens, messages. No dead param.
+   - Wiring claim verified: grep of all .html found ZERO references to name-search-test,
+     confirming it is a standalone harness with no live-page dependency.
+   - node --check name-search-test.js -> SYNTAX OK.
+
+------------------------------------------------------------------------------------
+3) FILM NARRATION TTS — 21 producers  (dated snapshot 2025-03-20 retired 2026-07-23)
+------------------------------------------------------------------------------------
+STATE: No code change required — all producers use the bare, auto-rolling alias.
+
+PROOF:
+   - "gpt-4o-mini-tts" (bare alias) used in 21 producer files (count matches the note).
+   - Retired dated snapshot "...-2025-03-20": ZERO pins found anywhere. The alias rolls
+     to the current snapshot automatically.
+   - node --check on all producers -> SYNTAX OK (part of the 162-file sweep).
+
+OPEN ACTION (Founder only — I cannot listen to audio): per-brand voice casting is
+   locked, and the alias silently rolled to a new snapshot, so ear-check ONE existing
+   film to confirm the voice still sounds right. If a voice drifted, tell me which film
+   and I will pin/adjust it.
+
+------------------------------------------------------------------------------------
+4) NO HIDDEN EXPOSURE — other OpenAI shutdowns
+------------------------------------------------------------------------------------
+Swept netlify/functions for every endpoint the note flagged. All ZERO:
+   v1/assistants ... none      v1/threads ...... none
+   v1/prompts ...... none      v1/fine_tuning .. none
+   fine-tuning ..... none      /evals .......... none
+   sora ............ none      v1/videos ....... none
+=> Spark is not exposed to the Assistants API (Aug 26), reusable prompts / Agent Builder
+   / Evals (Nov 30), self-serve fine-tuning, or the Sora 2 / OpenAI Videos shutdown
+   (Sep 24). Confirmed by grep, not by memory.
+
+Observation (outside this OpenAI sweep, no action taken): two OLDER producers
+   (premiere-produce-background.js, goldreel-produce-background.js) carry comments
+   referencing Google "Veo" video scenes. Veo is Google, not OpenAI, and is not on any
+   deprecation list here — so it is unaffected by these shutdowns. Flagged only for
+   truth; nothing was changed.
+
+------------------------------------------------------------------------------------
+5) SPINE PROTECTION — untouched
+------------------------------------------------------------------------------------
+   clean-names.js MODEL = process.env.CLEAN_MODEL || 'gpt-4o-mini'  (line 8) — unchanged.
+   gpt-4o-mini / gpt-4o are NOT deprecated. node --check -> SYNTAX OK. Not edited.
+
+------------------------------------------------------------------------------------
+FULL BUG SWEEP
+------------------------------------------------------------------------------------
+   node --check ran on ALL 162 files in netlify/functions/ -> 0 syntax errors.
+
+FILES CHANGED THIS CHECKPOINT: none (verification only; the fixes were already correct).
+DOCS ADDED: this report + WHAT_WAS_DONE_2026-07-29.txt (session ledger).

@@ -1,0 +1,7 @@
+/* SITE-WIDE FOOTER (Founder order 2026-07-31 night): the homepage footer, everywhere. */
+
+/* CONTRAST LIFT (Founder): the faded words step forward — still elegant, no longer hidden. */
+footer, footer p, footer span, footer div{color:rgba(234,242,255,.82)}
+footer a{color:rgba(234,242,255,.88)}
+footer a:hover{color:#FFFFFF}
+footer .legal, footer small{color:rgba(234,242,255,.72)}

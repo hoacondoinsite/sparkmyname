@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="noindex,nofollow" name="robots"/>
+<title>QA Batch Tester — SparkMyName</title>
+<meta content="Internal quality assurance batch runner for SparkMyName." name="description"/>
+<style>
+  :root{ --ink:#111; --mut:#6e6e73; --line:#e3ded6; --orange:#189850; --bg:#FFFFFF; --card:#fff; --ok:#1f9d55; --warn:#b8860b; }
+  *{box-sizing:border-box}
+  body{margin:0;font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);}
+  .wrap{max-width:760px;margin:0 auto;padding:28px 20px 80px;}
+  .badge{display:inline-block;background:#fff3e9;color:var(--orange);border:1px solid #ffd9c2;border-radius:999px;padding:4px 12px;font-size:.7812rem;font-weight:700;letter-spacing:.02em;margin-bottom:14px;}
+  h1{font-size:1.625rem;margin:0 0 6px;letter-spacing:-.01em;}
+  .sub{color:var(--mut);margin:0 0 22px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:18px;}
+  label{display:block;font-weight:700;font-size:.875rem;margin:0 0 8px;}
+  input[type=email]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:1rem;}
+  textarea{width:100%;min-height:200px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:1rem;resize:vertical;font-family:inherit;line-height:1.6;}
+  .hint{color:var(--mut);font-size:.8438rem;margin:8px 0 0;}
+  .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px;}
+  button{appearance:none;border:0;border-radius:12px;padding:14px 22px;font-size:1rem;font-weight:700;cursor:pointer;}
+  .go{background:var(--orange);color:#fff;}
+  .go:disabled{opacity:.5;cursor:not-allowed;}
+  .ghost{background:#f2efe9;color:var(--ink);}
+  .count{color:var(--mut);font-size:.875rem;}
+  .status{margin-top:6px;}
+  .item{display:flex;align-items:center;gap:10px;padding:9px 2px;border-bottom:1px solid var(--line);font-size:.9375rem;}
+  .item:last-child{border-bottom:0;}
+  .dot{width:18px;height:18px;border-radius:50%;flex:0 0 18px;display:inline-flex;align-items:center;justify-content:center;font-size:.6875rem;color:#141414;}
+  .d-wait{background:#cfc8bd;} .d-go{background:var(--warn);} .d-ok{background:var(--ok);} .d-err{background:#c0392b;}
+  .name{flex:1;}
+  .st{color:var(--mut);font-size:.8125rem;}
+  .done-banner{display:none;background:#eafaf0;border:1px solid #b9e6cb;color:#0d6b35;border-radius:12px;padding:14px 16px;margin-top:16px;font-weight:600;}
+  .done-banner a{color:#0d6b35;font-weight:800;}
+  a.hublink{color:#189850!important;font-weight:700;text-decoration:none;}
+  .foot{color:var(--mut);font-size:.7812rem;margin-top:26px;line-height:1.6;}
+
+/* ===== DEVICE SAFETY (28 July 2026 sweep) =====
+   Applied to every page. Two faults were site-wide:
+   1. 100vw includes the scrollbar width, so any element using it is wider than the viewport
+      and forces a sideways scroll. overflow-x:hidden on the root stops that everywhere.
+   2. Tap targets under 44px fail Apple's and Google's minimum and are genuinely hard to hit
+      on a phone. Every interactive element now meets 44px.
+   ===== */
+html,body{overflow-x:hidden;max-width:100%}
+*{min-width:0}
+img,video,iframe,table,pre{max-width:100%}
+a,button,select,summary,[role="button"],input[type="submit"],input[type="button"]{
+  min-height:44px}
+a{display:inline-flex;align-items:center}
+a.inline-link,p a,li a,.dis a,.fnote a{display:inline;min-height:0}
+input,textarea,select{font-size:16px}
+@media(max-width:480px){
+  body{-webkit-text-size-adjust:100%}
+}
+</style>
+<link href="assets/smn-readability-fix.css?v=1" rel="stylesheet"/>
+<style>/* CO226 founder-tool aurora */
+body{background:#FFFFFF!important;color:#141414!important;font-family:'Inter',system-ui,sans-serif!important}
+h1,h2{color:#2F3B35!important;font-weight:900!important}
+h1{background:linear-gradient(92deg,#127A40,#189850 45%,#189850);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+button,input[type=submit]{background:linear-gradient(92deg,#189850,#189850)!important;color:#fff!important;border:0!important;border-radius:12px!important;font-weight:800!important}
+input,textarea,select{background:#F4F6F5!important;color:#FFFFFF!important;border:1px solid rgba(20,60,40,.2)!important;border-radius:12px!important}
+::placeholder{color:#565656!important}
+a{color:#189850!important}
+p,li,td,label,span,div{color:#404040}
+b,strong,th{color:#141414!important}
+table,td,th{border-color:rgba(20,60,40,.16)!important}
+:focus-visible{outline:3px solid #127A40!important}
+</style><style>/* CO226b tool contrast */
+a.hublink,.hublink{color:#189850!important}
+.fpt{background:#F4F6F5!important;color:#404040!important;border-color:rgba(20,60,40,.2)!important}
+.warn{background:#3B1220!important;color:#C0392B!important;border-color:#189850!important}
+.hublink{color:#189850!important}
+
+/* iOS zoom trap (2026-07-25): Safari force-zooms on focus when a field is under 16px.
+   Scoped to coarse pointers so desktop sizing is untouched. */
+@media (pointer: coarse) {
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"],
+  input[type="search"], input[type="password"], input:not([type]), textarea, select {
+    font-size: max(1rem, 16px) !important;
+  }
+}
+</style><link href="/favicon-32.png" rel="icon" type="image/png"/><link href="/favicon.ico" rel="shortcut icon"/><link href="/icon-192.png" rel="apple-touch-icon"/><script>
+/* ERROR BOUNDARY (2026-07-25). Audit found window.onerror: 0, unhandledrejection: 0,
+   <noscript>: 0 across every page. One thrown error inside a render function produced a blank
+   card with no message and no clue — which is exactly how this afternoon's failure presented.
+   This never swallows the error (it still reaches the console); it guarantees the user is TOLD.
+   Placed in <head> so it is armed before any page script runs. */
+(function(){
+  var shown=false;
+  function boom(what){
+    if(shown)return; shown=true;
+    try{
+      var d=document.createElement('div');
+      d.setAttribute('role','alert');
+      d.style.cssText='position:fixed;left:12px;right:12px;'+
+        'bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:2147483000;'+
+        'padding:14px 16px;border-radius:12px;background:#FDF6F8;border:1px solid #189850;'+
+        'color:#127A40;font:600 14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;'+
+        'box-shadow:0 18px 44px -12px rgba(0,0,0,.6)';
+      d.textContent='Something went wrong on this page. Reload to try again. ('+String(what).slice(0,120)+')';
+      (document.body||document.documentElement).appendChild(d);
+    }catch(e){}
+  }
+  window.addEventListener('error',function(e){ boom((e&&e.message)||'script error'); });
+  window.addEventListener('unhandledrejection',function(e){
+    var r=e&&e.reason; boom((r&&(r.message||r))||'a request failed'); });
+})();
+</script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="css/uniform.css" rel="stylesheet"/>
+<meta content="#189850" name="theme-color"/>
+<link rel="stylesheet" href="css/site-footer.css">
+</head>
+<body data-smnfix="qa-batch">
+<div class="wrap">
+<div class="badge">QA — TESTING ONLY · NO PAYMENT</div>
+<h1>Batch Report Tester</h1>
+<p class="sub">Paste a list of businesses, click once, and full Brand Launch Packages are built straight into your hub — no checkout. Then open <strong>My Brands</strong> to review them all.</p>
+<div class="card">
+<label for="email">Deliver to (the email you sign into My Brands with)</label>
+<input autocomplete="email" id="email" type="email" value="peterkleinusa@gmail.com"/>
+<p class="hint">All reports below will appear in this account’s hub.</p>
+</div>
+<div class="card">
+<label for="list">Businesses — one per line (commas also work)</label>
+<textarea id="list" placeholder="Mortgage Broker
+Financial Planner
+Insurance
+Chinese Restaurant
+HVAC
+Family Law
+Personal Injury
+Pediatric Dentist
+Podcast
+SaaS"></textarea>
+<p class="hint">List numbers like "1." and bullets are stripped automatically. Duplicates are removed.</p>
+<div class="row">
+<button class="go" id="go">Generate full reports</button>
+<button class="ghost" id="clear" type="button">Clear</button>
+<span class="count" id="count"></span>
+</div>
+</div>
+<div class="card" id="statusCard" style="display:none;">
+<label>Progress</label>
+<div class="status" id="status"></div>
+<div class="done-banner" id="done"></div>
+</div>
+<p class="foot">
+    This page uses the QA bypass (<code>qa:true,qaKey:(localStorage.getItem('smn_qa_key')||'')</code> → deliver-background) and does not charge anything. Each report builds in the background (names + verified-available domains + full kits) and lands in the hub for the email above within a few minutes — heavier categories take longer. <strong>Remove this page (and set QA_ENABLED=false) before the site goes public.</strong>
+<br/>Open your hub: <a class="hublinkX" href="account.html" style="color:#189850 !important">My Brands →</a>
+</p>
+</div>
+<script>
+(function(){
+  var listEl = document.getElementById('list');
+  var emailEl = document.getElementById('email');
+  var goBtn = document.getElementById('go');
+  var clearBtn = document.getElementById('clear');
+  var countEl = document.getElementById('count');
+  var statusCard = document.getElementById('statusCard');
+  var statusEl = document.getElementById('status');
+  var doneEl = document.getElementById('done');
+  var ENDPOINT = '/.netlify/functions/deliver-background';
+  var STAGGER_MS = 2500; // space out fires so OpenAI isn't hammered all at once
+
+  function parseList(raw){
+    var parts = String(raw||'').split(/[\n,]/);
+    var seen = {}, out = [];
+    for (var i=0;i<parts.length;i++){
+      var t = parts[i].replace(/^\s*[-•\u2022]?\s*\d*[\.\)]?\s*/,'').trim(); // strip leading bullets/numbering
+      if (!t) continue;
+      var k = t.toLowerCase();
+      if (seen[k]) continue;
+      seen[k] = 1; out.push(t);
+    }
+    return out;
+  }
+
+  function refreshCount(){
+    var n = parseList(listEl.value).length;
+    countEl.textContent = n ? (n + (n===1?' business':' businesses') + ' ready') : '';
+    goBtn.disabled = n===0;
+  }
+  listEl.addEventListener('input', refreshCount);
+  clearBtn.addEventListener('click', function(){ listEl.value=''; refreshCount(); });
+  refreshCount();
+
+  function row(name){
+    var d = document.createElement('div'); d.className='item';
+    var dot = document.createElement('span'); dot.className='dot d-wait'; dot.textContent='';
+    var nm = document.createElement('span'); nm.className='name'; nm.textContent=name;
+    var st = document.createElement('span'); st.className='st'; st.textContent='waiting';
+    d.appendChild(dot); d.appendChild(nm); d.appendChild(st);
+    statusEl.appendChild(d);
+    return { dot:dot, st:st };
+  }
+  function setState(r, cls, sym, txt){ r.dot.className='dot '+cls; r.dot.textContent=sym; r.st.textContent=txt; }
+  function wait(ms){ return new Promise(function(res){ setTimeout(res, ms); }); }
+
+  goBtn.addEventListener('click', async function(){
+    var email = (emailEl.value||'').trim();
+    if (email.indexOf('@') < 1){ alert('Please enter the email you use to sign into My Brands.'); return; }
+    var items = parseList(listEl.value);
+    if (!items.length) return;
+
+    goBtn.disabled = true; clearBtn.disabled = true; listEl.disabled = true; emailEl.disabled = true;
+    statusCard.style.display = 'block'; statusEl.innerHTML = ''; doneEl.style.display='none';
+    var rows = items.map(row);
+    var ok = 0, fail = 0;
+
+    for (var i=0;i<items.length;i++){
+      var r = rows[i];
+      setState(r, 'd-go', '', 'sending…');
+      try {
+        var resp = await fetch(ENDPOINT, {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ qa:true,qaKey:(localStorage.getItem('smn_qa_key')||''), seed: items[i], email: email })
+        });
+        // background functions return 202 Accepted; any 2xx means it's queued
+        if (resp.status >= 200 && resp.status < 300){ ok++; setState(r,'d-ok','\u2713','queued — building in your hub'); }
+        else { fail++; setState(r,'d-err','!','error ('+resp.status+')'); }
+      } catch (e){ fail++; setState(r,'d-err','!','network error'); }
+      if (i < items.length-1) await wait(STAGGER_MS);
+    }
+
+    doneEl.style.display='block';
+    doneEl.innerHTML = ok + ' report' + (ok===1?'':'s') + ' queued' + (fail? (' · '+fail+' failed') : '') +
+      '. They\u2019re building in the background — open <a href="account.html">My Brands</a> in a few minutes to review them all.';
+    goBtn.disabled = false; clearBtn.disabled = false; listEl.disabled = false; emailEl.disabled = false;
+  });
+})();
+</script>
+<footer class="ft"><div class="wrap">
+<div class="ftgrid">
+<div class="ftbrand">
+<a class="wm" href="index.html"><span class="mk"><svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.3l2.7 6.3 6.8.6-5.2 4.5 1.6 6.7-5.9-3.6-5.9 3.6 1.6-6.7-5.2-4.5 6.8-.6z" fill="#fff"></path></svg></span>Spark<span>MyName</span><sup class="tm">&trade;</sup></a>
+<p>Say one sentence. Get a complete brand &mdash; and everything you need to launch it.</p>
+</div>
+<div class="ftcol"><h3>Product</h3>
+<a href="how-it-works.html">How it works</a>
+<a href="what-you-get.html">What you get</a>
+<a href="see-the-work.html">See the work</a>
+<a href="pricing.html">Pricing</a>
+<a href="demo.html">Demo workspace</a>
+<a href="checkout.html" data-checkout>Get started</a></div>
+<div class="ftcol"><h3>Company</h3>
+<a href="about.html">About</a>
+<a href="success-path.html">The Success Path</a>
+<a href="affiliate.html">Affiliate program</a>
+<a href="press.html">Press</a></div>
+<div class="ftcol"><h3>Support</h3>
+<a href="support.html">Help &amp; support</a>
+<a href="status.html">Status</a>
+</div>
+<div class="ftcol"><h3>Legal</h3>
+<a href="privacy.html">Privacy</a>
+<a href="terms.html">Terms</a>
+<a href="cookies.html">Cookies</a>
+<a href="refund.html">Refunds</a>
+<a href="accessibility.html">Accessibility</a>
+<a href="security.html">Security</a></div>
+</div>
+<div class="ftlegal">
+<p>AI-generated suggestions are for informational purposes only and are not legal, trademark, tax, financial, or domain-registration advice &mdash; consult a qualified professional. We do not perform trademark clearance, and we do not build or host customer websites.</p>
+<p>&copy; 2026 SparkMyName<sup class="tm">&trade;</sup> &middot; Owned by VORREX IGNITE LLC &middot; U.S. Patent Pending (App. 19/704,386) &middot; Trademark application pending, Serial No. 50014040 &mdash; not registered.<span style="display:block;margin-top:6px;font-size:11px;opacity:.55">Site build: SPACIOUS RESKIN &middot; July 29, 2026</span></p>
+</div>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SparkMyName&trade; — Launch your dream business in one sentence</title>
+<meta name="description" content="Say one sentence. Get a complete brand: six names with the domains already checked, a logo suite, colors, type, the words to launch with, and cinematic photography. $99, one time, yours forever.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   CONCEPT — /july27/. Not linked, not in the sitemap, not live. noindex set.
+   OPTION 1: the ZenBusiness interaction patterns over the Business in a Box
+   value architecture, on the SparkMyName design system.
+   RECONCILING TWO SPECS: the brief asks for fluid clamp() headings; the design
+   law fixes seven type steps. Both are honoured — every clamp is ANCHORED to
+   the scale, so text scales fluidly but never lands on a size outside the law.
+   ========================================================================== */
+:root{
+  --t-meta:13px; --t-body:16px; --t-lead:20px; --t-head:25px;
+  --t-title:31px; --t-display:39px; --t-hero:49px;
+  --ink1:#FFFFFF; --ink2:#B9CBE8; --ink3:#8399BD;
+  --bg:#0A1428; --panel:#102143; --panel2:#0D1B38;
+  --line:rgba(160,190,255,.18);
+  --cyan:#21D4FD; --violet:#7C5CFF; --pink:#FF4D8D; --amber:#FFB020;
+  --ok:#3BE88F; --no:#FF7B93;
+  --r-sm:8px; --r-md:12px; --r-lg:18px; --r-xl:26px; --r-full:999px;
+  --grad:linear-gradient(92deg,var(--violet),var(--pink));
+  --tri:linear-gradient(92deg,var(--cyan),var(--violet) 55%,var(--pink));
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink2);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:var(--t-body);line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{color:var(--ink1);margin:0;letter-spacing:-.025em;line-height:1.15}
+p{margin:0 0 18px}
+/* MOBILE FIRST: 4rem sections, 6rem from tablet up */
+section{padding:4rem 0}
+@media(min-width:768px){section{padding:6rem 0}}
+.wrap{max-width:1200px;margin:0 auto;padding:0 1.5rem}
+h1{font-size:clamp(var(--t-display),5vw + 1rem,60px);font-weight:900;line-height:1.08}
+h2{font-size:clamp(var(--t-title),3vw + 1rem,44px);font-weight:900;line-height:1.18}
+h3{font-size:var(--t-lead);font-weight:800}
+.lead{font-size:clamp(var(--t-body),1vw + .5rem,var(--t-lead));line-height:1.6;color:var(--ink1)}
+.eyebrow{font-size:var(--t-meta);font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:12px}
+.rule{width:38px;height:3px;border-radius:var(--r-sm);background:var(--tri);margin-bottom:20px}
+.grad{background:var(--tri);-webkit-background-clip:text;background-clip:text;color:transparent}
+.center{text-align:center}
+/* TOUCH: never below 48x48 */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;cursor:pointer;
+  font:inherit;font-size:var(--t-body);font-weight:800;min-height:48px;padding:15px 30px;
+  border-radius:var(--r-full);text-decoration:none;background:var(--grad);color:#fff;
+  box-shadow:0 16px 40px -16px rgba(255,77,141,.6);transition:transform .16s ease,filter .16s ease}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
+.btn.ghost{background:none;border:1px solid var(--line);color:var(--ink1);box-shadow:none}
+.btn.ghost:hover{background:rgba(160,190,255,.08)}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:3px;border-radius:var(--r-sm)}
+
+/* ---------------- NAV ---------------- */
+.nav{position:sticky;top:0;z-index:60;background:rgba(10,20,40,.88);
+  backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding-top:14px;padding-bottom:14px}
+.brand{font-size:var(--t-lead);font-weight:900;color:var(--ink1);text-decoration:none;letter-spacing:-.03em}
+.navlinks{display:none;gap:26px;font-size:var(--t-meta);font-weight:700}
+.navlinks a{color:var(--ink2);text-decoration:none}
+.navlinks a:hover{color:var(--ink1)}
+@media(min-width:1024px){.navlinks{display:flex}}
+.nav .btn{padding:11px 22px;font-size:var(--t-meta);min-height:44px}
+
+/* ---------------- HERO ---------------- */
+.hero{position:relative;overflow:hidden;padding:3.5rem 0 4rem}
+@media(min-width:768px){.hero{padding:5rem 0 5.5rem}}
+.heroglow{position:absolute;inset:0;z-index:0;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.24}
+.o1{width:620px;height:620px;background:var(--violet);top:-240px;left:-180px}
+.o2{width:520px;height:520px;background:var(--cyan);bottom:-260px;right:-160px;opacity:.16}
+.hero .wrap{position:relative;z-index:1}
+.badge99{display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(255,176,32,.5);
+  background:rgba(255,176,32,.1);border-radius:var(--r-full);padding:9px 18px;
+  font-size:var(--t-meta);font-weight:800;color:var(--ink1);margin-bottom:20px}
+.hero .sub{font-size:clamp(var(--t-body),1vw + .55rem,var(--t-lead));color:var(--ink1);
+  max-width:52ch;margin:20px 0 30px;line-height:1.55}
+
+/* prompt box */
+.promptbox{border:1px solid var(--line);background:var(--panel2);border-radius:var(--r-xl);
+  padding:20px;box-shadow:0 34px 80px -46px rgba(124,92,255,.75);max-width:760px}
+.promptrow{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+#prompt-input{flex:1 1 260px;min-height:72px;resize:vertical;border:1px solid var(--line);
+  background:rgba(10,20,40,.6);color:var(--ink1);border-radius:var(--r-md);padding:14px 16px;
+  font:inherit;font-size:16px;line-height:1.5}         /* 16px prevents iOS zoom on focus */
+#prompt-input::placeholder{color:var(--ink3)}
+.pbtns{display:flex;gap:10px;align-items:center}
+#mic-btn{width:56px;height:56px;min-width:56px;border-radius:var(--r-full);cursor:pointer;
+  border:1px solid rgba(124,92,255,.55);background:rgba(124,92,255,.14);color:var(--ink1);
+  display:inline-flex;align-items:center;justify-content:center;transition:.16s}
+#mic-btn:hover{background:rgba(124,92,255,.28)}
+#mic-btn svg{width:26px;height:26px}
+#mic-btn.listening{background:var(--grad);border-color:transparent;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,77,141,.6)}50%{box-shadow:0 0 0 14px rgba(255,77,141,0)}}
+.phint{font-size:var(--t-meta);color:var(--ink2);margin:14px 0 0}
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;max-width:860px}
+.pill{border:1px solid var(--line);background:rgba(160,190,255,.05);color:var(--ink1);
+  border-radius:var(--r-full);padding:12px 18px;min-height:48px;font:inherit;
+  font-size:var(--t-meta);font-weight:600;cursor:pointer;transition:.14s}
+.pill:hover{background:rgba(124,92,255,.2);border-color:rgba(124,92,255,.5)}
+.heroshot{margin-top:38px;border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;
+  box-shadow:0 44px 100px -50px rgba(124,92,255,.8)}
+
+/* ---------------- STAGE SWITCHER ---------------- */
+.stages{background:var(--panel2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tabs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:26px 0 34px}
+@media(min-width:768px){.tabs{grid-template-columns:repeat(4,1fr);gap:14px}}
+.tab{border:1px solid var(--line);background:rgba(160,190,255,.04);color:var(--ink2);
+  border-radius:var(--r-lg);padding:18px 14px;min-height:48px;cursor:pointer;font:inherit;
+  font-size:var(--t-body);font-weight:800;letter-spacing:.06em;transition:.16s;text-align:center}
+.tab:hover{color:var(--ink1);background:rgba(160,190,255,.09)}
+.tab.active{color:var(--ink1);border-color:rgba(255,176,32,.65);
+  background:linear-gradient(180deg,rgba(255,176,32,.14),rgba(255,176,32,.05));
+  box-shadow:0 16px 40px -22px rgba(255,176,32,.75)}
+.stagebody{display:grid;grid-template-columns:1fr;gap:26px;align-items:center;
+  transition:opacity .2s ease}
+@media(min-width:900px){.stagebody{grid-template-columns:1fr 1fr;gap:44px}}
+.stagebody.fading{opacity:0}
+.stagecopy h3{font-size:clamp(var(--t-head),2.4vw,var(--t-title));margin-bottom:12px}
+.stagelist{list-style:none;padding:0;margin:0 0 24px}
+.stagelist li{position:relative;padding:9px 0 9px 28px;color:var(--ink1);font-size:var(--t-body)}
+.stagelist li::before{content:"\2713";position:absolute;left:0;color:var(--ok);font-weight:900}
+.stageshot{position:relative;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;
+  background:var(--panel);box-shadow:0 30px 70px -44px rgba(124,92,255,.8)}
+.stageshot img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.tryask{position:absolute;right:14px;bottom:14px;max-width:82%;
+  border:1px solid rgba(160,190,255,.34);background:rgba(10,20,40,.9);backdrop-filter:blur(10px);
+  border-radius:var(--r-full);padding:11px 18px;font-size:var(--t-meta);color:var(--ink1);
+  font-weight:600;line-height:1.4}
+.tryask b{color:var(--amber);font-weight:800}
+
+/* ---------------- VS ---------------- */
+.vs{max-width:820px;margin:34px auto 0;display:grid;gap:18px}
+.vscard{border:1px solid var(--line);border-radius:var(--r-lg);padding:28px 26px;background:var(--panel2)}
+.vscard.bad{border-color:rgba(255,123,147,.4)}
+.vscard.good{border-color:rgba(59,232,143,.45);
+  background:linear-gradient(180deg,rgba(59,232,143,.07),rgba(13,27,56,1))}
+.vshead{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.vshead h3{font-size:var(--t-head)}
+.vslist{list-style:none;padding:0;margin:0}
+.vslist li{position:relative;padding:9px 0 9px 30px;font-size:var(--t-body);color:var(--ink1);line-height:1.5}
+.vslist li::before{position:absolute;left:0;font-weight:900}
+.bad .vslist li::before{content:"\2715";color:var(--no)}
+.good .vslist li::before{content:"\2713";color:var(--ok)}
+.vsmid{text-align:center;font-size:var(--t-head);font-weight:900;color:var(--ink3);letter-spacing:.1em}
+
+/* ---------------- SHOWCASE ---------------- */
+.showgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:34px}
+.show{border:1px solid var(--line);background:var(--panel2);border-radius:var(--r-lg);overflow:hidden;
+  transition:transform .16s ease,border-color .16s ease}
+.show:hover{transform:translateY(-3px);border-color:rgba(124,92,255,.55)}
+.show .top{aspect-ratio:4/3;display:grid;place-items:center;font-size:44px;
+  background:linear-gradient(150deg,rgba(124,92,255,.16),rgba(33,212,253,.07))}
+.show .cap{padding:16px 18px}
+.show .cap b{display:block;color:var(--ink1);font-size:var(--t-body);font-weight:800;margin-bottom:4px}
+.show .cap span{font-size:var(--t-meta);color:var(--ink2);line-height:1.5}
+
+/* ---------------- HOW ---------------- */
+.steps{display:grid;gap:18px;margin-top:34px}
+@media(min-width:900px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{border:1px solid var(--line);background:var(--panel2);border-radius:var(--r-lg);padding:28px 26px}
+.step .n{width:44px;height:44px;border-radius:var(--r-full);display:grid;place-items:center;
+  font-weight:900;color:#fff;background:var(--grad);margin-bottom:16px;font-size:var(--t-lead)}
+.step p{font-size:var(--t-meta);color:var(--ink2);margin:8px 0 0;line-height:1.6}
+
+/* ---------------- INCLUDED ---------------- */
+.inc{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin-top:30px}
+.incitem{border:1px solid var(--line);background:var(--panel2);border-radius:var(--r-md);padding:16px 18px;
+  font-size:var(--t-body);color:var(--ink1);font-weight:600;display:flex;gap:10px;align-items:flex-start}
+.incitem i{font-style:normal;color:var(--ok);font-weight:900}
+.aigrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:24px}
+.ai{border:1px solid var(--line);background:var(--panel2);border-radius:var(--r-lg);padding:22px 20px}
+.ai .ic{font-size:30px;margin-bottom:10px}
+.ai b{display:block;color:var(--ink1);font-size:var(--t-body);font-weight:800;margin-bottom:5px}
+.ai span{font-size:var(--t-meta);color:var(--ink2);line-height:1.55}
+
+/* ---------------- FOUNDER ---------------- */
+.founder{background:var(--panel2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.fwrap{display:grid;gap:28px;align-items:center;max-width:960px;margin:0 auto}
+@media(min-width:860px){.fwrap{grid-template-columns:200px 1fr;gap:40px}}
+.fphoto{border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--line);
+  box-shadow:0 26px 60px -36px rgba(124,92,255,.8)}
+.fquote{font-size:clamp(var(--t-lead),2.2vw,var(--t-head));color:var(--ink1);font-weight:500;
+  line-height:1.5;font-style:italic;margin:0 0 16px}
+.fname{font-size:var(--t-meta);color:var(--ink2);font-weight:700}
+.seal{display:inline-flex;align-items:center;gap:12px;margin-top:24px;border-radius:var(--r-full);
+  border:1px solid rgba(59,232,143,.5);background:rgba(59,232,143,.09);padding:13px 22px}
+.seal .big{font-size:var(--t-lead);font-weight:900;color:var(--ok)}
+.seal .txt{font-size:var(--t-meta);color:var(--ink1);font-weight:700;line-height:1.4}
+
+/* ---------------- FINAL ---------------- */
+.finalbox{border:1px solid var(--line);background:var(--panel2);border-radius:var(--r-xl);
+  padding:46px 30px;max-width:660px;margin:32px auto 0;text-align:center;
+  box-shadow:0 44px 100px -54px rgba(124,92,255,.85)}
+.bignum{font-size:clamp(52px,10vw,80px);font-weight:900;color:var(--ink1);line-height:1;letter-spacing:-.04em}
+.signin{max-width:520px;margin:34px auto 0;border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:22px;background:rgba(160,190,255,.04)}
+.signrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.signrow input{flex:1 1 220px;min-height:48px;border:1px solid var(--line);border-radius:var(--r-md);
+  background:rgba(10,20,40,.6);color:var(--ink1);padding:13px 16px;font:inherit;font-size:16px}
+.signrow input::placeholder{color:var(--ink3)}
+
+footer{padding:44px 0 56px}
+.fnote{font-size:var(--t-meta);color:var(--ink3);line-height:1.75;max-width:78ch}
+.fnote b{color:var(--ink2)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+  background:var(--panel);border:1px solid var(--line);color:var(--ink1);border-radius:var(--r-full);
+  padding:14px 24px;font-size:var(--t-meta);font-weight:600;opacity:0;pointer-events:none;
+  transition:.22s;z-index:200;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">SparkMyName&trade;</a>
+    <div class="navlinks">
+      <a href="#stages">Your stage</a>
+      <a href="#compare">Compare</a>
+      <a href="#showcase">What $99 gets</a>
+      <a href="#how">How it works</a>
+      <a href="#included">What's included</a>
+    </div>
+    <a class="btn" href="#final">Start &mdash; $99</a>
+  </div>
+</nav>
+
+<!-- ================= 1. HERO ================= -->
+<header class="hero" id="top">
+  <div class="heroglow"><div class="orb o1"></div><div class="orb o2"></div></div>
+  <div class="wrap">
+    <div class="badge99">&#10022; $99 one time &mdash; no subscription, no hidden costs</div>
+    <h1>Launch your dream business<br><span class="grad">in just one sentence.</span></h1>
+    <p class="sub">From inspiration to action: your complete brand, ready to launch. Six names
+      with the domains already checked, a logo suite, colors, type, the words to open with, and
+      cinematic photography. One time. Yours forever.</p>
+
+    <!-- ---- say it or type it ---- -->
+    <div class="promptbox">
+      <label for="prompt-input" style="display:block;font-size:var(--t-meta);font-weight:800;
+        letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px">
+        Say it or type it &mdash; one sentence</label>
+      <div class="promptrow">
+        <textarea id="prompt-input" rows="2"
+          placeholder="A cozy wood-fired pizza and wine bar in Miami&hellip;"></textarea>
+        <div class="pbtns">
+          <button id="mic-btn" type="button" aria-label="Speak your idea" title="Speak your idea">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+          </button>
+          <button class="btn" id="go-btn" type="button">Build my brand &rarr;</button>
+        </div>
+      </div>
+      <p class="phint">Type it, or press the microphone and just talk. One sentence is all we need.</p>
+    </div>
+
+    <div class="pills" id="pills"></div>
+
+    <div class="heroshot">
+      <picture>
+        <source media="(max-width:720px)" srcset="assets/story-hero-mobile.jpg">
+        <img src="assets/story-hero-2k.jpg" width="2000" height="1334" fetchpriority="high"
+             alt="A SparkMyName brand package: the workspace on screen alongside printed business cards, signage and brand boards.">
+      </picture>
+    </div>
+  </div>
+</header>
+
+<!-- ================= 2. STAGE SWITCHER ================= -->
+<section class="stages" id="stages">
+  <div class="wrap">
+    <div class="eyebrow">Where are you on your journey?</div><div class="rule"></div>
+    <h2>Meet Spark wherever you&nbsp;are.</h2>
+    <div class="tabs" role="tablist" aria-label="Business stage">
+      <button class="tab active" role="tab" aria-selected="true" data-stage="0">DREAM</button>
+      <button class="tab" role="tab" aria-selected="false" data-stage="1">PLAN</button>
+      <button class="tab" role="tab" aria-selected="false" data-stage="2">START</button>
+      <button class="tab" role="tab" aria-selected="false" data-stage="3">GROW</button>
+    </div>
+    <div class="stagebody" id="stagebody">
+      <div class="stagecopy">
+        <h3 id="s-title"></h3>
+        <p id="s-desc" style="color:var(--ink1)"></p>
+        <ul class="stagelist" id="s-list"></ul>
+        <a class="btn" id="s-cta" href="#final"></a>
+      </div>
+      <div class="stageshot">
+        <img id="s-img" src="assets/story-hero-2k.jpg" alt="" width="2000" height="1334" loading="lazy">
+        <div class="tryask">Try asking Spark: <b id="s-ask"></b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3. VS ================= -->
+<section id="compare">
+  <div class="wrap">
+    <div class="center">
+      <h2>Free AI gives you homework.<br><span class="grad">Spark hands you a finished business.</span></h2>
+    </div>
+    <div class="vs">
+      <div class="vscard bad">
+        <div class="vshead"><h3>Doing it yourself with free AI</h3></div>
+        <ul class="vslist">
+          <li>A list of name ideas &mdash; most already taken</li>
+          <li>You check every domain by hand, one at a time</li>
+          <li>Generic images you cannot send to a printer</li>
+          <li>No colors, no fonts, no files, no system</li>
+          <li>Hours of work, and still nothing to put on a door</li>
+        </ul>
+      </div>
+      <div class="vsmid">VS</div>
+      <div class="vscard good">
+        <div class="vshead"><h3>SparkMyName&trade; &mdash; $99, once</h3></div>
+        <ul class="vslist">
+          <li>Six curated names, every one with an available .com</li>
+          <li>21 domain endings checked live, per name</li>
+          <li>A full logo suite in vector &mdash; print ready</li>
+          <li>Colors, type, taglines, bios and launch posts</li>
+          <li>Seven cinematic photographs made for your business</li>
+          <li>A workspace with 154 files that stays yours for life</li>
+        </ul>
+      </div>
+    </div>
+    <p class="center" style="margin-top:26px;color:var(--ink1);font-size:var(--t-lead)">
+      A logo designer alone typically costs more than this entire package.</p>
+  </div>
+</section>
+
+<!-- ================= 4. SHOWCASE ================= -->
+<section id="showcase" style="background:var(--panel2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="eyebrow">The package</div><div class="rule"></div>
+    <h2>This is what $99 looks&nbsp;like.</h2>
+    <div class="showgrid">
+      <div class="show"><div class="top">&#127912;</div><div class="cap"><b>Brand board</b>
+        <span>Your colors, type and logo suite on one sheet.</span></div></div>
+      <div class="show"><div class="top">&#128179;</div><div class="cap"><b>Business cards</b>
+        <span>Print ready, carrying your details when you add them.</span></div></div>
+      <div class="show"><div class="top">&#127974;</div><div class="cap"><b>Signage</b>
+        <span>Window decals, yard signs, banners, vehicle magnets.</span></div></div>
+      <div class="show"><div class="top">&#128241;</div><div class="cap"><b>Social kit</b>
+        <span>Platform sized posts, covers, avatars and launch words.</span></div></div>
+    </div>
+    <p style="margin-top:20px;font-size:var(--t-meta);color:var(--ink2)">
+      Illustrative of the formats produced. Your deliverables are generated for your business and
+      category, so a restaurant and a consultancy receive different pieces.</p>
+  </div>
+</section>
+
+<!-- ================= 5. HOW ================= -->
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow">How it works</div><div class="rule"></div>
+    <h2>Three steps. You only do the&nbsp;first.</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Speak or type your idea</h3>
+        <p>One sentence captures it. That is the entire input we need from you.</p></div>
+      <div class="step"><div class="n">2</div><h3>We build, and throw most away</h3>
+        <p>About 150 names are generated, every taken domain discarded, the rest scored against a
+          professional bar. Six survive.</p></div>
+      <div class="step"><div class="n">3</div><h3>Your brand arrives</h3>
+        <p>An email within about fifteen minutes, and a workspace holding everything &mdash;
+          yours to keep for good.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 6. INCLUDED + AI ================= -->
+<section id="included" style="background:var(--panel2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="eyebrow">What's included</div><div class="rule"></div>
+    <h2>Everything a new business actually&nbsp;needs.</h2>
+    <div class="inc">
+      <div class="incitem"><i>&#10003;</i> Six curated names</div>
+      <div class="incitem"><i>&#10003;</i> Available .com for each</div>
+      <div class="incitem"><i>&#10003;</i> 21 domain endings checked</div>
+      <div class="incitem"><i>&#10003;</i> Full logo suite, in vector</div>
+      <div class="incitem"><i>&#10003;</i> Three color palettes</div>
+      <div class="incitem"><i>&#10003;</i> Four font pairings</div>
+      <div class="incitem"><i>&#10003;</i> Six taglines</div>
+      <div class="incitem"><i>&#10003;</i> Six voice directions</div>
+      <div class="incitem"><i>&#10003;</i> Bios and about paragraphs</div>
+      <div class="incitem"><i>&#10003;</i> Six launch posts</div>
+      <div class="incitem"><i>&#10003;</i> Seven cinematic photographs</div>
+      <div class="incitem"><i>&#10003;</i> 154 files in your workspace</div>
+    </div>
+
+    <h3 style="margin-top:46px;font-size:var(--t-head)">Eight AI studios, already loaded with your brand</h3>
+    <div class="aigrid">
+      <div class="ai"><div class="ic">&#129302;</div><b>Brand Assistant</b>
+        <span>Ask anything about your brand. It knows your kit.</span></div>
+      <div class="ai"><div class="ic">&#9997;</div><b>Content Studio</b>
+        <span>Posts, captions and emails in your own voice.</span></div>
+      <div class="ai"><div class="ic">&#127912;</div><b>Logo Lab</b>
+        <span>Refine your marks and export fresh lockups.</span></div>
+      <div class="ai"><div class="ic">&#128173;</div><b>Name Engine</b>
+        <span>More names with matching domains, on demand.</span></div>
+      <div class="ai"><div class="ic">&#128200;</div><b>Market Pulse</b>
+        <span>Your niche: competitors, trends, positioning.</span></div>
+      <div class="ai"><div class="ic">&#10084;</div><b>Brand Health</b>
+        <span>A score, with the top three things to improve.</span></div>
+      <div class="ai"><div class="ic">&#127908;</div><b>Voice Tuner</b>
+        <span>Rewrites any copy into your brand's voice.</span></div>
+      <div class="ai"><div class="ic">&#128444;</div><b>Image Studio</b>
+        <span>New brand images whenever you need them.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 7. FOUNDER ================= -->
+<section class="founder">
+  <div class="wrap fwrap">
+    <div class="fphoto"><img src="assets/founder-photo.jpg" alt="Peter Klein, founder of SparkMyName"
+      width="400" height="400" loading="lazy"></div>
+    <div>
+      <div class="eyebrow">From the founder</div>
+      <p class="fquote">&ldquo;I have started companies my whole life. I built the whole brand
+        &mdash; not just the name. Now it's yours.&rdquo;</p>
+      <div class="fname">Peter Klein &middot; Founder, SparkMyName&trade;</div>
+      <div class="seal"><span class="big">100%</span>
+        <span class="txt">Seven-day money back.<br>No questions asked.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 8. FINAL ================= -->
+<section id="final">
+  <div class="wrap center">
+    <div class="eyebrow">One price</div>
+    <h2>Ninety-nine dollars. Once.</h2>
+    <div class="finalbox">
+      <div class="bignum">$99</div>
+      <p style="color:var(--ink1);font-size:var(--t-lead);font-weight:700;margin:8px 0 24px">
+        One time. Not a subscription.</p>
+      <a class="btn" id="final-cta" href="/checkout.html">Launch my business &mdash; $99</a>
+      <p style="font-size:var(--t-meta);color:var(--ink2);margin:20px 0 0">
+        Owned forever, royalty free. Use it anywhere &mdash; print, web, social, ads.</p>
+    </div>
+    <div class="signin">
+      <div style="font-size:var(--t-body);font-weight:800;color:var(--ink1)">Already have a brand with us?</div>
+      <div style="font-size:var(--t-meta);color:var(--ink2);margin-top:6px">
+        Enter your email and we'll send your workspace link.</div>
+      <div class="signrow">
+        <input type="email" id="returning-email" placeholder="you@example.com"
+               autocomplete="email" aria-label="Your email address">
+        <a class="btn ghost" href="/account.html">Open my workspace</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div style="font-size:var(--t-lead);font-weight:900;color:var(--ink1);margin-bottom:14px">SparkMyName&trade;</div>
+    <p class="fnote">
+      <b>Owned by VORREX IGNITE LLC.</b> U.S. Patent Pending, App. 19/704,386.
+      SparkMyName is a trademark application pending, Serial No. 50014040. It is not registered.<br><br>
+      Social handles are <b>recommended, not verified</b> &mdash; confirm availability on each
+      platform before claiming one. SparkMyName does not perform trademark clearance, and does not
+      build or host customer websites.
+    </p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(s){ return document.querySelector(s); };
+
+  /* ---------- toast ---------- */
+  var toastEl = $('#toast'), toastTimer;
+  function toast(msg){
+    toastEl.textContent = msg; toastEl.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 4200);
+  }
+
+  /* ---------- prompt pills ---------- */
+  var PILLS = ['A cozy neighborhood restaurant','An Etsy shop selling candles',
+    'A consulting practice','A mobile car detailing business','A yoga and wellness studio',
+    'A landscaping company','A podcast about true crime','A dog walking service',
+    'An online store for handmade jewelry','A wedding photography business',
+    'A food truck serving tacos','A bookkeeping practice for small business'];
+  var pillWrap = $('#pills');
+  PILLS.forEach(function(p){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'pill'; b.textContent = p;
+    b.addEventListener('click', function(){
+      var ta = $('#prompt-input');
+      ta.value = p; ta.focus();
+      try{ ta.setSelectionRange(ta.value.length, ta.value.length); }catch(e){}
+    });
+    pillWrap.appendChild(b);
+  });
+
+  /* ---------- go: hand the sentence to checkout ----------
+     NOTE FOR PROMOTION: checkout.html does not currently read this parameter. When this
+     concept is approved, add one line there to prefill its idea field from ?idea=. Until
+     then the sentence is carried in the URL and the customer retypes nothing important. */
+  function go(){
+    var v = ($('#prompt-input').value || '').trim();
+    var url = '/checkout.html' + (v ? ('?idea=' + encodeURIComponent(v.slice(0,300))) : '');
+    window.location.href = url;
+  }
+  $('#go-btn').addEventListener('click', go);
+  $('#prompt-input').addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && (e.metaKey || e.ctrlKey)){ e.preventDefault(); go(); }
+  });
+
+  /* ---------- microphone: Web Speech API ----------
+     Support is genuinely patchy — Firefox does not ship it, and iOS behaviour varies. The
+     button only appears to work if it actually can; otherwise it says so plainly rather
+     than sitting there dead. */
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var micBtn = $('#mic-btn'), rec = null, listening = false;
+
+  if(!SR){
+    micBtn.addEventListener('click', function(){
+      toast('Voice input is not supported in this browser — type your sentence instead.');
+    });
+  } else {
+    micBtn.addEventListener('click', function(){
+      if(listening){ try{ rec.stop(); }catch(e){} return; }
+      try{
+        rec = new SR();
+        rec.lang = 'en-US';
+        rec.interimResults = true;
+        rec.continuous = false;
+        var base = ($('#prompt-input').value || '').trim();
+
+        rec.onstart = function(){
+          listening = true;
+          micBtn.classList.add('listening');
+          micBtn.setAttribute('aria-label','Stop listening');
+          toast('Listening — say your idea.');
+        };
+        rec.onresult = function(ev){
+          var txt = '';
+          for(var i = ev.resultIndex; i < ev.results.length; i++){ txt += ev.results[i][0].transcript; }
+          $('#prompt-input').value = (base ? base + ' ' : '') + txt;
+        };
+        rec.onerror = function(ev){
+          listening = false; micBtn.classList.remove('listening');
+          var e = ev && ev.error;
+          if(e === 'not-allowed' || e === 'service-not-allowed'){
+            toast('Microphone permission was declined — you can type instead.');
+          } else if(e === 'no-speech'){
+            toast('Did not catch that — try again, or type it.');
+          } else {
+            toast('Voice input stopped — you can type your sentence instead.');
+          }
+        };
+        rec.onend = function(){
+          listening = false;
+          micBtn.classList.remove('listening');
+          micBtn.setAttribute('aria-label','Speak your idea');
+        };
+        rec.start();
+      }catch(e){
+        listening = false; micBtn.classList.remove('listening');
+        toast('Voice input could not start — type your sentence instead.');
+      }
+    });
+  }
+
+  /* ---------- stage switcher ---------- */
+  var STAGES = [
+    { t:'You have an idea, and not much else.',
+      d:'Most businesses die at this step — not from a bad idea, but from never getting past the name.',
+      l:['Six names you would actually be proud to own',
+         'Every one with the .com already available',
+         'See what it looks like before you commit'],
+      c:'Name my business — $99', ask:'"A cozy neighborhood restaurant"',
+      img:'assets/story-hero-2k.jpg' },
+    { t:'You know what it is. Now make it look real.',
+      d:'A brand is what turns "I am thinking about it" into "I am opening in March."',
+      l:['A full logo suite, in vector, print ready',
+         'Colors and type chosen for your category',
+         'Cinematic photography made for your business'],
+      c:'Build my brand — $99', ask:'"A consulting practice for family businesses"',
+      img:'assets/story-hero-2k.jpg' },
+    { t:'Opening day. You need things to hand people.',
+      d:'Cards, signs, posts, a profile that looks like a real company from the first day.',
+      l:['154 files ready to download and use',
+         'Business cards, signage, social sets, merchandise art',
+         'Launch words written and ready to post'],
+      c:'Get my launch kit — $99', ask:'"A food truck serving tacos in Austin"',
+      img:'assets/story-hero-2k.jpg' },
+    { t:'You are open. Now keep the brand consistent.',
+      d:'The workspace stays yours for life, so everything you make later still matches.',
+      l:['Eight AI studios that already know your brand',
+         'Order new pieces any time, delivered within 24 hours',
+         'A real person on the Spark team when you need one'],
+      c:'Start with Spark — $99', ask:'"Write me a post about our summer special"',
+      img:'assets/story-hero-2k.jpg' }
+  ];
+  var body = $('#stagebody'), tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  function paint(i){
+    var s = STAGES[i];
+    $('#s-title').textContent = s.t;
+    $('#s-desc').textContent  = s.d;
+    var ul = $('#s-list'); ul.innerHTML = '';
+    s.l.forEach(function(x){ var li = document.createElement('li'); li.textContent = x; ul.appendChild(li); });
+    $('#s-cta').textContent = s.c;
+    $('#s-ask').textContent = s.ask;
+    $('#s-img').src = s.img;
+    $('#s-img').alt = s.t;
+  }
+  function select(i){
+    tabs.forEach(function(t, n){
+      t.classList.toggle('active', n === i);
+      t.setAttribute('aria-selected', n === i ? 'true' : 'false');
+    });
+    body.classList.add('fading');
+    setTimeout(function(){ paint(i); body.classList.remove('fading'); }, 200);
+  }
+  tabs.forEach(function(t, i){ t.addEventListener('click', function(){ select(i); }); });
+  paint(0);
+
+  /* ---------- returning customer ---------- */
+  $('#returning-email').addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ window.location.href = '/account.html'; }
+  });
+})();
+</script>
+</body>
+</html>

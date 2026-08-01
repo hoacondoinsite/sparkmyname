@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Demo Workspace — walk through real brands | SparkMyName&trade;</title>
+<meta name="description" content="A live, read-only look inside real brands built by the Spark engine. Touch everything — no sign-up, no login.">
+<meta property="og:image" content="https://sparkmyname.netlify.app/img/og-share.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sparkmyname.netlify.app/img/og-share.jpg">
+<meta name="theme-color" content="#189850">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="css/spark.css">
+<link rel="stylesheet" href="css/uniform.css">
+<style>
+/* DEMO WORKSPACE — clean doctrine: white, solid black, spot green */
+.dm-top{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid rgba(0,0,0,.12)}
+.dm-top .wrap{display:flex;align-items:center;gap:14px;padding-top:12px;padding-bottom:12px}
+.dm-pill{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#127A40;background:#F4F5F4;border:1px solid rgba(0,0,0,.12);border-radius:100px;padding:6px 14px}
+.dm-exit{margin-left:auto;font-size:14px;font-weight:700;color:#141414;text-decoration:none;border:1.5px solid rgba(0,0,0,.18);border-radius:100px;padding:9px 18px}
+.dm-exit:hover{border-color:#189850;color:#127A40}
+.dm-switch{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:26px 0 6px}
+.dm-sw{font:700 14.5px/1 'Poppins',sans-serif;color:#141414;background:#fff;border:1.5px solid rgba(0,0,0,.18);border-radius:100px;padding:12px 20px;cursor:pointer;min-height:44px;transition:all .15s ease}
+.dm-sw:hover{border-color:#189850;transform:translateY(-1px)}
+.dm-sw.on{background:#141414;color:#fff;border-color:#141414}
+.dm-cat{display:block;text-align:center;font-size:13.5px;color:#3A3F3C;font-weight:600;margin:8px 0 20px}
+.dm-hero{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(0,0,0,.12);background:#F4F5F4;aspect-ratio:16/9;min-height:260px;max-height:640px}
+.dm-hero img{width:100%;height:100%;object-fit:cover;display:block}
+.dm-hero .band{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.48);color:#fff;padding:18px 26px}
+.dm-hero .band b{font:800 clamp(24px,3.4vw,38px)/1.05 'Poppins',sans-serif;display:block}
+.dm-hero .band span{font-size:14.5px;font-weight:600;opacity:.95}
+.dm-avail{display:inline-flex;align-items:center;gap:8px;margin:16px 0 4px;font-size:13.5px;font-weight:700;color:#127A40;border:1.5px solid rgba(24,152,80,.5);border-radius:100px;padding:8px 16px;background:#fff}
+.dm-avail i{width:8px;height:8px;border-radius:50%;background:#189850}
+.dm-idea{background:#F4F5F4;border:1px solid rgba(0,0,0,.12);border-radius:16px;padding:26px 30px;margin:20px 0 6px}
+.dm-idea small{display:block;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#127A40;margin-bottom:8px}
+.dm-idea p{margin:0;font-size:clamp(19px,2.2vw,24px);color:#141414;font-weight:700;line-height:1.45;font-family:'Poppins',sans-serif}
+.dm-idea em{display:block;margin-top:8px;font-style:normal;font-size:13px;color:#3A3F3C}
+.dm-grid{margin-top:22px;columns:1;column-gap:20px}
+@media(min-width:900px){.dm-grid{columns:2}}
+.dm-grid .dm-sec{break-inside:avoid;margin-bottom:20px}
+.dm-sec{background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:16px;padding:22px}
+.dm-sec h3{font:800 15px/1 'Poppins',sans-serif;color:#141414;margin:0 0 4px;text-transform:uppercase;letter-spacing:.06em}
+.dm-sec h3::after{content:"";display:block;width:26px;height:3px;background:#189850;margin-top:8px;border-radius:2px}
+.dm-sec ul{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px}
+.dm-sec li{font-size:14.5px;color:#141414;line-height:1.55;display:flex;gap:10px;align-items:flex-start}
+.dm-sec li .dmd{color:#189850;flex:none;font-size:12px;margin-top:3px}
+.dm-pal{margin-top:14px}
+.dm-pal b{font-size:14.5px;color:#141414}
+.dm-pal p{margin:2px 0 8px;font-size:13px;color:#3A3F3C}
+.dm-swatches{display:flex;gap:8px}
+.dm-swatch{flex:1;border-radius:10px;border:1px solid rgba(0,0,0,.14);padding:26px 0 0}
+.dm-swatch span{display:block;background:#fff;font:600 10.5px/1 'Inter',monospace;color:#141414;padding:5px 6px;border-radius:0 0 9px 9px;text-align:center}
+.dm-chip{display:inline-block;background:#F4F5F4;border:1px solid rgba(0,0,0,.12);border-radius:100px;padding:7px 14px;font-size:13px;font-weight:600;color:#141414;margin:4px 4px 0 0}
+.dm-vt{margin-top:14px;display:grid;gap:10px}
+.dm-vt div{border:1px solid rgba(0,0,0,.12);border-radius:12px;padding:12px 14px}
+.dm-vt b{font-size:14px;color:#141414}
+.dm-vt p{margin:3px 0 0;font-size:13px;color:#3A3F3C}
+.dm-logos{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:14px}
+.dm-logos img{width:100%;aspect-ratio:1;object-fit:contain;background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:12px;padding:10px}
+.dm-note{margin:26px auto 0;text-align:center;font-size:13px;color:#3A3F3C;max-width:64ch}
+.dm-cta{position:sticky;bottom:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid rgba(0,0,0,.12);margin-top:34px}
+.dm-cta .wrap{display:flex;align-items:center;gap:14px;padding-top:14px;padding-bottom:14px;flex-wrap:wrap;justify-content:center}
+.dm-cta p{margin:0;font-size:15px;font-weight:600;color:#141414}
+.dm-cta .btn{min-height:44px}
+</style>
+</head>
+<body>
+<div class="dm-top"><div class="wrap">
+  <a class="wm" href="index.html"><span class="mk"><svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.3l2.7 6.3 6.8.6-5.2 4.5 1.6 6.7-5.9-3.6-5.9 3.6 1.6-6.7-5.2-4.5 6.8-.6z" fill="#fff"></path></svg></span>Spark<span>MyName</span><sup class="tm">&trade;</sup></a>
+  <span class="dm-pill">Demo workspace</span>
+  <a class="dm-exit" href="index.html">&larr; Back to site</a>
+</div></div>
+
+<main class="wrap" style="padding-top:10px;padding-bottom:10px">
+  <div class="sec-head" style="margin-top:34px;margin-bottom:6px">
+    <h1 style="font:800 clamp(30px,4vw,44px)/1.12 'Poppins',sans-serif;color:#0E1310">Walk through <span class="g nw">real brands.</span></h1>
+    <p>These are real brands the Spark engine built &mdash; each from one sentence. Tap a name and look inside. No sign-up, nothing to fill in.</p>
+  </div>
+
+  <div class="dm-switch" id="dmSwitch"></div>
+  <span class="dm-cat" id="dmCat"></span>
+
+  <div class="dm-hero" id="dmHero"></div>
+  <div style="text-align:center"><span class="dm-avail" id="dmAvail"></span></div>
+  <div class="dm-idea" id="dmIdea"></div>
+  <div class="dm-grid" id="dmGrid"></div>
+
+  <p class="dm-note">This is a read-only look at real Spark work. Your own workspace adds downloads for every file, the AI Studio tools, the Success Path, and real human help &mdash; all included in the one price.</p>
+</main>
+
+<div class="dm-cta"><div class="wrap">
+  <p>Like what you see? Yours starts with one sentence.</p>
+  <a class="btn" href="workspace-login.html">Sign in</a>
+  <a class="dm-exit" href="how-it-works.html" style="margin-left:0">How it works</a>
+</div></div>
+
+<script src="js/demo-data.js"></script>
+<script>
+var DEMO=window.SMN_DEMO||[];if(!DEMO.length){document.addEventListener("DOMContentLoaded",function(){var m=document.querySelector("main");if(m)m.innerHTML="<p style='text-align:center;padding:60px 20px;font-size:16px'>The demo is loading&hellip; if it does not appear, <a href='demo.html'>refresh this page</a>.</p>";});}
+var cur=0;
+(function(){var h=(location.hash||'').replace('#','');DEMO.forEach(function(b,i){if(b.id===h)cur=i;});})();
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function sw(){
+  var d=document.getElementById('dmSwitch'); d.innerHTML='';
+  DEMO.forEach(function(b,i){
+    var x=document.createElement('button'); x.className='dm-sw'+(i===cur?' on':''); x.textContent=b.name;
+    x.onclick=function(){cur=i;try{history.replaceState(null,'','#'+DEMO[i].id);}catch(e){}paint();window.scrollTo({top:0,behavior:'smooth'});};
+    d.appendChild(x);
+  });
+}
+function paint(){
+  if(!DEMO.length) return;
+  sw();
+  var b=DEMO[cur];
+  document.getElementById('dmCat').textContent=b.cat;
+  document.getElementById('dmHero').innerHTML='<img src="'+esc(b.hero)+'" alt="'+esc(b.name)+'" loading="eager" decoding="async" onerror="this.remove()"><div class="band"><b>'+esc(b.name)+'</b><span>'+esc(b.domain)+' &middot; &ldquo;'+esc(b.tag)+'&rdquo;</span></div>';
+  document.getElementById('dmAvail').innerHTML='<i></i>Domain was available when this brand was built';
+  document.getElementById('dmIdea').innerHTML='<small>The one sentence it started from</small><p>&ldquo;'+esc(b.idea)+'&rdquo;</p><em>Everything below was built from that sentence.</em>';
+  var g=document.getElementById('dmGrid'); g.innerHTML='';
+  function sec(title, inner){ var s=document.createElement('div'); s.className='dm-sec'; s.innerHTML='<h3>'+title+'</h3>'+inner; g.appendChild(s); }
+  sec('Why the name works','<ul>'+b.why.map(function(w){return '<li><span class="dmd">&#9670;</span>'+esc(w)+'</li>'}).join('')+'</ul>');
+  sec('Color palettes', b.palettes.map(function(p){return '<div class="dm-pal"><b>'+esc(p.name)+'</b><p>'+esc(p.note)+'</p><div class="dm-swatches">'+p.colors.map(function(c){return '<div class="dm-swatch" style="background:'+esc(c)+'"><span>'+esc(c)+'</span></div>'}).join('')+'</div></div>'}).join(''));
+  sec('Logo suite &mdash; real generated concepts','<div class="dm-logos">'+b.logos.map(function(u){return '<img src="'+esc(u)+'" alt="'+esc(b.name)+' logo concept" loading="lazy" decoding="async" onerror="this.remove()">'}).join('')+'</div>');
+  sec('Voice &amp; tone','<div class="dm-vt">'+b.voice.map(function(v){return '<div><b>'+esc(v[0])+'</b><p>'+esc(v[1])+'</p></div>'}).join('')+'</div>');
+  sec('Taglines', b.tags.map(function(t){return '<span class="dm-chip">&ldquo;'+esc(t)+'&rdquo;</span>'}).join(''));
+  sec('About the brand','<ul>'+b.about.map(function(a){return '<li><span class="dmd">&#9670;</span>'+esc(a)+'</li>'}).join('')+'</ul>');
+  sec('Launch posts', b.posts.map(function(p){return '<span class="dm-chip">'+esc(p)+'</span>'}).join(''));
+  if(b.fonts) sec('Typography directions','<div class="dm-vt">'+b.fonts.map(function(f){return '<div><b>'+esc(f[0])+'</b><p>'+esc(f[1])+'</p></div>'}).join('')+'</div>');
+  if(b.bios) sec('Social bios', b.bios.map(function(x){return '<span class="dm-chip">'+esc(x)+'</span>'}).join(''));
+  if(b.fb) sec('Facebook intros','<ul>'+b.fb.map(function(x){return '<li><span class="dmd">&#9670;</span>'+esc(x)+'</li>'}).join('')+'</ul>');
+  if(b.li) sec('LinkedIn intro','<ul>'+b.li.map(function(x){return '<li><span class="dmd">&#9670;</span>'+esc(x)+'</li>'}).join('')+'</ul>');
+}
+paint();
+</script>
+</body>
+</html>

@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Command — SparkMyName&trade;</title>
+<meta name="description" content="Your SparkMyName command center.">
+<meta property="og:image" content="https://sparkmyname.netlify.app/img/og-share.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sparkmyname.netlify.app/img/og-share.jpg">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="supabase-config.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+<style>
+/* SPARK DESIGN LAW — aurora-navy. bg #FFFFFF, panels #FFFFFF/#F4F6F5,
+   text #FFFFFF/#404040/#565656, hairline rgba(20,60,40,.16),
+   accents cyan #127A40, violet #189850, pink #189850, amber #B7791F, success #189850.
+   Inter 900 gradient headlines. 12px radius on every button. */
+:root{
+  --bg:#FFFFFF; --panel:#FFFFFF; --panel2:#F4F6F5;
+  --ink:#141414; --soft:#404040; --muted:#565656;
+  --line:rgba(20,60,40,.16);
+  --cyan:#127A40; --violet:#189850; --pink:#189850; --amber:#B7791F; --green:#189850;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;
+     line-height:1.6;-webkit-font-smoothing:antialiased}
+.pg{max-width:820px;margin:0 auto;padding:0 24px}
+h1{font-weight:900;letter-spacing:-.025em;font-size:clamp(30px,4.4vw,44px);line-height:1.08;margin:0;
+   background:linear-gradient(92deg,#127A40 0%,#189850 38%,#189850 72%,#B7791F 100%);
+   -webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-weight:800;font-size:1rem;color:#2F3B35;margin:0 0 12px;letter-spacing:-.01em}
+p{color:var(--soft);margin:8px 0}
+.eyeb{display:inline-flex;align-items:center;gap:8px;font-size:.7188rem;font-weight:800;
+      letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
+header{border-bottom:1px solid var(--line);background:rgba(10,20,40,.9);position:sticky;top:0;z-index:40;backdrop-filter:blur(10px)}
+header .in{max-width:820px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:12px}
+header b{font-weight:900;font-size:1.25rem;background:linear-gradient(92deg,#127A40,#189850 55%,#189850);
+         -webkit-background-clip:text;background-clip:text;color:transparent}
+.tagx{margin-left:auto;font-size:.7188rem;font-weight:700;color:var(--amber);
+      border:1px solid rgba(200,155,60,.35);background:rgba(200,155,60,.1);padding:5px 11px;border-radius:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;margin:18px 0}
+
+/* ---- the command bar ---- */
+.cmdwrap{position:relative;margin:6px 0 0}
+#cmd{font:inherit;font-size:1.0625rem;color:var(--ink);background:var(--panel2);
+     border:1px solid var(--line);border-radius:12px;padding:18px 20px 18px 50px;width:100%}
+#cmd:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(24,152,80,.16)}
+::placeholder{color:var(--muted)}
+.cmdicon{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:1.0625rem;pointer-events:none}
+.sugg{position:absolute;left:0;right:0;top:calc(100% + 8px);background:var(--panel2);
+      border:1px solid var(--line);border-radius:12px;overflow:hidden;z-index:30;
+      box-shadow:0 24px 60px -20px rgba(0,0,0,.6);display:none}
+.sugg.open{display:block}
+.sitem{display:flex;align-items:center;gap:12px;padding:13px 18px;cursor:pointer;border-bottom:1px solid var(--line)}
+.sitem:last-child{border-bottom:0}
+.sitem.on{background:rgba(24,152,80,.16)}
+.sitem .nm{font-weight:600;font-size:.9375rem;color:var(--ink)}
+.sitem .sub{font-size:.7812rem;color:var(--muted);margin-left:auto}
+.hintrow{display:flex;gap:16px;margin-top:12px;font-size:.7812rem;color:var(--muted);flex-wrap:wrap}
+kbd{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:2px 7px;font-size:.7188rem;font-family:inherit;color:var(--soft)}
+
+/* ---- shelf ---- */
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:6px}
+.tile{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.tile .nm{font-weight:700;font-size:.9062rem;color:var(--ink)}
+.tile img{width:100%;border-radius:12px;border:1px solid var(--line);display:block;background:var(--bg)}
+.tile a{color:#7FCCA3;font-size:.8125rem;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.tile .meta{font-size:.75rem;color:var(--muted);letter-spacing:.01em}
+.tile .verdict,.tile .concept{font-size:.7812rem;line-height:1.5;padding:10px 12px;
+  border-radius:12px;background:var(--panel);border:1px solid var(--line)}
+.tile .meta:empty{display:none}
+.tile .typebtn,.tile .freshbtn{width:100%;padding:11px 16px;font-size:.8438rem}
+.tile .freshbtn{color:var(--amber);border-color:rgba(200,155,60,.35)}
+.tile a.dl{display:block;text-align:center;text-decoration:none;color:#FFFFFF;font-weight:800;
+           font-size:.875rem;padding:12px 18px;border-radius:12px;
+           background:linear-gradient(92deg,var(--violet),var(--pink))}
+.pill{display:inline-block;font-size:.6875rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:12px;width:fit-content}
+.p-work{background:rgba(200,155,60,.14);color:var(--amber)}
+.spin{width:20px;height:20px;border-radius:50%;flex:0 0 20px;
+      border:2px solid rgba(20,60,40,.22);border-top-color:var(--cyan);
+      animation:spin 780ms linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation-duration:2600ms}}
+#askPick{grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:10px}
+#askPick .pick{background:var(--panel2);border:1px solid var(--line);color:var(--soft);
+               font-weight:600;font-size:.875rem;padding:14px 16px;text-align:left;border-radius:12px}
+#askPick .pick.on{border-color:var(--cyan);color:var(--ink);background:rgba(24,152,80,.10)}
+.sitem.open-row .nm{color:var(--cyan)}
+.sitem.open-row .sub{color:var(--violet);font-weight:700}
+.p-ok{background:rgba(24,152,80,.14);color:var(--green)}
+.p-err{background:rgba(18,122,64,.14);color:var(--pink)}
+.empty{color:var(--muted);font-size:.8438rem}
+
+button{font:inherit;font-weight:800;font-size:.9062rem;border:0;border-radius:12px;padding:13px 22px;
+       cursor:pointer;min-height:44px;background:linear-gradient(92deg,#189850,#189850);color:#fff}
+button.ghost{background:transparent;border:1px solid var(--line);color:var(--soft)}
+button:disabled{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:2px;border-radius:12px}
+input[type=email],input[type=text],select{font:inherit;font-size:.9375rem;color:var(--ink);background:var(--panel2);
+       border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%}
+label{display:block;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.note{font-size:.8125rem;color:var(--muted);border-left:2px solid var(--violet);padding-left:12px;margin:14px 0}
+.hide{display:none}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:18px 0 40px;font-size:.7812rem;color:var(--muted)}
+
+/* SAFE AREAS (2026-07-25). This page declares viewport-fit=cover, which deliberately extends
+   content under the notch and the home indicator. The audit found ZERO env(safe-area-inset-*)
+   anywhere in the codebase, so on an iPhone in landscape the notch overlaps real content.
+   max() keeps it a no-op on every device without insets, and @supports keeps it inert on
+   browsers that do not understand env(). */
+@supports (padding: max(0px)) {
+  body { padding-left: max(0px, env(safe-area-inset-left));
+         padding-right: max(0px, env(safe-area-inset-right)); }
+}
+
+/* iOS zoom trap (2026-07-25): Safari force-zooms on focus when a field is under 16px.
+   Scoped to coarse pointers so desktop sizing is untouched. */
+@media (pointer: coarse) {
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"],
+  input[type="search"], input[type="password"], input:not([type]), textarea, select {
+    font-size: max(1rem, 16px) !important;
+  }
+}
+
+/* ===== DEVICE SAFETY (28 July 2026 sweep) =====
+   Applied to every page. Two faults were site-wide:
+   1. 100vw includes the scrollbar width, so any element using it is wider than the viewport
+      and forces a sideways scroll. overflow-x:hidden on the root stops that everywhere.
+   2. Tap targets under 44px fail Apple's and Google's minimum and are genuinely hard to hit
+      on a phone. Every interactive element now meets 44px.
+   ===== */
+html,body{overflow-x:hidden;max-width:100%}
+*{min-width:0}
+img,video,iframe,table,pre{max-width:100%}
+a,button,select,summary,[role="button"],input[type="submit"],input[type="button"]{
+  min-height:44px}
+a{display:inline-flex;align-items:center}
+a.inline-link,p a,li a,.dis a,.fnote a{display:inline;min-height:0}
+input,textarea,select{font-size:16px}
+@media(max-width:480px){
+  body{-webkit-text-size-adjust:100%}
+}
+</style>
+<script>
+/* ERROR BOUNDARY (2026-07-25). Audit found window.onerror: 0, unhandledrejection: 0,
+   <noscript>: 0 across every page. One thrown error inside a render function produced a blank
+   card with no message and no clue — which is exactly how this afternoon's failure presented.
+   This never swallows the error (it still reaches the console); it guarantees the user is TOLD.
+   Placed in <head> so it is armed before any page script runs. */
+(function(){
+  var shown=false;
+  function boom(what){
+    if(shown)return; shown=true;
+    try{
+      var d=document.createElement('div');
+      d.setAttribute('role','alert');
+      d.style.cssText='position:fixed;left:12px;right:12px;'+
+        'bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:2147483000;'+
+        'padding:14px 16px;border-radius:12px;background:#FDF6F8;border:1px solid #189850;'+
+        'color:#127A40;font:600 14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;'+
+        'box-shadow:0 18px 44px -12px rgba(0,0,0,.6)';
+      d.textContent='Something went wrong on this page. Reload to try again. ('+String(what).slice(0,120)+')';
+      (document.body||document.documentElement).appendChild(d);
+    }catch(e){}
+  }
+  window.addEventListener('error',function(e){ boom((e&&e.message)||'script error'); });
+  window.addEventListener('unhandledrejection',function(e){
+    var r=e&&e.reason; boom((r&&(r.message||r))||'a request failed'); });
+})();
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/uniform.css">
+<meta name="theme-color" content="#189850">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="css/site-footer.css">
+</head>
+<body>
+<header><div class="in">
+  <span style="color:var(--cyan);font-size:1.1875rem">&#10022;</span>
+  <b>SparkMyName<sup class="tm">&trade;</sup></b>
+  <span class="tagx">Command</span>
+</div></header>
+
+<div class="pg">
+  <div style="padding:34px 0 4px">
+    <span class="eyeb">On demand</span>
+    <h1 style="margin-top:12px">What do you need?</h1>
+    <p style="max-width:58ch">Describe anything you need, in your own words. We work out the size, the format and the shot. One request, one asset, made when you ask for it &mdash; not before.</p>
+  </div>
+
+  <div class="card" id="authCard">
+    <h2>Sign in</h2>
+    <p id="authMsg">Checking your session&hellip;</p>
+    <div id="authForm" class="hide">
+      <label for="em">Your email</label>
+      <input id="em" type="email" placeholder="you@example.com" autocomplete="email">
+      <div class="row"><button id="sendLink">Email me a sign-in link</button></div>
+    </div>
+    <div id="authOk" class="hide"><div class="row" style="margin-top:0">
+      <button class="ghost" id="signOut">Sign out</button>
+    </div></div>
+  </div>
+
+  <div class="card hide" id="brandCard">
+    <h2>Brand</h2>
+    <label for="rep">Project</label>
+    <select id="rep"><option value="">Loading&hellip;</option></select>
+    <label for="nm">Name</label>
+    <select id="nm"><option value="">Pick a project first</option></select>
+    <div class="row" id="actRow" style="display:none">
+      <button class="ghost" id="actBtn">Activate this name</button>
+      <span id="actMsg" style="font-size:.8125rem;color:var(--muted);align-self:center"></span>
+    </div>
+  </div>
+
+  <div class="card hide" id="cmdCard">
+    <h2>Command</h2>
+    <div class="cmdwrap">
+      <span class="cmdicon">&#9906;</span>
+      <input id="cmd" type="text" autocomplete="off" spellcheck="false"
+             placeholder="Describe what you need…"
+             aria-label="Asset command" aria-autocomplete="list" aria-expanded="false">
+      <div class="sugg" id="sugg" role="listbox"></div>
+    </div>
+    <div id="cmdWarn" style="display:none;margin-top:12px;padding:12px 14px;border-radius:12px;
+         background:rgba(200,155,60,.12);border:1px solid rgba(200,155,60,.4);
+         color:var(--amber);font-weight:700;font-size:.875rem"></div>
+    <div class="hintrow">
+      <span><kbd>&uarr;</kbd> <kbd>&darr;</kbd> move</span>
+      <span><kbd>Enter</kbd> make it</span>
+      <span><kbd>Esc</kbd> close</span>
+      <span id="spendLine"></span>
+    </div>
+  </div>
+
+  <div class="card hide" id="askCard">
+    <h2 id="askTitle">One quick thing</h2>
+    <p id="askWhat" style="color:var(--muted);font-size:.8125rem;margin:0 0 14px"></p>
+    <div id="askStep">
+      <label for="askIn" id="askQ">&nbsp;</label>
+      <input id="askIn" type="text" autocomplete="off" placeholder="">
+      <div id="askPick" style="display:none"></div>
+      <datalist id="dl_purpose">
+        <option value="Handing out in person"></option>
+        <option value="Mailing to customers"></option>
+        <option value="Posting on social media"></option>
+        <option value="Displaying at an event or storefront"></option>
+        <option value="Printing and hanging on a wall"></option>
+      </datalist>
+      <datalist id="dl_format">
+        <option value="Standard size — you choose"></option>
+        <option value="3.5 x 2 inches"></option>
+        <option value="4 x 6 inches"></option>
+        <option value="8.5 x 11 inches"></option>
+        <option value="18 x 24 inches"></option>
+        <option value="24 x 36 inches"></option>
+        <option value="Square, for social"></option>
+        <option value="Vertical, for phone screens"></option>
+      </datalist>
+      <datalist id="dl_custom">
+        <option value="Must stay readable from far away"></option>
+        <option value="Will be folded"></option>
+        <option value="Goes outdoors, needs to survive weather"></option>
+        <option value="Leave room for a photo"></option>
+      </datalist>
+      <div class="row">
+        <button id="askNext">Next</button>
+        <button class="ghost" id="askSkip">Skip this</button>
+        <button class="ghost" id="askCancel">Cancel</button>
+      </div>
+    </div>
+    <div id="askConfirm" class="hide">
+      <div id="askRecap" style="font-size:.875rem;color:var(--soft);line-height:1.8;margin-bottom:14px"></div>
+      <div class="row">
+        <button id="askGo">Make it</button>
+        <button class="ghost" id="askBack">Change something</button>
+        <button class="ghost" id="askCancel2">Cancel</button>
+      </div>
+    </div>
+    <div id="askBuilding" class="hide" style="display:none;align-items:center;gap:12px;padding:6px 0">
+      <span class="spin"></span>
+      <span style="font-weight:600;color:var(--ink)">Hold on, I&rsquo;m building it&hellip;</span>
+    </div>
+  </div>
+
+  <div class="card hide" id="shelfCard">
+    <h2>Download shelf</h2>
+    <div class="row" style="margin:0 0 14px">
+      <button class="ghost" id="clearShelf">Clear the shelf</button>
+      <span id="clearNote" style="font-size:.7812rem;color:var(--muted);align-self:center">
+        Clears this view only. Nothing is deleted and nothing is re-charged.</span>
+    </div>
+    <div class="shelf" id="shelf"></div>
+    <div class="empty" id="shelfEmpty">Nothing made yet. Ask for something above.</div>
+  </div>
+
+  <footer class="ft"><div class="wrap">
+<div class="ftgrid">
+<div class="ftbrand">
+<a class="wm" href="index.html"><span class="mk"><svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.3l2.7 6.3 6.8.6-5.2 4.5 1.6 6.7-5.9-3.6-5.9 3.6 1.6-6.7-5.2-4.5 6.8-.6z" fill="#fff"></path></svg></span>Spark<span>MyName</span><sup class="tm">&trade;</sup></a>
+<p>Say one sentence. Get a complete brand &mdash; and everything you need to launch it.</p>
+</div>
+<div class="ftcol"><h3>Product</h3>
+<a href="how-it-works.html">How it works</a>
+<a href="what-you-get.html">What you get</a>
+<a href="see-the-work.html">See the work</a>
+<a href="pricing.html">Pricing</a>
+<a href="demo.html">Demo workspace</a>
+<a href="checkout.html" data-checkout>Get started</a></div>
+<div class="ftcol"><h3>Company</h3>
+<a href="about.html">About</a>
+<a href="success-path.html">The Success Path</a>
+<a href="affiliate.html">Affiliate program</a>
+<a href="press.html">Press</a></div>
+<div class="ftcol"><h3>Support</h3>
+<a href="support.html">Help &amp; support</a>
+<a href="status.html">Status</a>
+</div>
+<div class="ftcol"><h3>Legal</h3>
+<a href="privacy.html">Privacy</a>
+<a href="terms.html">Terms</a>
+<a href="cookies.html">Cookies</a>
+<a href="refund.html">Refunds</a>
+<a href="accessibility.html">Accessibility</a>
+<a href="security.html">Security</a></div>
+</div>
+<div class="ftlegal">
+<p>AI-generated suggestions are for informational purposes only and are not legal, trademark, tax, financial, or domain-registration advice &mdash; consult a qualified professional. We do not perform trademark clearance, and we do not build or host customer websites.</p>
+<p>&copy; 2026 SparkMyName<sup class="tm">&trade;</sup> &middot; Owned by VORREX IGNITE LLC &middot; U.S. Patent Pending (App. 19/704,386) &middot; Trademark application pending, Serial No. 50014040 &mdash; not registered.<span style="display:block;margin-top:6px;font-size:11px;opacity:.55">Site build: SPACIOUS RESKIN &middot; July 29, 2026</span></p>
+</div>
+</div></footer>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var sb = null, token = '', sel = -1, items = [], busy = {};
+
+  // ---- ASSET SCHEMA -----------------------------------------------------------------------
+  // Mirrors art-registry.js. Kept as a flat local list so typeahead is instant and works
+  // before any network call. `kw` carries plain-language synonyms so a customer can type
+  // "sign" or "card" without knowing the internal row id.
+  var SCHEMA = [
+    { id:'logo_lockups',  label:'Logo lockups',            kind:'3 directions', kw:'logo mark wordmark lockup brand' },
+    { id:'hero_moment',   label:'Hero brand moment',       kind:'cinematic',    kw:'hero header banner cinematic photo' },
+    { id:'brand_board',   label:'Brand presentation board',kind:'board',        kw:'board presentation deck overview' },
+    { id:'business_card', label:'Business card',           kind:'print',        kw:'card business calling contact print' },
+    { id:'letterhead',    label:'Letterhead',              kind:'print',        kw:'letter stationery paper print' },
+    { id:'summary_sheet', label:'Summary sheet header',    kind:'print',        kw:'summary sheet onepager header' },
+    { id:'avatar',        label:'Profile avatar',          kind:'social',       kw:'avatar profile picture icon pfp' },
+    { id:'support_image', label:'Supporting brand moment', kind:'cinematic',    kw:'support secondary photo image' },
+    { id:'social_tiles',  label:'Social tile pack',        kind:'social',       kw:'social instagram post tiles pack' },
+    { id:'truck_wrap',    label:'Truck wrap',              kind:'large format', kw:'truck van vehicle wrap fleet' },
+    { id:'billboard',     label:'Billboard',               kind:'large format', kw:'billboard sign yard outdoor large' },
+    { id:'menu_board',    label:'Menu / table talker',     kind:'print',        kw:'menu table talker food board' },
+    { id:'storyboard',    label:'TV / video storyboard',   kind:'video',        kw:'storyboard video tv film scenes' },
+    { id:'web_pack',      label:'Website hero pack',       kind:'web',          kw:'website web hero pack sizes' }
+  ];
+
+  function show(id){ $(id).classList.remove('hide'); }
+  function hide(id){ $(id).classList.add('hide'); }
+
+  function post(fn, body){
+    return fetch(fn, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(body) })
+      .then(function(r){ return r.json().catch(function(){ return { success:false, error:'bad_json', status:r.status }; }); });
+  }
+
+  // ---- auth --------------------------------------------------------------------------------
+  if(!window.SMN_SUPABASE_URL || !window.SMN_SUPABASE_ANON_KEY){
+    $('authMsg').textContent = 'Sign-in is not configured on this deployment.';
+  } else {
+    sb = window.supabase.createClient(window.SMN_SUPABASE_URL, window.SMN_SUPABASE_ANON_KEY,
+      { auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true } });
+    sb.auth.getSession().then(function(res){
+      var s = res && res.data && res.data.session;
+      if(s && s.access_token) onSignedIn(s);
+      else { $('authMsg').textContent = 'Not signed in.'; show('authForm'); }
+    });
+    sb.auth.onAuthStateChange(function(_e, s){ if(s && s.access_token) onSignedIn(s); });
+  }
+  // Supabase fires onAuthStateChange on INITIAL_SESSION, SIGNED_IN and every silent
+  // TOKEN_REFRESH. Reloading the picker on each one rebuilt the Project <select> and
+  // silently threw away whatever the customer had chosen — leaving a Name selected with
+  // no Project behind it, and a command bar that refused to fire. The token is kept
+  // current every time; the list is only ever built once.
+  var pickersLoaded = false;
+  function onSignedIn(s){
+    token = s.access_token;
+    $('authMsg').textContent = 'Signed in as ' + ((s.user && s.user.email) || 'unknown') + '.';
+    hide('authForm'); show('authOk'); show('brandCard');
+    if(pickersLoaded) return;
+    pickersLoaded = true;
+    loadReports();
+  }
+  $('sendLink').addEventListener('click', function(){
+    var em = ($('em').value || '').trim(); if(!em){ $('em').focus(); return; }
+    this.disabled = true; var b = this;
+    sb.auth.signInWithOtp({ email: em, options:{ emailRedirectTo: location.href } })
+      .then(function(r){ b.disabled = false;
+        $('authMsg').textContent = (r && r.error) ? ('Could not send: ' + r.error.message)
+                                                  : 'Link sent. Open it on this device.'; });
+  });
+  $('signOut').addEventListener('click', function(){ sb.auth.signOut().then(function(){ location.reload(); }); });
+
+  // ---- brand pickers ------------------------------------------------------------------------
+  function loadReports(){
+    var keep = $('rep').value;
+    post('/.netlify/functions/my-reports', { access_token: token }).then(function(d){
+      var list = (d && d.reports) || [];
+      if(!list.length){ $('rep').innerHTML = '<option value="">No projects yet</option>'; return; }
+      var h = '<option value="">Choose…</option>';
+      list.forEach(function(x){
+        h += '<option value="' + x.id + '">' + String(x.seed || x.id).slice(0,70) + '</option>';
+      });
+      $('rep').innerHTML = h;
+      // Belt and braces: if this ever runs a second time, the customer keeps their choice.
+      if(keep){ $('rep').value = keep; }
+    });
+  }
+  $('rep').addEventListener('change', function(){
+    var r = this.value;
+    hide('cmdCard'); hide('shelfCard'); hide('askCard');
+    if(!r){ $('nm').innerHTML = '<option value="">Pick a project first</option>'; return; }
+    $('nm').innerHTML = '<option value="">Loading…</option>';
+    post('/.netlify/functions/my-report-names', { access_token: token, report_id: r }).then(function(d){
+      var names = (d && d.names) || [];
+      if(!names.length){ $('nm').innerHTML = '<option value="">No names</option>'; return; }
+      var h = '<option value="">Choose…</option>';
+      names.forEach(function(n){ h += '<option value="' + (n.name||'') + '">' + (n.name||'') + '</option>'; });
+      $('nm').innerHTML = h;
+    });
+  });
+  $('nm').addEventListener('change', function(){
+    $('actMsg').textContent = '';
+    if(this.value){ show('cmdCard'); show('shelfCard'); $('actRow').style.display = 'flex'; $('cmd').focus(); }
+    else { hide('cmdCard'); hide('shelfCard'); $('actRow').style.display = 'none'; }
+  });
+
+  // ---- activation ---------------------------------------------------------------------------
+  // One activation per order is included; a second one is a paid step and the function says so.
+  // This button only asks — every decision about what is free stays on the server.
+  $('actBtn').addEventListener('click', function(){
+    var r = $('rep').value, name = $('nm').value;
+    if(!r || !name){ $('actMsg').textContent = 'Pick a Project and a Name first.'; return; }
+    var b = this; b.disabled = true;
+    $('actMsg').textContent = 'Activating…';
+    post('/.netlify/functions/activate-brand', { access_token: token, r: r, name: name })
+      .then(function(d){
+        b.disabled = false;
+        if(d && d.ok && d.activated){
+          $('actMsg').innerHTML = '<span style="color:var(--green);font-weight:700">Activated' +
+            (d.already ? ' already' : '') + '. You can make assets now.</span>';
+        } else if(d && d.error === 'payment_required'){
+          $('actMsg').innerHTML = '<span style="color:var(--amber);font-weight:700">' +
+            'Another name on this project is already activated. A second one is a paid step.</span>';
+        } else {
+          $('actMsg').innerHTML = '<span style="color:var(--pink);font-weight:700">' +
+            'Could not activate: ' + ((d && d.error) || 'unknown') + '</span>';
+        }
+      })
+      .catch(function(){ b.disabled = false; $('actMsg').textContent = 'Network error.'; });
+  });
+
+  // ---- typeahead ----------------------------------------------------------------------------
+  // The list is what we have names for. It is not the limit of what can be asked for —
+  // anything typed that is three characters or more can also go through as an open request,
+  // which the spec desk resolves to real dimensions before anything is made.
+  function match(q){
+    var raw = q.trim();
+    q = raw.toLowerCase();
+    if(q.length < 2) return [];
+    var hits = SCHEMA.filter(function(a){
+      return (a.label + ' ' + a.id + ' ' + a.kind + ' ' + a.kw).toLowerCase().indexOf(q) >= 0;
+    }).slice(0, 6);
+    if(raw.length >= 3){
+      hits.push({ id:'__open', label:'Ask for &ldquo;' + escHtml(raw) + '&rdquo;',
+                  kind:'anything', __open:true, text:raw });
+    }
+    return hits;
+  }
+  function escHtml(t){
+    return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c];
+    });
+  }
+  function render(){
+    var box = $('sugg');
+    if(!items.length){ box.classList.remove('open'); $('cmd').setAttribute('aria-expanded','false'); box.innerHTML=''; return; }
+    box.innerHTML = items.map(function(a,i){
+      return '<div class="sitem' + (i===sel?' on':'') + (a.__open?' open-row':'') +
+             '" role="option" data-i="' + i + '">' +
+             '<span class="nm">' + a.label + '</span><span class="sub">' + a.kind + '</span></div>';
+    }).join('');
+    box.classList.add('open'); $('cmd').setAttribute('aria-expanded','true');
+  }
+  $('cmd').addEventListener('input', function(){ items = match(this.value); sel = items.length ? 0 : -1; render(); });
+  $('cmd').addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ items = []; sel = -1; render(); return; }
+
+    // ENTER ALWAYS DOES SOMETHING (2026-07-27). This used to sit behind `if(!items.length)
+    // return`, so any state where the suggestion list had closed — a click elsewhere, an
+    // Escape, a blur — left Enter silently dead with text still in the box. Typing a sentence
+    // and pressing Enter is the primary way this page is used; it can never be a no-op.
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      if(items.length && sel >= 0) { fire(items[sel]); return; }
+      var raw = ($('cmd').value || '').trim();
+      if(raw.length >= 3){ fire({ id:'__open', __open:true, text:raw, label:raw }); return; }
+      $('spendLine').innerHTML = '<span style="color:var(--amber);font-weight:700">' +
+        'Type a few more words first.</span>';
+      return;
+    }
+
+    if(!items.length) return;
+    if(e.key === 'ArrowDown'){ e.preventDefault(); sel = (sel + 1) % items.length; render(); }
+    else if(e.key === 'ArrowUp'){ e.preventDefault(); sel = (sel - 1 + items.length) % items.length; render(); }
+  });
+  $('sugg').addEventListener('click', function(e){
+    var t = e.target.closest('.sitem'); if(!t) return;
+    fire(items[parseInt(t.getAttribute('data-i'), 10)]);
+  });
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('.cmdwrap')){ items = []; sel = -1; render(); }
+  });
+
+  // ---- fire ---------------------------------------------------------------------------------
+  // ---- shelf --------------------------------------------------------------------------------
+  // Every finished tile carries its own receipt: what it is, how big it actually came out,
+  // the DPI it was specified at, and when it was made. Dimensions are read off the delivered
+  // image itself rather than echoed back from the request, so the number on screen is the
+  // number in the file.
+  // ---- the type layer -------------------------------------------------------------------------
+  // The generated photo is deliberately text-free — image models mangle letters. The brand
+  // name is set over it here, in the browser, on canvas. No API call, no cost, and the type
+  // stays crisp because it is real type rather than something a model painted.
+  //
+  // Three of workspace.html's proven habits are reused rather than reinvented:
+  //   · the image is fetched to a blob first. Drawing a cross-origin image directly taints
+  //     the canvas and toBlob then silently returns null — an empty download.
+  //   · ink colour is chosen by measuring the actual luminance of the area being written on,
+  //     not guessed. The prompt asks for a dark held area, but asking is not the same as got.
+  //   · the display face is curated to the industry, the same intelligence as the font engine.
+  var SMN_FONTMAP = [
+    [/military|defense|tactical|aerospace|drone|security/i, 'Black Ops One'],
+    [/attorney|law|legal|cpa|account|tax|advisor|wealth|insurance|consult/i, 'Playfair Display'],
+    [/tech|software|\bai\b|app\b|saas|robot|data|cyber/i, 'Space Grotesk'],
+    [/pizza|restaurant|cafe|coffee|bakery|food|grill|bar\b|bistro|catering|kitchen/i, 'Fraunces'],
+    [/kids|toy|party|birthday|game|fun/i, 'Baloo 2'],
+    [/spa|beauty|salon|wellness|yoga|skincare|bridal/i, 'Cormorant Garamond'],
+    [/construction|contractor|plumb|electric|hvac|roof|storage|moving|towing|landscap|handyman|plow|snow/i, 'Archivo Black'],
+    [/podcast|media|creator|studio|music|film/i, 'Bebas Neue'],
+    [/nonprofit|charity|foundation|community|church|shelter|veteran/i, 'Merriweather'],
+    [/health|medical|clinic|rehab|therap|counsel|hospice|senior care|home care|nursing/i, 'Lora']
+  ];
+  function fontFor(seed){
+    for(var i = 0; i < SMN_FONTMAP.length; i++){ if(SMN_FONTMAP[i][0].test(seed || '')) return SMN_FONTMAP[i][1]; }
+    return 'Playfair Display';
+  }
+  var fontAsked = {};
+  function loadFont(fam){
+    return new Promise(function(res){
+      if(fontAsked[fam]) return res(fam);
+      fontAsked[fam] = true;
+      var l = document.createElement('link'); l.rel = 'stylesheet';
+      l.href = 'https://fonts.googleapis.com/css2?family=' + fam.replace(/ /g, '+') + ':wght@700;900&display=swap';
+      document.head.appendChild(l);
+      function done(){ res(fam); }
+      if(document.fonts && document.fonts.load){
+        Promise.all([document.fonts.load('900 96px "' + fam + '"'),
+                     document.fonts.load('700 40px "' + fam + '"')]).then(done).catch(done);
+        setTimeout(done, 2500);
+      } else setTimeout(done, 1400);
+    });
+  }
+  function blobImg(url){
+    return fetch(url, { mode:'cors', credentials:'omit' })
+      .then(function(r){ if(!r.ok) throw new Error('fetch ' + r.status); return r.blob(); })
+      .then(function(b){ return new Promise(function(res, rej){
+        var u = URL.createObjectURL(b), im = new Image();
+        im.onload = function(){ res(im); };
+        im.onerror = function(){ URL.revokeObjectURL(u); rej(new Error('decode')); };
+        im.src = u;
+      });});
+  }
+  // Average luminance of the band we are about to write on. White type on a bright sky is
+  // the single easiest way to ruin an otherwise good piece.
+  function bandInk(x, w, y0, h){
+    try {
+      var d = x.getImageData(0, y0, w, h).data, t = 0, n = 0;
+      for(var i = 0; i < d.length; i += 4 * 97){                 // sparse sample; plenty accurate
+        t += (0.2126 * d[i] + 0.7152 * d[i+1] + 0.0722 * d[i+2]) / 255; n++;
+      }
+      return (n && (t / n) > 0.58) ? '#14161A' : '#FFFFFF';
+    } catch(e){ return '#FFFFFF'; }
+  }
+  function fitSize(x, text, fam, maxW, start){
+    var s = start;
+    while(s > 12){ x.font = '900 ' + s + 'px "' + fam + '", Georgia, serif';
+      if(x.measureText(text).width <= maxW) break; s -= Math.max(2, Math.round(s * 0.04)); }
+    return s;
+  }
+
+  function setTypeOn(a, url){
+    var seed = ($('rep').options[$('rep').selectedIndex] || {}).text || '';
+    var name = $('nm').value || '';
+    var fam  = fontFor(seed + ' ' + name);
+    var el = $('tile-' + a.id);
+    var btn = el && el.querySelector('.typebtn');
+    if(btn){ btn.disabled = true; btn.textContent = 'Setting the type…'; }
+
+    return Promise.all([blobImg(url), loadFont(fam)]).then(function(r){
+      var im = r[0];
+      var cv = document.createElement('canvas');
+      cv.width = im.naturalWidth; cv.height = im.naturalHeight;
+      var x = cv.getContext('2d');
+      try { x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high'; } catch(e){}
+      x.drawImage(im, 0, 0, cv.width, cv.height);
+
+      // The held area the prompt reserved: the upper third.
+      var bandY = Math.round(cv.height * 0.06), bandH = Math.round(cv.height * 0.26);
+      var ink = bandInk(x, cv.width, bandY, bandH);
+
+      var maxW = cv.width * 0.84;
+      var size = fitSize(x, name.toUpperCase(), fam, maxW, Math.round(cv.width * 0.13));
+      try { x.letterSpacing = Math.round(size * 0.06) + 'px'; } catch(e){}
+      x.font = '900 ' + size + 'px "' + fam + '", Georgia, serif';
+      x.fillStyle = ink; x.textAlign = 'center'; x.textBaseline = 'alphabetic';
+      // A whisper of shadow so type survives a busier frame than we asked for.
+      x.shadowColor = (ink === '#FFFFFF') ? 'rgba(0,0,0,.45)' : 'rgba(255,255,255,.35)';
+      x.shadowBlur = Math.round(size * 0.22);
+      var baseline = bandY + Math.round(bandH * 0.62);
+      x.fillText(name.toUpperCase(), cv.width / 2, baseline);
+
+      var dom = (name.replace(/[^a-z0-9]/gi, '') || '').toLowerCase();
+      if(dom){
+        var ss = Math.max(12, Math.round(size * 0.20));
+        try { x.letterSpacing = Math.round(ss * 0.26) + 'px'; } catch(e){}
+        x.font = '700 ' + ss + 'px "' + fam + '", Georgia, serif';
+        x.shadowBlur = Math.round(ss * 0.3);
+        x.fillText(dom + '.com', cv.width / 2, baseline + Math.round(size * 0.52));
+      }
+
+      return new Promise(function(res, rej){
+        cv.toBlob(function(bl){
+          if(!bl) return rej(new Error('canvas came back empty'));
+          res(URL.createObjectURL(bl));
+        }, 'image/png');
+      });
+    }).then(function(outUrl){
+      var img = el.querySelector('img'); if(img) img.src = outUrl;
+      var dl = el.querySelector('a.dl');
+      if(dl){ dl.href = outUrl; dl.textContent = 'Download finished piece';
+              dl.setAttribute('download', (name.replace(/[^a-z0-9]+/gi,'-') || 'asset') + '-finished.png'); }
+      if(btn){ btn.textContent = 'Type set'; btn.disabled = true; }
+    }).catch(function(e){
+      if(btn){ btn.disabled = false; btn.textContent = 'Set the brand name on it'; }
+      var m = el && el.querySelector('.meta');
+      if(m){ m.textContent = 'Could not set type: ' + (e && e.message || 'unknown'); }
+    });
+  }
+
+  $('clearShelf').addEventListener('click', function(){
+    $('shelf').innerHTML = ''; show('shelfEmpty'); $('spendLine').textContent = '';
+  });
+
+  // ANOTHER TAKE. Same brief, new render, filed as its own version — the earlier takes stay
+  // on the shelf beside it. This costs money every time, which is the point: it is only ever
+  // reached by choosing it.
+  function addFreshButton(a){
+    var el = $('tile-' + a.id); if(!el || el.querySelector('.freshbtn') || !lastBrief) return;
+    var brief = lastBrief;
+    var b = document.createElement('button');
+    b.className = 'ghost freshbtn'; b.textContent = 'Another take (new charge)';
+    b.addEventListener('click', function(){
+      var r = $('rep').value, name = $('nm').value;
+      if(!r || !name) return;
+      b.disabled = true;
+      var na = { id: 'open_' + Date.now(), label: brief.text };
+      // One token per press, reused by every poll for this take. This is the whole fix for
+      // the double-charge: the key stays put while the render runs.
+      var takeId = 't' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+      var body = { access_token: token, brand_id: r, brand_name: name,
+                   custom_request: brief.text, answers: brief.answers, take: takeId };
+      setState(na, 'p-work', 'making a new take…');
+      post('/api/generate-asset', body)
+        .then(function(d){
+          b.disabled = false;
+          if(d && d.success && d.download_url){
+            setState(na, 'p-ok', 'ready', d.download_url);
+            if(d.spec) noteSpec(na, d.spec);
+          } else if(looksLikeTimeout(d)){ pollFor(na, body); }
+          else { setState(na, 'p-err', (d && d.error) || 'failed'); }
+          if(d && typeof d.spent === 'number'){
+            $('spendLine').textContent = 'spent $' + d.spent.toFixed(4) +
+              (typeof d.cap === 'number' ? ' of $' + d.cap.toFixed(2) : '');
+          }
+        })
+        .catch(function(){ b.disabled = false; pollFor(na, body); });
+    });
+    el.appendChild(b);
+  }
+
+  function addTypeButton(a, url){
+    var el = $('tile-' + a.id); if(!el || el.querySelector('.typebtn')) return;
+    var b = document.createElement('button');
+    b.className = 'ghost typebtn'; b.textContent = 'Set the brand name on it';
+    b.addEventListener('click', function(){ setTypeOn(a, url); });
+    el.appendChild(b);
+  }
+
+  function tile(a){
+    var id = 'tile-' + a.id, el = $(id);
+    if(!el){
+      el = document.createElement('div'); el.className = 'tile'; el.id = id;
+      el.innerHTML = '<div class="nm"></div><div class="st"></div><div class="meta"></div>';
+      el.querySelector('.nm').textContent = a.label;
+      $('shelf').appendChild(el); hide('shelfEmpty');
+    }
+    return el;
+  }
+  function setState(a, cls, text, url){
+    var el = tile(a);
+    el.querySelector('.nm').textContent = a.label;
+    el.querySelector('.st').innerHTML = '<span class="pill ' + cls + '">' + text + '</span>';
+    if(url && !el.querySelector('img')){
+      var im = document.createElement('img'); im.src = url; im.alt = a.label;
+      im.addEventListener('load', function(){
+        var m = el.querySelector('.meta');
+        var dims = im.naturalWidth + ' \u00d7 ' + im.naturalHeight + ' px';
+        m.setAttribute('data-dims', dims);
+        writeMeta(el);
+      });
+      el.insertBefore(im, el.querySelector('.meta'));
+
+      var lk = document.createElement('a'); lk.className = 'dl';
+      lk.href = url; lk.textContent = 'Download this asset';
+      lk.setAttribute('download', ''); lk.target = '_blank'; lk.rel = 'noopener';
+      el.appendChild(lk);
+
+      el.querySelector('.meta').setAttribute('data-at', new Date().toLocaleString());
+      writeMeta(el);
+      addTypeButton(a, url);
+      addFreshButton(a);
+    }
+  }
+  function writeMeta(el){
+    var m = el.querySelector('.meta'); if(!m) return;
+    var bits = [];
+    if(m.getAttribute('data-dims')) bits.push(m.getAttribute('data-dims'));
+    if(m.getAttribute('data-dpi'))  bits.push(m.getAttribute('data-dpi') + ' DPI');
+    if(m.getAttribute('data-bleed'))bits.push(m.getAttribute('data-bleed') + 'px bleed');
+    if(m.getAttribute('data-at'))   bits.push(m.getAttribute('data-at'));
+    m.textContent = bits.join('  \u00b7  ');
+  }
+  // ---- questionnaire (open requests only) ---------------------------------------------------
+  // One question on screen at a time, each one skippable. A skipped answer is simply absent
+  // from the prompt — nothing is invented to fill the gap.
+  var QS = [
+    { key:'purpose', q:'What is it for?',            ph:'e.g. handing out at a trade show' },
+    { key:'format',  q:'What size or format?',       ph:'e.g. 24 by 36 inches — or leave it to us' },
+    { key:'look',    q:'Which look?',                ph:'Leave blank and we choose', pick:[
+        'Sweeping wide establishing shot',
+        'Rich hero close-up',
+        'Dynamic three-quarter angle',
+        'Warm golden hour',
+        'Bold vibrant colour',
+        'Premium showcase'
+      ] },
+    { key:'custom',  q:'Anything custom we should know?', ph:'e.g. must survive being folded in half' }
+  ];
+  var ask = { text:'', step:0, answers:{} };
+  var lastBrief = null;          // the last open request, so another take can repeat it exactly
+
+  // ONE BOX, NO FORM (2026-07-27, Founder order). Type it, we make it. The three questions
+  // that used to sit here have moved into the engine: the size comes from the spec desk
+  // reading the request, and the cinematic frame is chosen from the piece itself. A customer
+  // describing a vehicle wrap should not be asked what a vehicle wrap is for.
+  function buildOpen(text){
+    ask = { text:text, step:0, answers:{} };
+    $('askWhat').textContent = text;
+    show('askCard'); hide('askStep'); hide('askConfirm');
+    $('askTitle').textContent = 'Making it';
+    $('askBuilding').classList.remove('hide'); $('askBuilding').style.display = 'flex';
+    $('cmd').value = '';
+    fireOpen(text, {});
+  }
+
+  function askOpen(text){
+    ask = { text:text, step:0, answers:{} };
+    $('askWhat').textContent = 'You asked for: ' + text;
+    show('askCard'); hide('shelfCard');
+    $('askBuilding').style.display = 'none'; hide('askBuilding');
+    askRender();
+  }
+  function askRender(){
+    hide('askConfirm'); show('askStep');
+    var s = QS[ask.step];
+    $('askTitle').textContent = 'Question ' + (ask.step + 1) + ' of ' + QS.length;
+    $('askQ').textContent = s.q;
+
+    // A question with a fixed set of answers gets buttons, not a text box — six named
+    // frames are a choice, not something anyone should have to spell.
+    var box = $('askPick');
+    if(s.pick){
+      $('askIn').style.display = 'none';
+      box.style.display = 'grid';
+      box.innerHTML = s.pick.map(function(p){
+        return '<button class="pick' + (ask.answers[s.key] === p ? ' on' : '') +
+               '" data-v="' + escHtml(p) + '">' + escHtml(p) + '</button>';
+      }).join('');
+    } else {
+      box.style.display = 'none'; box.innerHTML = '';
+      $('askIn').style.display = '';
+      $('askIn').placeholder = s.ph;
+      $('askIn').setAttribute('list', 'dl_' + s.key);
+      $('askIn').value = ask.answers[s.key] || '';
+      $('askIn').focus();
+    }
+  }
+  function askAdvance(save){
+    var s = QS[ask.step];
+    if(s.pick){ if(!save) ask.answers[s.key] = ''; }
+    else { ask.answers[s.key] = save ? ($('askIn').value || '').trim() : ''; }
+    if(ask.step < QS.length - 1){ ask.step++; askRender(); return; }
+    askShowConfirm();
+  }
+  function askShowConfirm(){
+    hide('askStep'); show('askConfirm');
+    $('askTitle').textContent = 'Ready?';
+    var rows = ['<b style="color:var(--ink)">' + escHtml(ask.text) + '</b>'];
+    QS.forEach(function(s){
+      if(ask.answers[s.key]) rows.push(escHtml(s.q) + ' &mdash; ' + escHtml(ask.answers[s.key]));
+    });
+    rows.push('<span style="color:var(--muted)">We work out the right dimensions before making it.</span>');
+    $('askRecap').innerHTML = rows.join('<br>');
+  }
+  function askClose(){ hide('askCard'); show('shelfCard'); $('cmd').focus(); }
+
+  $('askPick').addEventListener('click', function(e){
+    var b = e.target.closest('.pick'); if(!b) return;
+    ask.answers[QS[ask.step].key] = b.getAttribute('data-v');
+    askAdvance(true);
+  });
+  $('askNext').addEventListener('click', function(){ askAdvance(true); });
+  $('askSkip').addEventListener('click', function(){ askAdvance(false); });
+  $('askCancel').addEventListener('click', askClose);
+  $('askCancel2').addEventListener('click', askClose);
+  $('askBack').addEventListener('click', function(){ ask.step = 0; askRender(); });
+  $('askIn').addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); askAdvance(true); } });
+  $('askGo').addEventListener('click', function(){
+    hide('askStep'); hide('askConfirm');
+    $('askBuilding').classList.remove('hide'); $('askBuilding').style.display = 'flex';
+    $('askTitle').textContent = 'Making it';
+    fireOpen(ask.text, ask.answers);
+  });
+
+  // ---- waiting out the wall -------------------------------------------------------------------
+  // Netlify cuts a normal function off at ten seconds. Image generation routinely runs longer,
+  // so the browser gives up while the work carries on and finishes fine — the asset lands in
+  // storage and the shelf never hears about it.
+  //
+  // Rather than invent a status channel, this re-sends the identical request. Two gates already
+  // in the function do the rest: the idempotency claim answers 'duplicate_request_in_progress'
+  // while it is still working, and the cache gate returns the stored URL the moment it is done,
+  // costing nothing and generating nothing twice.
+  var POLL_MS = 6000, POLL_MAX = 40;   // four minutes: a judged logo can take three takes
+
+  // Signals that mean "not finished yet", never "broken".
+  //   queued                        — the dispatcher handed the job to the background function
+  //   duplicate_request_in_progress — the claim is held: our own earlier request is still working
+  //   bad_json / 502 / 504          — a crashed or timed-out invocation; the work may still land
+  // A response with NO error field at all is what Netlify returns when a function is killed,
+  // so that is treated as still-working too rather than printed as the bare word "failed".
+  function looksLikeTimeout(d){
+    if(!d) return true;
+    if(d.queued || d.error === 'queued') return true;
+    if(d.error === 'duplicate_request_in_progress') return true;
+    if(d.error === 'background_not_reachable' || d.error === 'dispatch_failed') return false; // real, named, stop
+    if(d.error === 'bad_json' || d.error === 'network') return true;
+    if(d.status === 502 || d.status === 504) return true;
+    if(d.success !== true && !d.error) return true;
+    return false;
+  }
+  function pollFor(a, body, tries){
+    tries = tries || 0;
+    if(tries >= POLL_MAX){
+      setState(a, 'p-err', 'still working — reload the page in a minute');
+      return;
+    }
+    setState(a, 'p-work', 'still making… (' + ((tries + 1) * POLL_MS / 1000) + 's)');
+    setTimeout(function(){
+      post('/api/generate-asset', body)
+        .then(function(d){
+          if(d && d.success && d.download_url){
+            setState(a, 'p-ok', 'ready', d.download_url);
+            if(d.spec) noteSpec(a, d.spec);
+            if(typeof d.spent === 'number'){
+              $('spendLine').textContent = 'spent $' + d.spent.toFixed(4) +
+                (typeof d.cap === 'number' ? ' of $' + d.cap.toFixed(2) : '');
+            }
+            return;
+          }
+          if(looksLikeTimeout(d)) return pollFor(a, body, tries + 1);
+          setState(a, 'p-err', (d && d.error) || 'failed');
+        })
+        .catch(function(){ pollFor(a, body, tries + 1); });
+    }, POLL_MS);
+  }
+
+  function fireOpen(text, answers){
+    var r = $('rep').value, name = $('nm').value;
+    if(!r || !name){
+      askClose();
+      $('spendLine').innerHTML = '<span style="color:var(--amber);font-weight:700">' +
+        'Pick a Project and a Name in the Brand card above first.</span>';
+      return;
+    }
+    var a = { id: 'open_' + Date.now(), label: text };
+    var body = { access_token: token, brand_id: r, brand_name: name,
+                 custom_request: text, answers: answers };
+    lastBrief = { text: text, answers: answers };
+    post('/api/generate-asset', body)
+      .then(function(d){
+        askClose(); $('cmd').value = '';
+        if(d && d.success && d.download_url){
+          a.label = d.label || text;
+          setState(a, 'p-ok', d.cached ? 'ready (cached)' : 'ready', d.download_url);
+          if(d.spec) noteSpec(a, d.spec);
+          if(d.judged) noteVerdict(a, d.judged);
+          if(d.concept) noteConcept(a, d.concept);
+        } else if(looksLikeTimeout(d)){
+          pollFor(a, body);
+        } else {
+          setState(a, 'p-err', ((d && (d.error || d.errorMessage)) || 'failed') +
+                               (d && d.status ? (' (' + d.status + ')') : ''));
+        }
+        if(d && typeof d.spent === 'number'){
+          $('spendLine').textContent = 'spent $' + d.spent.toFixed(4) +
+            (typeof d.cap === 'number' ? ' of $' + d.cap.toFixed(2) : '');
+        }
+      })
+      .catch(function(){ askClose(); pollFor(a, body); });
+  }
+  // The judge's verdict, shown plainly. A score you cannot see is a score nobody acts on.
+  function noteVerdict(a, j){
+    var el = $('tile-' + a.id); if(!el || el.querySelector('.verdict')) return;
+    var d = document.createElement('div');
+    d.className = 'verdict';
+    var colour = (j.verdict === 'pass') ? 'var(--green)'
+               : (j.verdict === 'unknown') ? 'var(--muted)' : 'var(--amber)';
+    var head = (j.verdict === 'unknown')
+      ? 'Not judged'
+      : (j.total + '/100 &middot; ' + (j.verdict === 'pass' ? 'passed' : 'best of ' + j.attempts) +
+         (j.attempts > 1 ? (' &middot; ' + j.attempts + ' takes') : ''));
+    // The four codex axioms, shown as scores so a failure is legible rather than a mystery.
+    var ax = '';
+    if(j.codex && Object.keys(j.codex).length){
+      var LBL = { elemental_simplicity:'simplicity', grid_uniformity:'grid',
+                  silhouette_integrity:'silhouette', flatness:'flatness' };
+      var failed = j.failed_axioms || [];
+      ax = '<br>' + Object.keys(LBL).map(function(k){
+        var bad = failed.indexOf(k) >= 0;
+        return '<span style="color:' + (bad ? 'var(--pink)' : 'var(--muted)') + '">' +
+               LBL[k] + ' ' + (j.codex[k] != null ? j.codex[k] : '—') + '</span>';
+      }).join(' &middot; ');
+    }
+    d.innerHTML = '<span style="color:' + colour + ';font-weight:800">' + head + '</span>' + ax +
+                  (j.one_line ? ('<br><span style="color:var(--muted)">' + escHtml(j.one_line) + '</span>') : '');
+    el.insertBefore(d, el.querySelector('.meta'));
+  }
+  function noteConcept(a, c){
+    var el = $('tile-' + a.id); if(!el || !c || !c.idea || el.querySelector('.concept')) return;
+    var d = document.createElement('div');
+    d.className = 'concept';
+    d.innerHTML = '<span style="color:var(--cyan);font-weight:700">The idea</span><br>' +
+                  '<span style="color:var(--soft)">' + escHtml(c.idea) + '</span>';
+    el.insertBefore(d, el.querySelector('.meta'));
+  }
+  function noteSpec(a, sp){
+    var el = $('tile-' + a.id); if(!el) return;
+    var m = el.querySelector('.meta'); if(!m) return;
+    if(sp.dpi)   m.setAttribute('data-dpi', sp.dpi);
+    if(sp.bleed) m.setAttribute('data-bleed', sp.bleed);
+    writeMeta(el);
+  }
+
+  function fire(a){
+    if(!a) return;
+    var r = $('rep').value, name = $('nm').value;
+    if(!r || !name){
+      items = []; sel = -1; render();
+      $('spendLine').innerHTML = '';
+      $('cmdWarn').innerHTML = 'Pick a <b>Project</b> and a <b>Name</b> in the Brand card above first.';
+      $('cmdWarn').style.display = 'block';
+      $('brandCard').scrollIntoView({ behavior:'smooth', block:'center' });
+      return;
+    }
+    $('cmdWarn').style.display = 'none';
+    $('spendLine').textContent = '';
+    if(a.__open){ items = []; sel = -1; render(); buildOpen(a.text); return; }
+    if(busy[a.id]) return;                       // client-side double-click guard
+    busy[a.id] = true;
+    items = []; sel = -1; render();
+    $('cmd').value = '';
+    setState(a, 'p-work', 'making…');
+    var body = { access_token: token, brand_id: r, brand_name: name, asset_type: a.id };
+    post('/api/generate-asset', body)
+      .then(function(d){
+        busy[a.id] = false;
+        if(d && d.success && d.download_url){
+          setState(a, 'p-ok', d.cached ? 'ready (cached)' : 'ready', d.download_url);
+        } else if(looksLikeTimeout(d)){
+          pollFor(a, body);
+        } else {
+          setState(a, 'p-err', ((d && (d.error || d.errorMessage)) || 'failed') +
+                               (d && d.status ? (' (' + d.status + ')') : ''));
+        }
+        if(d && typeof d.spent === 'number'){
+          $('spendLine').textContent = 'spent $' + d.spent.toFixed(4) +
+            (typeof d.cap === 'number' ? ' of $' + d.cap.toFixed(2) : '');
+        }
+      })
+      .catch(function(){ busy[a.id] = false; pollFor(a, body); });
+  }
+})();
+</script>
+</body>
+</html>

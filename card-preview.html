@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Card preview — prettier brand card (off-root, not live)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================================
+   PRETTIER BRAND CARD — OFF-ROOT PREVIEW (2026-07-30, decision B).
+   A single-palette editorial brand sheet. Not linked, not in the sitemap, never
+   shipped to a customer. Built so the Founder can SEE it and PRINT it to PDF
+   before it replaces the live card. All colours come from ONE brand palette so
+   no two brands look alike; the print rules KEEP that colour (the live card's
+   print path forces flat black — that is the "court document" problem this fixes).
+   Sample brand: Rue & Flour (artisan bakery). Palette + vector mark are real
+   outputs of the same engine the live card uses.
+   ========================================================================== */
+
+/* ---- the ONE palette (this brand's own colours) ---- */
+:root{
+  --ink:#2B1D14;      /* espresso — primary text */
+  --paper:#F6EFE2;    /* warm oat — page */
+  --panel:#FCF8F1;    /* lifted card */
+  --accent:#C08A2D;   /* burnt honey — the single accent */
+  --crust:#6B3F2A;    /* deep crust — secondary */
+  --line:#E4D9C4;     /* hairline */
+  --dim:#7A6A56;      /* muted ink */
+  --disp:'Playfair Display', Georgia, 'Times New Roman', serif;
+  --body:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  padding:0 0 80px;
+}
+
+/* screen-only preview banner (hidden in print) */
+.pv-note{
+  background:var(--ink); color:var(--paper);
+  font:600 13.5px/1.5 var(--body); letter-spacing:.01em;
+  padding:12px 20px; text-align:center;
+}
+.pv-note b{color:#F0C878}
+.pv-note .k{display:inline-block;margin:0 4px;padding:1px 7px;border:1px solid rgba(240,200,120,.5);border-radius:6px;font-weight:700;font-size:12px}
+
+/* the sheet */
+.sheet{
+  max-width:840px; margin:26px auto 0; background:var(--panel);
+  border:1px solid var(--line); border-radius:18px; overflow:hidden;
+  box-shadow:0 40px 90px -50px rgba(43,29,20,.55);
+}
+
+/* ---------- HERO: the 2K photo, kept ---------- */
+.hero{position:relative; aspect-ratio:16/9; background:var(--crust)}
+.hero img{width:100%; height:100%; object-fit:cover; display:block}
+.hero::after{content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(43,29,20,0) 52%, rgba(43,29,20,.42) 100%)}
+
+/* ---------- IDENTITY BLOCK: name · url · logo · slogan · available ---------- */
+.ident{
+  position:relative; margin-top:-64px; padding:0 40px 8px; text-align:center;
+}
+.ident .mark{
+  width:118px; height:118px; margin:0 auto; background:var(--panel);
+  border:1px solid var(--line); border-radius:20px;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 22px 44px -26px rgba(43,29,20,.5);
+}
+.ident .mark svg{width:78px; height:78px}
+.eyebrow{
+  margin:22px 0 6px; font:700 12px var(--body);
+  letter-spacing:.34em; text-transform:uppercase; color:var(--accent);
+}
+.brandname{
+  font-family:var(--disp); font-weight:700; font-size:clamp(38px,7vw,62px);
+  line-height:1.02; letter-spacing:-.01em; margin:0;
+}
+.url{
+  margin:12px 0 0; font:600 15px var(--body); letter-spacing:.02em; color:var(--crust);
+}
+.slogan{
+  font-family:var(--disp); font-style:italic; font-weight:500;
+  font-size:clamp(19px,3.2vw,24px); color:var(--ink); margin:16px auto 0; max-width:30ch;
+}
+.avail{
+  display:inline-flex; align-items:center; gap:8px; margin-top:20px;
+  padding:8px 16px; border-radius:999px;
+  background:rgba(58,120,64,.10); border:1px solid rgba(58,120,64,.34);
+  color:#2E6B37; font:700 13px var(--body); letter-spacing:.02em;
+}
+.avail .dot{width:8px; height:8px; border-radius:50%; background:#3B9A4E}
+
+/* thin rule that separates identity from the board */
+.rule{height:1px; background:var(--line); margin:34px 40px 0}
+
+/* ---------- THE BOARD: numbered editorial sections ---------- */
+.board{padding:8px 40px 44px}
+.sec{padding:30px 0; border-bottom:1px solid var(--line)}
+.sec:last-child{border-bottom:0}
+.sec-h{display:flex; align-items:baseline; gap:14px; margin:0 0 18px}
+.sec-n{
+  font-family:var(--disp); font-weight:600; font-size:15px; color:var(--accent);
+  letter-spacing:.04em; min-width:26px;
+}
+.sec-t{font-family:var(--disp); font-weight:700; font-size:23px; letter-spacing:-.01em; margin:0}
+.sec-sub{margin-left:auto; font:600 12px var(--body); color:var(--dim); letter-spacing:.02em; align-self:center}
+
+/* why bullets */
+.why{display:grid; gap:12px}
+.why .row{display:flex; gap:12px; align-items:flex-start}
+.why .di{color:var(--accent); font-size:15px; line-height:1.5; margin-top:1px}
+.why .row b{font-weight:700}
+
+/* palette swatches — single palette, shown in colour */
+.pal{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+.sw{border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#fff}
+.sw .chip{height:74px}
+.sw .cn{padding:9px 10px 3px; font:700 12.5px var(--body); color:var(--ink)}
+.sw .cx{padding:0 10px 11px; font:600 11.5px var(--body); color:var(--dim); letter-spacing:.03em}
+
+/* typography pairing */
+.types{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.typ{border:1px solid var(--line); border-radius:12px; padding:20px; background:#fff}
+.typ .spec{font-size:34px; line-height:1; margin-bottom:12px}
+.typ .tn{font:700 14px var(--body)}
+.typ .td{font:500 12.5px var(--body); color:var(--dim); margin-top:3px}
+
+/* voice */
+.voice{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.vc{border:1px solid var(--line); border-radius:12px; padding:16px 18px; background:#fff}
+.vc .vn{font-family:var(--disp); font-weight:700; font-size:16px; color:var(--crust)}
+.vc .vd{font:500 13px var(--body); color:var(--dim); margin-top:4px}
+
+/* taglines */
+.tags{display:grid; gap:10px}
+.tags .t{font-family:var(--disp); font-style:italic; font-size:18px; color:var(--ink);
+  padding-left:16px; border-left:2px solid var(--accent)}
+
+/* about */
+.about{font-size:15px; color:#3A2A1E; max-width:64ch}
+
+/* footer of the sheet */
+.sheet-f{padding:24px 40px 30px; border-top:1px solid var(--line); text-align:center;
+  font:500 12px var(--body); color:var(--dim)}
+.sheet-f b{color:var(--ink)}
+
+@media (max-width:620px){
+  .pal{grid-template-columns:repeat(2,1fr)}
+  .types,.voice{grid-template-columns:1fr}
+  .ident,.board,.rule,.sheet-f{padding-left:22px; padding-right:22px}
+  .rule{margin-left:22px; margin-right:22px}
+}
+
+/* ============================ PRINT — KEEP THE COLOUR ============================
+   The whole point of Zip 2. We do NOT force black text. We tell the browser to
+   print backgrounds and accents exactly, keep the palette, and break sections
+   cleanly across pages. This is the fix for the "reads like a court document" PDF. */
+@media print{
+  @page{ margin:14mm }
+  html,body{background:#fff !important}
+  body{padding-bottom:0 !important}
+  .pv-note{display:none !important}
+  .sheet{max-width:none; margin:0; border:0; border-radius:0; box-shadow:none}
+  /* keep every colour surface exactly as designed */
+  *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important }
+  .hero{aspect-ratio:auto; height:250px}
+  .hero img{height:250px}
+  /* don't split a section or a card across a page */
+  .sec, .sw, .typ, .vc, .tags .t, .ident{ break-inside:avoid; page-break-inside:avoid }
+  .sec-h{ break-after:avoid; page-break-after:avoid }
+  a{color:inherit; text-decoration:none}
+}
+</style>
+</head>
+<body>
+
+<div class="pv-note">
+  PREVIEW &mdash; prettier brand card (decision B). This page is <b>off-root</b>: not linked, not in the sitemap, never shipped to a customer.
+  To test the PDF, press <span class="k">Cmd</span> <span class="k">P</span> and print &mdash; it should print <b>in colour</b>, clean and long.
+</div>
+
+<div class="sheet">
+
+  <!-- HERO: the 2K photo, kept -->
+  <div class="hero">
+    <img src="img/brand-rue-flour-bakery.webp" alt="Rue & Flour — artisan bakery brand photograph" loading="eager">
+  </div>
+
+  <!-- IDENTITY: name · url · logo · slogan · available to register -->
+  <div class="ident">
+    <div class="mark">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Rue & Flour mark"><text x="100" y="86" text-anchor="middle" font-family="'Playfair Display', Georgia, serif" font-weight="500" font-size="96" fill="#2B1D14">RF</text><line x1="54" y1="120" x2="146" y2="120" stroke="#C08A2D" stroke-width="2"/></svg>
+    </div>
+    <div class="eyebrow">Brand Identity</div>
+    <h1 class="brandname">Rue &amp; Flour</h1>
+    <div class="url">rueandflour.com</div>
+    <p class="slogan">&ldquo;Baked before dawn, gone by noon.&rdquo;</p>
+    <div class="avail"><span class="dot"></span> Domain available to register</div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- THE BOARD -->
+  <div class="board">
+
+    <section class="sec">
+      <div class="sec-h"><span class="sec-n">01</span><h2 class="sec-t">Why it works</h2><span class="sec-sub">8 reasons</span></div>
+      <div class="why">
+        <div class="row"><span class="di">&#9670;</span><div><b>Sound.</b> Two soft syllables and a hard one &mdash; &ldquo;Rue &amp; Flour&rdquo; has a rhythm you can say across a counter.</div></div>
+        <div class="row"><span class="di">&#9670;</span><div><b>Meaning.</b> &ldquo;Rue&rdquo; is a Paris street and a garden herb; &ldquo;Flour&rdquo; grounds it in the craft. Old-world, hand-made.</div></div>
+        <div class="row"><span class="di">&#9670;</span><div><b>Memorability.</b> The near-rhyme with &ldquo;flower&rdquo; makes it stick after one hearing.</div></div>
+        <div class="row"><span class="di">&#9670;</span><div><b>Fit.</b> Reads instantly as a bakery &mdash; no explanation needed on a sign or an awning.</div></div>
+        <div class="row"><span class="di">&#9670;</span><div><b>Differentiation.</b> Warmer and more literary than the &ldquo;Crumb &amp; Co&rdquo; naming everyone else reaches for.</div></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-h"><span class="sec-n">02</span><h2 class="sec-t">Colour system</h2><span class="sec-sub">one palette</span></div>
+      <div class="pal">
+        <div class="sw"><div class="chip" style="background:#2B1D14"></div><div class="cn">Espresso</div><div class="cx">#2B1D14</div></div>
+        <div class="sw"><div class="chip" style="background:#F6EFE2"></div><div class="cn">Warm Oat</div><div class="cx">#F6EFE2</div></div>
+        <div class="sw"><div class="chip" style="background:#C08A2D"></div><div class="cn">Burnt Honey</div><div class="cx">#C08A2D</div></div>
+        <div class="sw"><div class="chip" style="background:#6B3F2A"></div><div class="cn">Deep Crust</div><div class="cx">#6B3F2A</div></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-h"><span class="sec-n">03</span><h2 class="sec-t">Typography</h2></div>
+      <div class="types">
+        <div class="typ"><div class="spec" style="font-family:var(--disp);font-weight:700">Rue &amp; Flour</div><div class="tn">Playfair Display</div><div class="td">Headlines &amp; the wordmark &mdash; editorial, warm, high-contrast.</div></div>
+        <div class="typ"><div class="spec" style="font-family:var(--body);font-weight:600">Rue &amp; Flour</div><div class="tn">Inter</div><div class="td">Body, menus &amp; signage &mdash; clean and legible at any size.</div></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-h"><span class="sec-n">04</span><h2 class="sec-t">Voice &amp; tone</h2></div>
+      <div class="voice">
+        <div class="vc"><div class="vn">Warm</div><div class="vd">Speaks like the person who hands you the bag &mdash; unhurried, kind.</div></div>
+        <div class="vc"><div class="vn">Crafted</div><div class="vd">Proud of the work without bragging. Details over adjectives.</div></div>
+        <div class="vc"><div class="vn">Rooted</div><div class="vd">Old-world, neighbourhood, dependable. Here every morning.</div></div>
+        <div class="vc"><div class="vn">Plain-spoken</div><div class="vd">Short sentences. Real words. Nothing precious.</div></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-h"><span class="sec-n">05</span><h2 class="sec-t">Taglines</h2><span class="sec-sub">6</span></div>
+      <div class="tags">
+        <div class="t">Baked before dawn, gone by noon.</div>
+        <div class="t">The corner that smells like morning.</div>
+        <div class="t">Flour, fire, and a little patience.</div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-h"><span class="sec-n">06</span><h2 class="sec-t">About</h2></div>
+      <p class="about">Rue &amp; Flour is a small-batch neighbourhood bakery built on one idea: bread made the slow way, sold the honest way. Every loaf is mixed the night before and pulled from the oven before the street wakes up. No shortcuts, no mixes &mdash; just flour, water, salt, time, and the hands of people who care what breakfast tastes like.</p>
+    </section>
+
+  </div>
+
+  <div class="sheet-f">
+    <b>SparkMyName&trade;</b> &middot; brand sheet preview &middot; owned by VORREX IGNITE LLC<br>
+    U.S. Patent Pending (App. 19/704,386)
+  </div>
+
+</div>
+
+</body>
+</html>

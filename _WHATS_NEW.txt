@@ -1,0 +1,21 @@
+SPARK DEPLOY — 2026-07-28 late night — NEW THEME + FULL MACHINE, ONE DISC
+
+This disc = the working 3:07 PM deploy (all 165 functions, workspace, checkout,
+emails, login — untouched) + the new white-green marketing site on top.
+
+WHAT CHANGED
+- New white-green homepage: star logo TM, big mic, hero carousel of real brands,
+  SHOWCASES grid (7 real brands, real stills, owned domains shown).
+- New marketing pages: about, see-the-work, success-path, what-you-get + refreshed
+  how-it-works, pricing, support, status, affiliate, press + legal set (frozen copy kept).
+- Star favicon + official logo at img/sparkmyname-logo.svg. TM everywhere, (R) nowhere.
+- Every "Sign in" now goes to account.html — the live, proven magic-code login.
+  workspace-login.html safely redirects there.
+
+WHAT DID NOT CHANGE (the machine)
+- checkout.html -> /.netlify/functions/create-checkout (sealed $99) — untouched.
+- stripe-webhook -> deliver-background -> Resend purchase + ready emails — untouched.
+- account.html login, workspace pages, all 165 functions, netlify.toml, headers — untouched.
+
+DEPLOY: drag the WHOLE unzipped folder to
+app.netlify.com/projects/sparkmyname/deploys  (NOT /drop)

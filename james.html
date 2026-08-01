@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<title>[EXPERIMENT — James cut] SparkMyName — Everything you need to launch. All in one place.</title>
+<meta content="Spark turns one idea into a real business — names, domains, logos, launch materials, AI tools, and a guided path to your first revenue. One payment of $99. Yours forever." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@600&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#FFFFFF;--panel:#FFFFFF;--panel2:#F4F6F5;--ink9:#141414;--soft:#404040;--faint:#565656;
+--line:rgba(20,60,40,.14);--gold:#189850;--gold-deep:#127A40;--gold-soft:#E7F5EC;--black:#FAFAFA;
+--sh:0 2px 6px rgba(20,60,40,.05),0 24px 70px -20px rgba(20,60,40,.14);--r:22px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink9);font-family:'Inter',system-ui,sans-serif;line-height:1.6;display:flex;flex-direction:column;min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased}
+
+.pg{max-width:1200px;margin:0 auto;padding:0 28px;width:100%}
+.serif{font-family:'Inter',system-ui,sans-serif}
+h1,h2{font-family:'Inter',system-ui,sans-serif;font-weight:600;color:var(--ink9);letter-spacing:-.01em;margin:0;text-wrap:balance}
+h1{font-size:clamp(40px,5vw,64px);line-height:1.08}
+h2{font-size:clamp(28px,3.2vw,40px);line-height:1.15}
+p,li{text-wrap:pretty;color:var(--soft)}
+.eyeb{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.eyeb::before{content:"✧";font-size:.875rem}
+.gbtn{display:inline-block;border:0;border-radius:999px;padding:13px 26px;font:inherit;font-size:.9062rem;font-weight:600;cursor:pointer;background:var(--gold);color:#FFFFFF;text-decoration:none;text-align:center;transition:background .15s,transform .15s}
+.gbtn:hover{background:var(--gold-deep);transform:translateY(-1px)}
+.glink{color:var(--gold-deep);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+/* ===== light header per reference ===== */
+.hd{position:sticky;top:0;z-index:60;background:rgba(10,20,40,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hd .in{max-width:1200px;margin:0 auto;padding:clamp(10px,1.3vw,14px) clamp(12px,2.6vw,28px);display:flex;align-items:center;gap:clamp(10px,2.4vw,26px)}
+.wm{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink9)}
+.wm .sp{color:var(--gold);font-size:1.25rem}
+.wm b{font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:1.375rem;letter-spacing:-.01em}
+.nav{display:flex;gap:22px;margin-left:14px}
+.nav a{color:rgba(233,240,255,.82);text-decoration:none;font-size:.875rem;font-weight:500;transition:color .15s}
+.nav a:hover{color:#FFFFFF}
+.hd .rt{margin-left:auto;display:flex;align-items:center;gap:clamp(8px,1.7vw,18px)}
+.hd .lg{color:#EAF2FF;text-decoration:none;font-size:.875rem;font-weight:600;transition:color .15s}
+/* ===== hero ===== */
+.hero{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:start;padding:64px 0 40px}
+.hero h1 .ul{box-shadow:inset 0 -10px 0 var(--gold-soft)}
+.hero .sub{max-width:44ch;font-size:1.0312rem;margin:22px 0 0}
+.blt{list-style:none;padding:0;margin:24px 0 0}
+.blt li{display:flex;align-items:center;gap:12px;padding:8px 0;color:var(--soft);font-size:.9688rem}
+.blt .ic{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.875rem}
+.trust{margin:24px 0 0;font-size:.875rem;font-weight:600;color:var(--gold-deep)}
+.starthere{position:relative;height:80px;margin-top:6px}
+.starthere .cw{position:absolute;right:40px;top:0;font-family:'Caveat',cursive;font-size:1.5rem;color:var(--gold-deep);transform:rotate(-8deg)}
+.starthere svg{position:absolute;right:-6px;top:26px}
+/* ===== command card ===== */
+.cc{background:var(--panel);border:1px solid var(--line);border-radius:26px;box-shadow:var(--sh);padding:30px 30px 26px}
+.cc .top{display:flex;align-items:center;justify-content:space-between}
+.cc .lb{font-size:.7188rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.cc .lb::before{content:"✦ ";color:var(--gold)}
+.cc .ticons{color:var(--faint);font-size:.9375rem;letter-spacing:8px}
+.cc .ti{font-family:'Inter',system-ui,sans-serif;font-size:1.6875rem;font-weight:600;margin:12px 0 4px}
+.cc .hp{font-size:.8438rem;color:var(--soft);margin:0 0 14px;max-width:34ch}
+textarea,select,input{font:inherit;color:var(--ink9);background:#FFFFFF;border:1px solid var(--line);border-radius:14px;padding:13px 15px;width:100%}
+textarea:focus,select:focus,input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(79,142,247,.14)}
+::placeholder{color:var(--faint)}
+.cc-row{display:flex;gap:10px;margin:12px 0 4px;align-items:center}
+.cc-row select{width:auto;flex:1;border-radius:999px;padding:9px 14px;font-size:.8438rem;color:var(--soft)}
+.cc-row .cnt{flex:none;font-size:.75rem;color:var(--faint)}
+.cc .eg{font-size:.8125rem;color:var(--faint);margin:10px 0 14px}
+.cc .eg::before{content:"✧ ";color:var(--gold)}
+.vmod{background:var(--black);border-radius:18px;padding:20px 18px 16px;text-align:center;cursor:pointer;margin-top:6px}
+.vmod .row{display:flex;align-items:center;justify-content:center;gap:14px}
+.vmod .wave{color:#6B655C;font-size:.8125rem;letter-spacing:2px;user-select:none}
+.vmod .mic{width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#127A40,var(--gold) 70%);color:#FFFFFF;font-size:1.4375rem;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(79,142,247,.45)}
+.vmod b{display:block;color:#141414;font-size:.8438rem;font-weight:600;margin-top:12px}
+.vmod.rec .mic{background:#F87171;color:#fff}
+/* ===== dark band ===== */
+.band{background:var(--black);border-radius:26px;color:#FFFFFF;margin:26px 0 0;padding:52px 56px;display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center;position:relative;overflow:hidden}
+.band h2{color:#141414}
+.band p{color:#9FB4D8;font-size:.9375rem;margin:12px 0 0}
+.band .mw{display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:2}
+.band .bigmic{width:92px;height:92px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#127A40,var(--gold) 70%);color:#FFFFFF;font-size:2.125rem;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s;box-shadow:0 10px 30px rgba(79,142,247,.5)}
+.band .bigmic:hover{transform:scale(1.05)}
+.band .bigmic.rec{background:#F87171;color:#fff}
+.band .mw b{font-size:.9375rem;color:#141414}
+.band .mw span{font-size:.7812rem;color:#9FB4D8}
+.band .wires{position:absolute;right:-40px;bottom:-60px;width:340px;height:240px;opacity:.5;pointer-events:none}
+.band .spk{position:absolute;top:34px;right:38%;color:var(--gold);font-size:1.125rem}
+/* ===== brands carousel ===== */
+.sec{padding:76px 0 0}
+.chead{text-align:center}
+.chead h2{display:inline-block;position:relative;padding:0 26px}
+.chead h2::before,.chead h2::after{content:"";position:absolute;top:55%;width:70px;height:1px;background:var(--line)}
+.chead h2::before{right:100%}.chead h2::after{left:100%}
+.carwrap{position:relative;margin-top:34px}
+.car{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px}
+.car::-webkit-scrollbar{display:none}
+.bcard{flex:0 0 214px;scroll-snap-align:start;background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);padding:26px 20px;text-align:center}
+.bcard .mono{width:46px;height:46px;border-radius:13px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:1.25rem;background:var(--gold-soft);color:var(--gold-deep)}
+.bcard b{font-size:1.0312rem;color:var(--ink9)}
+.bcard p{font-size:.8125rem;color:var(--soft);margin:6px 0 14px;min-height:40px}
+.pill{display:inline-block;border-radius:999px;padding:5px 13px;font-size:.75rem;font-weight:600}
+.p-grn{background:#E4EFE2;color:#3D6B35}.p-blu{background:#E2EAF6;color:#2F5487}.p-pur{background:#EBE6F5;color:#5A4494}.p-red{background:#F0F7F3;color:#9C3B2E}.p-gray{background:#ECEAE4;color:#404040}.p-org{background:#F4F6F5;color:#8A5A23}
+.arw{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--soft);font-size:1rem;cursor:pointer;box-shadow:var(--sh);z-index:3}
+.arw:hover{color:var(--ink9);border-color:var(--gold)}
+.arw.l{left:-16px}.arw.r{right:-16px}
+.morelink{display:block;text-align:center;margin-top:26px}
+/* ===== bento deliverables ===== */
+.dsec{background:var(--panel2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:76px;padding:70px 0 76px}
+.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:minmax(150px,auto);gap:16px;margin-top:38px}
+.bx{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px 24px;overflow:hidden}
+.bx 
+.bx .lic{color:var(--gold);font-size:1.375rem;margin-bottom:12px;display:block}
+.bx h3{font-family:'Inter',system-ui,sans-serif;font-size:1.25rem;font-weight:600;margin:0 0 8px;color:var(--ink9)}
+.bx p{font-size:.8438rem;margin:0 0 12px}
+.bx a{font-size:.8438rem}
+.bx.tall{grid-row:span 2}
+.bx.wide{grid-column:span 2}
+.bx.tint{background:var(--gold-soft);border-color:#E0CE9F}
+.hstrip{display:flex;align-items:center;gap:18px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 24px;margin-top:16px;flex-wrap:wrap}
+.hstrip .ic{flex:none;width:44px;height:44px;border-radius:50%;background:var(--gold-soft);color:var(--gold-deep);display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+.hstrip b{color:var(--ink9);font-size:.9375rem}
+.hstrip span{color:var(--soft);font-size:.8438rem}
+.hstrip a{margin-left:auto}
+/* ===== price / steps / faq (kept from set, restyled to cream) ===== */
+.pr{text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:26px;box-shadow:var(--sh);padding:64px 44px;margin-top:76px}
+.pr .n{font-family:'Inter',system-ui,sans-serif;font-size:clamp(54px,6.5vw,86px);font-weight:700;color:var(--ink9);line-height:1}
+.pr .n em{font-style:normal;color:var(--gold)}
+.pr ul{list-style:none;padding:0;margin:20px auto 28px;max-width:52ch}
+.pr li{padding:6px 0;font-size:1rem}
+.st{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.sp1{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px}
+.sp1 .n{font-size:.75rem;font-weight:700;color:var(--gold);letter-spacing:.14em;margin-bottom:12px}
+.sp1 h3{font-family:'Inter',system-ui,sans-serif;font-size:1.1875rem;font-weight:600;margin:0 0 6px}
+.sp1 p{font-size:.875rem;margin:0}
+.faqw{max-width:760px;margin:0 auto;padding-bottom:84px}
+details.f2{border-bottom:1px solid var(--line);padding:0 4px}
+details.f2 summary{cursor:pointer;list-style:none;padding:20px 0;font-weight:600;font-size:1.0312rem;color:#141414!important;display:flex;justify-content:space-between;align-items:center}
+details.f2 summary::after{content:"+";font-size:1.375rem;font-weight:400;color:var(--faint)}
+details.f2[open] summary::after{content:"–"}
+details.f2 p{padding:0 0 20px;margin:0;color:#404040!important;max-width:64ch}
+@media(max-width:980px){.hero,.band{grid-template-columns:1fr}.nav{display:none}.bento{grid-template-columns:1fr 1fr}.bx.tall{grid-row:span 1}.bx.wide{grid-column:span 2}.st{grid-template-columns:1fr}.band{padding:38px 28px}.starthere{display:none}}
+@media(max-width:620px){.bento{grid-template-columns:1fr}.bx.wide{grid-column:span 1}.cc{padding:24px 20px}.cc-row{flex-wrap:wrap}.hstrip a{margin-left:0}}
+
+/* ===== DEVICE SAFETY (28 July 2026 sweep) =====
+   Applied to every page. Two faults were site-wide:
+   1. 100vw includes the scrollbar width, so any element using it is wider than the viewport
+      and forces a sideways scroll. overflow-x:hidden on the root stops that everywhere.
+   2. Tap targets under 44px fail Apple's and Google's minimum and are genuinely hard to hit
+      on a phone. Every interactive element now meets 44px.
+   ===== */
+html,body{overflow-x:hidden;max-width:100%}
+*{min-width:0}
+img,video,iframe,table,pre{max-width:100%}
+a,button,select,summary,[role="button"],input[type="submit"],input[type="button"]{
+  min-height:44px}
+a{display:inline-flex;align-items:center}
+a.inline-link,p a,li a,.dis a,.fnote a{display:inline;min-height:0}
+input,textarea,select{font-size:16px}
+@media(max-width:480px){
+  body{-webkit-text-size-adjust:100%}
+}
+</style>
+<style>
+.ftband{background:#F4F6F5;border-radius:12px;margin:60px 28px 30px;padding:18px 30px;font-size:.8125rem;color:#6f624f;max-width:1200px;margin-left:auto;margin-right:auto}
+.ftband .lnks{display:flex;gap:clamp(10px,1.3vw,14px) clamp(16px,2vw,22px);flex-wrap:wrap;margin-bottom:10px}
+.ftband a{color:#6f624f;text-decoration:none}
+.ftband a:hover{color:#18120c}
+</style><style>
+/* ===== CO214: DEVICE + TOUCH + ADA LAYER (all devices) ===== */
+:focus-visible{outline:3px solid #189850!important;outline-offset:2px;border-radius:6px}
+.gbtn,.cta,button,.dmod,.nav a,.hd .lg,.arw{min-height:44px}
+.gbtn,.cta{display:inline-flex;align-items:center;justify-content:center}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.skip{position:absolute;left:-9999px;top:0;background:#141414;color:#fff;padding:12px 20px;z-index:999;border-radius:0 0 12px 0}
+.skip:focus{left:0}
+img,svg,video{max-width:100%;height:auto}
+input,select,textarea{font-size:1rem}  /* prevents iOS zoom-jump */
+.car{-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;touch-action:pan-x pan-y}
+.car>*{scroll-snap-align:start}
+@media(pointer:coarse){.arw{width:52px;height:52px}}
+@media(max-width:640px){
+  h1{font-size:clamp(32px,9vw,40px)}
+  
+  
+  /* PHONE TRIM — shorter page, faster to the sale */
+  .m-trim{display:none!important}
+  .grid4>.c:nth-child(n+5),.gridbrands>.c:nth-child(n+5){display:none}
+  
+}
+</style><style>
+/* CO214b: small-phone header + band containment */
+@media(max-width:430px){
+  
+  .wm b{font-size:1.1875rem}
+  
+  .hd .rt .gbtn,.hd .rt .cta,.hd .cta{padding:10px 14px;font-size:.8125rem}
+  .hd .lg{font-size:.8125rem}
+}
+.band{overflow:hidden!important}
+.band svg{max-width:44vw!important;right:0!important}
+@media(max-width:640px){#how{display:none!important}.band svg{display:none!important}}
+</style><style>/* CO214c: contain the carousel; never let any page scroll sideways */
+html,body{overflow-x:clip}
+.car{overflow-x:auto;max-width:100%}
+section,main{max-width:100vw}
+</style><link href="manifest.webmanifest" rel="manifest"/>
+<meta content="#189850" name="theme-color"/>
+<link href="icon-192.png" rel="apple-touch-icon"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="default" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="Spark" name="apple-mobile-web-app-title"/>
+<style>
+/* ===== JAMES CUT — navy experiment (Founder + designer, 2026-07-22) ===== */
+body{background:#FFFFFF!important;color:#141414}
+h1,h2{font-family:'Inter',system-ui,sans-serif!important;font-weight:900!important;letter-spacing:-.025em!important;
+ background:linear-gradient(92deg,#127A40 0%,#189850 38%,#189850 72%,#B7791F 100%);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+h3{font-family:'Inter',system-ui,sans-serif!important;font-weight:800!important;color:#2F3B35!important;letter-spacing:-.01em}
+.hd{background:rgba(10,20,40,.9)!important;border-bottom:1px solid rgba(20,60,40,.16)!important}
+.wm b{background:linear-gradient(92deg,#127A40,#189850 55%,#189850);-webkit-background-clip:text;background-clip:text;color:transparent!important;font-family:'Inter',sans-serif!important;font-weight:900!important}
+.gbtn,.cta{background:linear-gradient(92deg,#189850,#189850)!important;color:#FFFFFF!important;font-weight:800!important;border:0!important;box-shadow:0 10px 26px -10px rgba(18,122,64,.5)}
+.gbtn:hover,.cta:hover{background:linear-gradient(92deg,#189850,#189850)!important;transform:translateY(-1px)}
+.cta.dark{background:linear-gradient(92deg,#127A40,#189850)!important;color:#FFFFFF!important}
+.rule{background:linear-gradient(90deg,#127A40,#189850,#189850,#B7791F)!important;height:4px!important}
+.eyeb{color:#B7791F!important}
+.chip{background:rgba(56,189,248,.14)!important;color:#127A40!important;border:1px solid rgba(56,189,248,.25)!important}
+.pill{filter:none}
+.p-grn{background:rgba(52,211,153,.15);color:#6EE7B7}.p-blu{background:rgba(96,165,250,.16);color:#127A40}
+.p-pur{background:rgba(167,139,250,.16);color:#7FCCA3}.p-red{background:rgba(248,113,113,.14);color:#C0392B}
+.p-gray{background:rgba(20,60,40,.12);color:#404040}.p-org{background:rgba(251,191,36,.14);color:#B7791F}
+input,textarea,select{background:#F4F6F5!important;color:#FFFFFF!important;border-color:rgba(20,60,40,.2)!important}
+::placeholder{color:#565656!important}
+.dmod .gc{background:radial-gradient(circle at 35% 30%,#66B88A,#189850 75%)!important;box-shadow:0 6px 24px rgba(24,152,80,.55)!important;color:#FFFFFF!important}
+.jic{width:26px;height:26px;flex:none;stroke:#38BDF8;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+.ftband{background:#F4F6F5!important;border:1px solid rgba(20,60,40,.16)!important;color:#565656!important}
+.ftband a{color:#404040!important}
+:focus-visible{outline-color:#38BDF8!important}
+</style><meta content="noindex,nofollow" name="robots"/><style>/* CO224: designer's radius law — every button matches Open my AI Studio (12px) */
+button,.btn,.cta,.gbtn,.bzbtn,.ocaimbtn,.newbtn,.conciergebtn,.successbtn,.aistudiobtn,.arw,.dmod .gc,.gc,input[type=submit],input[type=button],.smn22-cta a,.dlhero-btn,.act{border-radius:12px!important}
+
+/* SAFE AREAS (2026-07-25). This page declares viewport-fit=cover, which deliberately extends
+   content under the notch and the home indicator. The audit found ZERO env(safe-area-inset-*)
+   anywhere in the codebase, so on an iPhone in landscape the notch overlaps real content.
+   max() keeps it a no-op on every device without insets, and @supports keeps it inert on
+   browsers that do not understand env(). */
+@supports (padding: max(0px)) {
+  body { padding-left: max(0px, env(safe-area-inset-left));
+         padding-right: max(0px, env(safe-area-inset-right)); }
+}
+
+/* iOS zoom trap (2026-07-25): Safari force-zooms on focus when a field is under 16px.
+   Scoped to coarse pointers so desktop sizing is untouched. */
+@media (pointer: coarse) {
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"],
+  input[type="search"], input[type="password"], input:not([type]), textarea, select {
+    font-size: max(1rem, 16px) !important;
+  }
+}
+</style><link href="/favicon-32.png" rel="icon" type="image/png"/><script>
+/* ERROR BOUNDARY (2026-07-25). Audit found window.onerror: 0, unhandledrejection: 0,
+   <noscript>: 0 across every page. One thrown error inside a render function produced a blank
+   card with no message and no clue — which is exactly how this afternoon's failure presented.
+   This never swallows the error (it still reaches the console); it guarantees the user is TOLD.
+   Placed in <head> so it is armed before any page script runs. */
+(function(){
+  var shown=false;
+  function boom(what){
+    if(shown)return; shown=true;
+    try{
+      var d=document.createElement('div');
+      d.setAttribute('role','alert');
+      d.style.cssText='position:fixed;left:12px;right:12px;'+
+        'bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:2147483000;'+
+        'padding:14px 16px;border-radius:12px;background:#FDF6F8;border:1px solid #189850;'+
+        'color:#127A40;font:600 14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;'+
+        'box-shadow:0 18px 44px -12px rgba(0,0,0,.6)';
+      d.textContent='Something went wrong on this page. Reload to try again. ('+String(what).slice(0,120)+')';
+      (document.body||document.documentElement).appendChild(d);
+    }catch(e){}
+  }
+  window.addEventListener('error',function(e){ boom((e&&e.message)||'script error'); });
+  window.addEventListener('unhandledrejection',function(e){
+    var r=e&&e.reason; boom((r&&(r.message||r))||'a request failed'); });
+})();
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="css/uniform.css" rel="stylesheet"/>
+</head>
+<body>
+<a class="skip" href="#main22">Skip to main content</a>
+<header class="hd"><div class="in">
+<a class="wm" href="index.html"><span class="sp">✧</span><b>SparkMyName</b></a>
+<nav class="nav">
+<a href="features.html">Features</a><a href="how-it-works.html">How It Works</a><a href="deliverables.html">Deliverables</a><a href="pricing.html">Pricing</a><a href="resources.html">Resources ▾</a>
+</nav>
+<span class="rt"><a class="lg" href="account.html">Log in</a><a class="gbtn" href="checkout.html">Start Your Spark</a></span>
+</div></header>
+<main id="main22">
+<div class="pg">
+<section class="hero">
+<div>
+<span class="eyeb">From idea to legacy</span>
+<h1 style="margin-top:16px">Everything you <span class="ul">need to launch.</span> All in one place.</h1>
+<p class="sub">Spark is your command center for turning ideas into real businesses. From the perfect name to a full launch kit — built for first-time founders, by people who’ve been there.</p>
+<ul class="blt">
+<li><svg aria-hidden="true" class="jic" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg> AI-powered naming &amp; validation</li>
+<li><svg aria-hidden="true" class="jic" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg> Brand identity, domains &amp; legal docs</li>
+<li><svg aria-hidden="true" class="jic" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg> Step-by-step launch guidance</li>
+</ul>
+<p class="trust" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="color:var(--gold);letter-spacing:2px;font-size:.9375rem">★★★★★</span><span style="font-weight:600;color:var(--soft);font-size:.8438rem">One-time $99 · No subscription · 7-day money-back guarantee</span></p>
+<div class="starthere">
+<span class="cw">Start here</span>
+<svg fill="none" height="52" viewbox="0 0 120 52" width="120"><path d="M6 8 C 40 44, 80 46, 108 24" stroke="#127A40" stroke-dasharray="1 7" stroke-linecap="round" stroke-width="2"></path><path d="M100 18 L110 23 L102 32" fill="none" stroke="#127A40" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+<div class="cc">
+<div class="top"><span class="lb">Spark Command Center</span><span class="ticons">✧ ◷ ⚙</span></div>
+<div class="ti">What’s the spark?</div>
+<p class="hp">Describe your idea in your own words. We’ll handle the rest.</p>
+<textarea id="seed2" maxlength="500" placeholder="e.g. An AI-powered journaling app that helps busy people reflect and grow..." rows="4"></textarea>
+<div class="cc-row">
+<select aria-label="Industry" id="ccInd"><option value="">Industry</option><option>Food &amp; drink</option><option>Retail</option><option>Services</option><option>Tech</option><option>Health &amp; wellness</option><option>Creative</option><option>Nonprofit</option><option>Other</option></select>
+<select aria-label="Audience" id="ccAud"><option value="">Audience</option><option>Local community</option><option>Families</option><option>Professionals</option><option>Businesses</option><option>Online shoppers</option><option>Everyone</option></select>
+<select aria-label="Tone" id="ccTone"><option value="">Tone</option><option>Warm &amp; friendly</option><option>Premium</option><option>Bold</option><option>Trustworthy</option><option>Playful</option><option>Classic</option></select>
+<span class="cnt" id="cnt">0/500</span>
+</div>
+<p class="eg">Not sure where to start? <a class="glink" href="examples.html" id="tryEg">Try an example</a></p>
+<div aria-label="Voice input" class="vmod" id="voiceBox" role="button" tabindex="0">
+<div class="row"><span class="wave">||ıı|ıı||ı</span><span class="mic">🎤</span><span class="wave">ı||ıı|ıı||</span></div>
+<b>Tap the mic and tell us your idea</b>
+</div>
+<button class="gbtn" onclick="startCheckout()" style="width:100%;margin-top:14px">Launch My Business for <span data-price="99">$99</span></button>
+</div>
+</section>
+</div>
+<div class="pg">
+<section class="band">
+<span class="spk">✦</span>
+<div>
+<h2>Tell us your idea.<br/>We’ll build your blueprint.</h2>
+<p>Name ideas, brand assets, launch plan—delivered within 15 minutes.</p>
+</div>
+<div class="mw">
+<button aria-label="Tap to speak" class="bigmic" id="bigMic">🎤</button>
+<b>Tap to speak</b>
+<span>It only takes 20 seconds</span>
+</div>
+<svg class="wires" fill="none" viewbox="0 0 340 240">
+<path d="M0 240 C120 200 220 140 340 20" stroke="#189850" stroke-width="1"></path>
+<path d="M20 240 C140 205 240 150 340 45" stroke="#189850" stroke-width="1"></path>
+<path d="M45 240 C160 210 255 160 340 70" stroke="#189850" stroke-width="1"></path>
+<path d="M75 240 C185 215 270 172 340 95" stroke="#189850" stroke-width="1"></path>
+<path d="M110 240 C210 220 285 185 340 122" stroke="#189850" stroke-width="1"></path>
+</svg>
+</section>
+</div>
+<div class="pg"><section class="sec" id="brands">
+<div class="chead">
+<span class="eyeb" style="justify-content:center">Real brands. Real launches.</span><br/>
+<h2 style="margin-top:12px">Brands launched with Spark</h2>
+</div>
+<div class="carwrap">
+<button aria-label="Previous" class="arw l" id="carL">‹</button>
+<div class="car" id="car"><div class="bcard"><span class="mono">A</span><b>Aura Revival</b><p style="min-height:56px">Holistic wellness and rejuvenation services.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">aurarevival.net</span></p><span class="pill p-grn">Wellness</span></div><div class="bcard"><span class="mono">B</span><b>Brightpath Lending</b><p style="min-height:56px">Clear, supportive mortgage guidance.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">brightpathlending.net</span></p><span class="pill p-blu">Finance</span></div><div class="bcard"><span class="mono">N</span><b>Neighborhood Drugstore</b><p style="min-height:56px">Personal care for your family’s health.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">neighborhooddrugstore.com</span></p><span class="pill p-blu">Pharmacy</span></div><div class="bcard"><span class="mono">G</span><b>Glam Caravan</b><p style="min-height:56px">The full salon experience, brought to you.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">glamcaravan.com</span></p><span class="pill p-red">Beauty</span></div><div class="bcard"><span class="mono">S</span><b>Signature Handyman</b><p style="min-height:56px">Home improvement with personal craftsmanship.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">signaturehandymansolutions.net</span></p><span class="pill p-org">Home services</span></div><div class="bcard"><span class="mono">I</span><b>IronSpan Construction</b><p style="min-height:56px">Building tomorrow’s foundations with precision.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">ironspanconstruction.com</span></p><span class="pill p-gray">Construction</span></div><div class="bcard"><span class="mono">L</span><b>LawnEssence</b><p style="min-height:56px">Lawns transformed into lush landscapes.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">lawnessence.com</span></p><span class="pill p-grn">Landscaping</span></div><div class="bcard"><span class="mono">P</span><b>Palacio del Caribe</b><p style="min-height:56px">A luxury tropical resort in Puerto Rico.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">palaciodelcaribe.com</span></p><span class="pill p-pur">Hospitality</span></div><div class="bcard"><span class="mono">P</span><b>Paws and Hearts</b><p style="min-height:56px">Rescuing, rehabilitating, and rehoming animals.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">pawsandhearts.net</span></p><span class="pill p-org">Animal shelter</span></div><div class="bcard"><span class="mono">P</span><b>Peace Advocates</b><p style="min-height:56px">Uniting voices for peace through advocacy.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">peaceadvocates.net</span></p><span class="pill p-gray">Nonprofit</span></div><div class="bcard"><span class="mono">R</span><b>Radiant Revival</b><p style="min-height:56px">Biohacking and recovery, holistically blended.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">radiantrevival.net</span></p><span class="pill p-grn">Wellness</span></div><div class="bcard"><span class="mono">R</span><b>Radiant Renewal Roundtable</b><p style="min-height:56px">Expert midlife health and hormone insights.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">radiantrenewalroundtable.com</span></p><span class="pill p-pur">Podcast</span></div><div class="bcard"><span class="mono">S</span><b>Silk &amp; Ivory Bridal</b><p style="min-height:56px">Elegant dresses for your unforgettable day.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">silkivorybridal.com</span></p><span class="pill p-red">Bridal</span></div><div class="bcard"><span class="mono">S</span><b>Sculpted Skylines</b><p style="min-height:56px">Welcoming spaces that bring people together.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">sculptedskylines.net</span></p><span class="pill p-gray">Real estate</span></div><div class="bcard"><span class="mono">V</span><b>Vinello Pizzeria</b><p style="min-height:56px">Gourmet pizza meets fine wine.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">vinellopizzeria.com</span></p><span class="pill p-pur">Restaurant</span></div><div class="bcard"><span class="mono">Z</span><b>Zest Quest</b><p style="min-height:56px">Healthy cooking made joyful.<br/><span style="font-size:.7188rem;color:#127A40;font-weight:700">zestquest.net</span></p><span class="pill p-grn">Food &amp; media</span></div></div>
+<button aria-label="Next" class="arw r" id="carR">›</button>
+</div>
+<a class="glink morelink" href="brands.html">See more success stories →</a>
+</section></div>
+<div class="dsec" id="deliverables"><div class="pg">
+<div class="chead">
+<span class="eyeb" style="justify-content:center">Deliverables you can count on</span><br/>
+<h2 style="margin-top:12px">Everything you need. Done for you.</h2>
+</div>
+<div class="bento">
+<div class="bx tall"><span class="lic" style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.28);display:inline-flex;align-items:center;justify-content:center"><svg aria-hidden="true" class="jic" viewbox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"></path></svg></span><h3>Name Ideas &amp; Validation</h3><p>Shortlist of premium names with domain and social availability, plus instant feedback and scoring.</p><a class="glink" href="name-ideas.html">Learn more →</a></div>
+<div class="bx"><span class="lic" style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.28);display:inline-flex;align-items:center;justify-content:center"><svg aria-hidden="true" class="jic" viewbox="0 0 24 24"><path d="m17 3 4 4L8 20l-5 1 1-5L17 3z"></path><path d="m14 6 4 4"></path></svg></span><h3>Brand Identity Kit</h3><p>Logo concepts, color palette, typography, and brand guidelines to launch confidently.</p><a class="glink" href="brand-kit.html">Learn more →</a></div>
+<div class="bx"><span class="lic" style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.28);display:inline-flex;align-items:center;justify-content:center"><svg aria-hidden="true" class="jic" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"></path></svg></span><h3>Domains &amp; Digital Assets</h3><p>The perfect.com found and checked, with your essential digital assets ready to claim.</p><a class="glink" href="domains.html">Learn more →</a></div>
+<div class="bx"><span class="lic" style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.28);display:inline-flex;align-items:center;justify-content:center"><svg aria-hidden="true" class="jic" viewbox="0 0 24 24"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7l-5-5z"></path><path d="M14 2v5h5M9 13h6M9 17h6"></path></svg></span><h3>Legal &amp; Business Docs</h3><p>EIN, LLC operating agreement, privacy policy, terms of service and more—done right.</p><a class="glink" href="legal-docs.html">Learn more →</a></div>
+<div class="bx tint"><span class="lic" style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.28);display:inline-flex;align-items:center;justify-content:center"><svg aria-hidden="true" class="jic" viewbox="0 0 24 24"><circle cx="6" cy="19" r="2.5"></circle><circle cx="18" cy="5" r="2.5"></circle><path d="M8.5 19H15a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h6.5"></path></svg></span><h3>Launch Roadmap</h3><p>Step-by-step plan tailored to your idea, so you always know what to do next.</p><a class="glink" href="roadmap.html">Learn more →</a></div>
+<div class="bx wide"><span class="lic" style="background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.28);display:inline-flex;align-items:center;justify-content:center"><svg aria-hidden="true" class="jic" viewbox="0 0 24 24"><path d="M3 11v3l14 4V6L3 11z"></path><path d="M17 7a4 4 0 0 1 0 9M7 15v4a1.5 1.5 0 0 0 3 0v-3"></path></svg></span><h3>Go-to-Market Essentials</h3><p>Positioning, launch posts, content templates, and materials ready to share.</p><a class="glink" href="go-to-market.html">Learn more →</a></div>
+</div>
+<div class="hstrip">
+<span class="ic"><svg aria-hidden="true" class="jic" viewbox="0 0 24 24"><path d="M4 13a8 8 0 0 1 16 0"></path><rect height="6" rx="2" width="4" x="3" y="13"></rect><rect height="6" rx="2" width="4" x="17" y="13"></rect></svg></span>
+<span><b>Human experts. AI speed.</b>  <span>Spark Concierge — a real person on the Spark team, here for every launch.</span></span>
+<a class="glink" href="how-it-works.html">Learn about our process →</a>
+</div>
+</div></div>
+<div class="pg">
+<section class="catstrip" style="max-width:1200px;margin:64px auto 0;padding:0 28px">
+<div style="background:var(--panel,#FFFFFF);border:1px solid rgba(20,60,40,.14);border-radius:26px;box-shadow:0 2px 6px rgba(20,60,40,.05),0 24px 70px -20px rgba(20,60,40,.14);padding:40px 36px;display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center">
+<div style="text-align:center"><div style="font-family:'Inter',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,7vw,84px);line-height:1;color:#189850">96<sup style="font-size:.45em">+</sup></div>
+<div style="font-size:.75rem;font-weight:700;letter-spacing:.14em;color:#565656;text-transform:uppercase;margin-top:4px">Catalog picks included</div></div>
+<div><h2 style="font-family:'Inter',system-ui,sans-serif;font-weight:600;color:#141414;font-size:clamp(22px,2.4vw,30px);margin:0">Your complete brand kit — everything included, one $99 payment.</h2>
+<p style="color:#404040;font-size:.9375rem;margin:10px 0 14px;max-width:64ch">Names, logos, brand system, social kit, ad set, copywriting, and your full presentation — delivered together, ready to use.</p>
+<div><span class="chip" style="margin:0 6px 8px 0">Naming &amp; Brand Intelligence</span><span class="chip" style="margin:0 6px 8px 0">Logo Suite</span><span class="chip" style="margin:0 6px 8px 0">Brand System</span><span class="chip" style="margin:0 6px 8px 0">Social Media Kit</span><span class="chip" style="margin:0 6px 8px 0">Advertising Set</span><span class="chip" style="margin:0 6px 8px 0">Copywriting</span><span class="chip" style="margin:0 6px 8px 0">Presentation &amp; Delivery</span></div>
+<a class="glink" href="deliverables.html#catalog" style="display:inline-block;margin-top:14px">See everything included →</a></div>
+</div>
+</section>
+<section id="price">
+<div class="pr">
+<div class="n">$<em>99</em></div>
+<p style="font-weight:600;color:var(--ink9);margin:10px 0 0">One payment. One time.</p>
+<ul>
+<li>No subscription. No hidden fees.</li>
+<li>Your full brand kit, 8 studio tools, and your lifetime Command Center.</li>
+<li>Custom-built for your category and ready fast.</li>
+</ul>
+<button class="gbtn" onclick="startCheckout()">Launch My Business for $99</button>
+</div>
+</section></div>
+<div class="pg"><section class="sec" id="how">
+<span class="eyeb">How it works</span>
+<h2 style="margin-top:12px">Three steps. One business.</h2>
+<div class="st">
+<div class="sp1"><div class="n">STEP 1</div><h3>Speak or type your idea</h3><p>One sentence is all Spark needs to begin.</p></div>
+<div class="sp1"><div class="n">STEP 2</div><h3>Spark builds your full brand automatically</h3><p>Names, identity, and launch materials arrive built around your idea.</p></div>
+<div class="sp1"><div class="n">STEP 3</div><h3>Launch and grow inside your Command Center</h3><p>Your tools, files, and guided path stay with you as you grow.</p></div>
+</div>
+</section></div>
+<div class="pg"><section class="sec faqw" id="faq">
+<h2>Quick answers</h2>
+<div style="margin-top:20px;border-top:1px solid var(--line)">
+<details class="f2"><summary>What do I get for $99?</summary><p>Your full brand — names with checked web addresses, a logo suite, colors, fonts, and launch words — plus tailored deliverables for your business type, 8 built-in AI tools, and lifetime access to your Command Center.</p></details>
+<details class="f2"><summary>Is it really one-time?</summary><p>Yes. $99 once. No subscription, no renewals, no hidden costs. Everything you receive is yours forever.</p></details>
+<details class="f2"><summary>How fast do I get everything?</summary><p>Your brand essentials and Command Center load fast, and your custom category deliverables are generated and delivered within 15 minutes.</p></details>
+<details class="f2"><summary>Can’t I just use free AI?</summary><p>Free AI gives you ideas and homework. Spark hands you a finished, organized brand — checked names, real files, and a guided launch path — with nothing left for you to assemble.</p></details>
+</div>
+</section></div>
+<script>
+function $(id){return document.getElementById(id);}
+function toast(m){var t=$('t22');if(!t){t=document.createElement('div');t.id='t22';t.style.cssText='position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#141414;color:#FFFFFF;border-radius:12px;padding:13px 20px;font-size:.875rem;font-weight:600;z-index:200;opacity:0;transition:.3s';document.body.appendChild(t);}t.textContent=m;t.style.opacity=1;clearTimeout(window._t22);window._t22=setTimeout(function(){t.style.opacity=0;},3000);}
+function fullSeed(){
+  var s=($('seed2').value||'').trim();
+  var extra=[$('ccInd').value,$('ccAud').value,$('ccTone').value].filter(Boolean);
+  if(s&&extra.length)s+=' — '+extra.join(', ').toLowerCase();
+  return s;
+}
+function save(){try{var s=fullSeed();sessionStorage.setItem('smn_seed',s);sessionStorage.setItem('seed',s);}catch(e){}}
+(function(){var q=new URLSearchParams(location.search).get('idea');if(q){$('seed2').value=q;$('cnt').textContent=q.length+'/500';try{sessionStorage.setItem('smn_seed',q);sessionStorage.setItem('seed',q);}catch(e){}}})();
+['seed2','ccInd','ccAud','ccTone'].forEach(function(id){$(id).addEventListener('input',save);$(id).addEventListener('change',save);});
+$('seed2').addEventListener('input',function(){$('cnt').textContent=this.value.length+'/500';});
+function startCheckout(){
+  var s=fullSeed();
+  if(!s){toast('One quick thing — type or speak your idea first. One sentence is all we need.');$('seed2').focus();return;}
+  save(); location.href='checkout.html';
+}
+$('carL').addEventListener('click',function(){$('car').scrollBy({left:-260,behavior:'smooth'});});
+$('carR').addEventListener('click',function(){$('car').scrollBy({left:260,behavior:'smooth'});});
+(function(){
+  /* CO211 mic v2: the old recognizer used single-shot mode, so Chrome ended the
+     session at the first breath. Now: continuous + interim results, live text into
+     the idea box, auto-finish after 3s of silence, tap again to finish early. */
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var box=$('voiceBox'), big=$('bigMic');
+  var boxLbl=box?box.querySelector('b'):null; var bigLbl=big&&big.parentElement?big.parentElement.querySelector('b'):null;
+  function setUI(on){
+    [box,big].forEach(function(el){if(el)el.classList.toggle('rec',on);});
+    if(boxLbl)boxLbl.textContent=on?'Listening… tap to finish':'Tap the mic and tell us your idea';
+    if(bigLbl)bigLbl.textContent=on?'Listening…':'Tap to speak';
+  }
+  if(!SR){
+    [box,big].forEach(function(el){if(el)el.addEventListener('click',function(){toast('Voice input needs Chrome or Safari — you can type your idea instead.');});});
+    return;
+  }
+  var rec=new SR(); rec.lang='en-US'; rec.continuous=true; rec.interimResults=true;
+  var on=false, closing=false, base='', captured='', silT=null;
+  function render(interim){
+    var v=(base?base+' ':'')+captured+(interim?(captured?' ':'')+interim:'');
+    $('seed2').value=v.trim();
+    var c=$('cnt'); if(c)c.textContent=$('seed2').value.length+'/500';
+  }
+  function armSilence(){ clearTimeout(silT); silT=setTimeout(function(){ if(on)finish(); },3000); }
+  function start(){
+    if(on){ finish(); return; }             /* tap while listening = finish */
+    on=true; closing=false;
+    base=($('seed2').value||'').trim(); captured='';
+    setUI(true); armSilence();
+    try{rec.start();}catch(e){}
+  }
+  function finish(){
+    if(!on)return; on=false; closing=true; clearTimeout(silT);
+    try{rec.stop();}catch(e){}
+    setUI(false); render(''); save();
+    var got=$('seed2').value;
+    if(got)toast('Got it — "'+got.slice(0,60)+(got.length>60?'…':'')+'"');
+    $('seed2').scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  rec.onresult=function(ev){
+    var interim='';
+    for(var i=ev.resultIndex;i<ev.results.length;i++){
+      var t=ev.results[i][0].transcript;
+      if(ev.results[i].isFinal){ var _tf=t.trim(); if(_tf!==window.__jLastFin){ captured=(captured?captured+' ':'')+_tf; window.__jLastFin=_tf; } }
+      else interim+=t;
+    }
+    render(interim.trim()); armSilence();
+  };
+  rec.onend=function(){
+    /* Chrome ends the stream on its own pauses — restart while the user is mid-thought */
+    if(on&&!closing){ try{rec.start();}catch(e){} }
+    else setUI(false);
+  };
+  rec.onerror=function(ev){
+    if(ev&&(ev.error==='not-allowed'||ev.error==='service-not-allowed')){
+      on=false;closing=true;clearTimeout(silT);setUI(false);
+      toast('The mic is blocked — allow microphone access in your browser, or type your idea.');
+    }
+    /* 'no-speech'/'aborted' are normal pauses; onend's restart handles them */
+  };
+  if(box)box.addEventListener('click',start);
+  if(big)big.addEventListener('click',start);
+  window.__smnMic={start:start,finish:finish,isOn:function(){return on;}};
+})();
+</script>
+</main>
+<footer class="ftband">
+<div class="lnks">
+<a href="index.html">Home</a><a href="brands.html">Spark portfolio</a><a href="pricing.html">Pricing</a><a href="resources.html">Resources</a><a href="support.html">Support</a><a href="status.html">Status</a><a href="affiliate.html">Affiliate</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="cookies.html">Cookies</a><a href="refund.html">Refunds</a><a href="security.html">Security</a><a href="accessibility.html">Accessibility</a><a href="press.html">Press</a>
+</div>
+<div>AI-generated suggestions are for informational purposes only and are not legal, trademark, tax, financial, or domain-registration advice — consult a qualified professional. We do not perform trademark clearance.</div>
+<div style="margin-top:6px">© 2026 SparkMyName. Owned by VORREX IGNITE LLC. All rights reserved.  ·  U.S. Patent Pending (App. 19/704,386)</div>
+</footer>
+<div style="position:fixed;right:14px;bottom:14px;z-index:80;background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.35);color:#127A40;font:700 11px Inter,sans-serif;letter-spacing:.12em;border-radius:999px;padding:7px 13px">EXPERIMENT · JAMES CUT</div></body></html>

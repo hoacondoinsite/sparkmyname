@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070616">
+<title>SparkMyName — Say it. We build your whole business. $99 Business in a Box.</title>
+<meta name="description" content="Say it or type it — one sentence — and Spark builds your whole brand plus a living command center. $99, one time, yours forever. Deliverables tailored to your business.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+<style>
+/* SPARK DESIGN LAW v2026-07-27_2221 — applied 27 July 2026.
+   Converted from 22 font sizes and 14 radii to the seven type steps and five
+   shape tokens. The background moved from #0B0920 (purple-black) to #0A1428
+   (aurora navy). --t-mega is the one Homepage Law exception, hero only.
+   THE SIXTEEN BRAND PALETTES WERE NOT TOUCHED — those are real customer brand
+   colors held in the JS data, and sweeping them would have destroyed the
+   showcase this page is built around. */
+:root{
+  --t-meta:13px; --t-body:16px; --t-lead:20px; --t-head:25px;
+  --t-title:31px; --t-display:39px; --t-hero:49px;
+  --t-mega:clamp(39px,5vw + 1rem,64px);
+  --ink1:#FFFFFF; --ink2:#B9CBE8; --ink3:#8399BD;
+  --bg:#0A1428; --panel:#102143; --panel2:#0D1B38;
+  --line:rgba(160,190,255,.18);
+  --r-sm:8px; --r-md:12px; --r-lg:18px; --r-xl:26px; --r-full:999px;
+}
+
+:root{
+ --bg1:#070616;--ink:#F6F5FF;--dim:rgba(238,236,255,.64);--dim2:rgba(238,236,255,.42);
+ --glass:rgba(255,255,255,.05);--glass2:rgba(255,255,255,.09);--line:rgba(255,255,255,.12);
+ --v:#7C5CFF;--c:#21D4FD;--m:#FF4D8D;--a:#FFB020;--grn:#3BE88F;
+ --grad:linear-gradient(120deg,#7C5CFF 0%,#FF4D8D 55%,#FFB020 100%);--gold:#FFB020;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg1);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.5;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom)}
+.aurora{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(130% 100% at 50% -10%,#1c1552 0%,var(--bg1) 58%)}
+.aurora .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;animation:float 22s ease-in-out infinite}
+.blob.b1{width:520px;height:520px;background:#7C5CFF;top:-120px;left:-80px}
+.blob.b2{width:460px;height:460px;background:#FF4D8D;top:10%;right:-120px;animation-delay:-6s}
+.blob.b3{width:400px;height:400px;background:#21D4FD;bottom:-100px;left:20%;animation-delay:-11s}
+.blob.b4{width:360px;height:360px;background:#FFB020;bottom:5%;right:15%;animation-delay:-16s;opacity:.3}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-30px) scale(1.08)}}
+@media(prefers-reduced-motion:reduce){.aurora .blob{animation:none}*{scroll-behavior:auto!important}}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px;width:100%}
+.btn{border:0;border-radius:var(--r-md);padding:12px 22px;font:inherit;font-size:var(--t-body);font-weight:800;cursor:pointer;background:var(--grad);color:#0A1428;box-shadow:0 12px 30px -10px rgba(255,77,141,.5);transition:.16s;text-decoration:none;display:inline-block;text-align:center}
+.btn:hover{transform:translateY(-2px)}
+.btn:disabled{opacity:.7;cursor:default;transform:none}
+.btn.lg{padding:15px 30px;font-size:var(--t-body);border-radius:var(--r-md)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink);box-shadow:none}
+.btn.ghost:hover{border-color:var(--v)}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--line);border-radius:var(--r-xl);padding:7px 15px;font-size:var(--t-meta);font-weight:600;color:var(--dim)}
+.pill .live{width:8px;height:8px;border-radius:50%;background:var(--grn);box-shadow:0 0 0 0 rgba(59,232,143,.6);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(59,232,143,.55)}70%{box-shadow:0 0 0 9px rgba(59,232,143,0)}100%{box-shadow:0 0 0 0 rgba(59,232,143,0)}}
+/* hero */
+.hero{text-align:center;padding:52px 0 18px}
+.hero h1{font-size:clamp(var(--t-title),6.4vw,var(--t-mega));line-height:1.03;letter-spacing:-.03em;font-weight:900;margin:16px auto 14px;max-width:16ch}
+.hero h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{color:var(--dim);font-size:clamp(var(--t-body),2.2vw,var(--t-lead));max-width:60ch;margin:0 auto 22px}
+.wall{margin:22px 0 26px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.wallrow{display:flex;gap:11px;width:max-content;animation:march 40s linear infinite}
+.wallrow.r2{animation-duration:52s;animation-direction:reverse;margin-top:11px}
+.wall:hover .wallrow{animation-play-state:paused}
+@keyframes march{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.wtile{display:inline-flex;align-items:center;gap:9px;background:var(--glass);border:1px solid var(--line);border-radius:var(--r-md);padding:11px 15px;white-space:nowrap;font-size:var(--t-meta);font-weight:600}
+.wtile .we{width:30px;height:30px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:var(--t-body);flex:none}
+.wtile small{color:var(--dim2);font-weight:500;font-size:var(--t-meta);display:block}
+@media(prefers-reduced-motion:reduce){.wallrow{animation:none;flex-wrap:wrap;justify-content:center;width:auto}}
+.sparkcard{max-width:660px;margin:0 auto;background:var(--glass);border:1px solid var(--line);border-radius:var(--r-xl);padding:20px;box-shadow:0 40px 90px -50px rgba(124,92,255,.7)}
+.sparkcard .lbl{font-size:var(--t-meta);font-weight:700;color:var(--dim);margin-bottom:12px;text-transform:uppercase}
+.spark-in{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spark-in input{flex:1;min-width:180px;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:var(--r-md);padding:15px 16px;color:var(--ink);font:inherit;font-size:var(--t-body);outline:none}
+.spark-in input:focus{border-color:var(--v)}
+.mic{width:52px;height:52px;flex:none;border-radius:var(--r-md);border:1px solid var(--gold);background:rgba(255,176,32,.1);color:var(--gold);font-size:var(--t-lead);cursor:pointer;transition:.15s}
+.mic:hover{background:rgba(255,176,32,.2)}
+.mic.on{background:var(--gold);color:#3a2600;border-color:transparent;animation:micring 1.2s infinite}
+@keyframes micring{0%{box-shadow:0 0 0 0 rgba(255,176,32,.55)}70%{box-shadow:0 0 0 14px rgba(255,176,32,0)}100%{box-shadow:0 0 0 0 rgba(255,176,32,0)}}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
+.chip{display:inline-flex;align-items:center;gap:7px;background:var(--glass);border:1px solid var(--line);border-radius:var(--r-xl);padding:8px 14px;font-size:var(--t-meta);color:var(--dim);font-weight:600}
+.chip b{color:var(--gold)}
+.build{max-width:520px;margin:22px auto 0;max-height:0;overflow:hidden;opacity:0;transition:max-height .5s,opacity .4s}
+.build.on{max-height:560px;opacity:1}
+.build-in{background:var(--glass);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px;text-align:left}
+.status{font-size:var(--t-meta);color:var(--dim);font-weight:600;margin-bottom:16px;min-height:20px;display:flex;align-items:center;gap:9px}
+.sp{width:15px;height:15px;border:2px solid var(--line);border-top-color:var(--v);border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.build-brand{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.bb-logo{width:60px;height:60px;border-radius:var(--r-lg);background:var(--grad);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:var(--t-head);color:#0A1428;transform:scale(0);transition:transform .5s cubic-bezier(.2,1.4,.4,1)}
+.bb-logo.in{transform:scale(1)}
+.bb-name{font-size:var(--t-head);font-weight:900;letter-spacing:-.02em}
+.bb-dom{color:var(--c);font-size:var(--t-meta);font-weight:700;opacity:0;transition:.4s}.bb-dom.in{opacity:1}
+.bb-sw{display:flex;gap:8px;margin:8px 0 12px}
+.bb-sw .s{width:34px;height:34px;border-radius:var(--r-sm);transform:scale(0);transition:transform .4s}.bb-sw .s.in{transform:scale(1)}
+.bb-tag{font-style:italic;color:var(--dim);opacity:0;transition:.4s;margin-bottom:16px}.bb-tag.in{opacity:1}
+.done-row{display:flex;gap:10px;flex-wrap:wrap;opacity:0;transition:.4s}.done-row.in{opacity:1}
+/* sections */
+.sec{padding:44px 0}
+.sec-h{text-align:center;max-width:64ch;margin:0 auto 30px}
+.sec-h .eye{font-size:var(--t-meta);font-weight:800;letter-spacing:.2em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:12px}
+.sec-h h2{font-size:clamp(var(--t-head),4vw,var(--t-display));font-weight:900;letter-spacing:-.03em;margin:0 0 12px}
+.sec-h p{color:var(--dim);font-size:var(--t-body);margin:0}
+.reveal{opacity:0;transform:translateY(22px);transition:.7s}.reveal.in{opacity:1;transform:none}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step{background:var(--glass);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px}
+.step .sn{width:44px;height:44px;border-radius:var(--r-md);background:var(--grad);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:var(--t-lead);color:#0A1428;margin-bottom:16px}
+.step h3{margin:0 0 8px;font-size:var(--t-lead)}.step p{margin:0;color:var(--dim);font-size:var(--t-body)}
+/* $99 + filter */
+.bibwrap{display:grid;grid-template-columns:1fr 1.15fr;gap:22px;align-items:start}
+.pricecard{background:linear-gradient(180deg,rgba(124,92,255,.12),rgba(8,7,24,0));border:1px solid var(--line);border-radius:var(--r-xl);padding:30px;text-align:center;position:relative;overflow:hidden}
+.pricecard::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+.pricecard .eye{font-size:var(--t-meta);font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.pricecard .prc{font-size:var(--t-mega);font-weight:900;letter-spacing:-.04em;line-height:1}
+.pricecard .prc .cur{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pricecard .once{color:var(--dim);font-size:var(--t-meta);margin:6px 0 18px}
+.pvlist{text-align:left;display:flex;flex-direction:column;gap:11px;margin-bottom:20px}
+.pvli{display:flex;gap:10px;font-size:var(--t-body);align-items:flex-start}
+.pvli .ck{color:var(--grn);font-weight:900;flex:none}
+.pvli b{color:var(--ink)}
+.turn{margin-top:14px;font-size:var(--t-meta);color:var(--dim2);line-height:1.5;border-top:1px solid var(--line);padding-top:14px}
+.filterbox{background:var(--glass);border:1px solid var(--line);border-radius:var(--r-xl);padding:26px}
+.filterbox h3{margin:0 0 6px;font-size:var(--t-lead);font-weight:800}
+.filterbox .fsub{color:var(--dim);font-size:var(--t-meta);margin:0 0 16px}
+.catrow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.catchip{border:1px solid var(--line);background:rgba(0,0,0,.24);color:var(--ink);border-radius:var(--r-xl);padding:9px 15px;font:inherit;font-size:var(--t-meta);font-weight:700;cursor:pointer;transition:.14s;display:inline-flex;align-items:center;gap:7px}
+.catchip:hover{border-color:var(--v)}
+.catchip.on{background:var(--grad);color:#0A1428;border-color:transparent}
+.delivhead{font-size:var(--t-meta);font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--dim);margin:0 0 12px}
+.delivgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.dv{display:flex;align-items:center;gap:8px;background:rgba(59,232,143,.08);border:1px solid rgba(59,232,143,.28);border-radius:var(--r-md);padding:10px 12px;font-size:var(--t-meta);font-weight:600}
+.dv .dk{color:var(--grn);font-weight:900;flex:none}
+.dv.excl{background:rgba(255,77,141,.06);border-color:rgba(255,77,141,.22);color:var(--dim2);text-decoration:line-through}
+.dv.excl .dk{color:var(--m);text-decoration:none}
+.exhead{margin-top:16px}
+.brands{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:11px}
+.bchip{display:flex;align-items:center;gap:11px;background:var(--glass);border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;text-decoration:none;transition:.15s}
+.bchip:hover{border-color:var(--v);transform:translateY(-2px)}
+.bchip .bm{width:34px;height:34px;border-radius:var(--r-sm);background:var(--grad);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--t-meta);color:#0A1428;flex:none}
+.bchip .bn{font-weight:700;font-size:var(--t-meta)}.bchip .bd{color:var(--dim2);font-size:var(--t-meta)}
+.final{text-align:center;background:linear-gradient(180deg,rgba(124,92,255,.1),rgba(8,7,24,0));border:1px solid var(--line);border-radius:var(--r-xl);padding:48px 26px}
+.final h2{font-size:clamp(var(--t-head),4vw,var(--t-display));font-weight:900;letter-spacing:-.03em;margin:0 0 10px}
+.final p{color:var(--dim);margin:0 0 22px;font-size:var(--t-body)}
+/* command-center preview */
+#ccprev{display:none}
+#ccprev.on{display:block}
+.ccbar{position:sticky;top:0;z-index:60;background:rgba(7,6,22,.72);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.ccbar-in{max-width:1280px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ccbadge{font-size:var(--t-meta);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#0A1428;background:var(--gold);border-radius:var(--r-xl);padding:4px 11px}
+.ccbar .sp{flex:1}
+.abtn{border:1px solid var(--line);background:var(--glass);color:var(--ink);border-radius:var(--r-xl);padding:8px 14px;font:inherit;font-size:var(--t-meta);font-weight:700;cursor:pointer;white-space:nowrap}
+.abtn:hover{border-color:var(--v)}
+.abtn.ai{background:linear-gradient(120deg,rgba(124,92,255,.9),rgba(255,77,141,.85));border-color:transparent;color:#fff}
+.abtn.sx{border-color:rgba(59,232,143,.5);color:#8affc4;background:rgba(59,232,143,.1)}
+.applayout{max-width:1280px;margin:0 auto;padding:18px 20px 60px;display:grid;grid-template-columns:290px 1fr;gap:18px;align-items:start}
+.ideas{background:var(--glass);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;position:sticky;top:74px}
+.ideas h3{margin:0 0 12px;font-size:var(--t-meta);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);display:flex;justify-content:space-between}
+.ideas h3 span{background:var(--v);color:#fff;border-radius:var(--r-xl);padding:1px 9px;font-size:var(--t-meta)}
+.irow{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:transparent;border:1px solid transparent;border-radius:var(--r-md);padding:10px;cursor:pointer;transition:.14s}
+.irow:hover,.irow.on{background:var(--glass);border-color:var(--v)}
+.iphoto{width:46px;height:46px;border-radius:var(--r-md);flex:none;display:flex;align-items:center;justify-content:center;font-size:var(--t-head)}
+.iseed{font-size:var(--t-meta);font-weight:700;display:block}.icount{font-size:var(--t-meta);color:var(--dim2);display:block;margin-top:2px}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden}
+.chero{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#05040f}
+.chero svg{position:absolute;inset:0;width:100%;height:100%}
+.chead{padding:22px 24px 4px}.chead h1{margin:0;font-size:clamp(var(--t-head),4vw,var(--t-title));font-weight:900}
+.chead .ctag{color:var(--dim);font-style:italic;margin:6px 0}.chead .cdom{color:var(--c);font-weight:700;font-size:var(--t-body)}
+.acts{display:flex;flex-wrap:wrap;gap:9px;padding:16px 24px}
+.act{border:1px solid var(--line);background:var(--glass);color:var(--ink);border-radius:var(--r-xl);padding:9px 15px;font:inherit;font-size:var(--t-meta);font-weight:700;cursor:pointer}
+.act:hover{border-color:var(--v)}
+.cbody{padding:6px 24px 26px}
+.ph{font-size:var(--t-meta);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:22px 0 12px}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin:24px 0 0;overflow-x:auto}
+.tab{border:0;background:transparent;color:var(--dim);font:inherit;font-size:var(--t-meta);font-weight:800;padding:12px 16px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.tab.on{color:var(--ink);border-bottom-color:var(--m)}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:14px}
+.dcell{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:var(--r-md);padding:12px}
+.dcell .dl{width:26px;height:26px;border-radius:var(--r-sm);background:var(--grad);color:#0A1428;font-weight:800;font-size:var(--t-meta);display:flex;align-items:center;justify-content:center;flex:none}
+.dcell .dn{font-weight:700;font-size:var(--t-meta)}.dcell .ds{font-size:var(--t-meta);color:var(--grn)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(80px);background:#171433;border:1px solid var(--line);border-radius:var(--r-md);padding:12px 20px;font-size:var(--t-meta);font-weight:600;z-index:300;transition:.3s;opacity:0;box-shadow:0 20px 50px -20px rgba(0,0,0,.7);max-width:90vw;text-align:center}
+.toast.on{transform:translateX(-50%) translateY(0);opacity:1}
+@media(max-width:900px){.bibwrap{grid-template-columns:1fr}.applayout{grid-template-columns:1fr}.ideas{position:static}.steps{grid-template-columns:1fr}}
+@media(max-width:560px){.hero{padding:34px 0 14px}.sparkcard{padding:16px}.spark-in input{min-width:100%}.mic{width:100%;height:48px;border-radius:var(--r-md)}.acts,.cbody,.chead{padding-left:16px;padding-right:16px}}
+</style>
+</head>
+<body>
+<!-- SELF-CONTAINED HEADER, added 27 July 2026.
+     The page referenced js/shell.js for its header and navigation. That file does not exist
+     anywhere in the disc, so NO header was rendering at all — which is very likely why the
+     page looked wrong when opened. A header on the design law is inlined here so the page
+     stands on its own. If the real shell.js turns up, delete this block and restore the
+     script tag with a path that resolves from wherever the page finally lives. -->
+<nav style="position:sticky;top:0;z-index:60;background:rgba(10,20,40,.88);
+  backdrop-filter:blur(16px);border-bottom:1px solid var(--line)">
+  <div style="max-width:1200px;margin:0 auto;padding:14px 1.5rem;display:flex;
+    align-items:center;justify-content:space-between;gap:16px">
+    <a href="#spark" style="font-size:var(--t-lead);font-weight:900;color:var(--ink1);
+      text-decoration:none;letter-spacing:-.03em">SparkMyName&trade;</a>
+    <a href="/checkout.html" style="display:inline-flex;align-items:center;min-height:44px;
+      padding:11px 24px;border-radius:var(--r-full);font-size:var(--t-meta);font-weight:800;
+      color:#fff;text-decoration:none;
+      background:linear-gradient(92deg,#7C5CFF,#FF4D8D);
+      box-shadow:0 14px 34px -16px rgba(255,77,141,.6)">Start &mdash; $99</a>
+  </div>
+</nav>
+<div class="aurora"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
+
+<!-- ===== LANDING ===== -->
+<div id="landing" class="wrap">
+  <section class="hero" id="spark">
+    <span class="pill"><span class="live"></span>16 real brands built &amp; live today</span>
+    <h1>Say it, or type it — one sentence — and Spark brings your idea to <span class="g">life.</span></h1>
+    <p class="sub">One sentence — a business, a cause, a channel, any idea — and Spark returns your whole brand plus a living command center. <b>$99, one time, yours forever.</b></p>
+    <div class="wall" id="wall"></div>
+    <div class="sparkcard">
+      <div class="lbl">Say it or type it — one sentence</div>
+      <div class="spark-in">
+        <input id="seed" placeholder="e.g. a cozy wood-fired pizza &amp; wine bar…">
+        <button class="mic" id="mic" type="button" title="Speak it" aria-label="Voice input">🎤</button>
+        <button class="btn" id="go">✦ Build my brand</button>
+      </div>
+    </div>
+    <div class="build" id="build"><div class="build-in">
+      <div class="status" id="bStatus"></div>
+      <div class="build-brand"><div class="bb-logo" id="bLogo">E</div><div><div class="bb-name" id="bName"></div><div class="bb-dom" id="bDom"></div></div></div>
+      <div class="bb-sw" id="bSw"></div>
+      <div class="bb-tag" id="bTag"></div>
+      <div class="done-row" id="bDone">
+        <button class="btn" data-buy="1" onclick="startCheckout()">✦ Get my Business in a Box — $99 →</button>
+        <button class="btn ghost" id="again">Try another</button>
+      </div>
+    </div></div>
+    <div class="chips"><span class="chip"><b>✦</b> 8 AI tools built in</span><span class="chip"><b>✓</b> $99, one time</span><span class="chip"><b>✓</b> No subscription</span><span class="chip"><b>✓</b> Yours forever, royalty-free</span></div>
+  </section>
+
+  <section class="sec reveal">
+    <div class="sec-h"><div class="eye">✦ How it works</div><h2>Three steps. One page.</h2></div>
+    <div class="steps">
+      <div class="step"><div class="sn">1</div><h3>Say it</h3><p>Speak or type one sentence about your idea. That's the whole input.</p></div>
+      <div class="step"><div class="sn">2</div><h3>We build it</h3><p>Your name, checked domain, logos, colors, words, and category-tailored deliverables — generated for you automatically.</p></div>
+      <div class="step"><div class="sn">3</div><h3>Launch it</h3><p>Your living command center holds it all, guides your launch, and grows with you.</p></div>
+    </div>
+  </section>
+
+  <section class="sec reveal" id="bib">
+    <div class="sec-h"><div class="eye">✦ Business in a Box</div><h2>Everything your business needs. $99.</h2><p>One flat price. Designs-only, tailored to exactly your type of business — nothing you don't need, nothing missing.</p></div>
+    <div class="bibwrap">
+      <div class="pricecard">
+        <div class="eye">Business in a Box</div>
+        <div class="prc"><span class="cur" data-price="99">$99</span></div>
+        <div class="once">one time · no subscription · no hidden costs</div>
+        <div class="pvlist">
+          <div class="pvli"><span class="ck">✓</span><span>Your <b>whole brand</b> — name, domain, logo suite, colors, fonts, words</span></div>
+          <div class="pvli"><span class="ck">✓</span><span><b>Category-tailored deliverables</b> — only the items your business actually uses</span></div>
+          <div class="pvli"><span class="ck">✓</span><span><b>8 AI tools</b> tuned to your brand + a living command center</span></div>
+          <div class="pvli"><span class="ck">✓</span><span>The <b>Success Path</b> — legal, banking, domain, launch, revenue</span></div>
+          <div class="pvli"><span class="ck">✓</span><span><b>Owned forever, royalty-free</b> — use it anywhere</span></div>
+        </div>
+        <button class="btn lg" data-buy="1" style="width:100%" onclick="startCheckout()">✦ Get my Business in a Box — <span data-price="99">$99</span></button>
+        <button class="btn ghost" style="width:100%;margin-top:10px" onclick="openPreview()">👁 Preview your command center</button>
+        <div class="turn">Your brand essentials and command center load fast. Custom category deliverables are generated and populated in your workspace within <b>24 hours</b>. Designs-only — no custom human work at this price.</div>
+      </div>
+      <div class="filterbox">
+        <h3>What does <em>your</em> business get?</h3>
+        <p class="fsub">Pick a category — the kit tailors itself. A funeral home never gets a door hanger; a podcast never gets a menu.</p>
+        <div class="catrow" id="catrow"></div>
+        <div id="delivwrap"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec reveal" id="brands">
+    <div class="sec-h"><div class="eye">✦ Live today</div><h2>Sixteen real brands, live today.</h2><p>Every name real, every web address real — each one built by Spark from a single sentence.</p></div>
+    <div class="brands" id="bchips"></div>
+  </section>
+
+  <section class="sec">
+    <div class="final reveal">
+      <h2>Your idea. Your name. Your business — in a box.</h2>
+      <p>Say it, and watch it come to life — $99, one time, yours forever.</p>
+      <button class="btn lg" data-buy="1" onclick="startCheckout()">✦ Get my Business in a Box — <span data-price="99">$99</span></button>
+    </div>
+  </section>
+</div>
+
+<!-- ===== COMMAND CENTER PREVIEW ===== -->
+<div id="ccprev">
+  <div class="ccbar"><div class="ccbar-in">
+    <span class="ccbadge">Preview</span>
+    <span style="font-size:var(--t-meta);color:var(--dim)">This is a demo of your command center — buy to get your real one</span>
+    <span class="sp"></span>
+    <button class="abtn ai" onclick="toast('AI Studio — 8 tools, ready in your real command center')">✨ AI Studio</button>
+    <button class="abtn sx" onclick="toast('Success Path — legal → banking → domain → revenue')">🚀 Success Path</button>
+    <button class="abtn" data-buy="1" onclick="startCheckout()">✦ Get it — $99</button>
+    <button class="abtn" onclick="closePreview()">← Back</button>
+  </div></div>
+  <div class="applayout">
+    <aside class="ideas">
+      <h3>Your Ideas <span id="ideaCt">3</span></h3>
+      <div id="ilist"></div>
+    </aside>
+    <main id="main"></main>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var $=function(s){return document.getElementById(s);};
+function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('on');},2600);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+/* ===== REAL $99 CHECKOUT (Business in a Box -> your create-checkout function) ===== */
+function startCheckout(){
+  var seed=(function(){try{return (sessionStorage.getItem('seed')||'');}catch(e){return '';}})()||(($('seed')||{}).value||'').trim();
+  var btns=document.querySelectorAll('[data-buy]');
+  btns.forEach(function(b){b.disabled=true;});
+  toast('Opening secure checkout…');
+  fetch('/.netlify/functions/create-checkout',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({plan:'bib',base:'july19',seed:seed})
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d&&d.url){ window.location.href=d.url; }
+    else { toast(d&&d.error?('Checkout: '+d.error):'Checkout unavailable — deploy with your Stripe key set.'); btns.forEach(function(b){b.disabled=false;}); }
+  }).catch(function(){ toast('Checkout needs the deployed site (Stripe key in Netlify).'); btns.forEach(function(b){b.disabled=false;}); });
+}
+
+/* ===== wall of ideas ===== */
+var WALL=[['🍕','Restaurants','wood-fired pizza & wine'],['⚖️','Law firms','injury & family law'],['🎙️','Podcasts','a weekly interview show'],['💇','Salons','a mobile hair & beauty service'],['🏠','Real estate','a boutique brokerage'],['🐾','Pet care','dog-sitting & walking'],['🔨','Contractors','a handyman crew'],['🕊️','Funeral homes','a family memorial home'],['💻','Tech / SaaS','a scheduling app'],['🎨','Creative studios','a design & photo studio'],['⛪','Nonprofits','a community support group'],['💪','Fitness','a boutique gym & studio'],['🛍️','Retail shops','a corner boutique'],['☕','Cafés','a neighborhood coffee bar'],['🎬','Film & video','a video production house'],['🌿','Wellness','a calm skincare brand']];
+(function(){
+ var pal=['#7C5CFF','#FF4D8D','#FFB020','#21D4FD','#3BE88F','#C2410C','#4F46E5'];var pi=0;function rc(){pi=(pi+1)%pal.length;return pal[pi];}
+ function tile(t){return '<span class="wtile"><span class="we" style="background:linear-gradient(135deg,'+rc()+','+rc()+')">'+t[0]+'</span><span>'+t[1]+'<small>“'+t[2]+'”</small></span></span>';}
+ var a=WALL.map(tile).join(''),b=WALL.slice().reverse().map(tile).join('');
+ $('wall').innerHTML='<div class="wallrow">'+a+a+'</div><div class="wallrow r2">'+b+b+'</div>';
+})();
+
+/* ===== smart category -> deliverable matrix ===== */
+var BASE=['Name & Domain','Logo Suite','Color System','Typography','Taglines','Brand Bio','Social Kit','Favicon','Brand Guidelines','Website Starter','Email Signature'];
+var CATS=[
+ {k:'restaurant',ic:'🍕',name:'Restaurant / Café',add:['Menu','Table Tents','Door Hangers','Storefront Signage','Loyalty Cards'],no:['Pitch Deck']},
+ {k:'funeral',ic:'🕊️',name:'Funeral Home',add:['Dignified Stationery','Memorial Cards','Signage','Letterhead','Service Programs'],no:['Door Hangers','Promo Merch','Menu']},
+ {k:'podcast',ic:'🎙️',name:'Podcast',add:['Cover Art','Episode Templates','Launch Scripts','Social Audiograms','Show Notes Template'],no:['Menu','Door Hangers','Signage']},
+ {k:'law',ic:'⚖️',name:'Professional Services',add:['Letterhead','Business Cards','Pitch Deck','Proposal Template','Case Studies'],no:['Door Hangers','Promo Merch','Menu']},
+ {k:'creative',ic:'🎨',name:'Creative Studio',add:['Portfolio Template','Business Cards','Promo Merch','Ad Creatives'],no:['Menu']},
+ {k:'tech',ic:'💻',name:'Tech / SaaS',add:['Pitch Deck','Product One-Pager','Ad Creatives','Launch Video','App Store Art'],no:['Menu','Door Hangers']},
+ {k:'retail',ic:'🛍️',name:'Retail Shop',add:['Storefront Signage','Price Tags','Shopping Bag Art','Business Cards','Loyalty Cards'],no:['Pitch Deck']},
+ {k:'nonprofit',ic:'⛪',name:'Nonprofit / Church',add:['Donation Cards','Event Flyers','Bulletins','Signage','Volunteer Kit'],no:['Menu','Promo Merch']},
+ {k:'fitness',ic:'💪',name:'Fitness / Wellness',add:['Class Schedule','Signage','Promo Merch','Membership Cards'],no:['Menu']},
+ {k:'realestate',ic:'🏠',name:'Real Estate',add:['Yard Signs','Business Cards','Property Flyers','Brochures'],no:['Menu','Door Hangers']},
+ {k:'trades',ic:'🔨',name:'Trades / Contractor',add:['Vehicle Wrap','Business Cards','Yard Signs','Service Flyers','Invoices'],no:['Menu']}
+];
+var curCat='restaurant';
+$('catrow').innerHTML=CATS.map(function(c){return '<button class="catchip'+(c.k===curCat?' on':'')+'" data-k="'+c.k+'" onclick="pickCat(\''+c.k+'\',this)">'+c.ic+' '+esc(c.name)+'</button>';}).join('');
+function pickCat(k,el){curCat=k;document.querySelectorAll('.catchip').forEach(function(x){x.classList.remove('on');});el.classList.add('on');renderDeliv();}
+function renderDeliv(){
+ var c=CATS.filter(function(x){return x.k===curCat;})[0];var inc=BASE.concat(c.add);
+ var incHTML=inc.map(function(d){return '<div class="dv"><span class="dk">✓</span>'+esc(d)+'</div>';}).join('');
+ var exHTML=(c.no&&c.no.length)?('<div class="delivhead exhead">Not included — '+esc(c.name)+' doesn’t need these</div><div class="delivgrid">'+c.no.map(function(d){return '<div class="dv excl"><span class="dk">✕</span>'+esc(d)+'</div>';}).join('')+'</div>'):'';
+ $('delivwrap').innerHTML='<div class="delivhead">Included for '+esc(c.name)+' — '+inc.length+' deliverables</div><div class="delivgrid">'+incHTML+'</div>'+exHTML;
+}
+renderDeliv();
+
+/* ===== real brand chips ===== */
+var REALB=[["Aura Revival","aurarevival.net"],["Brightpath Lending","brightpathlending.net"],["Glam Caravan","glamcaravan.com"],["Paws and Hearts","pawsandhearts.net"],["Palacio del Caribe","palaciodelcaribe.com"],["Vinello Pizzeria","vinellopizzeria.com"],["Silk & Ivory Bridal","silkivorybridal.com"],["Zest Quest","zestquest.net"],["LawnEssence","lawnessence.com"],["IronSpan Construction","ironspanconstruction.com"],["Peace Advocates","peaceadvocates.net"],["Radiant Revival","radiantrevival.net"],["Neighborhood Drugstore","neighborhooddrugstore.com"],["Sculpted Skylines","sculptedskylines.net"],["Signature Handyman","signaturehandymansolutions.net"],["Radiant Renewal Roundtable","radiantrenewalroundtable.com"]];
+$('bchips').innerHTML=REALB.map(function(b){var m=b[0].split(/\s|&/).filter(Boolean).slice(0,2).map(function(x){return x[0];}).join('');return '<a class="bchip" href="https://'+b[1]+'" target="_blank" rel="noopener"><span class="bm">'+m+'</span><span><span class="bn">'+esc(b[0])+'</span><br><span class="bd">'+esc(b[1])+'</span></span></a>';}).join('');
+
+/* ===== live build demo (idea -> name) ===== */
+var building=false;
+var RES=[{name:'Vine & Crust',mono:'VC',dom:'vinecrust.com',tag:'Where wine meets wood-fired bliss.',cols:['#C2410C','#F59E0B','#1C1917','#F5F0E6']},{name:'Everly',mono:'E',dom:'everly.com',tag:'Calm, clinical skincare that works.',cols:['#7C5CFF','#21D4FD','#FF4D8D','#FFB020']},{name:'Outlier Dialogues',mono:'OD',dom:'outlierdialogues.com',tag:'Conversations off the beaten path.',cols:['#4F46E5','#06B6D4','#0F172A','#E2E8F0']}];
+var STEPS=['Reading your idea…','Finding your name…','Designing your look…','Writing your words…','Checking your domain…'];
+function saveSeed(v){try{sessionStorage.setItem('seed',v||'');}catch(e){}}
+function build(seed){
+ if(building)return;building=true;saveSeed(seed);
+ var r=RES[Math.floor((seed.length||3)%RES.length)];
+ $('build').classList.add('on');['bName','bDom','bTag'].forEach(function(id){$(id).textContent='';});
+ $('bDom').classList.remove('in');$('bTag').classList.remove('in');$('bLogo').classList.remove('in');$('bDone').classList.remove('in');$('bSw').innerHTML='';$('bLogo').textContent=r.mono;
+ var si=0;$('bStatus').innerHTML='<span class="sp"></span>'+STEPS[0];
+ var st=setInterval(function(){si++;if(si<STEPS.length)$('bStatus').innerHTML='<span class="sp"></span>'+STEPS[si];},520);
+ setTimeout(function(){$('bLogo').classList.add('in');},400);
+ setTimeout(function(){var i=0;var tw=setInterval(function(){$('bName').textContent=r.name.slice(0,++i);if(i>=r.name.length)clearInterval(tw);},55);},700);
+ setTimeout(function(){r.cols.forEach(function(c,i){var s=document.createElement('div');s.className='s';s.style.background=c;$('bSw').appendChild(s);setTimeout(function(){s.classList.add('in');},i*110);});},1400);
+ setTimeout(function(){$('bTag').textContent='“'+r.tag+'”';$('bTag').classList.add('in');},2000);
+ setTimeout(function(){clearInterval(st);$('bStatus').innerHTML='✓ Your brand is ready.';$('bDom').textContent=r.dom;$('bDom').classList.add('in');$('bDone').classList.add('in');building=false;},2700);
+}
+$('go').addEventListener('click',function(){build(($('seed').value.trim())||'a cozy wood-fired pizza & wine bar');});
+$('seed').addEventListener('keydown',function(e){if(e.key==='Enter')$('go').click();});
+$('seed').addEventListener('input',function(){saveSeed($('seed').value.trim());});
+$('again').addEventListener('click',function(){$('seed').value='';build('another idea '+Math.floor(performance.now()%97));$('seed').focus();});
+
+/* ===== voice input ===== */
+(function(){
+ var micBtn=$('mic');var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){micBtn.style.display='none';return;}
+ var rec=new SR();rec.lang='en-US';rec.interimResults=true;rec.continuous=false;var listening=false;
+ micBtn.addEventListener('click',function(){if(listening){rec.stop();return;}try{rec.start();}catch(e){}});
+ rec.onstart=function(){listening=true;micBtn.classList.add('on');$('seed').placeholder='Listening…';};
+ rec.onend=function(){listening=false;micBtn.classList.remove('on');$('seed').placeholder='e.g. a cozy wood-fired pizza & wine bar…';};
+ rec.onerror=function(){listening=false;micBtn.classList.remove('on');};
+ rec.onresult=function(ev){var t='';for(var i=0;i<ev.results.length;i++){t+=ev.results[i][0].transcript;}$('seed').value=t;saveSeed(t.trim());};
+})();
+
+/* ===== command center PREVIEW (demo of what buyers get) ===== */
+var DEMO=[
+ {id:'b1',emoji:'🍕',cat:'restaurant',name:'Vine & Crust',dom:'vinecrust.com',tag:'Where wine meets wood-fired bliss.',said:'a cozy wood-fired pizza & wine bar',cols:['#C2410C','#F59E0B','#1C1917','#F5F0E6'],about:'Part pizzeria, part wine bar — rustic Italian warmth, slow evenings, food made with heart.'},
+ {id:'b2',emoji:'🎙️',cat:'podcast',name:'Outlier Dialogues',dom:'outlierdialogues.com',tag:'Conversations off the beaten path.',said:'a weekly long-form interview podcast',cols:['#4F46E5','#06B6D4','#0F172A','#E2E8F0'],about:'A long-form interview show for curious minds — deep, unhurried conversations.'},
+ {id:'b3',emoji:'🕊️',cat:'funeral',name:'Everlight Memorial',dom:'everlightmemorial.com',tag:'Honoring every life with grace.',said:'a family-owned memorial & funeral home',cols:['#334155','#94A3B8','#0B1220','#F1F5F9'],about:'A family-owned home honoring every life with dignity, warmth, and quiet grace.'}
+];
+var curB='b1',curTab='downloads';
+function catFor(b){return CATS.filter(function(c){return c.k===b.cat;})[0]||CATS[0];}
+function heroSVG(c){return '<svg viewBox="0 0 160 90" preserveAspectRatio="none"><defs><linearGradient id="h'+c[0].replace("#","")+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+c[0]+'"/><stop offset=".55" stop-color="'+c[1]+'"/><stop offset="1" stop-color="'+c[2]+'"/></linearGradient></defs><rect width="160" height="90" fill="url(#h'+c[0].replace("#","")+')"/><circle cx="120" cy="24" r="30" fill="'+c[1]+'" opacity=".4"/><circle cx="40" cy="70" r="26" fill="'+c[0]+'" opacity=".5"/></svg>';}
+function openPreview(){$('landing').style.display='none';$('ccprev').classList.add('on');window.scrollTo(0,0);renderIdeas();paintB();}
+function closePreview(){$('ccprev').classList.remove('on');$('landing').style.display='';window.scrollTo(0,0);}
+function renderIdeas(){$('ilist').innerHTML=DEMO.map(function(d){return '<button class="irow'+(d.id===curB?' on':'')+'" onclick="openB(\''+d.id+'\')"><span class="iphoto" style="background:linear-gradient(135deg,'+d.cols[0]+','+d.cols[1]+')">'+d.emoji+'</span><span><span class="iseed">'+esc(d.name)+'</span><span class="icount">● Ready · '+esc(d.said.slice(0,24))+'…</span></span></button>';}).join('');}
+function openB(id){curB=id;curTab='downloads';paintB();renderIdeas();window.scrollTo(0,0);}
+function curBrand(){return DEMO.filter(function(d){return d.id===curB;})[0];}
+function paintB(){
+ var b=curBrand();var c=catFor(b);var inc=BASE.concat(c.add);
+ var dgrid=inc.map(function(d,i){return '<div class="dcell"><span class="dl">'+String.fromCharCode(65+(i%26))+'</span><div><div class="dn">'+esc(d)+'</div><div class="ds">Included ✓</div></div></div>';}).join('');
+ var exNote=(c.no&&c.no.length)?'<p style="color:var(--dim2);font-size:var(--t-meta);margin-top:12px">Tailored for a '+esc(c.name)+' — we skipped '+c.no.map(esc).join(', ')+', since your business doesn’t need them.</p>':'';
+ $('main').innerHTML='<div class="card"><div class="chero">'+heroSVG(b.cols)+'</div>'+
+  '<div class="chead"><h1>'+esc(b.name)+'</h1><div class="ctag">“'+esc(b.tag)+'”</div><div class="cdom">'+esc(b.dom)+'</div></div>'+
+  '<div class="acts"><button class="act" onclick="toast(\'AI Studio opens in your real command center\')">✨ AI Studio</button><button class="act" onclick="toast(\'Success Path — your full launch checklist\')">🚀 Success Path</button><button class="act" data-buy="1" onclick="startCheckout()">↓ Get my kit — $99</button></div>'+
+  '<div class="cbody"><div class="ph">About your brand</div><p style="font-size:var(--t-body);line-height:1.6">'+esc(b.about)+'</p>'+
+  '<div class="tabs"><button class="tab on">⬇ Downloads</button><button class="tab" onclick="toast(\'Launch, Grow & Upgrades open in your real command center\')">🚀 Launch</button><button class="tab" onclick="toast(\'Full toolset in your real command center\')">📈 Grow</button></div>'+
+  '<div class="dgrid">'+dgrid+'</div>'+exNote+'</div></div>';
+}
+
+/* reveal on scroll */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+</script>
+
+<!-- FOOTER added 27 July 2026. The page shipped without one, so it carried no owner line
+     and none of the required disclaimers. Wording is the standing legal position. -->
+<footer style="border-top:1px solid var(--line);background:var(--panel2);
+  padding:44px 0 54px;margin-top:60px">
+  <div style="max-width:1200px;margin:0 auto;padding:0 1.5rem">
+    <div style="font-size:var(--t-lead);font-weight:900;color:var(--ink1);margin-bottom:14px">
+      SparkMyName&trade;</div>
+    <p style="font-size:var(--t-meta);color:var(--ink3);line-height:1.75;max-width:78ch;margin:0">
+      <b style="color:var(--ink2)">Owned by VORREX IGNITE LLC.</b>
+      U.S. Patent Pending, App. 19/704,386.
+      SparkMyName&trade; is a trademark application pending, Serial No. 50014040.
+      It is not registered.<br><br>
+      Social handles are <b style="color:var(--ink2)">recommended, not verified</b> &mdash;
+      confirm availability on each platform before claiming one.
+      SparkMyName&trade; does not perform trademark clearance, and does not build or host
+      customer websites.
+    </p>
+  </div>
+</footer>
+</body>
+</html>

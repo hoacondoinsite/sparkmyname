@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="noindex,nofollow" name="robots"/>
+<title>SparkMyName — VIDEO FORGE (Internal)</title>
+<meta content="Internal video tooling for SparkMyName." name="description"/>
+<style>
+:root{--gold:#189850;--bg:#FFFFFF;--panel:#101010;--panel2:#161616;--ink:#FFF;--dim:rgba(255,255,255,.74);
+ --good:#189850;--warn:#E1574E;--deep:#189850;--line:rgba(191,155,60,.3);
+ --sans:Inter,-apple-system,"Segoe UI",Arial,sans-serif;--serif:'Sora','Inter',system-ui,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);padding:20px;max-width:1180px;margin:0 auto}
+.banner{position:fixed;top:8px;left:8px;background:#5a1f1f;color:#B03A2E;font:700 11px var(--sans);padding:4px 10px;border-radius:6px;z-index:99}
+.mark{font-weight:900;font-size:1.5rem;letter-spacing:-.02em;text-decoration:none}
+.mark .s,.mark .k{color:var(--gold)}.mark .n{color:#141414}
+header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:26px 0 6px}
+h1{font-family:var(--serif);font-size:1.875rem;font-weight:800}
+.sub{color:var(--dim);font-size:.875rem;margin-bottom:18px}
+fieldset{border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px;background:var(--panel)}
+legend{font:800 12px var(--sans);letter-spacing:.18em;color:var(--gold);padding:0 8px}
+label{display:block;font:700 11px var(--sans);letter-spacing:.08em;color:var(--dim);margin:10px 0 4px}
+textarea,input[type=text],select{width:100%;background:#070707;color:#FFFFFF;border:1px solid #2b2b2b;border-radius:10px;padding:11px 12px;font:15px var(--sans)}
+textarea:focus,input:focus,select:focus{outline:2px solid var(--gold)}
+textarea{min-height:110px;resize:vertical}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.row3{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.btn{background:var(--deep);color:#FFFFFF;border:none;border-radius:11px;padding:13px 22px;font:800 15px var(--sans);cursor:pointer}
+.btn:hover{filter:brightness(1.15)}
+.btn.ghost{background:transparent;border:1.5px solid var(--gold);color:#E7CF8C}
+.btn.small{padding:8px 14px;font-size:.7812rem}
+.mic{width:54px;height:54px;border-radius:50%;border:2.5px solid var(--gold);background:#FAFAFA;color:var(--gold);font-size:1.375rem;cursor:pointer;flex:none}
+.mic.listening{border-color:var(--good);color:var(--good);animation:pul 1.2s infinite}
+@keyframes pul{0%{box-shadow:0 0 0 0 rgba(87,192,138,.5)}70%{box-shadow:0 0 0 14px rgba(87,192,138,0)}100%{box-shadow:0 0 0 0 rgba(87,192,138,0)}}
+.concept-tools{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.note{color:var(--dim);font-size:.75rem;margin-top:6px}
+.segs{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.seg{border:1.5px solid var(--line);color:#C7D3EC;border-radius:22px;padding:8px 15px;font:700 13px var(--sans);cursor:pointer;background:transparent}
+.seg.on{background:var(--deep);border-color:var(--deep);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{border:1px solid var(--line);color:#cbb In;color:#d9c27a;border-radius:18px;padding:7px 12px;font:600 12.5px var(--sans);cursor:pointer;background:transparent}
+.chip.on{background:rgba(191,155,60,.18);border-color:var(--gold);color:#F1E2AC}
+details{border:1px solid var(--line);border-radius:14px;background:var(--panel2);padding:12px 16px;margin-top:12px}
+summary{cursor:pointer;font:800 13px var(--sans);color:var(--gold);letter-spacing:.06em}
+.plan{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:8px}
+.plan b{color:var(--gold)}
+.plan .warn{color:var(--warn);font-weight:800}
+.kv{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.kv span{background:#FAFAFA;border:1px solid #262626;border-radius:9px;padding:6px 10px;font:600 12px var(--sans);color:#ddd}
+.outs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:14px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h3{font:800 14px var(--sans);margin-bottom:4px}
+.card p{color:var(--dim);font-size:.7812rem;line-height:1.5;margin-bottom:10px}
+.card .bts{display:flex;gap:8px;flex-wrap:wrap}
+.reelname{font-family:var(--serif);font-size:1.625rem;font-weight:800;color:var(--gold)}
+.laws{color:var(--dim);font-size:.75rem;line-height:1.7;margin-top:20px;border-top:1px solid #1e1e1e;padding-top:12px}
+.ok{color:var(--good)} .bad{color:var(--warn)}
+@media print{body *{display:none}}
+
+/* ===== DEVICE SAFETY (28 July 2026 sweep) =====
+   Applied to every page. Two faults were site-wide:
+   1. 100vw includes the scrollbar width, so any element using it is wider than the viewport
+      and forces a sideways scroll. overflow-x:hidden on the root stops that everywhere.
+   2. Tap targets under 44px fail Apple's and Google's minimum and are genuinely hard to hit
+      on a phone. Every interactive element now meets 44px.
+   ===== */
+html,body{overflow-x:hidden;max-width:100%}
+*{min-width:0}
+img,video,iframe,table,pre{max-width:100%}
+a,button,select,summary,[role="button"],input[type="submit"],input[type="button"]{
+  min-height:44px}
+a{display:inline-flex;align-items:center}
+a.inline-link,p a,li a,.dis a,.fnote a{display:inline;min-height:0}
+input,textarea,select{font-size:16px}
+@media(max-width:480px){
+  body{-webkit-text-size-adjust:100%}
+}
+</style>
+<style>/* CO227 media-tool aurora */
+body{background:#FFFFFF!important;color:#141414!important}
+h1,h2{color:#2F3B35!important;font-weight:900!important}
+button,input[type=submit]{background:linear-gradient(92deg,#189850,#189850)!important;color:#fff!important;border:0!important;border-radius:12px!important;font-weight:800!important}
+input,textarea,select{background:#F4F6F5!important;color:#FFFFFF!important;border:1px solid rgba(20,60,40,.2)!important;border-radius:12px!important}
+a{color:#189850!important}
+p,li,td,label,span,div{color:#404040}
+b,strong,th,summary{color:#141414!important}
+:focus-visible{outline:3px solid #127A40!important}
+
+/* iOS zoom trap (2026-07-25): Safari force-zooms on focus when a field is under 16px.
+   Scoped to coarse pointers so desktop sizing is untouched. */
+@media (pointer: coarse) {
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"],
+  input[type="search"], input[type="password"], input:not([type]), textarea, select {
+    font-size: max(1rem, 16px) !important;
+  }
+}
+</style><link href="/favicon-32.png" rel="icon" type="image/png"/><link href="/favicon.ico" rel="shortcut icon"/><link href="/icon-192.png" rel="apple-touch-icon"/><script>
+/* ERROR BOUNDARY (2026-07-25). Audit found window.onerror: 0, unhandledrejection: 0,
+   <noscript>: 0 across every page. One thrown error inside a render function produced a blank
+   card with no message and no clue — which is exactly how this afternoon's failure presented.
+   This never swallows the error (it still reaches the console); it guarantees the user is TOLD.
+   Placed in <head> so it is armed before any page script runs. */
+(function(){
+  var shown=false;
+  function boom(what){
+    if(shown)return; shown=true;
+    try{
+      var d=document.createElement('div');
+      d.setAttribute('role','alert');
+      d.style.cssText='position:fixed;left:12px;right:12px;'+
+        'bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:2147483000;'+
+        'padding:14px 16px;border-radius:12px;background:#FDF6F8;border:1px solid #189850;'+
+        'color:#127A40;font:600 14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;'+
+        'box-shadow:0 18px 44px -12px rgba(0,0,0,.6)';
+      d.textContent='Something went wrong on this page. Reload to try again. ('+String(what).slice(0,120)+')';
+      (document.body||document.documentElement).appendChild(d);
+    }catch(e){}
+  }
+  window.addEventListener('error',function(e){ boom((e&&e.message)||'script error'); });
+  window.addEventListener('unhandledrejection',function(e){
+    var r=e&&e.reason; boom((r&&(r.message||r))||'a request failed'); });
+})();
+</script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="css/uniform.css" rel="stylesheet"/>
+<meta content="#189850" name="theme-color"/>
+</head>
+<body>
+<div class="banner">INTERNAL TOOL — NOT FOR CUSTOMERS</div>
+<header><a class="mark"><span class="s">Spark</span><span class="n">MyName</span><span class="k">✦</span></a><h1>VIDEO FORGE</h1></header>
+<div class="sub">Describe the video. Set the dials. Press Forge. Out come the Bible draft, the Voice Script, the Psych Review package, and the Claude production request — governed by the Master Video Production SOP, with a virgin reel name every time. This tool calls no AI and holds no API keys — the Fire Control below builds and opens your fire URL; only the fire-gate key is entered, at fire time.</div>
+<!-- ═══════════ 1 · THE CONCEPT ═══════════ -->
+<fieldset><legend>1 · THE CONCEPT</legend>
+<textarea id="concept" placeholder="Describe the video you want — who it's for, what it must say and show, what should happen at the end…"></textarea>
+<div class="concept-tools">
+<button class="mic" id="micBtn" title="Speak your concept">𮖚</button>
+<button class="btn ghost small" onclick="document.getElementById('fileIn').click()">Import.txt /.md /.pdf</button>
+<input accept=".txt,.md,.pdf" id="fileIn" style="display:none" type="file"/>
+<span class="note" id="micNote">Mic and imports APPEND to the box — they never overwrite.</span>
+</div>
+</fieldset>
+<!-- ═══════════ 2 · WHO IT'S FOR ═══════════ -->
+<fieldset><legend>2 · WHO IT’S FOR</legend>
+<div class="segs" id="ownerSegs">
+<button class="seg on" data-v="spark">For SparkMyName</button>
+<button class="seg" data-v="client">For a Client (universal)</button>
+</div>
+<div id="clientBox" style="display:none">
+<div class="row">
+<div><label>BUSINESS NAME</label><input id="cName" placeholder="Client business name" type="text"/></div>
+<div><label>WEBSITE URL</label><input id="cUrl" placeholder="https://…" type="text"/></div>
+<div><label>PHONE</label><input id="cPhone" placeholder="(555) 555-5555" type="text"/></div>
+<div><label>EMAIL</label><input id="cEmail" placeholder="hello@client.com" type="text"/></div>
+</div>
+<div class="row">
+<div><label>SLOGAN / TAGLINE</label><input id="cSlogan" placeholder="Their slogan, if any" type="text"/></div>
+<div><label>BRAND NOTES — logo, colors, anything they have</label><input id="cBrand" placeholder="e.g., green leaf logo, navy+gold, friendly tone" type="text"/></div>
+</div>
+<label>CLIENT PROFILE — audience, story, anything else</label>
+<textarea id="cProfile" placeholder="Who their customers are, what makes them different…" style="min-height:70px"></textarea>
+</div>
+</fieldset>
+<!-- ═══════════ 3 · STANDARD SETTINGS ═══════════ -->
+<fieldset><legend>3 · STANDARD SETTINGS</legend>
+<div class="row3">
+<div><label>INTENDED USE</label>
+<select id="useSel">
+<option value="homepage">Homepage / sales film</option>
+<option value="tradeshow">Tradeshow loop (silent)</option>
+<option value="tutorial">Workspace tutorial (no selling)</option>
+<option value="social">Social teaser</option>
+<option value="upsell">Upsell / add-on film</option>
+<option value="custom">Custom…</option>
+</select></div>
+<div><label>RUNTIME</label>
+<select id="runSel">
+<option value="15">15 seconds</option><option value="30">30 seconds</option>
+<option selected="" value="66">60-second class (~66s)</option><option value="87">90-second class (~87s)</option>
+<option value="180">3 minutes</option><option value="300">5 minutes</option>
+<option value="900">15 minutes</option><option value="1800">30 minutes</option>
+<option value="c">Custom seconds…</option>
+</select><input id="runCustom" placeholder="seconds" style="display:none;margin-top:6px" type="text"/></div>
+<div><label>MUSIC CONCEPT</label>
+<select id="musSel">
+<option value="motivational">Motivational rising (112–118 BPM indie-anthemic)</option>
+<option value="warm">Warm &amp; intimate</option>
+<option value="action">Action / urgent</option>
+<option value="calm">Calm instructional</option>
+<option value="silent">Silent (tradeshow)</option>
+</select></div>
+<div><label>VOICE</label>
+<select id="voxSel">
+<option value="mentor">Mentor — warm, believes in you (default)</option>
+<option value="instructional">Instructional — clear and kind</option>
+<option value="energetic">Energetic — bright, quick</option>
+<option value="audition">Let Claude audition (4-line gauntlet)</option>
+</select></div>
+<div><label>CALL TO ACTION</label>
+<select id="ctaSel">
+<option value="mic">Live mic end screen (speak / type)</option>
+<option value="qr">QR code + short URL (tradeshow)</option>
+<option value="step">"Do this step now" button (tutorial)</option>
+<option value="link">Platform link (social)</option>
+<option value="none">None / seamless loop</option>
+</select></div>
+<div><label>PICTURE SHAPE</label>
+<select id="arSel"><option value="16:9">16:9 widescreen</option><option value="9:16">9:16 vertical (social)</option></select></div>
+</div>
+<details><summary>MORE TOOLS — story beats &amp; features (click to activate)</summary>
+<div class="chips" id="beatChips">
+<button class="chip on" data-b="Kit parade (deliverables fly-by, names on drumbeats)">Kit parade</button>
+<button class="chip on" data-b="End-screen staged entry (action first, support +800ms)">Staged end screen</button>
+<button class="chip" data-b="Doubt beat (the wait… then the answer)">Doubt beat</button>
+<button class="chip" data-b="Human-hands parade (people touching the deliverables)">Human hands</button>
+<button class="chip" data-b="Reverse bookend (openers return transformed; last face direct-to-lens)">Reverse bookend</button>
+<button class="chip" data-b="Proof twist (a second different customer, visibly different brand)">Proof twist</button>
+<button class="chip" data-b="Friend-share beat (word of mouth dramatized, wordless)">Friend share</button>
+<button class="chip" data-b="Guide-with-a-face (warm presence walks a step to completion)">Guide with face</button>
+<button class="chip" data-b="Before/after in one frame">Before &amp; after</button>
+<button class="chip" data-b="Logo-draw beat (marks draw themselves, 400ms stagger)">Logo draw</button>
+<button class="chip" data-b="Chapter markers on the player (tutorials/long form)">Chapter markers</button>
+<button class="chip" data-b="Testimonial-style proof faces (dramatization disclosure applies)">Proof faces</button>
+</div>
+<div class="row" style="margin-top:12px">
+<div><label>AUDIENCE</label><input id="audIn" placeholder="e.g., first-time owners, low tech confidence" type="text"/></div>
+<div><label>MUSIC NOTE (optional)</label><input id="musNote" placeholder="anything specific for the score" type="text"/></div>
+</div>
+<label>MUST-SAY FACTS — one per line (each gets the honesty audit)</label>
+<textarea id="mustSay" placeholder="e.g., 7-day money-back guarantee" style="min-height:60px"></textarea>
+<div class="row">
+<div><label>BANNED WORDS (pre-seeded by law)</label><input id="banIn" type="text" value="free, studio, hub, account"/></div>
+<div><label>PRICE POLICY</label><input disabled="" style="opacity:.65" type="text" value="Rendered film: NEVER shows price (locked law)"/><div class="note"><input id="htmlPrice" type="checkbox"/> HTML layer may mention price (tutorials/upsells)</div></div>
+</div>
+</details>
+</fieldset>
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+<button class="btn" id="forgeBtn" onclick="forge()">⚡ FORGE IT</button>
+<span class="reelname" id="nameOut"></span>
+<button class="btn ghost small" id="renameBtn" onclick="regName()" style="display:none">↻ new name</button>
+<button class="btn ghost small" onclick="dlRegistry()">Download name registry</button>
+</div>
+<div class="plan" id="plan">Set the dials — the plan computes live here.</div>
+<div class="outs" id="outs" style="display:none">
+<div class="card"><h3>📖 Bible Draft</h3><p>All SOP sections scaffolded: timed acts, take plan, voice, music, player &amp; end screen, laws, tech reference.</p>
+<div class="bts"><button class="btn small" onclick="dl('bible','md')">Download.md</button><button class="btn ghost small" onclick="printDoc('bible')">Print / Save PDF</button><button class="btn ghost small" onclick="cp('bible')">Copy</button></div></div>
+<div class="card"><h3>𮖚 Voice Script</h3><p>Per-act windows, registers, and word budgets computed at true pace — write into the slots.</p>
+<div class="bts"><button class="btn small" onclick="dl('voice','md')">Download.md</button><button class="btn ghost small" onclick="printDoc('voice')">Print / Save PDF</button><button class="btn ghost small" onclick="cp('voice')">Copy</button></div></div>
+<div class="card"><h3>🧠 Psych Review Package</h3><p>The outside-panel ask, verbatim from SOP Part 4 — paste into a fresh Claude to run the evaluation loop.</p>
+<div class="bts"><button class="btn small" onclick="dl('psych','txt')">Download.txt</button><button class="btn ghost small" onclick="cp('psych')">Copy</button></div></div>
+<div class="card"><h3>🤖 Claude Production Request</h3><p>The complete handoff: spec JSON + drafts + every law + the verification pipeline orders.</p>
+<div class="bts"><button class="btn small" onclick="dl('claude','txt')">Download.txt</button><button class="btn ghost small" onclick="cp('claude')">Copy</button></div></div>
+</div>
+<!-- ═══════════ FIRE CONTROL ═══════════ -->
+<fieldset style="margin-top:18px"><legend>&amp;#127A40; FIRE CONTROL — fire a DEPLOYED producer (video + voice render)</legend>
+<div class="note" style="margin-bottom:10px">This fires a reel whose producer file is already built and deployed (the once-per-film Claude step). Your API keys stay in Netlify — only the fire-gate key is entered here, at fire time.</div>
+<div class="row">
+<div><label>YOUR SITE</label><input id="fireSite" placeholder="https://your-site.netlify.app" type="text" value="https://sparkmyname.netlify.app"/></div>
+<div><label>REEL SLUG (deployed producer)</label><input id="fireReel" placeholder="e.g. sayborn1" type="text"/></div>
+<div><label>FIRE KEY (ORDER_START_KEY)</label><input autocomplete="off" id="fireKey" placeholder="paste at fire time" type="text"/></div>
+</div>
+<div class="chips" style="margin-top:10px">
+<button class="chip" id="swVoice" onclick="this.classList.toggle('on');fireUrl()">voice=1  (re-render voice — CAPTION RETIME REQUIRED)</button>
+<button class="chip" id="swRedo" onclick="this.classList.toggle('on');fireUrl()">redo=1  (re-render EVERYTHING)</button>
+</div>
+<div class="row" style="margin-top:8px">
+<div><label>ONLY THESE TAKES (optional, e.g. 3,7)</label><input id="fireOnly" placeholder="blank = all missing" type="text"/></div>
+<div><label><input id="fireRemember" type="checkbox"/> remember key on THIS browser only</label>
+<div class="note">Unticked = the key vanishes when you close the page.</div></div>
+</div>
+<div class="plan" id="fireUrlBox" style="word-break:break-all;font:13px monospace">Fill the three fields — the fire URL builds here.</div>
+<div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+<button class="btn ghost" onclick="copyFire()">Copy fire URL</button>
+<button class="btn" id="fireGo" onclick="doFire()">&amp;#127A40; FIRE&lt;/button&gt;
+    &lt;span class="note" id="fireNote"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="note" style="margin-top:8px"&gt;LAWS: one film fires per day &amp;bull; a healthy run logs "OK"/"REUSED" lines in Netlify &amp;rarr; Logs &amp;rarr; Functions; a ~5-millisecond run = wrong key &amp;bull; already-rendered takes are reused automatically &amp;bull; voice=1 breaks caption sync until retimed — use only with a retime order.&lt;/div&gt;
+&lt;/fieldset&gt;
+
+&lt;div class="laws"&gt;THE STANDING LAWS (baked into every output): virgin reel names, grep-proven — a re-cut is a NEW name &amp;bull; the video model never renders words (player draws everything) &amp;bull; no price in any render &amp;bull; nothing called free &amp;bull; workspace only &amp;bull; owned web addresses only &amp;bull; voice lock after casting &amp;bull; no spoken command before its object exists &amp;bull; no beat ends on "alone" &amp;bull; honesty gates on every claim &amp;bull; founder inserts all keys &amp;bull; full-site discs only &amp;bull; one film fires per day &amp;bull; PROVE, NEVER GUESS.&lt;/div&gt;
+
+&lt;script&gt;
+/* ════════ constants (edit here) ════════ */
+const TAKE_SECONDS=8, DAILY_TAKE_CAP=50;
+const WPS={whisper:[2.0,2.2],quiet:[2.3,2.5],normal:[2.53,2.7]};
+const BANK_A=["ember","gold","dawn","north","bright","oak","swift","true","home","wake","clear","bold","spark","noble","prime","vivid","stone","river","cedar","amber","early","brave","plain","quiet","sunny","fable","maple","haven","crown","field","light","first","grand","royal","solid","fresh","lucky","merry","noble2","tidal"];
+const BANK_B=["sign","door","seed","lane","forge","bloom","crest","banner","anchor","ladder","beacon","compass","harbor","summit","garden","bridge","window","lantern2","engine","canvas","meadow","corner","market","stagec","spire","wagon","basket","letter","ribbon","circle","street","tower","valley","willow","harvest","copper","violet","monarch","pioneer","voyage"];
+const $=id=&gt;document.getElementById(id);
+
+/* ════════ venue matrix (SOP Part 1) ════════ */
+const VENUES={
+ homepage:{sound:"Autoplay muted; unmute pill; captions auto-ON while muted",loop:"Never — ends on live end screen",cta:"mic",laws:["Price-free render","Nothing called free","End screen = live input, staged entry"]},
+ tradeshow:{sound:"SILENT ALWAYS — meaning never depends on audio",loop:"YES — seamless loop point (venue exception)",cta:"qr",laws:["Type ≥40px at 3m","QR + short URL held ≥8s each loop","No mic CTA"]},
+ tutorial:{sound:"Sound-on expected; CC toggle",loop:"No; chapter markers",cta:"step",laws:["NO SELLING — customer already paid","Receipts/prices allowed as facts","'Do this step now' pauses"]},
+ social:{sound:"Assume muted; burned-in captions",loop:"Platform may loop",cta:"link",laws:["Hook ≤1.5s","15–30s class","9:16 variant = its own new reel"]},
+ upsell:{sound:"Sound-on likely; CC toggle",loop:"No",cta:"step",laws:["Honest scope — what it adds","Price in HTML layer only"]},
+ custom:{sound:"Define at intake",loop:"Define at intake",cta:"mic",laws:["Answer the 12 intake questions — the matrix flexes from there"]}};
+
+/* ════════ act scaffolds (SOP Part 3) ════════ */
+function scaffold(sec){
+ if(sec&lt;=20)return[["Hook",0,2,"whisper"],["Proof",2,sec-4,"normal"],["CTA",sec-4,sec,"whisper"]];
+ if(sec&lt;=45)return[["Hook",0,3,"whisper"],["Mechanism",3,Math.round(sec*.45),"normal"],["Proof",Math.round(sec*.45),sec-6,"normal"],["CTA",sec-6,sec,"whisper"]];
+ if(sec&lt;=75)return[["Hook / Dreamers",0,8,"whisper"],["Say-it Mechanism",8,16,"normal"],["The Birth",16,24,"normal"],["Proof Twist",24,30,"normal"],["Kit Parade",30,46,"normal"],["Home (Workspace)",46,55,"normal"],["The Moment (CTA)",55,sec,"quiet"]];
+ if(sec&lt;=120)return[["Hook / Dreamers",0,12,"whisper"],["Say-it + Doubt beat",12,25,"normal"],["The Birth, held",25,38,"normal"],["Proof Twist ×2",38,48,"normal"],["Kit Parade",48,64,"normal"],["Home (Workspace)",64,75,"normal"],["The Moment (CTA)",75,sec,"quiet"]];
+ if(sec&lt;=480){const n=Math.max(3,Math.min(6,Math.round((sec-30)/60)));const acts=[["Cold Open",0,10,"whisper"]];const span=(sec-25)/n;
+  for(let i=0;i&lt;n;i++)acts.push(["Chapter "+(i+1)+" (one task)",Math.round(10+i*span),Math.round(10+(i+1)*span),"normal"]);
+  acts.push(["Close (CTA)",sec-15,sec,"quiet"]);return acts;}
+ const m=Math.round(sec/75);const acts=[];for(let i=0;i&lt;m;i++)acts.push(["Module "+(i+1)+" (own mini-arc — OWN REEL recommended)",i*75,Math.min(sec,(i+1)*75),"normal"]);return acts;}
+
+/* ════════ naming engine ════════ */
+let REG=[];try{REG=JSON.parse(localStorage.getItem('smn_reel_registry')||'[]')}catch(e){}
+let NAME="",SLUG="";
+function mint(){let tries=0;while(tries++&lt;200){const a=BANK_A[Math.floor(Math.random()*BANK_A.length)].replace(/[0-9]/g,'');
+ const b=BANK_B[Math.floor(Math.random()*BANK_B.length)].replace(/[0-9]/g,'');const n=(a+b).toUpperCase();
+ if(!REG.includes(n)){REG.push(n);try{localStorage.setItem('smn_reel_registry',JSON.stringify(REG))}catch(e){};return n;}}
+ return("REEL"+Date.now()).toUpperCase();}
+function regName(){NAME=mint();SLUG=NAME.toLowerCase()+"1";$('nameOut').textContent=NAME+" · reel: "+SLUG;forgeDocs();}
+function dlRegistry(){blob(JSON.stringify(REG,null,1),'smn_reel_registry_'+stamp()+'.json','application/json');}
+function stamp(){const d=new Date(),p=n=&gt;String(n).padStart(2,'0');let h=d.getHours(),ap=h&gt;=12?'PM':'AM';h=h%12||12;
+ return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'_'+p(h)+p(d.getMinutes())+ap;}
+function now(){return new Date().toLocaleString('en-US',{dateStyle:'long',timeStyle:'short'});}
+
+/* ════════ live plan ════════ */
+function runtime(){const v=$('runSel').value;return v==='c'?(parseInt($('runCustom').value)||60):parseInt(v);}
+function plan(){
+ const sec=runtime(),use=$('useSel').value,V=VENUES[use],takes=Math.ceil(sec/TAKE_SECONDS),days=Math.ceil(takes/DAILY_TAKE_CAP);
+ const acts=scaffold(sec);
+ let h='&lt;b&gt;THE PLAN&lt;/b&gt; — '+sec+'s · '+acts.length+' acts · &lt;b&gt;'+takes+' takes&lt;/b&gt; (8s each) · '+
+ (days&gt;1?'&lt;span class="warn"&gt;'+days+'-DAY RENDER under provider quotas — the manifest makes multi-day safe; consider one reel per module.&lt;/span&gt;':'one fire day.');
+ h+='&lt;div class="kv"&gt;';acts.forEach(a=&gt;{const wb=Math.floor((a[2]-a[1])*WPS[a[3]][0]);
+  h+='&lt;span&gt;'+a[0]+' · '+a[1]+'–'+a[2]+'s · '+a[3]+' · ≤'+wb+' words&lt;/span&gt;';});
+ h+='&lt;/div&gt;&lt;div class="kv"&gt;&lt;span&gt;Sound: '+V.sound+'&lt;/span&gt;&lt;span&gt;Loop: '+V.loop+'&lt;/span&gt;'+V.laws.map(l=&gt;'&lt;span&gt;⚖ '+l+'&lt;/span&gt;').join('')+'&lt;/div&gt;';
+ $('plan').innerHTML=h;}
+['useSel','runSel','runCustom'].forEach(id=&gt;$(id).addEventListener('change',()=&gt;{ $('runCustom').style.display=$('runSel').value==='c'?'block':'none';plan();}));
+$('runCustom').addEventListener('input',plan);
+
+/* ════════ inputs: segs, chips, mic, import ════════ */
+document.querySelectorAll('#ownerSegs.seg').forEach(s=&gt;s.onclick=()=&gt;{document.querySelectorAll('#ownerSegs.seg').forEach(x=&gt;x.classList.remove('on'));s.classList.add('on');$('clientBox').style.display=s.dataset.v==='client'?'block':'none';});
+document.querySelectorAll('#beatChips.chip').forEach(c=&gt;c.onclick=()=&gt;c.classList.toggle('on'));
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition,mb=$('micBtn');
+if(SR){const rec=new SR();rec.lang='en-US';rec.interimResults=true;let live=false,base='';
+ mb.onclick=()=&gt;{if(live){rec.stop();return;}base=$('concept').value;live=true;mb.classList.add('listening');rec.start();};
+ rec.onresult=e=&gt;{let interim='';for(let i=e.resultIndex;i&lt;e.results.length;i++){const t=(e.results[i][0].transcript||'').trim();if(!t)continue; if(e.results[i].isFinal){ if(t!==window.__vfLastFin){ window.__vfFin=(window.__vfFin?window.__vfFin+' ':'')+t; window.__vfLastFin=t; } } else interim=(interim?interim+' ':'')+t;} $('concept').value=(base?base+'\n\n':'')+((window.__vfFin||'')+(interim?' '+interim:''));};
+ rec.onend=rec.onerror=()=&gt;{live=false;mb.classList.remove('listening');};
+}else{mb.onclick=()=&gt;{$('concept').focus();$('micNote').textContent='Mic not supported here — typing works fine.';};}
+$('fileIn').onchange=async e=&gt;{const f=e.target.files[0];if(!f)return;
+ const app=t=&gt;{$('concept').value+=($('concept').value?'\n\n':'')+t.slice(0,20000);if(t.length&gt;20000)$('micNote').textContent='Long file — imported the first 20,000 characters.';};
+ if(/\.pdf$/i.test(f.name)){try{
+   if(!window.pdfjsLib){await new Promise((ok,er)=&gt;{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js';s.onload=ok;s.onerror=er;document.head.appendChild(s);});
+    pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';}
+   const doc=await pdfjsLib.getDocument({data:await f.arrayBuffer()}).promise;let t='';
+   for(let p=1;p&lt;=doc.numPages;p++){const c=await(await doc.getPage(p)).getTextContent();t+=c.items.map(i=&gt;i.str).join(' ')+'\n';}
+   app(t);}catch(err){$('micNote').textContent='PDF import needs internet for the reader — paste the text instead.';}
+ }else{const r=new FileReader();r.onload=()=&gt;app(String(r.result));r.readAsText(f);}e.target.value='';};
+
+/* ════════ FORGE ════════ */
+let DOCS={};
+function val(id){return ($(id)&amp;&amp;$(id).value||'').trim();}
+function spec(){
+ const sec=runtime(),use=$('useSel').value,client=document.querySelector('#ownerSegs.seg.on').dataset.v==='client';
+ return{name:NAME,reel:SLUG,generated:now(),concept:val('concept'),
+  owner:client?{kind:'client',business:val('cName'),url:val('cUrl'),phone:val('cPhone'),email:val('cEmail'),slogan:val('cSlogan'),brand:val('cBrand'),profile:val('cProfile')}:{kind:'sparkmyname'},
+  use:use,runtimeSeconds:sec,aspect:$('arSel').value,music:$('musSel').value,musicNote:val('musNote'),
+  voice:$('voxSel').value,cta:$('ctaSel').value,audience:val('audIn'),
+  beats:[…document.querySelectorAll('#beatChips.chip.on')].map(c=&gt;c.dataset.b),
+  mustSay:val('mustSay').split('\n').map(s=&gt;s.trim()).filter(Boolean),
+  banned:val('banIn').split(',').map(s=&gt;s.trim()).filter(Boolean),
+  htmlPriceAllowed:$('htmlPrice').checked,
+  takes:Math.ceil(sec/TAKE_SECONDS),fireDays:Math.ceil(Math.ceil(sec/TAKE_SECONDS)/DAILY_TAKE_CAP)};}
+function actLines(sec){return scaffold(sec).map(a=&gt;{const wb=Math.floor((a[2]-a[1])*WPS[a[3]][0]);
+ return {t:a[0],w0:a[1],w1:a[2],reg:a[3],budget:wb};});}
+const LAWS='THE STANDING LAWS: virgin reel names (grep-prove zero hits before production; a re-cut is a NEW name) · ABSOLUTE TEXT BAN in renders (player draws all words) · no price in any render · nothing called free · workspace only (never studio/hub/account) · owned web addresses only, purchased BEFORE render day · voice lock after casting (captions timed to the final take; re-voice = explicit order + retime) · no spoken command before its object exists; nothing spoken contradicts the typed path · no beat ends on the word "alone" · honesty gates: every claim TRUE-TODAY, delivery promises sized to the worst case, dramatization disclosure · Founder inserts all keys personally · full-site discs only · one film fires per day · PROVE, NEVER GUESS.';
+function forgeDocs(){
+ const S=spec(),A=actLines(S.runtimeSeconds),V=VENUES[S.use];
+ const who=S.owner.kind==='client'?('CLIENT: '+S.owner.business+'\nURL: '+S.owner.url+' · PHONE: '+S.owner.phone+' · EMAIL: '+S.owner.email+'\nSLOGAN: '+S.owner.slogan+'\nBRAND NOTES: '+S.owner.brand+'\nPROFILE: '+S.owner.profile):'PRODUCTION FOR: SparkMyName (house film)';
+ DOCS.bible='# '+S.name+' — PRODUCTION BIBLE (DRAFT)\n## A SparkMyName Forge Production · '+S.generated+' · Prepared for Peter Klein, Founder · CONFIDENTIAL\n\n'
+ +'REEL (virgin, permanent): '+S.reel+' — Claude must grep-prove zero prior hits before production.\n\n'
+ +'## I · THE FILM\nUse: '+S.use+' · Runtime target: '+S.runtimeSeconds+'s · '+S.aspect+' · CTA: '+S.cta+'\n'+who+'\nAUDIENCE: '+(S.audience||'(define at intake)')+'\n\nTHE CONCEPT (Founder’s words, verbatim):\n"'+S.concept+'"\n\nVENUE LAWS: Sound — '+V.sound+' · Loop — '+V.loop+' · '+V.laws.join(' · ')+'\n\n'
+ +'## II · THE TIMED SCRIPT (scaffold — write each act to its budget)\n'
+ +A.map(a=&gt;'ACT: '+a.t+' · '+a.w0+'s–'+a.w1+'s · register '+a.reg+' · VO budget ≤'+a.budget+' words\n [PICTURE — to be written; one continuous take per 8s; character locks verbatim; ABSOLUTE TEXT BAN; strictly exclude real logos, garbled text, cuts]\n [VO — to be written within budget]').join('\n')
+ +'\n\nACTIVATED STORY BEATS:\n'+(S.beats.map(b=&gt;'· '+b).join('\n')||'· (standard)')
+ +'\n\nTAKE PLAN: '+S.takes+' takes of 8s · '+(S.fireDays&gt;1?S.fireDays+'-day render plan (quota '+DAILY_TAKE_CAP+'/day) — manifest checkpoints make this safe':'one fire day')
+ +'\n\n## III · THE VOICE\nProfile: '+S.voice+' — cast the mentor, not the announcer; four registers (near-whisper / matter-of-fact / bright-on-beats / low-grounded); four-line gauntlet audition WITH the music bed on phone speakers; near-whisper artifact test BEFORE casting locks; VOICE LOCK after.\n\n'
+ +'## IV · THE MUSIC\nConcept: '+S.music+(S.musicNote?' — note: '+S.musicNote:'')+'. Pulse never dies; biggest lift on the reveal; hits on parade beats; breathe under proof; one beat of silence before the end; unresolved chord under the CTA. Ducked 4–6dB under every spoken line.\n\n'
+ +'## V · PLAYER &amp; END SCREEN\nFull transport bar (play/pause/scrub/replay), CC toggle (auto-ON while muted), volume, close, fullscreen everywhere, rotation-safe, MP4 H.264+AAC universal. CTA form: '+S.cta+'. Nothing on any screen is called free.'+(S.htmlPriceAllowed?' HTML layer MAY state price plainly (this venue).':' No price anywhere, including HTML, until the Founder orders it.')+'\n\n'
+ +'## VI · THE LAWS\n'+LAWS+'\n\nMUST-SAY FACTS (each passes the honesty audit):\n'+(S.mustSay.map(m=&gt;'· '+m).join('\n')||'· (none)')+'\nBANNED WORDS: '+S.banned.join(', ')+'\n\n'
+ +'## VII · TECHNICAL\nProduce per the Master Video Production SOP Part 7: producer file netlify/functions/'+S.reel+'-produce-background.js (FILM/MUSIC/STORY), env keys by NAME only (Founder inserts values), fire URL gated by ORDER_START_KEY, manifest checkpoints, selective re-render params, then the six delivery gates.';
+ DOCS.voice='# '+S.name+' — VOICE SCRIPT (DRAFT) · '+S.generated+'\nPace law: whisper 2.0–2.2 wps · quiet 2.3–2.5 · normal 2.53–2.7. Verify every line at ITS register.\n\n'
+ +A.map(a=&gt;'ACT: '+a.t+'\nWINDOW: '+a.w0+'s–'+a.w1+'s · REGISTER: '+a.reg+' · BUDGET: ≤'+a.budget+' words\nLINE: [write ≤'+a.budget+' words here]\n').join('\n')
+ +'\nMUST-SAY: '+(S.mustSay.join(' | ')||'(none)')+'\nBANNED: '+S.banned.join(', ')+'\nREAD LAWS: falling endings on promises · quietest moment = the final invitation · no beat ends on "alone" · nothing called free · VOICE LOCK after casting.\n\n'+LAWS;
+ DOCS.psych='PSYCH REVIEW PACKAGE — '+S.name+' · '+S.generated+'\nPaste this into a FRESH Claude session (the panel must be outside the production):\n\n"You are an outside review panel: a conversion psychologist, an attention/media analyst, a music-and-audio-branding supervisor, a trust red-team, and 5–7 audience personas matched to: '+(S.audience||S.use)+'. Push back and refute — a review that only applauds will be discarded.\n\nReview the attached '+S.name+' script (all acts, timed) for a '+S.use+' video, '+S.runtimeSeconds+'s.\n\nDeliver: scores /10 (overall + CTA power) · verdict READY / READY WITH TWEAKS / NOT READY · ranked must-fix list · per-persona scores naming the weakest · predicted drop-off points · and answer the venue question: does the ending make them act without thinking?\n\nLaws the script must already obey (flag any breach): '+LAWS+'"\n\nRun act-level review for new formats, FULL-film review always, re-score after fixes, and a final sign-off pass on the cleaned wording (flag only what changes what renders). The Founder makes every mark; founder honesty overrides beat conversion advice.';
+ DOCS.claude='CLAUDE PRODUCTION REQUEST — '+S.name+' · '+S.generated+'\n\nYou are producing a video per the SparkMyName MASTER VIDEO PRODUCTION SOP. Attached/below: the spec, the Bible draft, and the Voice Script draft from VIDEO FORGE.\n\nDO, IN ORDER:\n1. Write the final script inside every act window and word budget (verify each line at ITS register: whisper 2.0–2.2 / quiet 2.3–2.5 / normal 2.53–2.7 wps).\n2. Run the PSYCH REVIEW loop (package included) with an outside panel to READY; fold fixes; re-score.\n3. Run the VERIFICATION PIPELINE: machine spell-check to zero · per-register timing math · continuity scans (list-vs-reveal counts, command-before-object, echo, beat-endings, banned words: '+spec().banned.join(', ')+').\n4. Grep-prove the reel name '+SLUG+' is virgin across the entire site/project — zero hits.\n5. Produce the final Production Bible + Voice-Over PDFs (name + full timestamp on covers) and the producer file netlify/functions/'+SLUG+'-produce-background.js with placeholder env keys ONLY.\n6. Deliver a sealed FULL-SITE disc. Never deploy; the Founder deploys discs personally and inserts all keys personally.\n7. PROVE, NEVER GUESS — show the proof tables for every step.\n\nTHE LAWS (non-negotiable): '+LAWS+'\n\n=== SPEC JSON ===\n'+JSON.stringify(spec(),null,1)+'\n\n=== BIBLE DRAFT ===\n'+DOCS.bible+'\n\n=== VOICE SCRIPT DRAFT ===\n'+DOCS.voice;
+}
+function forge(){if(!val('concept')){$('concept').focus();$('concept').placeholder='Give me the concept first — even one sentence.';return;}
+ if(!NAME)regName();else forgeDocs();
+ $('renameBtn').style.display='inline-block';$('outs').style.display='grid';plan();}
+function blob(txt,fn,type){const b=new Blob([txt],{type:type||'text/plain'});const a=document.createElement('a');
+ a.href=URL.createObjectURL(b);a.download=fn;a.click();setTimeout(()=&gt;URL.revokeObjectURL(a.href),4000);}
+function dl(which,ext){if(!DOCS[which])return;const kind={bible:'Bible_DRAFT',voice:'VoiceScript_DRAFT',psych:'PsychReview',claude:'ClaudeRequest'}[which];
+ blob(DOCS[which],(NAME||'REEL')+'_'+kind+'_'+stamp()+'.'+ext);}
+function cp(which){navigator.clipboard&amp;&amp;navigator.clipboard.writeText(DOCS[which]||'');}
+function printDoc(which){const w=window.open('','_blank');if(!w)return alert('Allow pop-ups to print.');
+ w.document.write('&lt;pre style="font:12px/1.5 Georgia,serif;white-space:pre-wrap;padding:24px"&gt;'+(DOCS[which]||'').replace(/&amp;/g,'&amp;amp;').replace(/&lt;/g,'&amp;lt;')+'&lt;/pre&gt;');
+ w.document.close();w.focus();w.print();}
+plan();
+
+/* ════════ FIRE CONTROL ════════ */
+try{const kk=localStorage.getItem('smn_fire_key');if(kk){$('fireKey').value=kk;$('fireRemember').checked=true;}}catch(e){}
+function fireUrl(){
+ const site=val('fireSite').replace(/\/+$/,''),reel=val('fireReel'),key=val('fireKey');
+ if(!site||!reel||!key){$('fireUrlBox').textContent='Fill the three fields — the fire URL builds here.';return '';}
+ let u=site+'/.netlify/functions/'+reel+'-produce-background?key='+encodeURIComponent(key);
+ if(val('fireOnly'))u+='&amp;only='+encodeURIComponent(val('fireOnly'));
+ if($('swVoice').classList.contains('on'))u+='&amp;voice=1';
+ if($('swRedo').classList.contains('on'))u+='&amp;redo=1';
+ $('fireUrlBox').textContent=u;return u;}
+['fireSite','fireReel','fireKey','fireOnly'].forEach(id=&gt;$(id).addEventListener('input',()=&gt;{fireUrl();
+ try{if($('fireRemember').checked)localStorage.setItem('smn_fire_key',val('fireKey'));}catch(e){}}));
+$('fireRemember').addEventListener('change',()=&gt;{try{
+ if($('fireRemember').checked)localStorage.setItem('smn_fire_key',val('fireKey'));
+ else localStorage.removeItem('smn_fire_key');}catch(e){}});
+function copyFire(){const u=fireUrl();if(u&amp;&amp;navigator.clipboard){navigator.clipboard.writeText(u);$('fireNote').textContent='Copied.';}}
+function doFire(){const u=fireUrl();if(!u)return;
+ if($('swRedo').classList.contains('on')&amp;&amp;!confirm('redo=1 re-renders EVERYTHING for this reel. Continue?'))return;
+ if($('swVoice').classList.contains('on')&amp;&amp;!confirm('voice=1 re-renders the VOICE and breaks caption sync until retimed. You have a retime order? Continue?'))return;
+ window.open(u,'_blank');$('fireNote').textContent='Fired at '+new Date().toLocaleTimeString()+' — watch Netlify &gt; Logs &gt; Functions. It returns instantly; the render continues in the background.';}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</button></div></fieldset></body></html>
