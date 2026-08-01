@@ -346,9 +346,14 @@ function composeUnified(ctx, W, H, data) {
         let l=0,n=0; for (let i=0;i<d.length;i+=40){ l+=0.2126*d[i]+0.7152*d[i+1]+0.0722*d[i+2]; n++; } midLum = n? l/n/255 : 0.2; } catch(e){}
       var cfs=Math.round(S2*0.055); ctx.font = `700 ${cfs}px "Playfair Display", serif`;
       while (ctx.measureText(String(data.callout)).width > maxW && cfs > Math.round(S2*0.022)) { cfs-=2; ctx.font = `700 ${cfs}px "Playfair Display", serif`; }
-      ctx.fillStyle = midLum > 0.5 ? darkHex(data.primary,'#1c2333') : '#fff';
-      ctx.shadowColor = midLum > 0.5 ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.5)'; ctx.shadowBlur=S2*0.015;
-      ctx.fillText(data.callout, cx, by + S2*0.02); ctx.shadowBlur=0;
+      var _tw = ctx.measureText(String(data.callout)).width;
+      var _asc = cfs*0.72, _desc = cfs*0.24, _padY = S2*0.016, _padX = S2*0.032, _base = by + S2*0.02;
+      var _pw = _tw + _padX*2, _ph = _asc + _desc + _padY*2, _px = cx - _pw/2, _py = _base - _asc - _padY;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(_px, _py, _pw, _ph, _ph/2); else ctx.rect(_px, _py, _pw, _ph);
+      ctx.fillStyle = darkHex(data.primary,'rgba(10,26,18,0.9)'); ctx.fill();
+      ctx.lineWidth = Math.max(2, S2*0.004); ctx.strokeStyle = gold; ctx.stroke();
+      ctx.fillStyle = '#fff'; ctx.fillText(data.callout, cx, _base);
       if (data.calloutNote) { ctx.font = `600 ${Math.round(S2*0.02)}px Inter, sans-serif`; ctx.fillStyle='rgba(255,255,255,.85)'; ctx.fillText(data.calloutNote.toUpperCase(), cx, by + S2*0.055); }
     }) : null);
     // ---- BOTTOM GROUP (anchored bottom; ITEMS live here now, in the atmospheric zone, not on the artwork) ----
