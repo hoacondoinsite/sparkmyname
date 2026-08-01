@@ -19,7 +19,8 @@ const STANDARD = {
   print_small: { bleed_in: 0.125, safe_margin_in: 0.125, dpi: 300, color_profile: 'CMYK' },
   print_large: { bleed_in: 0.25,  safe_margin_in: 0.5,   dpi: 150, color_profile: 'CMYK' },
   poster:      { bleed_in: 0.25,  safe_margin_in: 0.25,  dpi: 300, color_profile: 'CMYK' },
-  digital:     { bleed_in: 0,     safe_margin_in: 0,     dpi: 72,  color_profile: 'sRGB' }
+  digital:     { bleed_in: 0,     safe_margin_in: 0,     dpi: 72,  color_profile: 'sRGB' },
+  apparel:     { bleed_in: 0,     safe_margin_in: 0.25,  dpi: 300, color_profile: 'sRGB' }
 };
 const TYPE_CLASS = {
   postcard: 'print_small', postcardback: 'print_small', flyer: 'print_small',
@@ -27,7 +28,9 @@ const TYPE_CLASS = {
   shelftalker: 'print_small', countermat: 'print_small', bumpersticker: 'print_small',
   poster: 'poster',
   banner: 'print_large', yardsign: 'print_large', sign: 'print_large',
-  social: 'digital', story: 'digital', webbanner: 'digital'
+  social: 'digital', story: 'digital', webbanner: 'digital',
+  tshirt: 'apparel', tshirtback: 'apparel', hoodieback: 'apparel', hoodiefront: 'apparel',
+  polochest: 'apparel', dressshirt: 'apparel', toteback: 'apparel', hatfront: 'apparel'
 };
 
 function normType(t) { return String(t || '').toLowerCase().trim(); }

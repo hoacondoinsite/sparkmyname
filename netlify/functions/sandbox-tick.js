@@ -102,7 +102,7 @@ async function step(job) {
       // depictable props. Offer COPY (free / included / no extra charge / $off / "with X service")
       // is composited as text by code, never painted into the scene, or the model draws a text sign.
       const spreadItems = String((p.brief&&(p.brief.details||p.brief.offer))||'').split(/[,\u2022;]+/).map(x=>x.trim()).filter(Boolean)
-        .filter(x=>!/\b(free|included|complimentary|no extra|no charge|%\s?off|save|discount|deal|bonus|offer|only)\b|^with\b|\$\s*\d/i.test(x))
+        .filter(x=>!/\b(free(?!-)|included|complimentary|no extra|no charge|%\s?off|save|discount|deal|bonus|offer|only)\b|^with\b|\$\s*\d/i.test(x))
         .slice(0,5);
       const [b2] = await sel('sandbox_brands', `brand_id=eq.${order.brand_id}&select=industry,banned_visual_elements`);
       const niche = (b2&&b2.industry) ? `Subject niche: ${b2.industry}. ` : '';
