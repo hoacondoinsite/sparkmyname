@@ -1,7 +1,10 @@
-/* SITE-WIDE FOOTER (Founder order 2026-07-31 night): the homepage footer, everywhere. */
-
-/* CONTRAST LIFT (Founder): the faded words step forward — still elegant, no longer hidden. */
-footer, footer p, footer span, footer div{color:rgba(234,242,255,.82)}
-footer a{color:rgba(234,242,255,.88)}
-footer a:hover{color:#FFFFFF}
-footer .legal, footer small{color:rgba(234,242,255,.72)}
+/* SITE-WIDE FOOTER (Founder order 2026-07-31 night): the homepage footer, everywhere.
+   FIX: the footer sits on a LIGHT background (#F7FAF8), so its words are dark ink — readable,
+   not the near-white values that were rendering the "MyName" wordmark and fine print invisible.
+   Styling only; no footer copy changed. The wordmark keeps its own brand colors. */
+footer p, footer div{color:var(--ink2)}
+footer .ftcol a{color:var(--ink2)}
+footer .ftcol a:hover{color:var(--grn-d)}
+footer .ftlegal, footer .ftlegal p{color:var(--ink3)}
+footer .ftlegal a{color:var(--ink3)}
+footer .ftlegal a:hover{color:var(--grn-d)}
