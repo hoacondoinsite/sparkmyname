@@ -136,12 +136,119 @@ function smnMakeMore(IDEA){
     );
 
     return U.Panel([
+      { body: smnPortfolio() },
       { body: spine },
       { body: pod },
       { body: smnVault() }
     ]);
   }catch(e){ return ''; }
 }
+/* ============================================================================
+   TIER 2 — PORTFOLIO MODE          composed with window.SparkUI
+   ----------------------------------------------------------------------------
+   Tier 1 (the 99%) owns a single brand and must never see portfolio chrome:
+   these components render NOTHING when the customer has one order. They appear
+   only when IDEAS holds more than one, so the standard workspace stays clean by
+   construction rather than by a setting someone has to find.
+
+   Switching always goes through the EXISTING selectIdea(), which already
+   handles fetching a missing kit and repainting — so there is one code path for
+   changing brands, not two that can drift apart.
+   ========================================================================== */
+
+/* Rail collapse state survives reloads. Failing to read storage is not fatal. */
+function smnRailCollapsed(){
+  try{ return localStorage.getItem('smn_rail')==='collapsed'; }catch(e){ return false; }
+}
+function smnSetRail(collapsed){
+  try{ localStorage.setItem('smn_rail', collapsed?'collapsed':'open'); }catch(e){}
+  var r=document.querySelector('[data-sprail]');
+  if(r) r.classList.toggle('sp-rail--collapsed', !!collapsed);
+  var b=document.querySelector('[data-sprailtoggle]');
+  if(b){ b.setAttribute('aria-expanded', collapsed?'false':'true');
+         b.setAttribute('title', collapsed?'Expand brand rail':'Collapse brand rail'); }
+}
+
+function smnPortfolio(){
+  try{
+    var U=window.SparkUI;
+    if(!U || typeof IDEAS==='undefined') return '';
+    var live=IDEAS.filter(function(x){ return x && !removed[x.id]; });
+    if(live.length<2) return '';                       /* Tier 1 stays clean */
+
+    function labelFor(it){
+      var n=(it.names&&it.names[0]&&it.names[0].name)||it.name||'';
+      return n || (it.said||'').slice(0,40) || 'Untitled brand';
+    }
+    function initials(t){
+      return String(t).replace(/[^A-Za-z ]/g,'').split(/\s+/).filter(Boolean)
+        .slice(0,2).map(function(w){return w[0];}).join('').toUpperCase()||'SP';
+    }
+
+    /* ---- the icon rail ------------------------------------------------- */
+    var items=live.map(function(it){
+      var lab=labelFor(it), on=(it.id===current);
+      return '<button class="sp-rail__item'+(on?' is-on':'')+'" data-spgo="'+U.esc(it.id)+'"'+
+        ' aria-current="'+(on?'true':'false')+'" title="'+U.esc(lab)+'">'+
+        '<span class="sp-rail__mark" aria-hidden="true">'+U.esc(initials(lab))+'</span>'+
+        '<span class="sp-rail__label">'+U.esc(lab)+'</span></button>';
+    }).join('');
+
+    var rail='<nav class="sp-rail'+(smnRailCollapsed()?' sp-rail--collapsed':'')+'" data-sprail'+
+      ' aria-label="Your brands">'+
+      '<div class="sp-rail__head">'+
+        '<span class="sp-rail__count">'+live.length+' brands</span>'+
+        '<button class="sp-rail__toggle" data-sprailtoggle aria-expanded="'+(smnRailCollapsed()?'false':'true')+'"'+
+        ' title="'+(smnRailCollapsed()?'Expand brand rail':'Collapse brand rail')+'">'+
+        '<span class="sp-visually-hidden">Toggle brand rail</span><span aria-hidden="true">&#9776;</span></button>'+
+      '</div>'+items+'</nav>';
+
+    /* ---- the context switcher (searchable, works on mobile too) --------- */
+    var opts=live.map(function(it){
+      return '<option value="'+U.esc(it.id)+'"'+(it.id===current?' selected':'')+'>'+U.esc(labelFor(it))+'</option>';
+    }).join('');
+    var switcher='<div class="sp-switch">'+
+      '<label class="sp-visually-hidden" for="spBrandPick">Switch brand</label>'+
+      '<input class="sp-switch__find" id="spBrandFind" type="search" placeholder="Find a brand\u2026"'+
+        ' aria-controls="spBrandPick" autocomplete="off">'+
+      '<select class="sp-switch__sel" id="spBrandPick" data-spswitch>'+opts+'</select>'+
+    '</div>';
+
+    return '<div class="sp-portfolio">'+rail+switcher+'</div>';
+  }catch(e){ return ''; }
+}
+
+/* One delegated listener for the whole of Tier 2. Bound once. */
+(function(){
+  if(window.__spPortfolioBound) return;
+  window.__spPortfolioBound=1;
+  document.addEventListener('click',function(ev){
+    var t=ev.target;
+    var go=t&&t.closest&&t.closest('[data-spgo]');
+    if(go){ ev.preventDefault();
+      var id=go.getAttribute('data-spgo');
+      try{ if(typeof selectIdea==='function') selectIdea(id); }catch(e){}
+      return; }
+    var tg=t&&t.closest&&t.closest('[data-sprailtoggle]');
+    if(tg){ ev.preventDefault(); smnSetRail(!smnRailCollapsed()); }
+  });
+  document.addEventListener('change',function(ev){
+    var sel=ev.target&&ev.target.closest&&ev.target.closest('[data-spswitch]');
+    if(!sel) return;
+    try{ if(typeof selectIdea==='function') selectIdea(sel.value); }catch(e){}
+  });
+  /* Filter the switcher without losing the full list. */
+  document.addEventListener('input',function(ev){
+    if(!ev.target||ev.target.id!=='spBrandFind') return;
+    var q=(ev.target.value||'').toLowerCase().trim();
+    var sel=document.getElementById('spBrandPick'); if(!sel) return;
+    for(var i=0;i<sel.options.length;i++){
+      var o=sel.options[i];
+      o.hidden = q ? o.textContent.toLowerCase().indexOf(q)<0 : false;
+    }
+  });
+})();
+
 /* ============================================================================
    THE TABBED DELIVERABLES VAULT            composed with window.SparkUI
    ----------------------------------------------------------------------------
