@@ -30,6 +30,7 @@ const PRODUCTS = {
   shelftalker:   { item:'folded shelf-edge hang tag', note:'folds at 3in from top: top flap grips the shelf edge, design lives on the hanging face; PRODUCT NAME is the hero', finish:'14pt card, scored fold' },
   countermat:    { item:'register counter mat', note:'rubber-backed counter mat; keep all text at least 1in inside edges; warm thank-you tone', finish:'rubber base, fabric top' }
 };
+const { resolveGraphicSpecs } = require('./specResolver');  // GO 2: DB-first vendor specs (falls back to CURATED)
 const CURATED = { bumpersticker:{layout:'flat',bleedIn:0.125}, shelftalker:{layout:'flat',bleedIn:0.125}, countermat:{layout:'photo',bleedIn:0.125}, tshirt:{layout:'apparel',bleedIn:0}, tshirtback:{layout:'apparel',bleedIn:0}, hoodieback:{layout:'apparel',bleedIn:0}, hoodiefront:{layout:'apparel',bleedIn:0}, polochest:{layout:'apparel',bleedIn:0}, dressshirt:{layout:'apparel',bleedIn:0}, toteback:{layout:'apparel',bleedIn:0}, hatfront:{layout:'apparel',bleedIn:0}, poster:{layout:'photo',bleedIn:0.25}, banner:{layout:'flat',bleedIn:0.25}, flyer:{layout:'photo',bleedIn:0.125}, businesscard:{layout:'flat',bleedIn:0.125}, sign:{layout:'flat',bleedIn:0.5}, menu:{layout:'photo',bleedIn:0.125}, social:{layout:'photo',bleedIn:0}, story:{layout:'photo',bleedIn:0}, postcard:{layout:'photo',bleedIn:0.125}, postcardback:{layout:'flat',bleedIn:0.125}, webbanner:{layout:'photo',bleedIn:0}, yardsign:{layout:'photo',bleedIn:0.5}, flyer:{layout:'photo',bleedIn:0.125} };
 const slug = (x) => String(x||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const dpiFor = (l) => l<=12?300:l<=30?200:l<=60?150:100;
@@ -66,6 +67,11 @@ async function step(job) {
     case '2_research': {
       const wIn = p.widthIn||18, hIn = p.heightIn||36;
       const base = CURATED[slug(order.deliverable_type)] || { layout:'flat', bleedIn:0.25 };
+      let _resolvedSpecs = null, _specSource = null;
+      try {
+        const _rr = await resolveGraphicSpecs({ deliverableType: order.deliverable_type, vendorName: order.vendor_name || 'standard_global' });
+        if (_rr && _rr.specs && (_rr.source === 'cache_database' || _rr.source === 'standard_global_db')) { _resolvedSpecs = _rr.specs; _specSource = _rr.source; }
+      } catch (_e) { _resolvedSpecs = null; }
       const [brand] = await sel('sandbox_brands', `brand_id=eq.${order.brand_id}&select=brand_name,industry,color_palette,contact_info,tone_manifesto,banned_visual_elements`);
       if (!brand || !brand.brand_name) throw new Error('brand unresolved: '+order.brand_id);
       // REAL agentic design research with FULL brand context (palette + tagline, not just the name)
@@ -79,6 +85,12 @@ async function step(job) {
         wIn, hIn, prompt: order.raw_client_prompt, brief: p.brief||{}
       });
       const spec = Object.assign({}, base, { wIn, hIn, dpi: dpiFor(Math.max(wIn,hIn)) });
+      if (_resolvedSpecs) {
+        if (_resolvedSpecs.bleed_in != null) spec.bleedIn = _resolvedSpecs.bleed_in;
+        if (_resolvedSpecs.safe_margin_in != null) spec.safeMarginIn = _resolvedSpecs.safe_margin_in;
+        if (_resolvedSpecs.dpi) spec.dpi = _resolvedSpecs.dpi;
+        spec.specSource = _specSource;
+      }
       if (design && design.layout) spec.layout = design.layout;
       await next('3_contract', { spec, design: design || null });
       return { stage:'2_research', ok:true, researched: !!design };
