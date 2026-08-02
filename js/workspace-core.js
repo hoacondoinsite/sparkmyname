@@ -94,10 +94,11 @@ if(!window.__smnMakeBound){
     var f=window.SparkCatalog && window.SparkCatalog.specFor(key); if(!f) return;
     var brief=window.prompt('What should this '+f.label+' say? (a sentence is enough)');
     if(brief===null) return;
-    var tok=''; try{ tok=localStorage.getItem('smn_founder_token')||''; }catch(e){}
+    var tok='', mail=''; try{ tok=localStorage.getItem('smn_founder_token')||'';
+      mail=localStorage.getItem('smn_email')||''; }catch(e){}
     b.disabled=true; b.textContent='Sending\u2026';
     fetch('/.netlify/functions/deliverable-enqueue',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ founderToken:tok, reportId:window.__smnReport, deliverableType:key,
+      body:JSON.stringify({ founderToken:tok, customerEmail:mail, reportId:window.__smnReport, deliverableType:key,
         widthIn:(f.widthIn||+(f.pixelW/f.dpi).toFixed(2)), heightIn:(f.heightIn||+(f.pixelH/f.dpi).toFixed(2)),
         dpi:f.dpi, brief:brief })})
       .then(function(r){return r.json().catch(function(){return {};});})

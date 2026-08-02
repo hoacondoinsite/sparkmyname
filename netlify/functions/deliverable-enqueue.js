@@ -9,15 +9,26 @@ exports.handler = async (event) => {
   try {
     const b = JSON.parse(event.body || '{}');
     const isFounder = !!b.founderToken && b.founderToken === process.env.SMN_FOUNDER_TOKEN;
-    if (!isFounder) {
-      return resp(403, { error: 'Unauthorized: invalid or missing founder token.' });
-    }
     if (!(b.widthIn > 0) || !(b.heightIn > 0)) return resp(400, { error: 'widthIn and heightIn (inches) required.' });
+    if (!b.reportId) return resp(400, { error: 'reportId required.' });
 
     // report_names has no slug column — fetch the report's brands and match by name.
     const rows = await dbSelect('report_names', 'report_id=eq.' + encodeURIComponent(b.reportId) + '&select=id,name,email,kit,position');
     const row = pickBrand(rows, b.nameSlug);
     if (!row) return resp(404, { error: 'Brand not found for report ' + b.reportId + ' (' + ((rows && rows.length) || 0) + ' brands there).' });
+
+    /* AUTHORISATION (2026-08-02). Previously this endpoint was founder-only, which meant a
+       paying customer could not order anything from their own workspace unless they somehow
+       held the founder token — which they must never hold. A customer is now authorised by
+       OWNERSHIP: the email they are signed in with must match the email on this report's own
+       row. The founder token still works for internal use. Neither path can reach another
+       customer's report, because the email is compared against the row we just read. */
+    const claimed = String(b.customerEmail || '').trim().toLowerCase();
+    const owner = String(row.email || '').trim().toLowerCase();
+    const isOwner = !!claimed && !!owner && claimed === owner;
+    if (!isFounder && !isOwner) {
+      return resp(403, { error: 'Unauthorized: sign in with the email this brand was delivered to.' });
+    }
 
     const orderId = 'dlv_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
     const ins = await dbInsert('smn_orders', {
