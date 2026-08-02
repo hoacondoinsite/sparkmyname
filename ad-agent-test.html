@@ -138,7 +138,7 @@ async function show(s){
     const pal=brand.palette||{}; const d=Object.assign({eyebrow:'Special'}, (meta.brief||{}), (window.__LAB_LAST_BRIEF||{}));
     const items=(d.details||'').split(/[,\u2022;]+/).map(s=>s.trim()).filter(Boolean).filter(s=>!/^(include|logo|tagline|website|handle|use of|our |the wordmark|social handle)\b/i.test(s) && !/\b(tagline|website|logo url)\b|https?:/i.test(s));
     const design=meta.design||{};   // the researched intelligence rides with the deliverable
-    composeOverlay(x, W, H, { composition:(['tshirt','tshirtback','hoodieback','hoodiefront','polochest','dressshirt','toteback','hatfront'].includes($('type').value)?'apparel':(design.composition||'unified')), badgeY:(design.badge_position||'middle'), primary:pal.primary, logoImg:window.__labLogo||null, website:brand.website||'', handle:brand.handle||'', maxItems:($('type').value==='menu')?8:3, columns:($('type').value==='menu')?2:undefined, eyebrow:(design.eyebrow||d.eyebrow), header:brand.name||'', callout:d.price||'', calloutNote:(function(v){return /^(empty|none|n\/a|null|blank)$/i.test(String(v||'').trim())?'':v;})(design.price_note!==undefined?design.price_note:(/\$\s*\d/.test(d.price||'')?'plus tax':'')), calloutStyle:(design.callout_style||'badge'),
+    composeOverlay(x, W, H, { composition:(['tshirt','tshirtback','hoodieback','hoodiefront','polochest','dressshirt','toteback','hatfront'].includes($('type').value)?'apparel':(design.composition||'unified')), badgeY:(design.badge_position||'middle'), primary:pal.primary, logoImg:window.__labLogo||null, website:brand.website||'', handle:brand.handle||'', maxItems:(function(t){ return (t==='menu'||t==='poster'||t==='sign'||t==='banner'||t==='flyer')?36:3; })($('type').value), columns:undefined, eyebrow:(design.eyebrow||d.eyebrow), header:brand.name||'', callout:d.price||'', calloutNote:(function(v){return /^(empty|none|n\/a|null|blank)$/i.test(String(v||'').trim())?'':v;})(design.price_note!==undefined?design.price_note:(/\$\s*\d/.test(d.price||'')?'plus tax':'')), calloutStyle:(design.callout_style||'badge'),
       items:items, footer:d.dates||'', tagline:brand.tagline||'', accent:pal.accent||'#C79A4B', ink:'#16100A' });
     const dl=document.getElementById('dlBtn'); dl.href=cv.toDataURL('image/png');
     try {
@@ -374,11 +374,15 @@ function composeUnified(ctx, W, H, data) {
     const botDraws = []; let botH = 0;
     const maxItems = data.maxItems || 4;
     const itemsList = (data.items || []).slice(0, maxItems);
-    const twoCol = (data.columns === 2 || itemsList.length > 4) && W > H*0.55;
+    // Long lists (flavor lists, menus, service lists) go multi-column on ANY aspect ratio and
+    // shrink to fit, instead of stacking off the bottom of the page.
+    const twoCol = (data.columns === 2 || itemsList.length > 5);
     // GO 3: OFFER BLOCK — one cohesive unit, read in order: timing -> (discount badge above) -> items.
     if (data.footer) { const f = `600 ${Math.round(S2*0.026)}px Inter, sans-serif`; botH += S2*0.05; const yOff = botH; botDraws.push(() => { ctx.font=f; ctx.fillStyle=gold; trackedCenter(ctx, data.footer.toUpperCase(), cx, H - H*0.03 - (botH - yOff), S2*0.008); }); }
     if (itemsList.length) {
-      const f = `500 ${Math.round(S2*(twoCol?0.026:0.03))}px Inter, sans-serif`; const lh = S2*(twoCol?0.042:0.046);
+      const dense = Math.min(1, 8 / Math.max(8, itemsList.length));
+      const fsz = Math.round(S2 * (twoCol ? 0.026 : 0.03) * (0.70 + 0.30 * dense));
+      const f = `500 ${fsz}px Inter, sans-serif`; const lh = fsz * 1.55;
       const colW = twoCol ? W*0.40 : maxW;
       const wrapCol = (t) => { ctx.font=f; const ws=String(t).split(/\s+/); const L=[]; let ln=''; for (const w of ws){ const tt=ln?ln+' '+w:w; if (ctx.measureText(tt).width > colW && ln) { L.push(ln); ln=w; } else ln=tt; } if (ln) L.push(ln); return L; };
       const blocks = itemsList.map(it => { const txt = typeof it === 'string' ? it : (it.title + (it.description ? ' \u2014 ' + it.description : '')); return wrapCol(txt); });
