@@ -221,3 +221,22 @@
   .sp-pod__actions{flex-direction:column}
   .sp-pod__links{gap:var(--sp-4)}
 }
+
+/* ---- THE DELIVERABLES VAULT ---------------------------------------------- */
+.sp-vault__note{margin:0 0 var(--sp-3)}
+.sp-vault__rows{display:grid;gap:var(--sp-2)}
+.sp-vrow{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);
+  padding:var(--sp-3) var(--sp-4);
+  background:var(--sp-surface);border:1px solid var(--sp-line);border-radius:var(--sp-r-md);
+  transition:border-color var(--sp-motion),box-shadow var(--sp-motion);
+}
+.sp-vrow:hover{border-color:var(--sp-line-strong);box-shadow:var(--sp-e-1)}
+.sp-vrow__id{min-width:0}
+.sp-vrow__name{font:700 var(--sp-t-body)/1.35 var(--sp-font);color:var(--sp-ink);margin:0}
+.sp-vrow__partner{margin-top:2px;color:var(--sp-brand)}
+.sp-vrow__act{flex:0 0 auto}
+@media (max-width:560px){
+  .sp-vrow{flex-direction:column;align-items:stretch;gap:var(--sp-3)}
+  .sp-vrow__act .sp-btn{width:100%}
+}

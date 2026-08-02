@@ -137,10 +137,96 @@ function smnMakeMore(IDEA){
 
     return U.Panel([
       { body: spine },
-      { body: pod }
+      { body: pod },
+      { body: smnVault() }
     ]);
   }catch(e){ return ''; }
 }
+/* ============================================================================
+   THE TABBED DELIVERABLES VAULT            composed with window.SparkUI
+   ----------------------------------------------------------------------------
+   The 87-format catalog, grouped into five suites the customer actually thinks
+   in, instead of one 87-row wall. Every row shows its REAL production spec from
+   window.SparkCatalog (trim, bleed, DPI) and its real fulfilment partner.
+
+   TRUTH RAIL: a format flagged needsLayoutWork (die-cuts, folds, animated
+   captions) renders as "Coming soon" and is NOT orderable. We never take a
+   request for a file the engine cannot output.
+
+   PRICING: deliberately NOT wired to Stripe here. The live product tells the
+   customer "everything shown in this command center is included" and "one flat
+   price, no subscription". Attaching a charge under that heading would be a
+   bait claim. The price classes are ready to attach the moment that copy is
+   changed in the same release — see SPARK_PRICE_CLASS below.
+   ========================================================================== */
+var SPARK_VAULT_SUITES = [
+  { id:'creator',  label:'Creator & Podcast', suites:['creator'] },
+  { id:'social',   label:'Social & Web',      suites:['social','display'] },
+  { id:'print',    label:'Print & Mail',      suites:['print'] },
+  { id:'signage',  label:'Signage',           suites:['signage'] },
+  { id:'merch',    label:'Merch & Packaging', suites:['apparel','merch','packaging'] }
+];
+
+/* Stripe price classes, held but NOT charged. Kept here so the wiring is one
+   line away once the customer-facing promise is updated to match. */
+var SPARK_PRICE_CLASS = {
+  micro_10:      'price_1Thn1ZFx648Csdqb9QES3Yoa',
+  standard_20:   'price_1TmK4WFx648CsdqbFDEhrzl4',
+  complex_29:    'price_1TsnwbFx648CsdqbWDI9PUWV',
+  store_19_mo:   'price_1TwTOoFx648CsdqbmFb8wglJ',
+  designs_99_mo: 'price_1U05y8Fx648CsdqbtNa0pHxB',
+  core_99:       'price_1Tv81hFx648CsdqbBhDGoXGa',
+  trial_499:     'price_1TuFIOFx648Csdqb09DlD3x9',
+  enterprise_1k: 'price_1TuFIyFx648CsdqbYolgmLjI'
+};
+
+function smnVault(){
+  try{
+    var U=window.SparkUI, C=window.SparkCatalog;
+    if(!U || !C || !C.FORMATS) return '';
+
+    function row(f){
+      var size = f.widthIn ? (f.widthIn+'\u00d7'+f.heightIn+' in') : (f.pixelW+'\u00d7'+f.pixelH+' px');
+      var spec = size + (f.bleedIn ? (' \u00b7 '+f.bleedIn+' bleed') : '') + ' \u00b7 '+f.dpi+' DPI';
+      var r = C.routeFor(f.key) || {};
+      var blocked = (f.render === 'spec');
+
+      var right = blocked
+        ? U.Badge('Coming soon','wait')
+        : U.Button('Make this', { variant:'secondary', attrs:{ 'data-mkfmt': f.key } });
+
+      var partner = (!blocked && r.partner)
+        ? '<p class="sp-small sp-vrow__partner">Print partner: '+U.esc(r.partner)+'</p>' : '';
+
+      return '<div class="sp-vrow">'+
+        '<div class="sp-vrow__id"><p class="sp-vrow__name">'+U.esc(f.label)+'</p>'+
+          '<p class="sp-small">'+U.esc(spec)+'</p>'+partner+'</div>'+
+        '<div class="sp-vrow__act">'+right+'</div>'+
+      '</div>';
+    }
+
+    var tabs = SPARK_VAULT_SUITES.map(function(g){
+      var list=[];
+      g.suites.forEach(function(su){ list=list.concat(C.bySuite(su)||[]); });
+      var ready = list.filter(function(f){ return f.render!=='spec'; }).length;
+      return {
+        id:g.id, label:g.label, count:list.length,
+        body: (list.length
+          ? '<p class="sp-small sp-vault__note">'+ready+' of '+list.length+
+            ' ready to make now. Everything is built in your brand.</p>'+
+            '<div class="sp-vault__rows">'+list.map(row).join('')+'</div>'
+          : U.Small('Nothing in this suite yet.'))
+      };
+    });
+
+    return U.Section({
+      title:'The Deliverables Vault',
+      note:'Every format we can make in your brand. Tap one and we build it \u2014 it lands in your workspace.',
+      body: U.Tabs(tabs,'print',{ name:'vault', label:'Deliverable suites' })
+    });
+  }catch(e){ return ''; }
+}
+
 /* Suggestion engine: what an intake person would put in front of THIS business. */
 function smnSuggest(medium){
   var S=window.SparkCatalog, who=String(window.__smnWho||'').toLowerCase();
