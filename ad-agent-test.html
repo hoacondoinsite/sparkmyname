@@ -463,7 +463,12 @@ async function loadBrands(){
     if(spec.scenePrompt) rows.push('<b>Scene:</b> '+esc(spec.scenePrompt));
     $('agentspec').innerHTML = rows.length?rows.join('<br>'):'<span style="color:#5E739B">listening…</span>';
     $('agentmissing').textContent = spec.missing?('Still needs / unsure: '+spec.missing):'';
-    $('agentvideo').textContent = spec.videoRequested?'Video requested — coming shortly; not buildable yet, so Send stays off for video.':'';
+    $('agentvideo').textContent = spec.videoRequested?('Reel requested'+(spec.reelSeconds?(' — '+spec.reelSeconds+'s'):'')+' — the Brand Reel Studio below is rendering it.'):'';
+    if (spec.videoRequested && window.SMNReel && !window.__reelFired) {
+      window.__reelFired = true;
+      try { window.SMNReel.request($('brandId').value || $('brandLive').value || '', spec.reelSeconds || 12); } catch(e){}
+    }
+    if (!spec.videoRequested) window.__reelFired = false;
     // mirror into the (hidden) engine fields
     if(spec.deliverableType){ var t=$('type'); for(var i=0;i<t.options.length;i++){ if(t.options[i].value===spec.deliverableType){ t.value=spec.deliverableType; break; } } }
     if(spec.widthIn) $('w').value=spec.widthIn;
@@ -531,6 +536,7 @@ async function loadBrands(){
   <p class="note" style="margin-top:0">Renders a motion reel from the brand's own colors, name, tagline and links — drawn on canvas in your browser and recorded to a real, playable .webm. No AI video service, no quota. Preview it, download it, or save it to storage.</p>
   <div class="row" style="align-items:center;gap:8px;margin-top:10px">
     <select id="reelBrand" style="flex:1"><option value="">— load clients —</option></select>
+    <select id="reelSecs" style="width:auto"><option value="12">12s</option><option value="15">15s</option><option value="20">20s</option><option value="30">30s</option></select>
     <button id="reelLoad" type="button" style="width:auto;padding:12px 14px">↻</button>
     <button id="reelGo" type="button" style="width:auto;padding:12px 20px;background:#189850;color:#fff;font:700 14px Inter">Render reel</button>
   </div>
@@ -566,13 +572,15 @@ async function loadBrands(){
   }
 
   // Draws the reel on a canvas and records it. Resolves with a real playable Blob.
-  function renderReel(b){
-    var W=1080,H=1920,FPS=30,TOTAL=360;                   // 12s @ 30fps
+  function renderReel(b, secs){
+    secs = Math.max(6, Math.min(30, Number(secs)||12));
+    var W=1080,H=1920,FPS=30,TOTAL=Math.round(secs*FPS);
     var c=document.createElement('canvas'); c.width=W; c.height=H;
     var x=c.getContext('2d');
     var pal=b.palette||{}, primary=pal.primary||'#189850', accent=pal.accent||'#C79A4B';
     var stream=c.captureStream(FPS), rec;
-    try{ rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9',videoBitsPerSecond:6000000}); }
+    // 2.2 Mbps keeps a 30s reel well under Netlify's ~6MB function payload once base64-encoded.
+    try{ rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9',videoBitsPerSecond:2200000}); }
     catch(e){ try{ rec=new MediaRecorder(stream,{mimeType:'video/webm'}); }catch(e2){ return Promise.reject(new Error('This browser cannot record canvas video (MediaRecorder unavailable).')); } }
     var chunks=[];
     rec.ondataavailable=function(e){ if(e.data&&e.data.size) chunks.push(e.data); };
@@ -581,7 +589,8 @@ async function loadBrands(){
       rec.onerror=function(ev){ rej(new Error('recorder error: '+(ev&&ev.error&&ev.error.name||'unknown'))); };
     });
     var ease=function(t){ return t<0?0:t>1?1:(1-Math.cos(Math.PI*t))/2; };
-    var seg=function(f,a,z){ return ease((f-a)/(z-a)); };            // 0..1 across a frame window
+    var K=TOTAL/360;                                    // act windows scale with the chosen length
+    var seg=function(f,a,z){ return ease((f-a*K)/((z-a)*K)); };
     function txt(s,size,weight,color,cy,alpha,font){
       if(alpha<=0) return; x.globalAlpha=alpha; x.fillStyle=color; x.textAlign='center';
       x.font=weight+' '+size+'px '+(font||'Inter, sans-serif'); x.fillText(s,W/2,cy); x.globalAlpha=1;
@@ -625,7 +634,7 @@ async function loadBrands(){
     $('reelGo').disabled=true; $('reelVideo').style.display='none'; $('reelActs').style.display='none'; $('reelSaved').textContent='';
     say('Rendering 12 seconds at 30fps — keep this tab in front…');
     try{
-      var blob=await renderReel(b); LAST={blob:blob,brand:b};
+      var blob=await renderReel(b, $('reelSecs').value); LAST={blob:blob,brand:b};
       var u=URL.createObjectURL(blob);
       $('reelVideo').src=u; $('reelVideo').style.display='block'; $('reelStatus').style.display='none';
       $('reelDl').href=u; $('reelDl').download=(b.brand_name||'brand').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-reel.webm';
@@ -647,6 +656,17 @@ async function loadBrands(){
       $('reelSaved').textContent = r.ok&&d.url ? ('Saved ('+Math.round(d.bytes/1024)+' KB): '+d.url) : ('Save failed: '+(d.error||('HTTP '+r.status)));
     }catch(e){ $('reelSaved').textContent='Save failed: '+e.message; }
   });
+
+  // Voice hook: the intake agent calls this when the client asks for a reel.
+  // It selects the brand, sets the length, loads clients if needed, and renders.
+  window.SMNReel = { request: async function(brandId, secs){
+    var host=$('smn-video-workbench'); if(host) host.scrollIntoView({behavior:'smooth',block:'center'});
+    if(secs) $('reelSecs').value=String([12,15,20,30].indexOf(Number(secs))>=0?Number(secs):12);
+    if(!BRANDS.length) await loadBrands();
+    if(brandId){ var hit=BRANDS.filter(function(z){return z.brand_id===brandId;})[0];
+      if(hit) $('reelBrand').value=brandId; }
+    if($('reelBrand').value) $('reelGo').click(); else say('Pick a client, then press Render reel.');
+  }};
 
   say('Enter the founder token above, then press \u21bb to load clients.');
 })();

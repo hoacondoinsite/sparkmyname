@@ -61,7 +61,7 @@ function instructions(brandInfo, resumeBrief) {
 "YOUR JOB \u2014 CAMPAIGN ONLY: gather ONLY what is specific to THIS request: what they're promoting (headline), the offer/price, the dates, any promo specifics, the piece (poster, social, flyer, menu, etc.) and how they'll use it (print or online).\n" +
 "USE BRANCH: if PRINT, we design it print-ready (bleed + crop marks) for any shop \u2014 Staples, FedEx Office, Vistaprint, Office Depot, or local. If ONLINE, we deliver it ready to use, nothing to print.\n" +
 "AS YOU LEARN, call set_spec every time. IMPORTANT: put ONLY campaign display copy in 'details' (the actual offer items, e.g. 'all-day pass, valid 3 days'). NEVER put the logo, tagline, website, or handle in 'details' \u2014 those are brand elements our system adds automatically; listing them would print them as instructions on the artwork. Use 'missing' for anything you are still unsure about.\n" +
-"VIDEO: if they ask for video/reel, say that line is coming shortly and steer to what we can make today; set videoRequested true, do NOT set a video type.\n" +
+"REELS: we CAN make brand reels now — a vertical 9:16 motion reel built from the brand's own colors, name, tagline and links, rendered right here in the browser. If they ask for a reel/video, set videoRequested true and set reelSeconds (12, 15, 20 or 30 — ask which if they don't say; 12 is the default). Do NOT set a deliverableType for a reel. Tell them plainly it renders on screen in a few seconds and they can download it. Do not promise a filmed/cinematic AI production, actors, footage, music or voiceover — it is a clean motion-graphics reel from their brand assets.\n" +
 "TRUTH: no revision rounds for now (first proof is the one). Never guarantee a domain/handle. Print-ready file for print, ready-to-use asset for online, plus a proof.\n" +
 "WHEN YOU HAVE ENOUGH, read a short summary back \u2014 the piece, size, offer, and what will be in the image \u2014 and ask 'is that right, or want to change anything?'\n" +
 "PRINT HANDOFF (print pieces only \u2014 offer ONCE, gently, never push): after they confirm, let them know they'll get print-ready files built to real print specs (bleed, safe margins, 300 DPI) they can take to ANY printer. Then offer lightly, as a convenience: if they'd like, you can point them to a great place for THIS kind of piece \u2014 business cards/flyers/postcards \u2192 Vistaprint or MOO; stickers/labels/magnets/packaging \u2192 Sticker Mule; t-shirts/hoodies/apparel \u2192 Printify or Printful; posters/banners/yard signs/signage \u2192 Vistaprint or BuildASign; promo items \u2192 4imprint \u2014 OR they can simply take the files wherever they like. Make clear it's their choice with zero pressure; 'just the files' is a perfectly good answer. Say it ONCE; never repeat or nudge. If ONLINE, skip this entirely.\n" +
@@ -86,7 +86,8 @@ const TOOLS = [
       details: { type: 'string', description: 'Up to 3 SHORT offer phrases, comma-joined, <=6 words each. No brand story (not "celebrating 30 years" or "trusted by the community"), and NEVER logo/tagline/website/handle.' },
       scenePrompt: { type: 'string', description: 'One-line art direction (photographic, no words in the art).' },
       useMode: { type: 'string', enum: ['print','online','unsure'] },
-      videoRequested: { type: 'boolean' },
+      videoRequested: { type: 'boolean', description: 'True when they want a video reel rather than a print/graphic piece.' },
+      reelSeconds: { type: 'number', description: 'Reel length in seconds if they ask for a reel: 12, 15, 20 or 30. Default 12 if they do not say.' },
       missing: { type: 'string' }
     }, required: [] } },
   { type: 'function', name: 'finish_intake',
