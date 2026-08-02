@@ -60,7 +60,7 @@ button:hover{filter:brightness(1.08)}button:disabled{filter:grayscale(.5) bright
     <label>Request</label><textarea id="prompt" placeholder="e.g. 18x36 lunch special poster, $10, August &amp; September">18x36 lunch special poster for Slice on the Go</textarea>
     <div class="row"><div><label>Price</label><input id="price" value="$10" placeholder="$10"></div><div><label>Dates</label><input id="dates" value="August &amp; September" placeholder="August &amp; September"></div></div>
     <label>Details / offer</label><input id="details" value="2 slices of everything pizza, 16oz fountain soda, chocolate cake slice, apple pie slice" placeholder="2 slices, drink, dessert">
-    <label>Founder token</label><input id="tok" type="text" value="slicetest2026" placeholder="SMN_FOUNDER_TOKEN" autocomplete="off">
+    <label>Founder token</label><input id="tok" type="password" value="" placeholder="SMN_FOUNDER_TOKEN" autocomplete="off">
     </div>
     <div style="margin-top:16px"><button id="go">Send — build this order</button></div>
     <div class="ticker" id="tick"><div class="spin"></div><div><div class="stage" id="st">Queued…</div><div class="stagesub" id="ss">Working through the 6 stages.</div><div class="pipe" id="pipe"></div></div></div>
@@ -551,8 +551,12 @@ async function loadBrands(){
   function say(t){ var s=$('reelStatus'); s.style.display='block'; s.textContent=t; }
 
   async function loadBrands(){
+    var tok=($('tok')&&$('tok').value||'').trim();
+    if(!tok){ say('Enter the founder token above, then press ↻ to load clients.'); return; }
     try{
-      var r=await fetch('/.netlify/functions/sandbox-brands'); var d=await r.json();
+      var r=await fetch('/.netlify/functions/sandbox-brands',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({founderToken:tok})});
+      var d=await r.json();
+      if(!r.ok){ say('Could not load clients: '+((d&&d.error)||('HTTP '+r.status))); return; }
       BRANDS=(d&&d.brands)||(Array.isArray(d)?d:[]);
       var sel=$('reelBrand'); sel.innerHTML='<option value="">— select a client —</option>';
       BRANDS.forEach(function(b){ var o=document.createElement('option'); o.value=b.brand_id;
@@ -644,7 +648,7 @@ async function loadBrands(){
     }catch(e){ $('reelSaved').textContent='Save failed: '+e.message; }
   });
 
-  loadBrands();
+  say('Enter the founder token above, then press \u21bb to load clients.');
 })();
 </script>
 </body></html>
