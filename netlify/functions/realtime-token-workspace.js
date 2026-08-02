@@ -10,7 +10,7 @@ function json(s, o) { return { statusCode: s, headers: { 'Content-Type': 'applic
 
 exports.handler = async function (event) {
   if (event.httpMethod !== 'POST' && event.httpMethod !== 'GET') return json(405, { error: 'POST or GET' });
-  if (!OA) return json(500, { ok: false, error: 'openai_key_missing' });
+  if (!OA) return json(500, { ok: false, error: 'openai_key_missing', message: 'OPENAI_API_KEY is not set in Netlify.' });
 
   let b = {};
   try { b = JSON.parse(event.body || '{}'); } catch (e) {}
@@ -50,9 +50,14 @@ exports.handler = async function (event) {
       })
     });
     const d = await r.json();
-    if (!r.ok) return json(502, { ok: false, error: 'openai_error', detail: (d && d.error && d.error.message) || ('HTTP ' + r.status) });
+    if (!r.ok) return json(502, { ok: false, error: 'openai_error', message: (d && d.error && d.error.message) || ('HTTP ' + r.status) });
     return { statusCode: 200, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-             body: JSON.stringify({ ok: true, value: d.value || (d.client_secret && d.client_secret.value), expires_at: d.expires_at }) };
+             /* The engine reads data.ok, data.token and data.model — match that contract exactly,
+                or every connection fails with a useless error. */
+             body: JSON.stringify({ ok: true,
+               token: d.value || (d.client_secret && d.client_secret.value) || '',
+               model: process.env.OPENAI_REALTIME_MODEL || 'gpt-realtime-2',
+               expires_at: d.expires_at }) };
   } catch (e) {
     return json(500, { ok: false, error: String(e.message || e) });
   }

@@ -70,15 +70,13 @@ function smnMakeMore(IDEA){
       '<div id="smnAsk" style="border:1px solid rgba(24,152,80,.30);background:linear-gradient(180deg,#F4FBF6,#FFFFFF);border-radius:16px;padding:18px 18px 16px;margin:2px 0 14px">'+
         '<div style="font:800 19px/1.2 Poppins,Inter,sans-serif;color:#0E1310;letter-spacing:-.02em">What would you like us to make?</div>'+
         '<div style="font-size:13.5px;color:#3A3F3C;margin:6px 0 12px;max-width:60ch">Tell us in your own words &mdash; a poster for the show, shirts for the crew, a menu, anything. We already have '+(name?('&ldquo;'+name+'&rdquo;'):'your brand')+', your logo, colours, fonts and the idea you gave us.</div>'+
-        '<div style="display:flex;gap:10px;align-items:stretch;flex-wrap:wrap">'+
-          '<textarea id="smnWant" rows="2" placeholder="e.g. posters and flyers for the festival, and shirts for the staff" style="flex:1 1 320px;min-height:64px;padding:12px 14px;border:1px solid rgba(0,0,0,.18);border-radius:12px;font:500 15px Inter,sans-serif;color:#141414;background:#fff;resize:vertical"></textarea>'+
-          '<div style="display:flex;flex-direction:column;gap:8px;justify-content:stretch">'+
-            '<button id="smnMic" type="button" style="cursor:pointer;padding:12px 18px;border:0;border-radius:12px;background:#127A40;color:#fff;font:700 14px Inter;white-space:nowrap">&#127908; Talk it through</button>'+
-            '<button id="smnGoWant" type="button" style="cursor:pointer;padding:12px 18px;border:1px solid rgba(18,122,64,.45);border-radius:12px;background:#fff;color:#127A40;font:700 14px Inter;white-space:nowrap">Show me ideas</button>'+
-          '</div>'+
+        '<textarea id="smnWant" rows="2" placeholder="e.g. posters and flyers for the festival, and shirts for the staff" style="width:100%;box-sizing:border-box;min-height:70px;padding:13px 15px;border:1px solid rgba(0,0,0,.18);border-radius:12px;font:500 15px Inter,sans-serif;color:#141414;background:#fff;resize:vertical"></textarea>'+
+        '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px">'+
+          '<button id="smnMic" type="button" style="cursor:pointer;padding:15px 30px;border:0;border-radius:14px;background:#127A40;color:#fff;font:800 16px Inter;white-space:nowrap;box-shadow:0 2px 10px rgba(18,122,64,.25)">&#127908; Talk it through</button>'+
+          '<button id="smnGoWant" type="button" style="cursor:pointer;padding:15px 26px;border:1px solid rgba(18,122,64,.45);border-radius:14px;background:#fff;color:#127A40;font:800 16px Inter;white-space:nowrap">Show me ideas</button>'+
         '</div>'+
-        '<div id="smnVoiceState" style="font:600 12.5px Inter;color:#127A40;margin-top:8px;min-height:16px"></div>'+
-        '<div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font:600 12.5px Inter">'+
+        '<div id="smnVoiceState" style="font:600 13px Inter;color:#127A40;margin-top:10px;min-height:18px;text-align:center"></div>'+
+        '<div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font:600 13px Inter;justify-content:center">'+
           '<a href="#" data-mkstep="print" style="color:#127A40">Something printed</a>'+
           '<a href="#" data-mkstep="online" style="color:#127A40">Something online</a>'+
           '<a href="#" data-mkstep="all" style="color:#5A625E">Show me everything</a>'+
@@ -146,12 +144,25 @@ if(!window.__smnMakeBound){
     m.innerHTML='&#9679; Listening \u2014 tap to stop';
     say('Connecting\u2026');
     try{
+      var _bn='',_tg='',_id='';
+      try{ _bn=(NM&&NM.name)||''; _tg=(NM&&NM.tagline)||''; _id=(IDEA&&IDEA.said)||''; }catch(e){}
       window.SparkVoice.start({
         tokenPath:'/.netlify/functions/realtime-token-workspace',
+        /* The engine merges tokenBody into the token request — this is how the assistant
+           arrives already knowing the brand, so it never asks for the name or tagline. */
+        tokenBody:{ brandName:_bn, tagline:_tg, idea:_id },
         greetOnConnect:true,
-        onState:function(x){ say(x==='heard'||x==='live'?'Listening \u2014 just talk.':(x==='speaking'?'Assistant speaking\u2026':(x==='thinking'?'Thinking\u2026':x))); },
-        onText:function(txt){ var t=document.getElementById('smnWant'); if(t&&txt){ t.value=(t.value?t.value+' ':'')+txt; } },
-        onError:function(e){ m.innerHTML='&#127908; Talk it through'; say('Voice could not start: '+(e&&e.message||e)); }
+        onState:function(x){
+          if(x==='error'){ m.innerHTML='&#127908; Talk it through'; say('Voice could not start \u2014 check the microphone permission in your browser.'); return; }
+          if(x==='ended'){ m.innerHTML='&#127908; Talk it through'; say(''); return; }
+          say(x==='heard'||x==='live'?'Listening \u2014 just talk.':(x==='speaking'?'Assistant speaking\u2026':(x==='thinking'?'Thinking\u2026':(x==='connecting'?'Connecting\u2026':String(x)))));
+        },
+        /* onCaption(who,text) is the real callback — put THEIR words into the box. */
+        onCaption:function(who,txt){
+          if(who!=='you'||!txt) return;
+          var t=document.getElementById('smnWant'); if(t){ t.value=(t.value?t.value+' ':'')+txt; }
+        },
+        onDone:function(){ m.innerHTML='&#127908; Talk it through'; say('Done \u2014 press \u201cShow me ideas\u201d.'); }
       });
     }catch(e){ m.innerHTML='&#127908; Talk it through'; say('Voice could not start: '+e.message); }
   });
