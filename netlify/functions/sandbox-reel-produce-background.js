@@ -15,6 +15,7 @@ const GK = process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY;
 const OA = process.env.OPENAI_API_KEY || process.env.VITE_OPENAI_API_KEY;
 
 const H = { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY };
+const TPL = require('./templateRegistry');  // CURATED EXCELLENCE: deterministic per-industry direction
 
 async function put(path, buf, type) {
   const r = await fetch(`${SB_URL}/storage/v1/object/${BUCKET}/${path}`, {
@@ -105,7 +106,7 @@ exports.handler = async function (event) {
 
   const reelId = String(opts.reelId || ('reel_' + Date.now())).replace(/[^a-zA-Z0-9_-]/g, '');
   const seconds = Math.max(8, Math.min(32, Number(opts.seconds) || 16));
-  const sceneCount = Math.max(2, Math.min(4, Math.round(seconds / 8)));
+  const sceneCount = Math.max(1, Math.min(4, Math.round(seconds / 8)));
 
   const brandName = opts.brandName || 'the brand';
   const headline = opts.headline || '';
@@ -120,13 +121,16 @@ exports.handler = async function (event) {
   }
   await audit('REEL_STARTED', reelId, { brandName, seconds, sceneCount });
 
-  // Scene direction — real filmed moments for this business, textless (copy is never painted).
-  const beats = [
-    `Bright, uplifting opening shot for a ${industry || 'local business'} called ${brandName}. Sunny, vibrant, high-energy commercial advertising film: crisp daylight, rich saturated color, confident smooth camera push-in, a place that looks busy, successful and inviting. Happy people, warm smiles, upbeat energy. ${look}. Absolutely no text, letters, words, logos or signage anywhere in frame.`,
-    `Energetic hero shot of the work at ${brandName} looking its absolute best${headline ? ' — the story is: ' + headline : ''}. Premium advertising quality: sparkling clean, vivid color, dynamic movement, satisfying detail, a sense of pride and excellence. Bright and optimistic, never gloomy. ${look}. Absolutely no text, letters, words, logos or signage anywhere in frame.`,
-    `A genuinely delighted customer at ${brandName} — big authentic smile, clearly thrilled with the result, laughing or celebrating. Warm sunlight, joyful and welcoming, the feeling of a great decision. High-end commercial film. ${look}. Absolutely no text, letters, words, logos or signage anywhere in frame.`,
-    `Triumphant closing hero shot of ${brandName} at its most impressive — golden light, confident and aspirational, the viewer should want to go there right now. Uplifting, exciting, premium advertising finish. ${look}. Absolutely no text, letters, words, logos or signage anywhere in frame.`
-  ].slice(0, sceneCount);
+  // CURATED EXCELLENCE: scene direction comes from the locked industry archetype, not a
+  // fresh guess. An 8s request renders the single deterministic HOOK; longer reels extend it
+  // with the archetype scene. Free-form scenePrompt is honoured only as an accent.
+  const tpl = TPL.archetypeFor(industry);
+  const hook = TPL.hookFor(industry, brandName, headline);
+  const scene = TPL.sceneFor(industry, opts.scenePrompt || '');
+  const beats = (sceneCount <= 1 ? [hook] : [hook].concat(
+    new Array(Math.max(0, sceneCount - 1)).fill(0).map((_, i) =>
+      scene + (i === sceneCount - 2 ? ' Final triumphant hero shot that makes the viewer want to come in right now.' : ' A second angle on the same bright, appealing subject.'))
+  )).slice(0, sceneCount);
 
   const scenes = [];
   for (let i = 0; i < beats.length; i++) {
@@ -155,6 +159,7 @@ exports.handler = async function (event) {
     scenes, voiceUrl,
     status: scenes.length ? 'ready' : 'failed',
     finishedAt: new Date().toISOString(),
+    template: tpl.key,
     engine: 'google-veo-3.1' + (voiceUrl ? ' + openai-tts' : '')
   });
   await writeManifest(reelId, final);

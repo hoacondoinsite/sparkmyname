@@ -30,7 +30,8 @@ const PRODUCTS = {
   shelftalker:   { item:'folded shelf-edge hang tag', note:'folds at 3in from top: top flap grips the shelf edge, design lives on the hanging face; PRODUCT NAME is the hero', finish:'14pt card, scored fold' },
   countermat:    { item:'register counter mat', note:'rubber-backed counter mat; keep all text at least 1in inside edges; warm thank-you tone', finish:'rubber base, fabric top' }
 };
-const { resolveGraphicSpecs } = require('./specResolver');  // GO 2: DB-first vendor specs (falls back to CURATED)
+const { resolveGraphicSpecs } = require('./specResolver');
+const TPL = require('./templateRegistry');  // CURATED EXCELLENCE: locked per-industry archetypes  // GO 2: DB-first vendor specs (falls back to CURATED)
 const CURATED = { bumpersticker:{layout:'flat',bleedIn:0.125}, shelftalker:{layout:'flat',bleedIn:0.125}, countermat:{layout:'photo',bleedIn:0.125}, tshirt:{layout:'apparel',bleedIn:0}, tshirtback:{layout:'apparel',bleedIn:0}, hoodieback:{layout:'apparel',bleedIn:0}, hoodiefront:{layout:'apparel',bleedIn:0}, polochest:{layout:'apparel',bleedIn:0}, dressshirt:{layout:'apparel',bleedIn:0}, toteback:{layout:'apparel',bleedIn:0}, hatfront:{layout:'apparel',bleedIn:0}, poster:{layout:'photo',bleedIn:0.25}, banner:{layout:'flat',bleedIn:0.25}, flyer:{layout:'photo',bleedIn:0.125}, businesscard:{layout:'flat',bleedIn:0.125}, sign:{layout:'flat',bleedIn:0.5}, menu:{layout:'photo',bleedIn:0.125}, social:{layout:'photo',bleedIn:0}, story:{layout:'photo',bleedIn:0}, postcard:{layout:'photo',bleedIn:0.125}, postcardback:{layout:'flat',bleedIn:0.125}, webbanner:{layout:'photo',bleedIn:0}, yardsign:{layout:'photo',bleedIn:0.5}, flyer:{layout:'photo',bleedIn:0.125} };
 const slug = (x) => String(x||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const dpiFor = (l) => l<=12?300:l<=30?200:l<=60?150:100;
@@ -120,6 +121,15 @@ async function step(job) {
       const niche = (b2&&b2.industry) ? `Subject niche: ${b2.industry}. ` : '';
       const brandBans = (b2&&Array.isArray(b2.banned_visual_elements)&&b2.banned_visual_elements.length) ? ` BRAND-BANNED visuals, never include: ${b2.banned_visual_elements.join(', ')}.` : '';
       let ont = domainOntology(b2&&b2.industry);
+      // CURATED EXCELLENCE: a locked industry archetype outranks free-form guessing. If this
+      // industry matches a curated template, its deterministic scene wins; only genuinely
+      // unmapped categories fall through to learned DNA / model-invented direction.
+      try {
+        const _tplA = TPL.archetypeFor(b2&&b2.industry);
+        if (_tplA && _tplA.key !== 'default') {
+          ont = { scene: TPL.sceneFor(b2&&b2.industry, ''), physics: ont.physics, surface: ont.surface, template: _tplA.key };
+        }
+      } catch (_e) {}
       if (ont.generic) {  // unmapped category: learned Category DNA
         const ik = slug(b2&&b2.industry||'general') || 'general';
         const [cached] = await sel('sandbox_specs', `item=eq.dna-${ik}&select=recipe`);
