@@ -110,7 +110,7 @@ exports.handler = async function (event) {
   const brandName = opts.brandName || 'the brand';
   const headline = opts.headline || '';
   const industry = opts.industry || '';
-  const look = opts.scenePrompt || 'cinematic, warm natural light, shallow depth of field, premium commercial film look';
+  const look = opts.scenePrompt || 'bright cinematic commercial advertising film, vibrant saturated color, crisp sunlight, upbeat and energetic, premium and aspirational — never dark, moody, gloomy, somber or melancholy';
   const tagline = opts.tagline || '';
   const website = opts.website || '';
 
@@ -122,10 +122,10 @@ exports.handler = async function (event) {
 
   // Scene direction — real filmed moments for this business, textless (copy is never painted).
   const beats = [
-    `Opening establishing shot for a ${industry || 'local business'} called ${brandName}. ${look}. Real people, authentic documentary-commercial feel, natural ambient sound. Absolutely no text, letters, words, logos or signage anywhere in frame.`,
-    `Mid shot showing the craft and care of the work at ${brandName}${headline ? ' — the story is: ' + headline : ''}. ${look}. Hands, detail, movement, natural ambient sound. Absolutely no text, letters, words, logos or signage anywhere in frame.`,
-    `Warm human moment: a satisfied customer or the owner at ${brandName}, genuine expression, ${look}. Natural ambient sound. Absolutely no text, letters, words, logos or signage anywhere in frame.`,
-    `Closing hero shot that leaves a confident final impression of ${brandName}. ${look}. Natural ambient sound. Absolutely no text, letters, words, logos or signage anywhere in frame.`
+    `Bright, uplifting opening shot for a ${industry || 'local business'} called ${brandName}. Sunny, vibrant, high-energy commercial advertising film: crisp daylight, rich saturated color, confident smooth camera push-in, a place that looks busy, successful and inviting. Happy people, warm smiles, upbeat energy. ${look}. Absolutely no text, letters, words, logos or signage anywhere in frame.`,
+    `Energetic hero shot of the work at ${brandName} looking its absolute best${headline ? ' — the story is: ' + headline : ''}. Premium advertising quality: sparkling clean, vivid color, dynamic movement, satisfying detail, a sense of pride and excellence. Bright and optimistic, never gloomy. ${look}. Absolutely no text, letters, words, logos or signage anywhere in frame.`,
+    `A genuinely delighted customer at ${brandName} — big authentic smile, clearly thrilled with the result, laughing or celebrating. Warm sunlight, joyful and welcoming, the feeling of a great decision. High-end commercial film. ${look}. Absolutely no text, letters, words, logos or signage anywhere in frame.`,
+    `Triumphant closing hero shot of ${brandName} at its most impressive — golden light, confident and aspirational, the viewer should want to go there right now. Uplifting, exciting, premium advertising finish. ${look}. Absolutely no text, letters, words, logos or signage anywhere in frame.`
   ].slice(0, sceneCount);
 
   const scenes = [];
