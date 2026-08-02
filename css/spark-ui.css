@@ -302,3 +302,124 @@
   .sp-rail__label{max-width:120px}
   .sp-switch{width:100%}
 }
+
+/* ============================================================================
+   THE UNIVERSAL ENGINE — one layout for every device on Earth.
+   ----------------------------------------------------------------------------
+   Components are CONTAINER-AWARE, not viewport-aware. A card placed in a narrow
+   column on a 27" iMac must lay out like a phone card, because what matters is
+   the space the component actually has — not the size of the glass. Media
+   queries alone cannot express that; container queries can.
+   ========================================================================== */
+
+.sp-cmd{ container-type:inline-size; container-name:spcmd; margin:0 0 var(--sp-5); }
+.sp-panel,.sp-section{ container-type:inline-size; }
+
+/* ---- FLUID SCALE — no fixed step-downs; type and space breathe continuously */
+:root{
+  --sp-fluid-1:clamp(4px,.5vw,6px);
+  --sp-fluid-3:clamp(10px,1.2vw,14px);
+  --sp-fluid-5:clamp(16px,2.2vw,26px);
+  --sp-fluid-7:clamp(28px,4vw,52px);
+  /* Safe areas: notches, home indicators, punch-holes, curved edges. */
+  --sp-safe-t:env(safe-area-inset-top,0px);
+  --sp-safe-r:env(safe-area-inset-right,0px);
+  --sp-safe-b:env(safe-area-inset-bottom,0px);
+  --sp-safe-l:env(safe-area-inset-left,0px);
+}
+
+/* ---- ZERO HORIZONTAL OVERFLOW, GLOBALLY ---------------------------------- */
+.sp-cmd,.sp-cmd *{ min-width:0; }              /* the flex/grid overflow classic */
+.sp-cmd img,.sp-cmd video,.sp-cmd canvas{ max-width:100%; height:auto; }
+.sp-cmd pre,.sp-cmd code{ overflow-x:auto; }
+.sp-spine__name,.sp-vrow__name,.sp-rail__label{ overflow-wrap:anywhere; }
+
+/* ---- CONTAINER QUERIES — components respond to their own width ------------ */
+@container spcmd (max-width:560px){
+  .sp-spine__body{ flex-wrap:wrap; gap:var(--sp-3); }
+  .sp-spine__pal{ width:100%; }
+  .sp-pod{ padding:var(--sp-4); }
+  .sp-pod__actions{ flex-direction:column; }
+  .sp-pod__actions .sp-btn{ width:100%; }
+  .sp-vrow{ flex-direction:column; align-items:stretch; }
+  .sp-vrow__act .sp-btn{ width:100%; }
+  .sp-portfolio{ flex-direction:column; }
+  .sp-rail{ flex-direction:row; width:100%; flex-basis:auto; overflow-x:auto; }
+  .sp-rail__head{ display:none; }
+}
+@container spcmd (min-width:561px) and (max-width:900px){
+  .sp-vault__rows{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@container spcmd (min-width:901px){
+  .sp-vault__rows{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .sp-pod{ padding:var(--sp-6); }
+}
+/* Browsers without container queries still get a sane layout. */
+@supports not (container-type:inline-size){
+  @media (max-width:560px){
+    .sp-pod__actions{ flex-direction:column; }
+    .sp-vrow{ flex-direction:column; align-items:stretch; }
+  }
+  @media (min-width:901px){ .sp-vault__rows{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+}
+
+/* ---- LARGE DESKTOP / STUDIO DISPLAYS ------------------------------------- */
+@media (min-width:1600px){
+  .sp-cmd{ max-width:1440px; margin-inline:auto; }
+  .sp-spine__body{ padding:var(--sp-5) var(--sp-6); }
+}
+
+/* ---- FOLDABLES — hinge aware ---------------------------------------------
+   Unfolded Z Fold reads ~1768x2208 with a vertical hinge. The viewport-segments
+   feature exposes the fold; where supported we avoid straddling it, and we treat
+   the narrow folded cover screen (~344px) as a true phone.                    */
+@media (horizontal-viewport-segments:2){
+  .sp-portfolio{ flex-wrap:nowrap; }
+  .sp-cmd{ padding-inline:var(--sp-4); }        /* keep content off the seam */
+  .sp-vault__rows{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (vertical-viewport-segments:2){
+  .sp-pod{ margin-bottom:var(--sp-6); }         /* don't split the pod across the fold */
+}
+@media (max-width:400px){                        /* folded cover screen */
+  .sp-spine__hero{ height:96px; }
+  .sp-spine__mark{ width:44px; height:44px; }
+  .sp-pod__ask{ font-size:18px; }
+}
+
+/* ---- TOUCH DEVICES -------------------------------------------------------- */
+@media (hover:none) and (pointer:coarse){
+  .sp-btn,.sp-tab,.sp-rail__item,.sp-vrow__act .sp-btn{ min-height:48px; }
+  .sp-card--interactive:hover{ transform:none; box-shadow:none; }  /* no phantom hover */
+  .sp-field{ font-size:16px; }                  /* iOS refuses to zoom at 16px+ */
+}
+
+/* ---- SAFE AREAS ----------------------------------------------------------- */
+@media (max-width:820px){
+  .sp-cmd{
+    padding-left:max(var(--sp-3),var(--sp-safe-l));
+    padding-right:max(var(--sp-3),var(--sp-safe-r));
+    padding-bottom:max(var(--sp-4),var(--sp-safe-b));
+  }
+}
+/* ---- LANDSCAPE PHONES — vertical space is the scarce resource ------------- */
+@media (max-height:520px) and (orientation:landscape){
+  .sp-spine__hero{ height:84px; }
+  .sp-section{ margin-bottom:var(--sp-4); }
+}
+
+/* ---- OVERFLOW CONTAINMENT (measured fix, not a guess) ---------------------
+   The portfolio rail scrolls horizontally on narrow screens. Its scroll extent
+   was propagating to the document and pushing the page 6px wide on every device
+   under 1180px. `contain` stops the layout escaping the rail, and the explicit
+   max-width keeps it inside its column no matter how many brands exist. */
+.sp-rail{ max-width:100%; contain:layout paint; }
+.sp-portfolio{ max-width:100%; overflow:hidden; }
+.sp-cmd{ overflow-x:clip; }                  /* clip, not hidden: no scroll trap */
+@supports not (overflow:clip){ .sp-cmd{ overflow-x:hidden; } }
+
+/* ---- BOX SIZING (the actual cause of the measured 6px overflow) -----------
+   Components use width:100% with padding and a 1px border. Under the default
+   content-box model that computes to 100% + 18px, which pushed every screen
+   narrower than 1180px sideways. Scoped to sp-* so no legacy element changes. */
+.sp-cmd,.sp-cmd *,.sp-cmd *::before,.sp-cmd *::after{ box-sizing:border-box; }

@@ -3961,7 +3961,6 @@ function panel(IDEA,NM){
   '<div class="dlhero-t">Everything below is yours to keep &mdash; royalty-free, forever.</div>'+
   '<div class="dlhero-s">Every name, logo, color, word, and 2K photo you see here is included with your $99 &mdash; download it, use it anywhere (print, web, social, ads), and keep it for good. No royalties, no limits.</div>'+
   '<button class="dlhero-btn" data-dlallzip="1">&#8681; Download everything (ZIP)</button></div>'+
-  smnMakeMore(IDEA)+
   '<div class="ph">Your logos &middot; pick one, some, or all</div>'+
   '<div class="lgnote">Tap a logo to select or deselect it, then download your picks as one ZIP &mdash; every file lands neatly inside a &ldquo;logos&rdquo; folder, ready to use.</div>'+
   '<div class="logopick">'+LOGO_SET.map(function(pr,i){return '<div class="lpcard sel" data-logosel="'+i+'"><span class="lpk">&check;</span><div class="lw">'+pr[1](NM.name,NM.mono,C)+'</div><div class="ll">'+pr[0]+'</div><button class="lpdl" data-logodl="'+i+'">&darr; SVG</button></div>';}).join('')+'</div>'+
@@ -4646,6 +4645,10 @@ var heroTop='';
       the tab strip and its panels — which would have deleted Launch, Grow, Downloads and Extras
       along with everything inside them. Caught by the deck/onebar suites before it shipped.
       The tabs sit directly above their panels, which is the adjacency that must never break. */
+   /* THE COMMAND CENTER renders ABOVE the tabs, not inside one. A customer must
+      never hunt through a secondary tab to reach the primary surface of their
+      own workspace. Tabs below remain for the archive of files. */
+   '<div class="sp-cmd">'+smnMakeMore(IDEA)+'</div>'+
    '<div class="onebar"><div class="tabs">'+tabs+
      '<button class="tab tab-more" data-morenames="'+esc(IDEA.id)+'">&#10022; Request more names</button>'+
    '</div></div><div class="panelwrap">'+panels+'</div>'+
