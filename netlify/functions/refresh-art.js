@@ -31,10 +31,14 @@ const SITE    = process.env.SITE_URL || process.env.URL || 'https://sparkmyname.
    banked before the cinematic standard was restored and is exactly what kept haunting the
    Founder. Keep this the single definition — if the shelf is ever versioned again, this is the
    only line that changes. */
-const CURRENT_GENERATION = '/library/v2/';
+// CLARITY GENERATION v3 (2026-08-02). The July-30 'volumetric light through real atmosphere'
+// phrase made heroes smoky and dim; it was removed and a CLARITY LAW added. Every hero painted
+// since is written under /v3/. Anything else — the old banked library AND the hazy in-between
+// batch — is stale, so opening that card repaints it with the corrected direction.
+const CURRENT_GENERATION = '/v3/';
 function isStale(url) {
   if (!url || typeof url !== 'string') return false;
-  return url.indexOf('/library/') > 0 && url.indexOf(CURRENT_GENERATION) < 0;
+  return url.indexOf(CURRENT_GENERATION) < 0;
 }
 
 function resp(code, obj) {

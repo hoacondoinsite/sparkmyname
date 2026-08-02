@@ -106,7 +106,10 @@ exports.handler = async function (event) {
     if (img && img.ok && img.b64) {
       /* Stored under THIS ORDER's own key, never under a shared industry name, so it can
          never be served to anybody else. */
-      var ownPath = 'orders/' + key + '/header.png';
+      // CLARITY GENERATION v3 (2026-08-02): heroes made AFTER the haze fix live under /v3/.
+      // Anything without /v3/ predates the fix and is treated as stale, so opening an old card
+      // regenerates it with the bright, clean direction.
+      var ownPath = 'orders/' + key + '/v3/header.png';
       var up = await storage.uploadPng(ownPath, img.b64, img.mime || 'image/png');
       if (up && up.ok) { reused = true; libUrl = up.url; }
     }
@@ -146,7 +149,7 @@ exports.handler = async function (event) {
         // so a Pro outage still fills the card rather than leaving it blank.
         var vImg = await engine.generateImage(vPrompt, { /* uses the house PHOTO_LADDER in studio-engine (2026-07-27) — no ad-hoc tier lists */ imageSize: '2K', aspectRatio: '16:9' });
         if (vImg && vImg.ok && vImg.b64) {
-          var vUp = await storage.uploadPng('orders/' + key + '/card-hero-' + i + '.png', vImg.b64, vImg.mime || 'image/png');
+          var vUp = await storage.uploadPng('orders/' + key + '/v3/card-hero-' + i + '.png', vImg.b64, vImg.mime || 'image/png');
           if (vUp && vUp.ok) wantUrl = vUp.url;
         } else { console.error('CARD HERO ' + i + ' FAILED: ' + JSON.stringify(vImg).slice(0, 300)); }
       } catch (e) { /* fall back to the library scene */ }

@@ -4424,7 +4424,7 @@ function bind(){
       if(IDEA.header) urls.push(IDEA.header);
       /* the same staleness rule the server uses: banked outside the current generation */
       var stale = urls.some(function(u){
-        return typeof u==='string' && u.indexOf('/library/')>0 && u.indexOf('/library/v2/')<0;
+        return typeof u==='string' && u.indexOf('/v3/')<0;   /* CLARITY GENERATION v3 — pre-fix art repaints on open */
       });
       if(!stale) return;
       fetch('/.netlify/functions/refresh-art',{method:'POST',
