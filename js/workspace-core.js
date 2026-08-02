@@ -47,6 +47,69 @@ var DELIVS=[['A','Name & Domain'],['B','Logo Suite'],['C','Color System'],['D','
    Reads window.SparkCatalog (js/spark-catalog.js, loaded before this file). Computed here at
    top level — never inside the HTML concatenation, which would silently detach the markup.
    Fully guarded: if the bridge is absent this yields '' and the vault renders exactly as before. */
+/* MAKE SOMETHING ELSE — the customer-facing ORDER surface for the full 87-format catalog.
+   Top-level on purpose (never a statement inside an HTML concatenation). Reads
+   window.SparkCatalog; if that bridge is missing it returns '' and the card renders as before. */
+var SMN_SUITE_LABEL={print:'Print & direct mail',signage:'Signs & large format',apparel:'Apparel',
+  merch:'Merch & drinkware',packaging:'Packaging & food service',social:'Social',
+  display:'Web & display ads',creator:'Creator & podcast'};
+function smnMakeMore(IDEA){
+  try{
+    if(!window.SparkCatalog || !window.SparkCatalog.FORMATS) return '';
+    window.__smnReport = (IDEA && IDEA.id) || window.__smnReport || '';
+    var order=['print','signage','apparel','merch','packaging','social','display','creator'];
+    var html='<div class="ph">Make something else</div>'+
+      '<div style="font-size:12.5px;color:#3A3F3C;margin:-2px 0 10px">Every piece below is built in your brand. Pick one and we make it &mdash; it lands in your workspace.</div>';
+    order.forEach(function(su){
+      var list=window.SparkCatalog.bySuite(su); if(!list||!list.length) return;
+      html+='<details style="border:1px solid rgba(0,0,0,.10);border-radius:10px;margin-bottom:8px;background:#FBFCFB">'+
+        '<summary style="cursor:pointer;padding:11px 14px;font-weight:700;font-size:13.5px;color:#141414">'+
+        (SMN_SUITE_LABEL[su]||su)+' <span style="color:#6b6b6b;font-weight:500">&middot; '+list.length+'</span></summary>'+
+        '<div style="padding:0 14px 12px">';
+      list.forEach(function(f){
+        var size=f.widthIn?(f.widthIn+'\u00d7'+f.heightIn+' in'):(f.pixelW+'\u00d7'+f.pixelH+' px');
+        var spec=size+(f.bleedIn?(' \u00b7 '+f.bleedIn+' bleed'):'')+' \u00b7 '+f.dpi+' DPI';
+        var blocked=(f.render==='spec');
+        html+='<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid rgba(0,0,0,.06);flex-wrap:wrap">'+
+          '<div style="min-width:0"><div style="font-weight:600;font-size:13px;color:#141414">'+f.label+'</div>'+
+          '<div style="font-size:11.5px;color:#5A625E">'+spec+'</div></div>'+
+          (blocked
+            ? '<span style="font-size:11.5px;color:#8A6B22" title="'+(f.note||'')+'">Coming soon</span>'
+            : '<button class="go" data-mkfmt="'+f.key+'" style="padding:7px 14px;font-size:12px">Make this</button>')+
+          '</div>';
+      });
+      html+='</div></details>';
+    });
+    return html;
+  }catch(e){ return ''; }
+}
+/* One delegated listener for the whole page — bound once, cannot double-fire. */
+if(!window.__smnMakeBound){
+  window.__smnMakeBound=1;
+  document.addEventListener('click',function(ev){
+    var b=ev.target && ev.target.closest && ev.target.closest('[data-mkfmt]');
+    if(!b) return;
+    ev.preventDefault();
+    var key=b.getAttribute('data-mkfmt');
+    var f=window.SparkCatalog && window.SparkCatalog.specFor(key); if(!f) return;
+    var brief=window.prompt('What should this '+f.label+' say? (a sentence is enough)');
+    if(brief===null) return;
+    var tok=''; try{ tok=localStorage.getItem('smn_founder_token')||''; }catch(e){}
+    b.disabled=true; b.textContent='Sending\u2026';
+    fetch('/.netlify/functions/deliverable-enqueue',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ founderToken:tok, reportId:window.__smnReport, deliverableType:key,
+        widthIn:(f.widthIn||+(f.pixelW/f.dpi).toFixed(2)), heightIn:(f.heightIn||+(f.pixelH/f.dpi).toFixed(2)),
+        dpi:f.dpi, brief:brief })})
+      .then(function(r){return r.json().catch(function(){return {};});})
+      .then(function(d){
+        if(d && d.orderId){ b.textContent='Ordered \u2713'; if(typeof toast==='function') toast(d.promise||'Order received.'); }
+        else { b.disabled=false; b.textContent='Make this';
+               if(typeof toast==='function') toast('Could not place that order: '+((d&&d.error)||'unknown')); }
+      })
+      .catch(function(){ b.disabled=false; b.textContent='Make this';
+        if(typeof toast==='function') toast('Could not reach the order service.'); });
+  });
+}
 function smnPrintRows(){
   try{
     if(!window.SparkCatalog || typeof window.SparkCatalog.routeFor!=='function') return '';
@@ -3464,7 +3527,7 @@ function panel(IDEA,NM){
   '<div class="logoacts"><button class="lp-all" data-logoall="1"><span class="lp-allbox">&check;</span> Select all</button><button class="act primary" data-logozip="1">&#8681; Download selected logos (ZIP)</button></div>'+
   '<div class="ph">Downloads &middot; '+ucount+' of 19 unlocked</div><div class="dgrid">'+DELIVS.map(function(d,i){var ok=okIdx(i);var isMerch=(d[0]==='R');return '<div class="dcell '+(ok?'ok':'lock')+'"><span class="dl">'+d[0]+'</span><div style="flex:1;min-width:0"><div class="dn">'+esc(d[1])+'</div><div class="ds">'+(ok?'Included &check;':'Locked')+'</div></div>'+(ok?(isMerch?'<button class="go" data-merchtoggle="1">Open</button>':'<button class="go" data-dv="'+i+'">Get</button>'):'<button class="go" data-up="1">Unlock</button>')+'</div>';}).join('')+'</div>'+
   /* GO 4 (Founder order): the delivery moment — files are print-ready, take them anywhere. */
-  '<div class="ph">Take it to print</div><div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:14px 16px;border:1px solid rgba(24,152,80,.28);background:rgba(24,152,80,.06);border-radius:12px;margin:2px 0 6px"><div style="flex:1;min-width:200px"><div style="font-weight:700;color:#127A40;font-size:14px">Your files are print-ready</div><div style="font-size:12.5px;color:#3A3F3C;margin-top:3px">Take them to any printer you like &mdash; or browse our launch partners.</div></div><a href="resources-affiliates.html" target="_blank" rel="noopener" style="display:inline-block;padding:11px 20px;background:#189850;color:#fff;border-radius:9px;text-decoration:none;font-weight:700;font-size:13.5px;white-space:nowrap">Print Anywhere &rarr;</a></div>'+smnPrintRows()+
+  '<div class="ph">Take it to print</div><div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:14px 16px;border:1px solid rgba(24,152,80,.28);background:rgba(24,152,80,.06);border-radius:12px;margin:2px 0 6px"><div style="flex:1;min-width:200px"><div style="font-weight:700;color:#127A40;font-size:14px">Your files are print-ready</div><div style="font-size:12.5px;color:#3A3F3C;margin-top:3px">Take them to any printer you like &mdash; or browse our launch partners.</div></div><a href="resources-affiliates.html" target="_blank" rel="noopener" style="display:inline-block;padding:11px 20px;background:#189850;color:#fff;border-radius:9px;text-decoration:none;font-weight:700;font-size:13.5px;white-space:nowrap">Print Anywhere &rarr;</a></div>'+smnPrintRows()+smnMakeMore(IDEA)+
   '<div id="merchpanel" class="hidden"><div class="ph">Brand Promo Items &middot; ready to download</div><div class="merch">'+MERCH.map(function(m,i){return '<div class="mcard"><div class="mprev">'+merchSVG(m,NM.mono,C)+'</div><div class="mrow"><span class="mn">'+esc(m)+'</span><button class="dl" data-merch="'+i+'">&darr; File</button></div></div>';}).join('')+'</div></div>'+
   // ALL SEVEN (2026-07-27, Founder order). The order header is now a card in this grid
   // alongside each name's own scene, so the customer downloads everything they paid for
