@@ -526,4 +526,125 @@ async function loadBrands(){
   });
 })();
 </script>
+<div class="wrap"><div class="panel" id="smn-video-workbench">
+  <h2 style="margin:0 0 4px;font:800 18px Inter">Brand Reel Studio <span style="font:800 12px Inter;color:#21D4FD">12s · 9:16</span></h2>
+  <p class="note" style="margin-top:0">Renders a motion reel from the brand's own colors, name, tagline and links — drawn on canvas in your browser and recorded to a real, playable .webm. No AI video service, no quota. Preview it, download it, or save it to storage.</p>
+  <div class="row" style="align-items:center;gap:8px;margin-top:10px">
+    <select id="reelBrand" style="flex:1"><option value="">— load clients —</option></select>
+    <button id="reelLoad" type="button" style="width:auto;padding:12px 14px">↻</button>
+    <button id="reelGo" type="button" style="width:auto;padding:12px 20px;background:#189850;color:#fff;font:700 14px Inter">Render reel</button>
+  </div>
+  <div id="reelStage" style="margin-top:12px;background:#050D1E;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center">
+    <div id="reelStatus" class="note" style="margin:0">Pick a client, then press Render reel.</div>
+    <video id="reelVideo" controls playsinline style="display:none;max-height:420px;max-width:100%;border-radius:8px"></video>
+  </div>
+  <div class="acts" id="reelActs" style="display:none;margin-top:10px">
+    <a id="reelDl" href="#" download="reel.webm">↓ Download .webm</a>
+    <a id="reelSave" href="#">☁ Save to storage</a>
+  </div>
+  <div id="reelSaved" class="note" style="margin-top:6px"></div>
+</div></div>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i);};
+  var BRANDS=[], LAST=null;
+  function say(t){ var s=$('reelStatus'); s.style.display='block'; s.textContent=t; }
+
+  async function loadBrands(){
+    try{
+      var r=await fetch('/.netlify/functions/sandbox-brands'); var d=await r.json();
+      BRANDS=(d&&d.brands)||(Array.isArray(d)?d:[]);
+      var sel=$('reelBrand'); sel.innerHTML='<option value="">— select a client —</option>';
+      BRANDS.forEach(function(b){ var o=document.createElement('option'); o.value=b.brand_id;
+        o.textContent=b.brand_name+(b.industry?' · '+b.industry:''); sel.appendChild(o); });
+      say(BRANDS.length?('Loaded '+BRANDS.length+' clients. Pick one, then press Render reel.'):'No clients returned.');
+    }catch(e){ say('Could not load clients: '+e.message); }
+  }
+
+  // Draws the reel on a canvas and records it. Resolves with a real playable Blob.
+  function renderReel(b){
+    var W=1080,H=1920,FPS=30,TOTAL=360;                   // 12s @ 30fps
+    var c=document.createElement('canvas'); c.width=W; c.height=H;
+    var x=c.getContext('2d');
+    var pal=b.palette||{}, primary=pal.primary||'#189850', accent=pal.accent||'#C79A4B';
+    var stream=c.captureStream(FPS), rec;
+    try{ rec=new MediaRecorder(stream,{mimeType:'video/webm;codecs=vp9',videoBitsPerSecond:6000000}); }
+    catch(e){ try{ rec=new MediaRecorder(stream,{mimeType:'video/webm'}); }catch(e2){ return Promise.reject(new Error('This browser cannot record canvas video (MediaRecorder unavailable).')); } }
+    var chunks=[];
+    rec.ondataavailable=function(e){ if(e.data&&e.data.size) chunks.push(e.data); };
+    var done=new Promise(function(res,rej){
+      rec.onstop=function(){ var bl=new Blob(chunks,{type:'video/webm'}); bl.size?res(bl):rej(new Error('recorder produced an empty file')); };
+      rec.onerror=function(ev){ rej(new Error('recorder error: '+(ev&&ev.error&&ev.error.name||'unknown'))); };
+    });
+    var ease=function(t){ return t<0?0:t>1?1:(1-Math.cos(Math.PI*t))/2; };
+    var seg=function(f,a,z){ return ease((f-a)/(z-a)); };            // 0..1 across a frame window
+    function txt(s,size,weight,color,cy,alpha,font){
+      if(alpha<=0) return; x.globalAlpha=alpha; x.fillStyle=color; x.textAlign='center';
+      x.font=weight+' '+size+'px '+(font||'Inter, sans-serif'); x.fillText(s,W/2,cy); x.globalAlpha=1;
+    }
+    rec.start();
+    var f=0;
+    function frame(){
+      var g=x.createLinearGradient(0,0,0,H);
+      g.addColorStop(0,primary); g.addColorStop(1,'#0A1220');
+      x.fillStyle=g; x.fillRect(0,0,W,H);
+      // slow breathing light
+      var r=520+Math.sin(f*0.02)*70;
+      var rg=x.createRadialGradient(W/2,H*0.34,0,W/2,H*0.34,r);
+      rg.addColorStop(0,'rgba(255,255,255,0.16)'); rg.addColorStop(1,'rgba(255,255,255,0)');
+      x.fillStyle=rg; x.fillRect(0,0,W,H);
+      // drifting accent rule
+      var lw=seg(f,20,70)*W*0.42;
+      if(lw>0){ x.globalAlpha=0.9; x.fillStyle=accent; x.fillRect(W/2-lw/2,H*0.545,lw,4); x.globalAlpha=1; }
+      // Act 1 — the name
+      txt((b.brand_name||'').toUpperCase(),96,'800','#FFFFFF',H*0.50,seg(f,8,55));
+      // Act 2 — tagline
+      if(b.tagline) txt('\u201C'+b.tagline+'\u201D',46,'400','rgba(255,255,255,.88)',H*0.615,seg(f,70,110)*(1-seg(f,210,245)),'Georgia, serif');
+      // Act 3 — industry line
+      if(b.industry) txt(b.industry.toUpperCase(),34,'600',accent,H*0.675,seg(f,120,155)*(1-seg(f,210,245)));
+      // Act 4 — contact close
+      var close=seg(f,250,290);
+      if(b.website) txt(String(b.website).toUpperCase(),42,'700','#FFFFFF',H*0.60,close);
+      if(b.handle)  txt(b.handle,38,'600',accent,H*0.655,close);
+      f++;
+      if(f<TOTAL) requestAnimationFrame(frame); else setTimeout(function(){ try{rec.stop();}catch(e){} },120);
+    }
+    frame();
+    return done;
+  }
+
+  $('reelLoad').addEventListener('click',loadBrands);
+  $('reelBrand').addEventListener('change',function(){ say('Ready. Press Render reel.'); });
+  $('reelGo').addEventListener('click',async function(){
+    var id=$('reelBrand').value; if(!id) return say('Pick a client first.');
+    var b=BRANDS.filter(function(z){return z.brand_id===id;})[0]; if(!b) return say('That client did not load.');
+    $('reelGo').disabled=true; $('reelVideo').style.display='none'; $('reelActs').style.display='none'; $('reelSaved').textContent='';
+    say('Rendering 12 seconds at 30fps — keep this tab in front…');
+    try{
+      var blob=await renderReel(b); LAST={blob:blob,brand:b};
+      var u=URL.createObjectURL(blob);
+      $('reelVideo').src=u; $('reelVideo').style.display='block'; $('reelStatus').style.display='none';
+      $('reelDl').href=u; $('reelDl').download=(b.brand_name||'brand').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-reel.webm';
+      $('reelActs').style.display='flex';
+    }catch(e){ say('Render failed: '+e.message); }
+    finally{ $('reelGo').disabled=false; }
+  });
+
+  $('reelSave').addEventListener('click',async function(ev){
+    ev.preventDefault();
+    if(!LAST) return; var tok=($('tok')&&$('tok').value||'').trim();
+    if(!tok) return $('reelSaved').textContent='Founder token required to save.';
+    $('reelSaved').textContent='Uploading…';
+    try{
+      var b64=await new Promise(function(res,rej){ var r=new FileReader(); r.onload=function(){res(String(r.result).split(',')[1]);}; r.onerror=rej; r.readAsDataURL(LAST.blob); });
+      var r=await fetch('/.netlify/functions/sandbox-store-video',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({founderToken:tok,brandId:LAST.brand.brand_id,videoBase64:b64})});
+      var d=await r.json();
+      $('reelSaved').textContent = r.ok&&d.url ? ('Saved ('+Math.round(d.bytes/1024)+' KB): '+d.url) : ('Save failed: '+(d.error||('HTTP '+r.status)));
+    }catch(e){ $('reelSaved').textContent='Save failed: '+e.message; }
+  });
+
+  loadBrands();
+})();
+</script>
 </body></html>
