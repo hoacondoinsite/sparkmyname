@@ -3037,6 +3037,11 @@ body{font-size:var(--t-body);line-height:var(--lh-body)}
 <!-- EDITABLE OFFICE DOCS (Zip 3, 2026-07-30): SBX_ZIP builder + the doc generators. -->
 <script src="js/sandbox-zip.js"></script>
 <script src="js/agency-docs.js"></script>
+<!-- Browser-safe bridge to the 87-format catalog, industry archetypes and fulfillment
+     routing. Plain script (NOT a module) and loaded BEFORE workspace-core.js, which is
+     itself a classic script — an ES import anywhere here would stop the whole dashboard
+     from parsing. Exposes window.SparkCatalog. -->
+<script src="js/spark-catalog.js"></script>
 <script src="js/workspace-core.js"></script>
 <!-- MOVED HERE 2026-07-26. This sat in <head>, and a plain synchronous script tag blocks parsing
      until it arrives — so nothing on the page rendered until a third-party CDN answered,
