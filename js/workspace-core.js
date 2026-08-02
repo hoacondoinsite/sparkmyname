@@ -53,9 +53,23 @@ var DELIVS=[['A','Name & Domain'],['B','Logo Suite'],['C','Color System'],['D','
 var SMN_SUITE_LABEL={print:'Print & direct mail',signage:'Signs & large format',apparel:'Apparel',
   merch:'Merch & drinkware',packaging:'Packaging & food service',social:'Social',
   display:'Web & display ads',creator:'Creator & podcast'};
+/* ============================================================================
+   THE BRAND SPINE + THE AD AGENCY POD          composed with window.SparkUI
+   ----------------------------------------------------------------------------
+   Replaces a hand-concatenated block with a DECLARED composition of Sections.
+   Every value shown is real brand data (NM / IDEA) — nothing is invented, and
+   anything absent is simply omitted rather than faked.
+   Interactive ids (smnWant, smnMic, smnGoWant, smnVoiceState, smnSug) are kept
+   EXACTLY as they were, so every existing handler keeps working untouched.
+   If SparkUI is unavailable for any reason this returns '' and the page renders
+   as it did before — the migration can never take the workspace down.
+   ========================================================================== */
 function smnMakeMore(IDEA){
   try{
-    if(!window.SparkCatalog || !window.SparkCatalog.FORMATS) return '';
+    var U=window.SparkUI;
+    if(!U || !window.SparkCatalog || !window.SparkCatalog.FORMATS) return '';
+
+    /* resolve the report key the same way the rest of the workspace does */
     try{
       var _rk='';
       if(typeof _urlR==='function') _rk=_urlR()||'';
@@ -63,26 +77,68 @@ function smnMakeMore(IDEA){
       if(!_rk && IDEA && IDEA.id) _rk=IDEA.id;
       window.__smnReport=_rk||window.__smnReport||'';
     }catch(e){}
-    var who=''; try{ who=String((IDEA&&IDEA.cat)||'')+' '+String((IDEA&&IDEA.said)||''); }catch(e){}
-    window.__smnWho=who;
-    var name=''; try{ name=(NM&&NM.name)||''; }catch(e){}
-    return '<div class="ph">Make anything you need</div>'+
-      '<div id="smnAsk" style="border:1px solid rgba(24,152,80,.30);background:linear-gradient(180deg,#F4FBF6,#FFFFFF);border-radius:16px;padding:18px 18px 16px;margin:2px 0 14px">'+
-        '<div style="font:800 19px/1.2 Poppins,Inter,sans-serif;color:#0E1310;letter-spacing:-.02em">What would you like us to make?</div>'+
-        '<div style="font-size:13.5px;color:#3A3F3C;margin:6px 0 12px;max-width:60ch">Tell us in your own words &mdash; a poster for the show, shirts for the crew, a menu, anything. We already have '+(name?('&ldquo;'+name+'&rdquo;'):'your brand')+', your logo, colours, fonts and the idea you gave us.</div>'+
-        '<textarea id="smnWant" rows="2" placeholder="e.g. posters and flyers for the festival, and shirts for the staff" style="width:100%;box-sizing:border-box;min-height:70px;padding:13px 15px;border:1px solid rgba(0,0,0,.18);border-radius:12px;font:500 15px Inter,sans-serif;color:#141414;background:#fff;resize:vertical"></textarea>'+
-        '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px">'+
-          '<button id="smnMic" type="button" style="cursor:pointer;padding:15px 30px;border:0;border-radius:14px;background:#127A40;color:#fff;font:800 16px Inter;white-space:nowrap;box-shadow:0 2px 10px rgba(18,122,64,.25)">&#127908; Talk it through</button>'+
-          '<button id="smnGoWant" type="button" style="cursor:pointer;padding:15px 26px;border:1px solid rgba(18,122,64,.45);border-radius:14px;background:#fff;color:#127A40;font:800 16px Inter;white-space:nowrap">Show me ideas</button>'+
+
+    var name='', tagline='', dom='', hero='', said='', cat='';
+    try{
+      name=(NM&&NM.name)||''; tagline=(NM&&(NM.tagline||NM.tag))||'';
+      dom=(NM&&NM.dom)||''; hero=(NM&&NM.heroUrl)||'';
+      said=(IDEA&&IDEA.said)||''; cat=(IDEA&&IDEA.cat)||'';
+    }catch(e){}
+    window.__smnWho=cat+' '+said;
+
+    /* ---- THE BRAND SPINE — the immutable identity card ------------------- */
+    var initials=String(name).replace(/[^A-Za-z ]/g,'').split(/\s+/).filter(Boolean)
+                   .slice(0,2).map(function(w){return w[0];}).join('').toUpperCase()||'SP';
+    var swatches='';
+    try{
+      var pal=(NM&&NM.palettes&&NM.palettes[0]&&NM.palettes[0].colors)||[];
+      swatches=pal.slice(0,5).map(function(hx){
+        return '<span class="sp-spine__sw" style="background:'+U.esc(hx)+'" title="'+U.esc(hx)+'"></span>';
+      }).join('');
+    }catch(e){}
+
+    var spine =
+      '<div class="sp-spine">'+
+        (hero ? '<div class="sp-spine__hero" style="background-image:url(\''+U.escUrl(hero)+'\')" role="img" aria-label="'+U.esc(name)+' brand photograph"></div>' : '')+
+        '<div class="sp-spine__body">'+
+          '<div class="sp-spine__mark" aria-hidden="true">'+U.esc(initials)+'</div>'+
+          '<div class="sp-spine__id">'+
+            U.Micro('Your brand')+
+            '<h2 class="sp-spine__name">'+U.esc(name)+'</h2>'+
+            (tagline ? '<p class="sp-spine__tag">&ldquo;'+U.esc(tagline)+'&rdquo;</p>' : '')+
+            (dom ? '<p class="sp-spine__dom">'+U.esc(dom)+'</p>' : '')+
+          '</div>'+
+          (swatches ? '<div class="sp-spine__pal" aria-label="Brand colours">'+swatches+'</div>' : '')+
         '</div>'+
-        '<div id="smnVoiceState" style="font:600 13px Inter;color:#127A40;margin-top:10px;min-height:18px;text-align:center"></div>'+
-        '<div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font:600 13px Inter;justify-content:center">'+
-          '<a href="#" data-mkstep="print" style="color:#127A40">Something printed</a>'+
-          '<a href="#" data-mkstep="online" style="color:#127A40">Something online</a>'+
-          '<a href="#" data-mkstep="all" style="color:#5A625E">Show me everything</a>'+
-        '</div>'+
-        '<div id="smnSug" style="margin-top:12px"></div>'+
       '</div>';
+
+    /* ---- THE AD AGENCY POD — the conversational intake ------------------- */
+    var pod = U.Pod(
+      U.Stack([
+        U.Micro('The Spark Advertising Department'),
+        '<h3 class="sp-pod__ask">How can we help you today?</h3>',
+        U.Body('Tell us what you need in your own words — a poster for the show, shirts for the crew, a menu. '+
+               'We already have '+(name?('"'+name+'"'):'your brand')+', your logo, colours, fonts and the idea you gave us.'),
+        U.Field({ id:'smnWant', multiline:true, rows:2, label:'What would you like us to make?',
+                  placeholder:'e.g. posters and flyers for the festival, and shirts for the staff' }),
+        '<div class="sp-pod__actions">'+
+          U.Button('Talk it through',{ icon:'&#127908;', attrs:{ id:'smnMic', 'aria-describedby':'smnVoiceState' } })+
+          U.Button('Show me ideas',{ variant:'secondary', attrs:{ id:'smnGoWant' } })+
+        '</div>',
+        '<p class="sp-pod__state" id="smnVoiceState" role="status" aria-live="polite"></p>',
+        '<div class="sp-pod__links">'+
+          '<a href="#" data-mkstep="print">Something printed</a>'+
+          '<a href="#" data-mkstep="online">Something online</a>'+
+          '<a href="#" data-mkstep="all">Show me everything</a>'+
+        '</div>',
+        '<div id="smnSug"></div>'
+      ])
+    );
+
+    return U.Panel([
+      { body: spine },
+      { body: pod }
+    ]);
   }catch(e){ return ''; }
 }
 /* Suggestion engine: what an intake person would put in front of THIS business. */
