@@ -67,7 +67,15 @@ var SMN_SUITE_LABEL={print:'Print & direct mail',signage:'Signs & large format',
 function smnMakeMore(IDEA){
   try{
     var U=window.SparkUI;
-    if(!U || !window.SparkCatalog || !window.SparkCatalog.FORMATS) return '';
+    /* If a dependency did not load, say so in the console instead of silently
+       rendering nothing — a silent empty panel looks identical to a stale cache
+       and costs an hour to diagnose. */
+    if(!U || !window.SparkCatalog || !window.SparkCatalog.FORMATS){
+      try{ console.warn('[Spark UI] not rendering: SparkUI='+(!!U)+' SparkCatalog='+(!!window.SparkCatalog)+
+        ' — check that js/spark-ui.js and js/spark-catalog.js loaded (hard refresh, or a blocked request).'); }catch(e){}
+      return '';
+    }
+    try{ console.info('[Spark UI] v'+U.version+' rendering brand spine + agency pod + vault'); }catch(e){}
 
     /* resolve the report key the same way the rest of the workspace does */
     try{

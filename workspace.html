@@ -3044,12 +3044,12 @@ body{font-size:var(--t-body);line-height:var(--lh-body)}
 <!-- SPARK UI — the design system (tokens + layout primitives) and its component layer.
      Additive by design: it defines new sp-* classes only and overrides no legacy selector,
      so loading it cannot change how the current page renders. Sections migrate one at a time. -->
-<link rel="stylesheet" href="css/spark-ui.css">
-<script src="js/spark-ui.js"></script>
-<link rel="stylesheet" href="css/spark-voice.css">
-<script src="js/spark-voice.js"></script>
-<script src="js/spark-catalog.js"></script>
-<script src="js/workspace-core.js"></script>
+<link rel="stylesheet" href="css/spark-ui.css?v=202608022044">
+<script src="js/spark-ui.js?v=202608022044"></script>
+<link rel="stylesheet" href="css/spark-voice.css?v=202608022044">
+<script src="js/spark-voice.js?v=202608022044"></script>
+<script src="js/spark-catalog.js?v=202608022044"></script>
+<script src="js/workspace-core.js?v=202608022044"></script>
 <!-- MOVED HERE 2026-07-26. This sat in <head>, and a plain synchronous script tag blocks parsing
      until it arrives — so nothing on the page rendered until a third-party CDN answered,
      across 63% of the document on the login page. It cannot be deferred: initAuth() runs
