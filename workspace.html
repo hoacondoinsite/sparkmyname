@@ -3041,6 +3041,8 @@ body{font-size:var(--t-body);line-height:var(--lh-body)}
      routing. Plain script (NOT a module) and loaded BEFORE workspace-core.js, which is
      itself a classic script — an ES import anywhere here would stop the whole dashboard
      from parsing. Exposes window.SparkCatalog. -->
+<link rel="stylesheet" href="css/spark-voice.css">
+<script src="js/spark-voice.js"></script>
 <script src="js/spark-catalog.js"></script>
 <script src="js/workspace-core.js"></script>
 <!-- MOVED HERE 2026-07-26. This sat in <head>, and a plain synchronous script tag blocks parsing

@@ -66,14 +66,22 @@ function smnMakeMore(IDEA){
     var who=''; try{ who=String((IDEA&&IDEA.cat)||'')+' '+String((IDEA&&IDEA.said)||''); }catch(e){}
     window.__smnWho=who;
     var name=''; try{ name=(NM&&NM.name)||''; }catch(e){}
-    return '<div class="ph">Make something for '+(name||'this brand')+'</div>'+
-      '<div id="smnAsk" style="border:1px solid rgba(24,152,80,.28);background:rgba(24,152,80,.06);border-radius:12px;padding:16px">'+
-        '<div style="font-weight:700;font-size:15px;color:#141414;margin-bottom:2px">What would you like us to make?</div>'+
-        '<div style="font-size:12.5px;color:#3A3F3C;margin-bottom:12px">We already have your name, logo, colours, fonts and your own words &mdash; so just point us in a direction.</div>'+
-        '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
-          '<button class="go" data-mkstep="print"  style="padding:10px 18px">Something printed</button>'+
-          '<button class="go" data-mkstep="online" style="padding:10px 18px;background:#0C1B38">Something online</button>'+
-          '<button class="go" data-mkstep="all"    style="padding:10px 18px;background:#fff;color:#127A40;border:1px solid rgba(18,122,64,.4)">Show me everything</button>'+
+    return '<div class="ph">Make anything you need</div>'+
+      '<div id="smnAsk" style="border:1px solid rgba(24,152,80,.30);background:linear-gradient(180deg,#F4FBF6,#FFFFFF);border-radius:16px;padding:18px 18px 16px;margin:2px 0 14px">'+
+        '<div style="font:800 19px/1.2 Poppins,Inter,sans-serif;color:#0E1310;letter-spacing:-.02em">What would you like us to make?</div>'+
+        '<div style="font-size:13.5px;color:#3A3F3C;margin:6px 0 12px;max-width:60ch">Tell us in your own words &mdash; a poster for the show, shirts for the crew, a menu, anything. We already have '+(name?('&ldquo;'+name+'&rdquo;'):'your brand')+', your logo, colours, fonts and the idea you gave us.</div>'+
+        '<div style="display:flex;gap:10px;align-items:stretch;flex-wrap:wrap">'+
+          '<textarea id="smnWant" rows="2" placeholder="e.g. posters and flyers for the festival, and shirts for the staff" style="flex:1 1 320px;min-height:64px;padding:12px 14px;border:1px solid rgba(0,0,0,.18);border-radius:12px;font:500 15px Inter,sans-serif;color:#141414;background:#fff;resize:vertical"></textarea>'+
+          '<div style="display:flex;flex-direction:column;gap:8px;justify-content:stretch">'+
+            '<button id="smnMic" type="button" style="cursor:pointer;padding:12px 18px;border:0;border-radius:12px;background:#127A40;color:#fff;font:700 14px Inter;white-space:nowrap">&#127908; Talk it through</button>'+
+            '<button id="smnGoWant" type="button" style="cursor:pointer;padding:12px 18px;border:1px solid rgba(18,122,64,.45);border-radius:12px;background:#fff;color:#127A40;font:700 14px Inter;white-space:nowrap">Show me ideas</button>'+
+          '</div>'+
+        '</div>'+
+        '<div id="smnVoiceState" style="font:600 12.5px Inter;color:#127A40;margin-top:8px;min-height:16px"></div>'+
+        '<div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font:600 12.5px Inter">'+
+          '<a href="#" data-mkstep="print" style="color:#127A40">Something printed</a>'+
+          '<a href="#" data-mkstep="online" style="color:#127A40">Something online</a>'+
+          '<a href="#" data-mkstep="all" style="color:#5A625E">Show me everything</a>'+
         '</div>'+
         '<div id="smnSug" style="margin-top:12px"></div>'+
       '</div>';
@@ -106,6 +114,48 @@ function smnSuggest(medium){
 /* One delegated listener for the whole page — bound once, cannot double-fire. */
 if(!window.__smnMakeBound){
   window.__smnMakeBound=1;
+  /* Typed request -> reads what they wrote and suggests the right pieces. */
+  document.addEventListener('click',function(ev){
+    var g=ev.target && ev.target.closest && ev.target.closest('#smnGoWant');
+    if(!g) return; ev.preventDefault();
+    var t=document.getElementById('smnWant'), box=document.getElementById('smnSug');
+    var said=String((t&&t.value)||'').trim();
+    if(!said){ if(t) t.focus(); return; }
+    /* Their words join what we already know, so suggestions follow what they actually asked for. */
+    window.__smnWho = said + ' ' + String(window.__smnWho||'');
+    window.__smnSaid = said;
+    var online=/(online|social|instagram|facebook|story|reel|post|web|banner|email|digital|youtube|tiktok)/i.test(said);
+    var btn=document.querySelector('[data-mkstep="'+(online?'online':'print')+'"]');
+    if(btn) btn.click();
+    if(box) box.insertAdjacentHTML('afterbegin','<div style="font:600 12.5px Inter;color:#127A40;margin-bottom:6px">Heard you: &ldquo;'+said.replace(/</g,'&lt;')+'&rdquo;</div>');
+  });
+
+  /* The art-department microphone, inline — no second window. */
+  document.addEventListener('click',function(ev){
+    var m=ev.target && ev.target.closest && ev.target.closest('#smnMic');
+    if(!m) return; ev.preventDefault();
+    var st=document.getElementById('smnVoiceState');
+    function say(t){ if(st) st.textContent=t; }
+    if(!window.SparkVoice || typeof window.SparkVoice.start!=='function'){
+      say('The voice assistant is still loading \u2014 give it a second and tap again.'); return;
+    }
+    if(window.SparkVoice.isLive && window.SparkVoice.isLive()){
+      try{ window.SparkVoice.stop(); }catch(e){}
+      m.innerHTML='&#127908; Talk it through'; say(''); return;
+    }
+    m.innerHTML='&#9679; Listening \u2014 tap to stop';
+    say('Connecting\u2026');
+    try{
+      window.SparkVoice.start({
+        tokenPath:'/.netlify/functions/realtime-token-workspace',
+        greetOnConnect:true,
+        onState:function(x){ say(x==='heard'||x==='live'?'Listening \u2014 just talk.':(x==='speaking'?'Assistant speaking\u2026':(x==='thinking'?'Thinking\u2026':x))); },
+        onText:function(txt){ var t=document.getElementById('smnWant'); if(t&&txt){ t.value=(t.value?t.value+' ':'')+txt; } },
+        onError:function(e){ m.innerHTML='&#127908; Talk it through'; say('Voice could not start: '+(e&&e.message||e)); }
+      });
+    }catch(e){ m.innerHTML='&#127908; Talk it through'; say('Voice could not start: '+e.message); }
+  });
+
   /* Step buttons: print / online / everything. */
   document.addEventListener('click',function(ev){
     var st=ev.target && ev.target.closest && ev.target.closest('[data-mkstep]');
@@ -3643,13 +3693,14 @@ function panel(IDEA,NM){
   '<div class="dlhero-t">Everything below is yours to keep &mdash; royalty-free, forever.</div>'+
   '<div class="dlhero-s">Every name, logo, color, word, and 2K photo you see here is included with your $99 &mdash; download it, use it anywhere (print, web, social, ads), and keep it for good. No royalties, no limits.</div>'+
   '<button class="dlhero-btn" data-dlallzip="1">&#8681; Download everything (ZIP)</button></div>'+
+  smnMakeMore(IDEA)+
   '<div class="ph">Your logos &middot; pick one, some, or all</div>'+
   '<div class="lgnote">Tap a logo to select or deselect it, then download your picks as one ZIP &mdash; every file lands neatly inside a &ldquo;logos&rdquo; folder, ready to use.</div>'+
   '<div class="logopick">'+LOGO_SET.map(function(pr,i){return '<div class="lpcard sel" data-logosel="'+i+'"><span class="lpk">&check;</span><div class="lw">'+pr[1](NM.name,NM.mono,C)+'</div><div class="ll">'+pr[0]+'</div><button class="lpdl" data-logodl="'+i+'">&darr; SVG</button></div>';}).join('')+'</div>'+
   '<div class="logoacts"><button class="lp-all" data-logoall="1"><span class="lp-allbox">&check;</span> Select all</button><button class="act primary" data-logozip="1">&#8681; Download selected logos (ZIP)</button></div>'+
   '<div class="ph">Downloads &middot; '+ucount+' of 19 unlocked</div><div class="dgrid">'+DELIVS.map(function(d,i){var ok=okIdx(i);var isMerch=(d[0]==='R');return '<div class="dcell '+(ok?'ok':'lock')+'"><span class="dl">'+d[0]+'</span><div style="flex:1;min-width:0"><div class="dn">'+esc(d[1])+'</div><div class="ds">'+(ok?'Included &check;':'Locked')+'</div></div>'+(ok?(isMerch?'<button class="go" data-merchtoggle="1">Open</button>':'<button class="go" data-dv="'+i+'">Get</button>'):'<button class="go" data-up="1">Unlock</button>')+'</div>';}).join('')+'</div>'+
   /* GO 4 (Founder order): the delivery moment — files are print-ready, take them anywhere. */
-  '<div class="ph">Take it to print</div><div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:14px 16px;border:1px solid rgba(24,152,80,.28);background:rgba(24,152,80,.06);border-radius:12px;margin:2px 0 6px"><div style="flex:1;min-width:200px"><div style="font-weight:700;color:#127A40;font-size:14px">Your files are print-ready</div><div style="font-size:12.5px;color:#3A3F3C;margin-top:3px">Take them to any printer you like &mdash; or browse our launch partners.</div></div><a href="resources-affiliates.html" target="_blank" rel="noopener" style="display:inline-block;padding:11px 20px;background:#189850;color:#fff;border-radius:9px;text-decoration:none;font-weight:700;font-size:13.5px;white-space:nowrap">Print Anywhere &rarr;</a></div>'+smnPrintRows()+smnMakeMore(IDEA)+
+  '<div class="ph">Take it to print</div><div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:14px 16px;border:1px solid rgba(24,152,80,.28);background:rgba(24,152,80,.06);border-radius:12px;margin:2px 0 6px"><div style="flex:1;min-width:200px"><div style="font-weight:700;color:#127A40;font-size:14px">Your files are print-ready</div><div style="font-size:12.5px;color:#3A3F3C;margin-top:3px">Take them to any printer you like &mdash; or browse our launch partners.</div></div><a href="resources-affiliates.html" target="_blank" rel="noopener" style="display:inline-block;padding:11px 20px;background:#189850;color:#fff;border-radius:9px;text-decoration:none;font-weight:700;font-size:13.5px;white-space:nowrap">Print Anywhere &rarr;</a></div>'+smnPrintRows()+
   '<div id="merchpanel" class="hidden"><div class="ph">Brand Promo Items &middot; ready to download</div><div class="merch">'+MERCH.map(function(m,i){return '<div class="mcard"><div class="mprev">'+merchSVG(m,NM.mono,C)+'</div><div class="mrow"><span class="mn">'+esc(m)+'</span><button class="dl" data-merch="'+i+'">&darr; File</button></div></div>';}).join('')+'</div></div>'+
   // ALL SEVEN (2026-07-27, Founder order). The order header is now a card in this grid
   // alongside each name's own scene, so the customer downloads everything they paid for
