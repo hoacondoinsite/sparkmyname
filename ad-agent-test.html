@@ -326,6 +326,10 @@ function composeUnified(ctx, W, H, data) {
       const lines = wrapC(data.header, ctx.font); const lh = fs * 1.06; const y0 = topH; const ff = ctx.font;
       topDraws.push(() => { ctx.font = ff; ctx.fillStyle = cream; ctx.shadowColor='rgba(0,0,0,0.55)'; ctx.shadowBlur=S2*0.02; lines.forEach((ln,i)=>ctx.fillText(ln, cx, y0 + (i+0.85)*lh)); ctx.shadowBlur=0; });
       topH += lines.length * lh + S2*0.02; }
+    // GO 3: BRAND BLOCK — the tagline belongs WITH the name, not stranded at the bottom of the page.
+    if (data.tagline && data.header) { const tf = `italic 500 ${Math.round(S2*0.030)}px "Playfair Display", serif`;
+      const ty0 = topH; topDraws.push(() => { ctx.font = tf; ctx.fillStyle = mute; ctx.fillText('\u201C'+data.tagline+'\u201D', cx, ty0 + S2*0.030); });
+      topH += S2*0.052; }
     // ---- CENTRAL BADGE ----
     const posMap = { upper: 0.42, middle: 0.52, lower: 0.60 };
     const by = H * (posMap[data.badgeY] || posMap.middle);
@@ -360,6 +364,8 @@ function composeUnified(ctx, W, H, data) {
     const maxItems = data.maxItems || 4;
     const itemsList = (data.items || []).slice(0, maxItems);
     const twoCol = (data.columns === 2 || itemsList.length > 4) && W > H*0.55;
+    // GO 3: OFFER BLOCK — one cohesive unit, read in order: timing -> (discount badge above) -> items.
+    if (data.footer) { const f = `600 ${Math.round(S2*0.026)}px Inter, sans-serif`; botH += S2*0.05; const yOff = botH; botDraws.push(() => { ctx.font=f; ctx.fillStyle=gold; trackedCenter(ctx, data.footer.toUpperCase(), cx, H - H*0.03 - (botH - yOff), S2*0.008); }); }
     if (itemsList.length) {
       const f = `500 ${Math.round(S2*(twoCol?0.026:0.03))}px Inter, sans-serif`; const lh = S2*(twoCol?0.042:0.046);
       const colW = twoCol ? W*0.40 : maxW;
@@ -386,10 +392,9 @@ function composeUnified(ctx, W, H, data) {
           blocks.forEach(lines => { lines.forEach(ln => { ctx.fillText('\u2022  '+ln, cx, y); y += lh; }); y += S2*0.012; }); });
       }
     }
-    if (data.footer) { const f = `600 ${Math.round(S2*0.026)}px Inter, sans-serif`; botH += S2*0.05; const yOff = botH; botDraws.push(() => { ctx.font=f; ctx.fillStyle=gold; trackedCenter(ctx, data.footer.toUpperCase(), cx, H - H*0.03 - (botH - yOff), S2*0.008); }); }
     if (data.website) { const f = `600 ${Math.round(S2*0.024)}px Inter, sans-serif`; botH += S2*0.046; const yOff = botH; botDraws.push(() => { ctx.font=f; ctx.fillStyle=cream; trackedCenter(ctx, String(data.website).toUpperCase(), cx, H - H*0.03 - (botH - yOff), S2*0.006); }); }
     if (data.handle) { const f = `600 ${Math.round(S2*0.022)}px Inter, sans-serif`; botH += S2*0.042; const yOff = botH; botDraws.push(() => { ctx.font=f; ctx.fillStyle=gold; ctx.fillText(data.handle, cx, H - H*0.03 - (botH - yOff)); }); }
-    if (data.tagline) { const f = `italic 500 ${Math.round(S2*0.03)}px "Playfair Display", serif`; botH += S2*0.05; const yOff = botH; botDraws.push(() => { ctx.font=f; ctx.fillStyle=mute; ctx.fillText('\u201C'+data.tagline+'\u201D', cx, H - H*0.03 - (botH - yOff)); }); }
+    if (data.tagline && !data.header) { const f = `italic 500 ${Math.round(S2*0.03)}px "Playfair Display", serif`; botH += S2*0.05; const yOff = botH; botDraws.push(() => { ctx.font=f; ctx.fillStyle=mute; ctx.fillText('\u201C'+data.tagline+'\u201D', cx, H - H*0.03 - (botH - yOff)); }); }
     const botTop = H - H*0.03 - botH;
     // ---- ADAPTIVE LEGIBILITY (samples the real pixels; feathered scrim only where the background is light) ----
     function zoneLum(y0, y1) { try {
