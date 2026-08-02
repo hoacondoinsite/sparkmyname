@@ -569,6 +569,7 @@ async function loadBrands(){
     <select id="reelSecs" style="width:auto"><option value="12">12s</option><option value="15">15s</option><option value="20">20s</option><option value="30">30s</option></select>
     <button id="reelLoad" type="button" style="width:auto;padding:12px 14px">↻</button>
     <button id="reelGo" type="button" style="width:auto;padding:12px 20px;background:#189850;color:#fff;font:700 14px Inter">Render reel</button>
+    <button id="reelCine" type="button" style="width:auto;padding:12px 20px;background:linear-gradient(120deg,#7C3AED,#EC4899);color:#fff;font:700 14px Inter">🎬 Cinematic (real footage + voice)</button>
   </div>
   <div id="reelStage" style="margin-top:12px;background:#050D1E;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center">
     <div id="reelStatus" class="note" style="margin:0">Pick a client, then press Render reel.</div>
@@ -758,6 +759,49 @@ async function loadBrands(){
       }
     });
   })();
+
+  // ---- CINEMATIC: real Veo footage + voiceover (renders server-side, minutes not seconds) ----
+  $('reelCine').addEventListener('click', async function(){
+    var id=$('reelBrand').value; if(!id) return say('Pick a client first.');
+    var b=BRANDS.filter(function(z){return z.brand_id===id;})[0]; if(!b) return say('That client did not load.');
+    var tok=($('tok')&&$('tok').value||'').trim(); if(!tok) return say('Enter your founder token first.');
+    var secs=Number($('reelSecs').value)||16;
+    var reelId='reel_'+(b.brand_name||'brand').toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,24)+'_'+Date.now();
+    $('reelCine').disabled=true; $('reelGo').disabled=true;
+    $('reelVideo').style.display='none'; $('reelActs').style.display='none'; $('reelSaved').textContent='';
+    say('Commissioning real footage from Veo — this takes a few MINUTES, not seconds. You can leave this tab open.');
+    try{
+      fetch('/.netlify/functions/sandbox-reel-produce-background',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({founderToken:tok,reelId:reelId,seconds:secs,brandName:b.brand_name,industry:b.industry,
+          headline:window.__reelHeadline||'',tagline:b.tagline||'',website:b.website||'',
+          scenePrompt:window.__reelScene||''})}).catch(function(){});
+      var t0=Date.now(), done=false;
+      while(!done && Date.now()-t0 < 15*60*1000){
+        await new Promise(function(r){setTimeout(r,7000);});
+        var m={}; try{ m=await (await fetch('/.netlify/functions/sandbox-reel-status?reelId='+encodeURIComponent(reelId))).json(); }catch(e){}
+        var n=(m.scenes||[]).length;
+        if(m.status==='ready'){ done=true; playCinematic(m); }
+        else if(m.status==='failed'){ done=true; say('Veo could not render: '+((m.errors&&m.errors[0]&&m.errors[0].error)||'unknown error')); }
+        else say('Filming… '+n+' of '+(m.sceneCount||'?')+' scenes rendered'+((m.errors&&m.errors.length)?(' · '+m.errors.length+' issue(s)'):'')+' — this takes a few minutes.');
+      }
+      if(!done) say('Still rendering after 15 minutes — check back, or look at sandbox_audit_logs.');
+    }catch(e){ say('Cinematic render failed: '+e.message); }
+    finally{ $('reelCine').disabled=false; $('reelGo').disabled=false; }
+  });
+
+  // Plays the Veo scenes back-to-back with the voiceover over the top (no stitching needed).
+  function playCinematic(m){
+    var v=$('reelVideo'), i=0, list=(m.scenes||[]).map(function(s){return s.url;});
+    if(!list.length) return say('No scenes came back.');
+    $('reelStatus').style.display='none'; v.style.display='block'; v.muted=false; v.controls=true;
+    v.src=list[0]; v.play().catch(function(){});
+    v.onended=function(){ i++; if(i<list.length){ v.src=list[i]; v.play().catch(function(){}); } };
+    if(m.voiceUrl){ try{ var a=new Audio(m.voiceUrl); a.play().catch(function(){});
+      v.addEventListener('pause',function(){try{a.pause();}catch(e){}}); }catch(e){} }
+    $('reelActs').style.display='flex';
+    $('reelDl').href=list[0]; $('reelDl').download=(m.brandName||'brand').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-scene1.mp4';
+    $('reelSaved').textContent='Cinematic reel ready — '+list.length+' scenes'+(m.voiceUrl?' + voiceover':'')+'. Engine: '+(m.engine||'veo');
+  }
 
   say('Enter the founder token above, then press \u21bb to load clients.');
 })();
