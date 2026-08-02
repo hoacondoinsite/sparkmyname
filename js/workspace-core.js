@@ -56,14 +56,21 @@ var SMN_SUITE_LABEL={print:'Print & direct mail',signage:'Signs & large format',
 function smnMakeMore(IDEA){
   try{
     if(!window.SparkCatalog || !window.SparkCatalog.FORMATS) return '';
-    /* The order endpoint keys off the REPORT (the SPK-... key in the URL), not the brand id.
-       _urlKey() is the same helper the rest of the workspace uses to identify the report. */
-    try{ window.__smnReport = (typeof _urlKey==='function' ? _urlKey() : '') || window.__smnReport || ''; }catch(e){}
+    /* Resolve the report key exactly the way the rest of the workspace does
+       (the concierge uses _urlR() || IDEA.id). _urlKey() alone returned '' inside the
+       workspace, which is why ordering failed with 'reportId required'. */
+    try{
+      var _rk='';
+      if(typeof _urlR==='function') _rk=_urlR()||'';
+      if(!_rk && typeof _urlKey==='function') _rk=_urlKey()||'';
+      if(!_rk && IDEA && IDEA.id) _rk=IDEA.id;
+      window.__smnReport=_rk||window.__smnReport||'';
+    }catch(e){}
     /* nameSlug tells the endpoint WHICH of the six brands in that report this is. */
     try{ window.__smnBrandName = (typeof NM!=='undefined' && NM && NM.name) ? NM.name : ((IDEA&&IDEA.name)||''); }catch(e){}
     var order=['print','signage','apparel','merch','packaging','social','display','creator'];
     var html='<div class="ph">Make something else</div>'+
-      '<div style="font-size:12.5px;color:#3A3F3C;margin:-2px 0 10px">Every piece below is built in your brand. Pick one and we make it &mdash; it lands in your workspace.</div>';
+      '<div style="font-size:12.5px;color:#3A3F3C;margin:-2px 0 10px">Tap anything here and we make it in your brand &mdash; using your name, tagline and the idea you gave us. Nothing to fill in, nothing to buy. It lands in your workspace within 24 hours.</div>';
     order.forEach(function(su){
       var list=window.SparkCatalog.bySuite(su); if(!list||!list.length) return;
       html+='<details style="border:1px solid rgba(0,0,0,.10);border-radius:10px;margin-bottom:8px;background:#FBFCFB">'+
@@ -96,8 +103,15 @@ if(!window.__smnMakeBound){
     ev.preventDefault();
     var key=b.getAttribute('data-mkfmt');
     var f=window.SparkCatalog && window.SparkCatalog.specFor(key); if(!f) return;
-    var brief=window.prompt('What should this '+f.label+' say? (a sentence is enough)');
-    if(brief===null) return;
+    /* No question asked. The system already knows the brand, the tagline and the idea the
+       customer typed — that IS the brief. Asking a business owner to write copy for a format
+       they've never heard of was the wrong question to ask. */
+    var brief='';
+    try{
+      brief=[ (NM&&NM.name)||'', (NM&&NM.tagline)||'', (IDEA&&IDEA.said)||'' ]
+              .filter(Boolean).join(' \u2014 ');
+    }catch(e){}
+    if(!brief) brief='Use this brand\u2019s existing name, tagline and details.';
     var tok='', mail=''; try{ tok=localStorage.getItem('smn_founder_token')||'';
       mail=localStorage.getItem('smn_email')||''; }catch(e){}
     b.disabled=true; b.textContent='Sending\u2026';
