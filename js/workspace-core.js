@@ -43,6 +43,36 @@ function slug(s){return String(s==null?'':s).toLowerCase().replace(/[^a-z0-9]+/g
 var TIER_DEPTH={spark:7,plus:17,studio:19,bib:19},TIER_NAME={spark:'Starter',plus:'Pro',studio:'Signature',bib:'Business in a Box'},TIER_PRICE={spark:'$99',plus:'$99',studio:'$99',bib:'$99'},TIER_RANK={spark:1,plus:2,studio:3,bib:3};
 var DELIVS=[['A','Name & Domain'],['B','Logo Suite'],['C','Color System'],['D','Typography'],['E','Taglines'],['F','Brand Bio'],['G','Social Kit'],['H','Business Cards'],['I','Flyers'],['J','Signage'],['K','Ad Creatives'],['L','Launch Video'],['M','Email Signature'],['N','Favicon'],['O','Brand Guidelines'],['P','Letterhead'],['Q','Pitch Deck'],['R','Brand Promo Items'],['S','Website Starter']];
 
+/* PRODUCTION SPECS + PARTNER ROUTING for the vault (Aug 2 2026).
+   Reads window.SparkCatalog (js/spark-catalog.js, loaded before this file). Computed here at
+   top level — never inside the HTML concatenation, which would silently detach the markup.
+   Fully guarded: if the bridge is absent this yields '' and the vault renders exactly as before. */
+function smnPrintRows(){
+  try{
+    if(!window.SparkCatalog || typeof window.SparkCatalog.routeFor!=='function') return '';
+    var MAP={'Business Cards':'business_card','Flyers':'flyer_letter','Signage':'yard_sign',
+             'Letterhead':'letterhead','Brand Promo Items':'mug_wrap','Social Kit':'meta_feed',
+             'Ad Creatives':'iab_medium_rect'};
+    var out=[];
+    DELIVS.forEach(function(d){
+      var k=MAP[d[1]]; if(!k) return;
+      var r=window.SparkCatalog.routeFor(k); if(!r||!r.format) return;
+      var f=r.format;
+      var size=f.widthIn?(f.widthIn+'\u00d7'+f.heightIn+' in'):(f.pixelW+'\u00d7'+f.pixelH+' px');
+      var spec=size+(f.bleedIn?(' \u00b7 '+f.bleedIn+' in bleed'):'')+' \u00b7 '+f.dpi+' DPI';
+      var right = r.needsLayoutWork
+        ? '<span style="font-size:11.5px;color:#8A6B22">Layout in progress</span>'
+        : (r.partner
+            ? '<a href="'+r.url+'" target="_blank" rel="noopener" style="font-size:12px;font-weight:700;color:#127A40;text-decoration:none;white-space:nowrap">'+r.action+' &rarr;</a>'
+            : '<span style="font-size:11.5px;color:#5A625E">Ready to download</span>');
+      out.push('<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid rgba(0,0,0,.06);flex-wrap:wrap">'+
+        '<div style="min-width:0"><div style="font-weight:700;font-size:13px;color:#141414">'+d[1]+'</div>'+
+        '<div style="font-size:11.5px;color:#5A625E">'+spec+'</div></div>'+right+'</div>');
+    });
+    return out.length ? ('<div style="margin-top:10px">'+out.join('')+'</div>') : '';
+  }catch(e){ return ''; }
+}
+
 /* ===== IDEAS → each has idea-level content + several generated NAMES ===== */
 var IDEAS=[
 {
@@ -3434,7 +3464,7 @@ function panel(IDEA,NM){
   '<div class="logoacts"><button class="lp-all" data-logoall="1"><span class="lp-allbox">&check;</span> Select all</button><button class="act primary" data-logozip="1">&#8681; Download selected logos (ZIP)</button></div>'+
   '<div class="ph">Downloads &middot; '+ucount+' of 19 unlocked</div><div class="dgrid">'+DELIVS.map(function(d,i){var ok=okIdx(i);var isMerch=(d[0]==='R');return '<div class="dcell '+(ok?'ok':'lock')+'"><span class="dl">'+d[0]+'</span><div style="flex:1;min-width:0"><div class="dn">'+esc(d[1])+'</div><div class="ds">'+(ok?'Included &check;':'Locked')+'</div></div>'+(ok?(isMerch?'<button class="go" data-merchtoggle="1">Open</button>':'<button class="go" data-dv="'+i+'">Get</button>'):'<button class="go" data-up="1">Unlock</button>')+'</div>';}).join('')+'</div>'+
   /* GO 4 (Founder order): the delivery moment — files are print-ready, take them anywhere. */
-  '<div class="ph">Take it to print</div><div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:14px 16px;border:1px solid rgba(24,152,80,.28);background:rgba(24,152,80,.06);border-radius:12px;margin:2px 0 6px"><div style="flex:1;min-width:200px"><div style="font-weight:700;color:#127A40;font-size:14px">Your files are print-ready</div><div style="font-size:12.5px;color:#3A3F3C;margin-top:3px">Take them to any printer you like &mdash; or browse our launch partners.</div></div><a href="resources-affiliates.html" target="_blank" rel="noopener" style="display:inline-block;padding:11px 20px;background:#189850;color:#fff;border-radius:9px;text-decoration:none;font-weight:700;font-size:13.5px;white-space:nowrap">Print Anywhere &rarr;</a></div>'+
+  '<div class="ph">Take it to print</div><div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:14px 16px;border:1px solid rgba(24,152,80,.28);background:rgba(24,152,80,.06);border-radius:12px;margin:2px 0 6px"><div style="flex:1;min-width:200px"><div style="font-weight:700;color:#127A40;font-size:14px">Your files are print-ready</div><div style="font-size:12.5px;color:#3A3F3C;margin-top:3px">Take them to any printer you like &mdash; or browse our launch partners.</div></div><a href="resources-affiliates.html" target="_blank" rel="noopener" style="display:inline-block;padding:11px 20px;background:#189850;color:#fff;border-radius:9px;text-decoration:none;font-weight:700;font-size:13.5px;white-space:nowrap">Print Anywhere &rarr;</a></div>'+smnPrintRows()+
   '<div id="merchpanel" class="hidden"><div class="ph">Brand Promo Items &middot; ready to download</div><div class="merch">'+MERCH.map(function(m,i){return '<div class="mcard"><div class="mprev">'+merchSVG(m,NM.mono,C)+'</div><div class="mrow"><span class="mn">'+esc(m)+'</span><button class="dl" data-merch="'+i+'">&darr; File</button></div></div>';}).join('')+'</div></div>'+
   // ALL SEVEN (2026-07-27, Founder order). The order header is now a card in this grid
   // alongside each name's own scene, so the customer downloads everything they paid for
