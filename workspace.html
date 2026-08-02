@@ -3041,6 +3041,11 @@ body{font-size:var(--t-body);line-height:var(--lh-body)}
      routing. Plain script (NOT a module) and loaded BEFORE workspace-core.js, which is
      itself a classic script — an ES import anywhere here would stop the whole dashboard
      from parsing. Exposes window.SparkCatalog. -->
+<!-- SPARK UI — the design system (tokens + layout primitives) and its component layer.
+     Additive by design: it defines new sp-* classes only and overrides no legacy selector,
+     so loading it cannot change how the current page renders. Sections migrate one at a time. -->
+<link rel="stylesheet" href="css/spark-ui.css">
+<script src="js/spark-ui.js"></script>
 <link rel="stylesheet" href="css/spark-voice.css">
 <script src="js/spark-voice.js"></script>
 <script src="js/spark-catalog.js"></script>

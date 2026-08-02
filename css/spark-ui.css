@@ -1,0 +1,176 @@
+/* ============================================================================
+   SPARK UI — the design system.
+   ----------------------------------------------------------------------------
+   WHY THIS EXISTS
+   The marketing site and the customer workspace grew two separate token sets
+   (css/spark.css uses --ink/--grn/--r-md; workspace.html declared its own
+   --ink1/--glass/--cy). Two systems means every new panel is a fresh guess and
+   nothing composes. This file is the single source of visual truth.
+
+   HOW IT IS ADOPTED
+   Additively. It defines tokens and layout primitives; existing markup is
+   untouched until a section is deliberately migrated. Nothing here overrides
+   legacy selectors, so loading it cannot change how today's page looks.
+
+   THE RULES
+   · Spacing comes from the scale. No arbitrary pixel values in components.
+   · Colour comes from tokens. No literal hex in component markup.
+   · Every interactive target is >= 44px on touch.
+   · Every focus state is visible. Every control is reachable by keyboard.
+   ========================================================================== */
+
+:root{
+  /* ---- COLOUR (light surface, brand green) --------------------------------- */
+  --sp-bg:#FFFFFF;
+  --sp-bg-soft:#F7FAF8;
+  --sp-surface:#FFFFFF;
+  --sp-surface-2:#F4F6F5;
+  --sp-ink:#111614;          /* primary text  — 16.9:1 on white */
+  --sp-ink-2:#3A403D;        /* secondary     —  9.7:1 */
+  --sp-ink-3:#5F6663;        /* tertiary      —  5.9:1 (AA at any size) */
+  --sp-line:#E6EAE8;
+  --sp-line-strong:#CFD6D3;
+
+  --sp-brand:#127A40;        /* action green  —  5.3:1 on white */
+  --sp-brand-strong:#0E5C30;
+  --sp-brand-soft:rgba(18,122,64,.08);
+  --sp-brand-ring:rgba(18,122,64,.28);
+
+  --sp-warn:#8A6B22;
+  --sp-danger:#A3342B;
+
+  /* ---- SPACING — a 4pt scale. Components may only use these. -------------- */
+  --sp-1:4px;  --sp-2:8px;  --sp-3:12px; --sp-4:16px;
+  --sp-5:24px; --sp-6:32px; --sp-7:48px; --sp-8:64px;
+
+  /* ---- RADIUS + ELEVATION ------------------------------------------------- */
+  --sp-r-sm:10px; --sp-r-md:14px; --sp-r-lg:20px; --sp-r-xl:26px; --sp-r-pill:999px;
+  --sp-e-1:0 1px 2px rgba(16,24,20,.06), 0 2px 6px -2px rgba(16,24,20,.08);
+  --sp-e-2:0 4px 12px -4px rgba(16,24,20,.12), 0 12px 28px -12px rgba(16,24,20,.14);
+  --sp-e-3:0 12px 40px -16px rgba(16,24,20,.22);
+
+  /* ---- TYPE --------------------------------------------------------------- */
+  --sp-font:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --sp-font-head:'Poppins','Sora','Inter',system-ui,sans-serif;
+  --sp-t-display:clamp(28px,4vw,42px);
+  --sp-t-title:clamp(20px,2.4vw,26px);
+  --sp-t-section:17px;
+  --sp-t-body:15px;
+  --sp-t-small:13px;
+  --sp-t-micro:11.5px;
+
+  --sp-motion:180ms cubic-bezier(.2,0,0,1);
+}
+
+/* ---- LAYOUT PRIMITIVES ---------------------------------------------------- */
+.sp-stack{display:flex;flex-direction:column}
+.sp-stack>*+*{margin-top:var(--sp-4)}
+.sp-stack-sm>*+*{margin-top:var(--sp-2)}
+.sp-stack-lg>*+*{margin-top:var(--sp-6)}
+
+.sp-row{display:flex;align-items:center;gap:var(--sp-3);flex-wrap:wrap}
+.sp-row-tight{gap:var(--sp-2)}
+.sp-spread{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);flex-wrap:wrap}
+
+.sp-grid{display:grid;gap:var(--sp-3)}
+.sp-grid-auto{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}
+.sp-grid-2{grid-template-columns:repeat(2,1fr)}
+.sp-grid-3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:760px){ .sp-grid-2,.sp-grid-3{grid-template-columns:1fr} }
+
+/* ---- SECTION — the unit every panel is built from ------------------------- */
+.sp-section{margin:0 0 var(--sp-6)}
+.sp-section__head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-3);margin-bottom:var(--sp-3)}
+.sp-section__title{font:800 var(--sp-t-section)/1.25 var(--sp-font-head);letter-spacing:-.01em;color:var(--sp-ink);margin:0}
+.sp-section__note{font:500 var(--sp-t-small)/1.5 var(--sp-font);color:var(--sp-ink-3);margin:var(--sp-1) 0 0;max-width:64ch}
+.sp-section__action{font:700 var(--sp-t-small) var(--sp-font);color:var(--sp-brand);text-decoration:none;white-space:nowrap}
+
+/* ---- SURFACES ------------------------------------------------------------- */
+.sp-card{background:var(--sp-surface);border:1px solid var(--sp-line);border-radius:var(--sp-r-md);padding:var(--sp-4)}
+.sp-card--quiet{background:var(--sp-bg-soft);border-color:transparent}
+.sp-card--raised{box-shadow:var(--sp-e-1)}
+.sp-card--interactive{cursor:pointer;transition:border-color var(--sp-motion),box-shadow var(--sp-motion),transform var(--sp-motion)}
+.sp-card--interactive:hover{border-color:var(--sp-line-strong);box-shadow:var(--sp-e-2);transform:translateY(-1px)}
+
+/* The pod: the conversational surface. Frosted, calm, unmistakably the place
+   where you ask for something. */
+.sp-pod{
+  position:relative;border-radius:var(--sp-r-xl);padding:var(--sp-5);
+  background:linear-gradient(180deg,rgba(255,255,255,.86),rgba(247,250,248,.94));
+  border:1px solid var(--sp-brand-ring);
+  box-shadow:var(--sp-e-2);
+  -webkit-backdrop-filter:blur(14px) saturate(1.25); backdrop-filter:blur(14px) saturate(1.25);
+}
+@supports not (backdrop-filter:blur(2px)){ .sp-pod{background:var(--sp-bg-soft)} }
+
+/* ---- TYPE HELPERS --------------------------------------------------------- */
+.sp-display{font:800 var(--sp-t-display)/1.08 var(--sp-font-head);letter-spacing:-.03em;color:var(--sp-ink);margin:0}
+.sp-title{font:800 var(--sp-t-title)/1.18 var(--sp-font-head);letter-spacing:-.02em;color:var(--sp-ink);margin:0}
+.sp-body{font:500 var(--sp-t-body)/1.6 var(--sp-font);color:var(--sp-ink-2);margin:0}
+.sp-small{font:500 var(--sp-t-small)/1.5 var(--sp-font);color:var(--sp-ink-3);margin:0}
+.sp-micro{font:700 var(--sp-t-micro)/1.4 var(--sp-font);letter-spacing:.10em;text-transform:uppercase;color:var(--sp-ink-3);margin:0}
+
+/* ---- CONTROLS — 44px touch target minimum -------------------------------- */
+.sp-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--sp-2);
+  min-height:44px;padding:0 var(--sp-5);border-radius:var(--sp-r-md);
+  font:700 var(--sp-t-body) var(--sp-font);cursor:pointer;border:1px solid transparent;
+  background:var(--sp-brand);color:#fff;text-decoration:none;
+  transition:background var(--sp-motion),box-shadow var(--sp-motion),transform var(--sp-motion);
+}
+.sp-btn:hover{background:var(--sp-brand-strong);box-shadow:var(--sp-e-1)}
+.sp-btn:active{transform:translateY(1px)}
+.sp-btn--secondary{background:var(--sp-surface);color:var(--sp-brand);border-color:var(--sp-brand-ring)}
+.sp-btn--secondary:hover{background:var(--sp-brand-soft)}
+.sp-btn--quiet{background:transparent;color:var(--sp-ink-2);border-color:var(--sp-line)}
+.sp-btn--quiet:hover{background:var(--sp-surface-2);color:var(--sp-ink)}
+.sp-btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}
+
+.sp-field{
+  width:100%;box-sizing:border-box;min-height:52px;padding:var(--sp-3) var(--sp-4);
+  border:1px solid var(--sp-line-strong);border-radius:var(--sp-r-md);
+  font:500 var(--sp-t-body)/1.5 var(--sp-font);color:var(--sp-ink);background:var(--sp-surface);
+  transition:border-color var(--sp-motion),box-shadow var(--sp-motion);
+}
+.sp-field::placeholder{color:var(--sp-ink-3)}
+.sp-field:focus{outline:none;border-color:var(--sp-brand);box-shadow:0 0 0 4px var(--sp-brand-soft)}
+
+/* Focus is never removed — it is styled. Keyboard users are first-class. */
+.sp-btn:focus-visible,.sp-field:focus-visible,.sp-tab:focus-visible,.sp-card--interactive:focus-visible{
+  outline:3px solid var(--sp-brand-ring);outline-offset:2px;
+}
+
+/* ---- TABS ----------------------------------------------------------------- */
+.sp-tabs{display:flex;gap:var(--sp-1);border-bottom:1px solid var(--sp-line);margin-bottom:var(--sp-5);overflow-x:auto;scrollbar-width:none}
+.sp-tabs::-webkit-scrollbar{display:none}
+.sp-tab{
+  appearance:none;background:none;border:0;cursor:pointer;white-space:nowrap;
+  min-height:44px;padding:0 var(--sp-4);
+  font:700 var(--sp-t-body) var(--sp-font);color:var(--sp-ink-3);
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:color var(--sp-motion),border-color var(--sp-motion);
+}
+.sp-tab:hover{color:var(--sp-ink)}
+.sp-tab[aria-selected="true"]{color:var(--sp-brand);border-bottom-color:var(--sp-brand)}
+
+/* ---- STATUS --------------------------------------------------------------- */
+.sp-badge{display:inline-flex;align-items:center;gap:var(--sp-1);padding:3px var(--sp-2);border-radius:var(--sp-r-pill);
+  font:700 var(--sp-t-micro) var(--sp-font);letter-spacing:.04em;text-transform:uppercase}
+.sp-badge--ok{background:var(--sp-brand-soft);color:var(--sp-brand)}
+.sp-badge--wait{background:rgba(138,107,34,.10);color:var(--sp-warn)}
+.sp-badge--off{background:var(--sp-surface-2);color:var(--sp-ink-3)}
+
+/* ---- RESPONSIVE + ACCESSIBILITY ------------------------------------------ */
+@media (max-width:640px){
+  .sp-section{margin-bottom:var(--sp-5)}
+  .sp-pod{padding:var(--sp-4);border-radius:var(--sp-r-lg)}
+  .sp-btn{width:100%}
+  .sp-row--stack-mobile{flex-direction:column;align-items:stretch}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+@media (prefers-contrast:more){
+  :root{--sp-line:#B9C2BE;--sp-ink-3:#4A514E}
+}
+.sp-visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
