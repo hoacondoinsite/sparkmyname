@@ -103,15 +103,61 @@ if(!window.__smnMakeBound){
     ev.preventDefault();
     var key=b.getAttribute('data-mkfmt');
     var f=window.SparkCatalog && window.SparkCatalog.specFor(key); if(!f) return;
-    /* No question asked. The system already knows the brand, the tagline and the idea the
-       customer typed — that IS the brief. Asking a business owner to write copy for a format
-       they've never heard of was the wrong question to ask. */
-    var brief='';
+    /* THE RIGHT QUESTION, OR NO QUESTION AT ALL.
+       Two earlier attempts were both wrong: asking "what should this VIP access pass say?"
+       (a business owner has no idea) and then asking nothing at all (which cheerfully ordered
+       a MENU for a music festival with no idea what food). The rule now:
+         - pieces whose CONTENT cannot be guessed get ONE plain-English question
+         - everything else is built from the brand facts we already hold, with no question */
+    var ASK={
+      menu_card:'What food and drink should the menu list? (just name them, prices if you have them)',
+      table_tent:'What should the table tent promote?',
+      gift_card:'What is the gift card worth, or what does it get them?',
+      loyalty_card:'What do they earn, and after how many visits?',
+      vip_pass:'What does this pass get someone, and for which event or date?',
+      postcard_4x6:'What is this postcard announcing?',
+      postcard_5x7:'What is this postcard announcing?',
+      postcard_eddm:'What is this mailer announcing to the neighbourhood?',
+      door_hanger:'What should the door hanger offer or announce?',
+      rack_card:'What should the rack card explain or offer?',
+      coaster:'What should the coaster say?',
+      wine_label:'What is in the bottle, and any vintage or varietal?',
+      product_label:'What product is this label for?',
+      hang_tag:'What product is this tag for, and any price or size?',
+      shelf_talker:'What is this shelf talker pointing at?',
+      belly_band:'What is in the box?',
+      cup_sleeve:'What should the cup sleeve say?',
+      stream_schedule:'What days and times do you stream?',
+      job_posting:'What role are you hiring for?',
+      quote_card_square:'What is the quote, and who said it?',
+      quote_card_vertical:'What is the quote, and who said it?'
+    };
+    var brandBits='';
+    try{ brandBits=[ (NM&&NM.name)||'', (NM&&NM.tagline)||'', (IDEA&&IDEA.said)||'' ].filter(Boolean).join(' \u2014 '); }catch(e){}
+    var extra='';
+    if(ASK[key]){
+      extra=window.prompt(ASK[key]);
+      if(extra===null) return;              /* Cancel means cancel */
+      extra=String(extra||'').trim();
+      if(!extra){ if(typeof toast==='function') toast('Nothing ordered \u2014 that piece needs a line from you.'); return; }
+    }
+    /* CONTACT PIECES: a business card with no phone or email is a wasted print. Use the details
+       the customer already saved (the same _bd store the 'Waiting on you' items read), and if
+       they are missing, say so plainly instead of quietly ordering a blank card. */
+    var NEEDS_CONTACT={business_card:1,business_card_square:1,letterhead:1,envelope_10:1,
+      envelope_catalog:1,id_badge:1,rack_card:1,door_hanger:1,loyalty_card:1,vip_pass:1};
+    var contactLine='';
     try{
-      brief=[ (NM&&NM.name)||'', (NM&&NM.tagline)||'', (IDEA&&IDEA.said)||'' ]
-              .filter(Boolean).join(' \u2014 ');
+      var bd=(typeof _bd==='function') ? _bd(IDEA||{}) : {};
+      var cl=[]; if(bd.phone)cl.push(bd.phone); if(bd.email)cl.push(bd.email); if(bd.address)cl.push(bd.address);
+      contactLine=cl.join(' \u00b7 ');
+      if(NEEDS_CONTACT[key] && !contactLine){
+        if(typeof toast==='function') toast('That piece needs your phone or email first \u2014 use \u201cAdd / edit my details\u201d above, then tap Make this again.');
+        return;
+      }
     }catch(e){}
-    if(!brief) brief='Use this brand\u2019s existing name, tagline and details.';
+    var brief = (extra ? (extra + ' \u2014 ') : '') + (brandBits || '') + (contactLine ? (' \u2014 contact: ' + contactLine) : '');
+    if(!brief.trim()) brief='Use this brand\u2019s name, tagline and details.';
     var tok='', mail=''; try{ tok=localStorage.getItem('smn_founder_token')||'';
       mail=localStorage.getItem('smn_email')||''; }catch(e){}
     b.disabled=true; b.textContent='Sending\u2026';
