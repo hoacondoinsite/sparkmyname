@@ -96,11 +96,14 @@ function heroPrompt(brand){
        photo crowning every workspace looked flatter than the assets beneath it. Same direction,
        now on both. */
     'Shot on a full-frame camera with a fast prime lens.',
-    'Dramatic cinematic lighting, volumetric light through real atmosphere, true-to-life materials',
+    'Bright, clean cinematic lighting — abundant natural daylight, crisp and luminous, true-to-life materials',
     'with honest reflections and micro-texture, ultra-detailed, photoreal, shallow depth of field',
-    'with a sharp focal point, rich atmosphere and depth,',
+    'with a sharp focal point, rich colour and depth,',
     'flagship advertising-campaign quality, a single strong focal point, clear visual hierarchy, balanced negative space, expensive-looking.',
     'Modern and current — photographed today, not a period or archival image.',
+    'CLARITY LAW: the frame must be BRIGHT, CLEAN and CRISP. Absolutely NO haze, fog, smoke, mist,',
+    'atmospheric particles, visible light beams or god-rays, heavy backlit flare, murk, or dim underexposed interiors.',
+    'Well-lit and airy with clean shadows and true colour — never dark, moody, hazy, smoky or gloomy.',
     'It must feel like a real photograph, never a digital illustration, render, 3D graphic, or flat vector art.',
     'CRITICAL: absolutely NO text, NO words, NO letters, NO numbers, NO signage, NO logos, NO labels,',
     'and NO typography of any kind anywhere in the image — a purely visual, text-free scene.'

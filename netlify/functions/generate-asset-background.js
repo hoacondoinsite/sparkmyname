@@ -255,7 +255,7 @@ function openWorkOrder(spec, name, kit, answers) {
     const frame = variants.lineFor((answers && answers.look) || frameFor(spec.request_text));
     if (frame) parts.push('Variation: ' + frame + '.');
     parts.push('Shot on a full-frame camera with a fast prime lens. Dramatic cinematic lighting, ' +
-               'volumetric light through real atmosphere, true-to-life materials with honest ' +
+               'abundant clean natural daylight, crisp and luminous, true-to-life materials with honest ' +
                'reflections and micro-texture, shallow depth of field with a sharp focal point, ' +
                'rich depth, flagship advertising-campaign quality, expensive-looking.');
     parts.push('It must feel like a real photograph — never a digital illustration, never a ' +
