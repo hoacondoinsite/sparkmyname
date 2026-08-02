@@ -151,7 +151,13 @@ const CONFIG = {
   REJECT_URL:  '/.netlify/functions/deliverable-reject',        // writes olin_handoffs
   // ONE thing to fill: your SMN_FOUNDER_TOKEN. This page is noindex + should stay
   // login-gated; never put this token on a public page.
-  FOUNDER_TOKEN: 'slicetest2026',
+  // No credential in source. Asked once per tab and held in sessionStorage only
+  // (cleared when the tab closes); never written to the repo.
+  get FOUNDER_TOKEN() {
+    var t = sessionStorage.getItem('smn_ft');
+    if (!t) { t = window.prompt('Founder passcode (SMN_FOUNDER_TOKEN):') || ''; if (t) sessionStorage.setItem('smn_ft', t); }
+    return t;
+  },
   // A real brand to test against (Brickstone Pizza):
   TEST_REPORT_ID: '7ub8tcfe8op6f2',
   TEST_NAME_SLUG: 'slice-on-the-go'

@@ -10,9 +10,7 @@ exports.handler = async (event) => {
     const b = JSON.parse(event.body || '{}');
     const isFounder = !!b.founderToken && b.founderToken === process.env.SMN_FOUNDER_TOKEN;
     if (!isFounder) {
-      var pl = b.founderToken ? String(b.founderToken).length : 0;
-      var sl = process.env.SMN_FOUNDER_TOKEN ? String(process.env.SMN_FOUNDER_TOKEN).length : 0;
-      return resp(403, { error: 'Token mismatch \u2014 page sent ' + pl + ' chars; server env ' + (sl ? (sl + ' chars') : 'NOT SET (function cannot see SMN_FOUNDER_TOKEN)') + '. (slicetest2026 = 13 chars)' });
+      return resp(403, { error: 'Unauthorized: invalid or missing founder token.' });
     }
     if (!(b.widthIn > 0) || !(b.heightIn > 0)) return resp(400, { error: 'widthIn and heightIn (inches) required.' });
 
