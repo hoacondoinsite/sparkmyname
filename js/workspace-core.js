@@ -56,9 +56,6 @@ var SMN_SUITE_LABEL={print:'Print & direct mail',signage:'Signs & large format',
 function smnMakeMore(IDEA){
   try{
     if(!window.SparkCatalog || !window.SparkCatalog.FORMATS) return '';
-    /* Resolve the report key exactly the way the rest of the workspace does
-       (the concierge uses _urlR() || IDEA.id). _urlKey() alone returned '' inside the
-       workspace, which is why ordering failed with 'reportId required'. */
     try{
       var _rk='';
       if(typeof _urlR==='function') _rk=_urlR()||'';
@@ -66,37 +63,88 @@ function smnMakeMore(IDEA){
       if(!_rk && IDEA && IDEA.id) _rk=IDEA.id;
       window.__smnReport=_rk||window.__smnReport||'';
     }catch(e){}
-    /* nameSlug tells the endpoint WHICH of the six brands in that report this is. */
-    try{ window.__smnBrandName = (typeof NM!=='undefined' && NM && NM.name) ? NM.name : ((IDEA&&IDEA.name)||''); }catch(e){}
-    var order=['print','signage','apparel','merch','packaging','social','display','creator'];
-    var html='<div class="ph">Make something else</div>'+
-      '<div style="font-size:12.5px;color:#3A3F3C;margin:-2px 0 10px">Tap anything here and we make it in your brand &mdash; using your name, tagline and the idea you gave us. Nothing to fill in, nothing to buy. It lands in your workspace within 24 hours.</div>';
-    order.forEach(function(su){
-      var list=window.SparkCatalog.bySuite(su); if(!list||!list.length) return;
-      html+='<details style="border:1px solid rgba(0,0,0,.10);border-radius:10px;margin-bottom:8px;background:#FBFCFB">'+
-        '<summary style="cursor:pointer;padding:11px 14px;font-weight:700;font-size:13.5px;color:#141414">'+
-        (SMN_SUITE_LABEL[su]||su)+' <span style="color:#6b6b6b;font-weight:500">&middot; '+list.length+'</span></summary>'+
-        '<div style="padding:0 14px 12px">';
-      list.forEach(function(f){
-        var size=f.widthIn?(f.widthIn+'\u00d7'+f.heightIn+' in'):(f.pixelW+'\u00d7'+f.pixelH+' px');
-        var spec=size+(f.bleedIn?(' \u00b7 '+f.bleedIn+' bleed'):'')+' \u00b7 '+f.dpi+' DPI';
-        var blocked=(f.render==='spec');
-        html+='<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid rgba(0,0,0,.06);flex-wrap:wrap">'+
-          '<div style="min-width:0"><div style="font-weight:600;font-size:13px;color:#141414">'+f.label+'</div>'+
-          '<div style="font-size:11.5px;color:#5A625E">'+spec+'</div></div>'+
-          (blocked
-            ? '<span style="font-size:11.5px;color:#8A6B22" title="'+(f.note||'')+'">Coming soon</span>'
-            : '<button class="go" data-mkfmt="'+f.key+'" style="padding:7px 14px;font-size:12px">Make this</button>')+
-          '</div>';
-      });
-      html+='</div></details>';
-    });
-    return html;
+    var who=''; try{ who=String((IDEA&&IDEA.cat)||'')+' '+String((IDEA&&IDEA.said)||''); }catch(e){}
+    window.__smnWho=who;
+    var name=''; try{ name=(NM&&NM.name)||''; }catch(e){}
+    return '<div class="ph">Make something for '+(name||'this brand')+'</div>'+
+      '<div id="smnAsk" style="border:1px solid rgba(24,152,80,.28);background:rgba(24,152,80,.06);border-radius:12px;padding:16px">'+
+        '<div style="font-weight:700;font-size:15px;color:#141414;margin-bottom:2px">What would you like us to make?</div>'+
+        '<div style="font-size:12.5px;color:#3A3F3C;margin-bottom:12px">We already have your name, logo, colours, fonts and your own words &mdash; so just point us in a direction.</div>'+
+        '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
+          '<button class="go" data-mkstep="print"  style="padding:10px 18px">Something printed</button>'+
+          '<button class="go" data-mkstep="online" style="padding:10px 18px;background:#0C1B38">Something online</button>'+
+          '<button class="go" data-mkstep="all"    style="padding:10px 18px;background:#fff;color:#127A40;border:1px solid rgba(18,122,64,.4)">Show me everything</button>'+
+        '</div>'+
+        '<div id="smnSug" style="margin-top:12px"></div>'+
+      '</div>';
   }catch(e){ return ''; }
+}
+/* Suggestion engine: what an intake person would put in front of THIS business. */
+function smnSuggest(medium){
+  var S=window.SparkCatalog, who=String(window.__smnWho||'').toLowerCase();
+  var PRINT_BY_TYPE=[
+    [/podcast|stream|creator|influenc|youtube/, ['podcast_cover','quote_card_square','youtube_thumbnail','stream_schedule','sticker_artwork']],
+    [/festival|concert|music|event|fest|show/,  ['poster_18x24','flyer_letter','postcard_5x7','vip_pass','banner_3x6','yard_sign','rack_card','tshirt_chest']],
+    [/restaurant|cafe|food|bar|brew|coffee|bakery|menu/, ['menu_card','table_tent','flyer_letter','coaster','loyalty_card','a_frame','cup_sleeve']],
+    [/shop|store|boutique|retail|gift/,          ['hang_tag','shelf_talker','bag_seal','business_card','postcard_5x7','window_decal']],
+    [/roof|plumb|electric|hvac|clean|landscap|contractor|repair|auto/, ['yard_sign','door_hanger','business_card','vehicle_magnet','postcard_eddm','banner_3x6']]
+  ];
+  var ONLINE_BY_TYPE=[
+    [/podcast|stream|creator|influenc|youtube/, ['podcast_cover','youtube_thumbnail','reel_cover','quote_card_vertical','spotify_banner','carousel_slide']],
+    [/festival|concert|music|event|fest|show/,  ['meta_story','meta_feed','event_cover','meta_landscape_ad','reel_cover','carousel_slide']]
+  ];
+  var table = medium==='online' ? ONLINE_BY_TYPE : PRINT_BY_TYPE;
+  var keys=null;
+  for(var i=0;i<table.length;i++){ if(table[i][0].test(who)){ keys=table[i][1]; break; } }
+  if(!keys){ keys = medium==='online'
+      ? ['meta_feed','meta_story','meta_landscape_ad','event_cover','iab_medium_rect','carousel_slide']
+      : ['business_card','flyer_letter','postcard_5x7','yard_sign','banner_3x6','tshirt_chest']; }
+  var out=[];
+  keys.forEach(function(k){ var f=S.specFor(k); if(f && f.render!=='spec') out.push(f); });
+  return out;
 }
 /* One delegated listener for the whole page — bound once, cannot double-fire. */
 if(!window.__smnMakeBound){
   window.__smnMakeBound=1;
+  /* Step buttons: print / online / everything. */
+  document.addEventListener('click',function(ev){
+    var st=ev.target && ev.target.closest && ev.target.closest('[data-mkstep]');
+    if(!st) return;
+    ev.preventDefault();
+    var mode=st.getAttribute('data-mkstep'), box=document.getElementById('smnSug');
+    if(!box || !window.SparkCatalog) return;
+    function card(f){
+      var size=f.widthIn?(f.widthIn+'\u00d7'+f.heightIn+' in'):(f.pixelW+'\u00d7'+f.pixelH+' px');
+      return '<button class="go" data-mkfmt="'+f.key+'" style="text-align:left;padding:10px 12px;background:#fff;color:#141414;border:1px solid rgba(0,0,0,.14);border-radius:10px;min-width:170px;flex:1 1 170px">'+
+        '<div style="font-weight:700;font-size:13px">'+f.label+'</div>'+
+        '<div style="font-size:11px;color:#5A625E;margin-top:2px">'+size+'</div></button>';
+    }
+    if(mode==='all'){
+      var order=['print','signage','apparel','merch','packaging','social','display','creator'];
+      var html='<div style="font-size:12.5px;color:#3A3F3C;margin-bottom:8px">Everything we can make in your brand. Tap one.</div>';
+      order.forEach(function(su){
+        var list=window.SparkCatalog.bySuite(su); if(!list||!list.length) return;
+        html+='<details style="border:1px solid rgba(0,0,0,.10);border-radius:10px;margin-bottom:8px;background:#FBFCFB">'+
+          '<summary style="cursor:pointer;padding:10px 13px;font-weight:700;font-size:13px">'+(SMN_SUITE_LABEL[su]||su)+
+          ' <span style="color:#6b6b6b;font-weight:500">&middot; '+list.length+'</span></summary>'+
+          '<div style="padding:0 12px 12px;display:flex;gap:8px;flex-wrap:wrap">';
+        list.forEach(function(f){
+          html += (f.render==='spec')
+            ? '<div style="padding:10px 12px;border:1px dashed rgba(0,0,0,.14);border-radius:10px;min-width:170px;flex:1 1 170px;color:#8A6B22"><div style="font-weight:700;font-size:13px">'+f.label+'</div><div style="font-size:11px;margin-top:2px">Coming soon</div></div>'
+            : card(f);
+        });
+        html+='</div></details>';
+      });
+      box.innerHTML=html; return;
+    }
+    var sug=smnSuggest(mode);
+    var h='<div style="font-size:12.5px;color:#3A3F3C;margin-bottom:8px">Based on what you told us, these are what we\u2019d make first. Tap one and we build it &mdash; or <a href="#" data-mkstep="all" style="color:#127A40;font-weight:700">see everything</a>.</div>'+
+      '<div style="display:flex;gap:8px;flex-wrap:wrap">';
+    sug.forEach(function(f){ h+=card(f); });
+    h+='</div>';
+    box.innerHTML=h;
+  });
+
   document.addEventListener('click',function(ev){
     var b=ev.target && ev.target.closest && ev.target.closest('[data-mkfmt]');
     if(!b) return;
