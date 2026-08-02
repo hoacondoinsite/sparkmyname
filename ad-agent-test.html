@@ -482,6 +482,12 @@ async function loadBrands(){
       try { window.SMNReel.request($('brandId').value || $('brandLive').value || '', spec.reelSeconds || 12, spec.headline || ''); } catch(e){}
     }
     if (!spec.videoRequested) window.__reelFired = false;
+    // The Send button runs the PRINT pipeline; a reel is rendered by the studio below.
+    // Say so on the button instead of leaving it mysteriously greyed out.
+    try{ var gb=$('go');
+      if(gb){ if(spec.videoRequested){ gb.textContent='Reel request — use "Render reel" in the studio below'; }
+              else if(gb.textContent.indexOf('Reel request')===0){ gb.textContent='Send — build this order'; } }
+    }catch(e){}
     // mirror into the (hidden) engine fields
     if(spec.deliverableType){ var t=$('type'); for(var i=0;i<t.options.length;i++){ if(t.options[i].value===spec.deliverableType){ t.value=spec.deliverableType; break; } } }
     if(spec.widthIn) $('w').value=spec.widthIn;
@@ -616,15 +622,18 @@ async function loadBrands(){
       rec.onerror=function(ev){ rej(new Error('recorder error: '+(ev&&ev.error&&ev.error.name||'unknown'))); };
     });
     var ease=function(t){ return t<0?0:t>1?1:(1-Math.cos(Math.PI*t))/2; };
-    var K=TOTAL/360;                                    // act windows scale with the chosen length
-    var seg=function(f,a,z){ return ease((f-a*K)/((z-a)*K)); };
+    var seg=function(f,a,z){ return ease((f-a)/(z-a)); };   // f is normalized to a 0-360 timeline
     function txt(s,size,weight,color,cy,alpha,font){
       if(alpha<=0) return; x.globalAlpha=alpha; x.fillStyle=color; x.textAlign='center';
       x.font=weight+' '+size+'px '+(font||'Inter, sans-serif'); x.fillText(s,W/2,cy); x.globalAlpha=1;
     }
     rec.start();
-    var f=0;
+    var t0=performance.now(), DUR=secs*1000, f=0;
     function frame(){
+      // Pace by WALL-CLOCK, not frame count: requestAnimationFrame runs at the display's
+      // refresh rate (60-120Hz), so counting frames made a 20s reel finish in 5-10s.
+      var elapsed=performance.now()-t0;
+      f = (elapsed/DUR) * 360;                 // normalized act position (act windows are 0-360)
       var g=x.createLinearGradient(0,0,0,H);
       g.addColorStop(0,primary); g.addColorStop(1,'#0A1220');
       x.fillStyle=g; x.fillRect(0,0,W,H);
@@ -653,8 +662,7 @@ async function loadBrands(){
       }
       if(b.website) txt(String(b.website).toUpperCase(),42,'700','#FFFFFF',H*0.60,close);
       if(b.handle)  txt(b.handle,38,'600',accent,H*0.655,close);
-      f++;
-      if(f<TOTAL) requestAnimationFrame(frame); else setTimeout(function(){ try{rec.stop();}catch(e){} },120);
+      if(elapsed < DUR) requestAnimationFrame(frame); else setTimeout(function(){ try{rec.stop();}catch(e){} },160);
     }
     frame();
     return done;

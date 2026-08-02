@@ -119,7 +119,7 @@ exports.handler = async function (event) {
       body: JSON.stringify({
         session: {
           type: 'realtime', model: MODEL,
-          audio: { input: { turn_detection: { type: 'semantic_vad' }, transcription: { model: 'gpt-4o-transcribe' } },
+          audio: { input: { turn_detection: { type: 'semantic_vad', eagerness: 'low' }, transcription: { model: 'gpt-4o-transcribe' } },
                    output: { voice: VOICE } },
           reasoning: { effort: 'low' },
           truncation: { type: 'retention_ratio', retention_ratio: 0.8, token_limits: { post_instructions: TOKEN_CEILING } },
