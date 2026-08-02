@@ -479,7 +479,7 @@ async function loadBrands(){
     $('agentvideo').textContent = spec.videoRequested?('Reel requested'+(spec.reelSeconds?(' — '+spec.reelSeconds+'s'):'')+' — the Brand Reel Studio below is rendering it.'):'';
     if (spec.videoRequested && window.SMNReel && !window.__reelFired) {
       window.__reelFired = true;
-      try { window.SMNReel.request($('brandId').value || $('brandLive').value || '', spec.reelSeconds || 12); } catch(e){}
+      try { window.SMNReel.request($('brandId').value || $('brandLive').value || '', spec.reelSeconds || 12, spec.headline || ''); } catch(e){}
     }
     if (!spec.videoRequested) window.__reelFired = false;
     // mirror into the (hidden) engine fields
@@ -596,7 +596,10 @@ async function loadBrands(){
   }
 
   // Draws the reel on a canvas and records it. Resolves with a real playable Blob.
-  function renderReel(b, secs){
+  function renderReel(b, secs, opts){
+    opts = opts || {};
+    var headline = (opts.headline||'').trim();
+    var logo = opts.logo || null;                       // preloaded HTMLImageElement or null
     secs = Math.max(6, Math.min(30, Number(secs)||12));
     var W=1080,H=1920,FPS=30,TOTAL=Math.round(secs*FPS);
     var c=document.createElement('canvas'); c.width=W; c.height=H;
@@ -637,10 +640,17 @@ async function loadBrands(){
       txt((b.brand_name||'').toUpperCase(),96,'800','#FFFFFF',H*0.50,seg(f,8,55));
       // Act 2 — tagline
       if(b.tagline) txt('\u201C'+b.tagline+'\u201D',46,'400','rgba(255,255,255,.88)',H*0.615,seg(f,70,110)*(1-seg(f,210,245)),'Georgia, serif');
+      // Act 2b — the headline/theme the agent captured (what this reel is promoting)
+      if(headline) txt(headline,54,'700','#FFFFFF',H*0.68,seg(f,120,160)*(1-seg(f,210,245)));
       // Act 3 — industry line
-      if(b.industry) txt(b.industry.toUpperCase(),34,'600',accent,H*0.675,seg(f,120,155)*(1-seg(f,210,245)));
-      // Act 4 — contact close
+      if(b.industry && !headline) txt(b.industry.toUpperCase(),34,'600',accent,H*0.675,seg(f,120,155)*(1-seg(f,210,245)));
+      // Act 4 — closing card: logo, then website + handle
       var close=seg(f,250,290);
+      if(logo && close>0){
+        var lw=Math.min(W*0.42, logo.width*(H*0.16/Math.max(1,logo.height)) ) || W*0.34;
+        var lh=logo.height*(lw/Math.max(1,logo.width));
+        x.globalAlpha=close; try{ x.drawImage(logo, W/2-lw/2, H*0.40-lh/2, lw, lh); }catch(e){} x.globalAlpha=1;
+      }
       if(b.website) txt(String(b.website).toUpperCase(),42,'700','#FFFFFF',H*0.60,close);
       if(b.handle)  txt(b.handle,38,'600',accent,H*0.655,close);
       f++;
@@ -656,9 +666,17 @@ async function loadBrands(){
     var id=$('reelBrand').value; if(!id) return say('Pick a client first.');
     var b=BRANDS.filter(function(z){return z.brand_id===id;})[0]; if(!b) return say('That client did not load.');
     $('reelGo').disabled=true; $('reelVideo').style.display='none'; $('reelActs').style.display='none'; $('reelSaved').textContent='';
-    say('Rendering 12 seconds at 30fps — keep this tab in front…');
+    say('Rendering '+($('reelSecs').value)+' seconds at 30fps — keep this tab in front…');
     try{
-      var blob=await renderReel(b, $('reelSecs').value); LAST={blob:blob,brand:b};
+      // Preload the brand logo (cross-origin safe; skipped if it can't be used on canvas)
+      var lg=(b.logos&&(b.logos.primary||b.logos.vector||b.logos.mark))||'';
+      var logoImg=null;
+      if(lg){ logoImg=await new Promise(function(res){
+        var im=new Image(); im.crossOrigin='anonymous';
+        im.onload=function(){res(im);}; im.onerror=function(){res(null);};
+        im.src=lg; setTimeout(function(){res(im.complete&&im.naturalWidth?im:null);},4000);
+      }); }
+      var blob=await renderReel(b, $('reelSecs').value, { headline: window.__reelHeadline||'', logo: logoImg }); LAST={blob:blob,brand:b};
       var u=URL.createObjectURL(blob);
       $('reelVideo').src=u; $('reelVideo').style.display='block'; $('reelStatus').style.display='none';
       $('reelDl').href=u; $('reelDl').download=(b.brand_name||'brand').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-reel.webm';
@@ -683,13 +701,15 @@ async function loadBrands(){
 
   // Voice hook: the intake agent calls this when the client asks for a reel.
   // It selects the brand, sets the length, loads clients if needed, and renders.
-  window.SMNReel = { request: async function(brandId, secs){
+  window.SMNReel = { request: async function(brandId, secs, headline){
     var host=$('smn-video-workbench'); if(host) host.scrollIntoView({behavior:'smooth',block:'center'});
+    window.__reelHeadline = headline || '';
     if(secs) $('reelSecs').value=String([12,15,20,30].indexOf(Number(secs))>=0?Number(secs):12);
     if(!BRANDS.length) await loadBrands();
     if(brandId){ var hit=BRANDS.filter(function(z){return z.brand_id===brandId;})[0];
       if(hit) $('reelBrand').value=brandId; }
-    if($('reelBrand').value) $('reelGo').click(); else say('Pick a client, then press Render reel.');
+    if($('reelBrand').value) $('reelGo').click();
+    else say('Ready to render \u2014 choose your client in the dropdown just above, then press Render reel.');
   }};
 
   // Entering the founder token loads both pickers automatically — no hunting for the reload arrow.

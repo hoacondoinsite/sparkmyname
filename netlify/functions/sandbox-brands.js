@@ -17,7 +17,7 @@ exports.handler = async (event) => {
     if (!SUPABASE_URL || !SERVICE) return resp(500, { error: 'supabase env missing' });
 
     const url = SUPABASE_URL.replace(/\/$/, '') +
-      '/rest/v1/sandbox_brands?select=brand_id,brand_name,industry,contact_info,color_palette,tone_manifesto&order=brand_name.asc';
+      '/rest/v1/sandbox_brands?select=brand_id,brand_name,industry,contact_info,color_palette,tone_manifesto,logos&order=brand_name.asc';
     const r = await fetch(url, { headers: { apikey: SERVICE, Authorization: 'Bearer ' + SERVICE } });
     if (!r.ok) return resp(502, { error: 'supabase ' + r.status });
     const rows = await r.json();
@@ -26,7 +26,7 @@ exports.handler = async (event) => {
       return {
         brand_id: x.brand_id, brand_name: x.brand_name, industry: x.industry || '',
         tagline: ci.tagline || '', website: ci.website || '', handle: ci.handle || '',
-        tone: x.tone_manifesto || '', palette: x.color_palette || {}
+        tone: x.tone_manifesto || '', palette: x.color_palette || {}, logos: x.logos || {}
       };
     }) : [];
     return resp(200, { brands });
