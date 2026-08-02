@@ -426,7 +426,9 @@ async function loadBrands(){
   var sel=$('brandLive'); if(!sel) return;
   sel.innerHTML='<option value="">— loading… —</option>';
   try{
-    var r=await fetch('/.netlify/functions/sandbox-brands',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({founderToken:$('tok').value.trim()})});
+    var _tk=$('tok').value.trim();
+    if(!_tk){ sel.innerHTML='<option value="">enter your founder token above, then press ↻</option>'; return; }
+    var r=await fetch('/.netlify/functions/sandbox-brands',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({founderToken:_tk})});
     var d=await r.json(); if(!r.ok||!Array.isArray(d.brands)) throw new Error(d.error||('HTTP '+r.status));
     BRANDS={}; d.brands.forEach(function(b){ BRANDS[b.brand_id]=b; });
     sel.innerHTML='<option value="">— '+d.brands.length+' clients —</option>'+d.brands.map(function(b){return '<option value="'+b.brand_id+'">'+b.brand_name+(b.industry?' — '+b.industry:'')+'</option>';}).join('');
@@ -667,6 +669,14 @@ async function loadBrands(){
       if(hit) $('reelBrand').value=brandId; }
     if($('reelBrand').value) $('reelGo').click(); else say('Pick a client, then press Render reel.');
   }};
+
+  // Entering the founder token loads both pickers automatically — no hunting for the reload arrow.
+  (function(){ var t=$('tok'); if(!t) return;
+    var fire=function(){ if((t.value||'').trim().length>3){
+      try{ if($('loadbrands')) $('loadbrands').click(); }catch(e){}
+      try{ loadBrands(); }catch(e){} } };
+    t.addEventListener('change',fire); t.addEventListener('blur',fire);
+  })();
 
   say('Enter the founder token above, then press \u21bb to load clients.');
 })();
