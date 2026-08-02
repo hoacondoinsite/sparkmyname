@@ -56,7 +56,11 @@ var SMN_SUITE_LABEL={print:'Print & direct mail',signage:'Signs & large format',
 function smnMakeMore(IDEA){
   try{
     if(!window.SparkCatalog || !window.SparkCatalog.FORMATS) return '';
-    window.__smnReport = (IDEA && IDEA.id) || window.__smnReport || '';
+    /* The order endpoint keys off the REPORT (the SPK-... key in the URL), not the brand id.
+       _urlKey() is the same helper the rest of the workspace uses to identify the report. */
+    try{ window.__smnReport = (typeof _urlKey==='function' ? _urlKey() : '') || window.__smnReport || ''; }catch(e){}
+    /* nameSlug tells the endpoint WHICH of the six brands in that report this is. */
+    try{ window.__smnBrandName = (typeof NM!=='undefined' && NM && NM.name) ? NM.name : ((IDEA&&IDEA.name)||''); }catch(e){}
     var order=['print','signage','apparel','merch','packaging','social','display','creator'];
     var html='<div class="ph">Make something else</div>'+
       '<div style="font-size:12.5px;color:#3A3F3C;margin:-2px 0 10px">Every piece below is built in your brand. Pick one and we make it &mdash; it lands in your workspace.</div>';
@@ -98,14 +102,23 @@ if(!window.__smnMakeBound){
       mail=localStorage.getItem('smn_email')||''; }catch(e){}
     b.disabled=true; b.textContent='Sending\u2026';
     fetch('/.netlify/functions/deliverable-enqueue',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ founderToken:tok, customerEmail:mail, reportId:window.__smnReport, deliverableType:key,
+      body:JSON.stringify({ founderToken:tok, customerEmail:mail, reportId:window.__smnReport, nameSlug:(window.__smnBrandName||''), deliverableType:key,
         widthIn:(f.widthIn||+(f.pixelW/f.dpi).toFixed(2)), heightIn:(f.heightIn||+(f.pixelH/f.dpi).toFixed(2)),
         dpi:f.dpi, brief:brief })})
-      .then(function(r){return r.json().catch(function(){return {};});})
+      .then(function(r){return r.json().then(function(j){ j.__status=r.status; return j; }).catch(function(){return {__status:r.status};});})
       .then(function(d){
-        if(d && d.orderId){ b.textContent='Ordered \u2713'; if(typeof toast==='function') toast(d.promise||'Order received.'); }
-        else { b.disabled=false; b.textContent='Make this';
-               if(typeof toast==='function') toast('Could not place that order: '+((d&&d.error)||'unknown')); }
+        var note=document.createElement('div');
+        note.style.cssText='font-size:11.5px;margin-top:4px;max-width:230px;text-align:right';
+        if(d && d.orderId){
+          b.textContent='Ordered \u2713'; note.style.color='#127A40';
+          note.textContent=(d.promise||'Order received.')+' ('+d.orderId+')';
+          if(typeof toast==='function') toast(d.promise||'Order received.');
+        } else {
+          b.disabled=false; b.textContent='Make this'; note.style.color='#B4453C';
+          note.textContent='Not ordered: '+((d&&d.error)||('HTTP '+(d&&d.__status||'?')));
+          if(typeof toast==='function') toast(note.textContent);
+        }
+        if(b.parentNode) b.parentNode.appendChild(note);
       })
       .catch(function(){ b.disabled=false; b.textContent='Make this';
         if(typeof toast==='function') toast('Could not reach the order service.'); });
@@ -4497,7 +4510,7 @@ function bind(){
  root.querySelectorAll('[data-hdrdl]').forEach(function(b){b.addEventListener('click',function(){var u=b.getAttribute('data-hdrurl');if(!u)return;dlURL(u,slug(IDEA.name||'brand')+'-header-2k'+(/\.png|\.jpg|\.jpeg|\.webp/i.test(u)?'':'.png'));});});
  root.querySelectorAll('[data-cinedl]').forEach(function(b){b.addEventListener('click',function(){var i=+b.dataset.cinedl,Cc=palCols(IDEA);var real=b.getAttribute('data-cineurl');var nm=slug(IDEA.names[i].name)+'-cinematic';if(real){dlURL(real,nm+'-2k'+(/\.png|\.jpg|\.jpeg|\.webp/i.test(real)?'':'.png'));return;}var svg=cineSVG(Cc,'name'+IDEA.names[i].mono);dlSVG(svg,nm+'-2k.svg');});});
  root.querySelectorAll('[data-up]').forEach(function(b){b.addEventListener('click',function(){toast('Goes to checkout to unlock more for this idea.');});});
- root.querySelectorAll('[data-reqasset]').forEach(function(b){b.addEventListener('click',function(){openG('&#127873;','Request a custom asset — included','<p style="color:#141414">Pick what you&rsquo;d like and tell us the details &mdash; our team custom-curates &amp; builds it for you, at <b>no extra charge</b>. Nothing here is for sale; it&rsquo;s already part of your $99.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0">'+['Business Cards','Apparel','Signage','Flyers','Website','Other'].map(function(x){return '<button class="chip" type="button" style="cursor:pointer" onclick="var on=this.getAttribute(\'data-on\')===\'1\';this.setAttribute(\'data-on\',on?\'0\':\'1\');this.style.background=on?\'rgba(0,0,0,.14)\':\'#141414\';this.style.color=on?\'\':\'#141414\'">'+x+'</button>';}).join('')+'</div><textarea id="reqDetails" placeholder="Business name, address if it goes on the item, colors, must-haves…" style="width:100%;min-height:88px;background:#FFFFFF;border:1px solid var(--line);border-radius:12px;padding:12px;color:#141414;font:inherit;resize:vertical"></textarea><button class="act primary" id="smnReqSend" style="margin-top:14px;width:100%">&#10022; Send my request — included</button>');/* WIRED 2026-07-27 (Founder order): this Send button used to only close the modal and toast "Request sent" while nothing left the browser. It now posts to order-request.js — the same zero-loss endpoint the catalog uses, which emails the client and the Founder even if the smn_orders table is missing, so a custom request can never silently vanish. */var _gb=$('#gmBody');if(_gb){var _sb=_gb.querySelector('#smnReqSend');if(_sb){_sb.addEventListener('click',function(){var _cats=Array.prototype.map.call(_gb.querySelectorAll('.chip[data-on="1"]'),function(c){return (c.textContent||'').trim();}).filter(Boolean);var _det=((_gb.querySelector('#reqDetails')||{}).value||'').trim();if(!_cats.length&&!_det){toast("Pick an item or add a few details first.");return;}_sb.disabled=true;_sb.innerHTML="Sending…";fetch('/.netlify/functions/order-request',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({access_token:(window.__smnTok||''),r:IDEA.id,brand:NM.name,item:'custom-asset',itemName:'Custom asset request',fields:{categories:_cats.join(', '),details:_det}})}).then(function(r){return r.json().catch(function(){return {};});}).then(function(j){if(j&&j.ok){document.getElementById('gmodal').classList.remove('open');toast("✓ Request received — we'll email you within 24 hours when your files are ready.");}else{_sb.disabled=false;_sb.innerHTML="✦ Send my request — included";toast("That didn't go through — please try again.");}}).catch(function(){_sb.disabled=false;_sb.innerHTML="✦ Send my request — included";toast("That didn't go through — please try again.");});});}}});});
+ root.querySelectorAll('[data-reqasset]').forEach(function(b){b.addEventListener('click',function(){openG('&#127873;','Request a custom asset — included','<p style="color:#141414">Pick what you&rsquo;d like and tell us the details &mdash; our team custom-curates &amp; builds it for you, at <b>no extra charge</b>. Nothing here is for sale; it&rsquo;s already part of your $99.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0">'+['Business Cards','Apparel','Signage','Flyers','Website','Other'].map(function(x){return '<button class="chip" type="button" style="cursor:pointer" onclick="var on=this.getAttribute(\'data-on\')===\'1\';this.setAttribute(\'data-on\',on?\'0\':\'1\');this.style.background=on?\'rgba(0,0,0,.14)\':\'#141414\';this.style.color=on?\'\':\'#141414\'">'+x+'</button>';}).join('')+'</div><textarea id="reqDetails" placeholder="Business name, address if it goes on the item, colors, must-haves…" style="width:100%;min-height:88px;background:#FFFFFF;border:1px solid var(--line);border-radius:12px;padding:12px;color:#141414;font:inherit;resize:vertical"></textarea><button class="act primary" id="smnReqSend" style="margin-top:14px;width:100%">&#10022; Send my request — included</button>');/* WIRED 2026-07-27 (Founder order): this Send button used to only close the modal and toast "Request sent" while nothing left the browser. It now posts to order-request.js — the same zero-loss endpoint the catalog uses, which emails the client and the Founder even if the smn_orders table is missing, so a custom request can never silently vanish. */var _gb=$('#gmBody');if(_gb){var _sb=_gb.querySelector('#smnReqSend');if(_sb){_sb.addEventListener('click',function(){var _cats=Array.prototype.map.call(_gb.querySelectorAll('.chip[data-on="1"]'),function(c){return (c.textContent||'').trim();}).filter(Boolean);var _det=((_gb.querySelector('#reqDetails')||{}).value||'').trim();if(!_cats.length&&!_det){toast("Pick an item or add a few details first.");return;}_sb.disabled=true;_sb.innerHTML="Sending…";fetch('/.netlify/functions/order-request',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({access_token:(window.__smnTok||''),r:IDEA.id,brand:NM.name,item:'custom-asset',itemName:'Custom asset request',fields:{categories:_cats.join(', '),details:_det}})}).then(function(r){return r.json().then(function(j){ j.__status=r.status; return j; }).catch(function(){return {__status:r.status};});}).then(function(j){if(j&&j.ok){document.getElementById('gmodal').classList.remove('open');toast("✓ Request received — we'll email you within 24 hours when your files are ready.");}else{_sb.disabled=false;_sb.innerHTML="✦ Send my request — included";toast("That didn't go through — please try again.");}}).catch(function(){_sb.disabled=false;_sb.innerHTML="✦ Send my request — included";toast("That didn't go through — please try again.");});});}}});});
  root.querySelectorAll('[data-add]').forEach(function(b){b.addEventListener('click',function(){var k=b.dataset.add,p=+b.dataset.price;if(cart[k])delete cart[k];else cart[k]=p;curTab='addons';paint();});});
  function favSync(){try{var tk=(window.__smnTok||'');fetch('/.netlify/functions/fav-toggle',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+tk},body:JSON.stringify({access_token:tk,r:IDEA.id,fav:!!IDEA.fav})}).catch(function(){});}catch(e){}}
   function favFlip(){IDEA.fav=!IDEA.fav;document.querySelectorAll('.favheart').forEach(function(h){h.classList.toggle('on',IDEA.fav);});favSync();toast(IDEA.fav?'Added to favorites':'Removed from favorites');}
@@ -4617,7 +4630,7 @@ function bind(){
         tries++;
         fetch('/.netlify/functions/generate-asset',{method:'POST',headers:{'Content-Type':'application/json'},
           body:JSON.stringify({access_token:tok,r:IDEAx.id,name:NMx.name,custom_request:req,take:m[0]})})
-          .then(function(r){return r.json().catch(function(){return {};});})
+          .then(function(r){return r.json().then(function(j){ j.__status=r.status; return j; }).catch(function(){return {__status:r.status};});})
           .then(function(j){
             if(j&&j.success&&j.download_url){s.st='done';s.url=j.download_url;NMx.studies.push({slug:s.slug,label:s.label,url:s.url});paint();finish();return;}
             if(j&&(j.queued||j.error==='queued'||j.error==='duplicate_request_in_progress')){
@@ -4690,7 +4703,7 @@ function bind(){
     if(btn){btn.disabled=true;btn.innerHTML='Sending\u2026';}
     fetch('/.netlify/functions/personalize-assets',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({access_token:tk,r:IDEA.id,name:NM.name,persona:persona})})
-      .then(function(r){return r.json().catch(function(){return {};});})
+      .then(function(r){return r.json().then(function(j){ j.__status=r.status; return j; }).catch(function(){return {__status:r.status};});})
       .then(function(j){closePers();
         if(j&&j.ok){toast('\u2713 Request received \u2014 we\'ll email you within 24 hours when your files are ready.');NM.assetsStatus='processing';}
         else{toast('That didn\'t go through \u2014 please try again.');}
@@ -6118,7 +6131,7 @@ function openConciergePanel(){
       return; }
     send.disabled=true;send.textContent='Sending\u2026';
     fetch('/.netlify/functions/support-request',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({access_token:tk,message:msg,topic:'Concierge'})})
-      .then(function(r){return r.json().catch(function(){return {};});})
+      .then(function(r){return r.json().then(function(j){ j.__status=r.status; return j; }).catch(function(){return {__status:r.status};});})
       .then(function(x){var n=document.getElementById('ccNote');
         if(x&&x.ok){if(ta)ta.value='';if(n){n.style.display='block';n.textContent='\u2713 Sent \u2014 a real person on the Spark team will reply to your email.';}send.disabled=false;send.textContent='Send to the Spark team';}
         else{send.disabled=false;send.textContent='Send to the Spark team';toast("That didn't go through \u2014 email support@sparkmyname.com and we'll take care of you.");}})
