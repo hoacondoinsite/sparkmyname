@@ -4725,6 +4725,7 @@ function paint(){
  /* The rail nav renders once and then only updates its selected state — rebuilding it on
     every paint would drop focus mid-keyboard-navigation. */
  try{ if(!window.__wsNavDone){ renderWsNav(); window.__wsNavDone=true; } }catch(e){}
+ try{ smnApplyMode(); }catch(e){}   /* THE 99% RULE */
  var ci=curIdea();var _mm=$('#main');_mm.innerHTML=ci?mainHTML(ci):'<div class="card"><div style="text-align:center;padding:70px 24px"><h2 style="font-size:1.375rem;font-weight:800;margin-bottom:10px">No idea selected</h2><p style="color:var(--dim);margin-bottom:8px">Pick an idea on the left, recover one from Put Away, or start a new one.</p></div></div>';var _l2=$('#ilist'),_q2=$('#isearch'); if(_l2) _l2.innerHTML=ilistHTML(_q2?_q2.value:''); bind();if(ci){var _rc=root0Card();if(_rc){_rc.classList.remove('reveal-in');void _rc.offsetWidth;_rc.classList.add('reveal-in');}}}function root0Card(){return document.querySelector('#main .card');}
 
 /* AN HONEST EMPTY SECTION (2026-07-26)
@@ -6091,12 +6092,54 @@ var NAVGROUPS=[
   ['We\u2019re with you', ['concierge','guide','support','refer']],
   ['Account',         ['overview','purchases','prefs','security','privacy']]
 ];
+/* ============================================================================
+   DUAL-MODE ADAPTIVE ARCHITECTURE (Founder directive, 2026-08-02)
+   ----------------------------------------------------------------------------
+   THE 99% RULE. An account with ONE brand is not a portfolio and must not carry
+   portfolio furniture. Portfolio chrome — the brand picker, its drawer and the
+   nested brand tree — is OMITTED FROM THE DOM entirely in single-brand mode, not
+   hidden with CSS: a display:none element still ships bytes, still takes focus in
+   some browsers, and still shows up to a screen reader if the rule ever regresses.
+
+   WHAT IS DELIBERATELY *NOT* REMOVED: account navigation (Billing, Settings,
+   Sign-in, Your data, Concierge, Help). Those are not multi-brand clutter; they
+   are the only route to a customer's own money and account. Removing them would
+   strand a single-brand customer with no way to reach billing or sign out, which
+   no reviewer would pass. Portfolio chrome goes; the account stays.
+   ========================================================================== */
+/* Strips portfolio chrome OUT OF THE DOM when the account owns one brand.
+   Runs after each paint, so a second order arriving flips the account into
+   portfolio mode without a reload. */
+function smnApplyMode(){
+  try{
+    var portfolio = smnIsPortfolio();
+    document.documentElement.setAttribute('data-spmode', portfolio ? 'portfolio' : 'single');
+    if(!portfolio){
+      var pop=document.getElementById('brandpop');           /* the drawer: removed, not hidden */
+      if(pop && pop.parentNode) pop.parentNode.removeChild(pop);
+      document.querySelectorAll('[popovertarget="brandpop"],[data-wsnav="brands"]').forEach(function(b){
+        if(b.parentNode) b.parentNode.removeChild(b);        /* and anything that opens it */
+      });
+    }
+  }catch(e){}
+}
+
+function smnIsPortfolio(){
+  try{
+    if(typeof IDEAS==='undefined') return false;
+    var live=IDEAS.filter(function(x){ return x && !(typeof removed!=='undefined' && removed[x.id]); });
+    return live.length >= 2;
+  }catch(e){ return false; }
+}
+
 function renderWsNav(){
   var el=document.getElementById('wsnav'); if(!el) return;
   function byKey(k){for(var i=0;i<ACNAV.length;i++){if(ACNAV[i][0]===k)return ACNAV[i];}return null;}
   var used={};
   var html=NAVGROUPS.map(function(g){
     var items=g[1].map(function(k){
+      /* THE 99% RULE: no brand picker for an account that owns one brand. */
+      if(k==='brands' && !smnIsPortfolio()){ used[k]=1; return ''; }
       var n=byKey(k); if(!n) return ''; used[k]=1;
       return '<button data-wsnav="'+n[0]+'" title="'+esc(n[3]||n[2])+'">'+
              '<span class="ic" aria-hidden="true">'+n[1]+'</span>'+
