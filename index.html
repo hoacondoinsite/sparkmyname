@@ -22,6 +22,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/spark-site.css">
+<!-- The same vector-wordmark engine the customer workspace uses, so the mark on this
+     page is literally the mark the product draws — not a picture of one. -->
+<script src="js/agency-logo.js" defer></script>
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Product","name":"SparkMyName Brand Pack",
@@ -93,58 +96,59 @@
       <p class="micro center">Six Italian restaurant brand options</p>
       <p class="small center hero__sub">You choose your favorite.</p>
 
-      <div class="options" role="tablist" aria-label="Example brand options">
-        <button class="opt" role="tab" id="tab-0" aria-controls="preview" aria-selected="false" data-i="0">
+      <div class="options" role="tablist" aria-label="Six real brand options">
+        <button class="opt" role="tab" id="tab-0" aria-controls="preview" aria-selected="true" data-i="0">
           <span class="opt__leaf" aria-hidden="true">❧</span>
-          <span class="opt__name">La Fiora</span><span class="opt__kind">Ristorante</span></button>
+          <span class="opt__name">Piazza San Lorenzo</span><span class="opt__kind">RISTORANTE</span></button>
         <button class="opt" role="tab" id="tab-1" aria-controls="preview" aria-selected="false" data-i="1">
           <span class="opt__leaf" aria-hidden="true">❧</span>
-          <span class="opt__name">Vino e Legna</span><span class="opt__kind">Cucina Italiana</span></button>
-        <button class="opt" role="tab" id="tab-2" aria-controls="preview" aria-selected="true" data-i="2">
+          <span class="opt__name">Trattoria Fontana</span><span class="opt__kind">CUCINA ITALIANA</span></button>
+        <button class="opt" role="tab" id="tab-2" aria-controls="preview" aria-selected="false" data-i="2">
           <span class="opt__leaf" aria-hidden="true">❧</span>
-          <span class="opt__name">Bella Tavola</span><span class="opt__kind">Italian Kitchen</span></button>
+          <span class="opt__name">Bottega del Vino</span><span class="opt__kind">ENOTECA</span></button>
         <button class="opt" role="tab" id="tab-3" aria-controls="preview" aria-selected="false" data-i="3">
           <span class="opt__leaf" aria-hidden="true">❧</span>
-          <span class="opt__name">Osteria Lucente</span><span class="opt__kind">Cucina Italiana</span></button>
+          <span class="opt__name">Villa d'Arte</span><span class="opt__kind">RISTORANTE</span></button>
         <button class="opt" role="tab" id="tab-4" aria-controls="preview" aria-selected="false" data-i="4">
           <span class="opt__leaf" aria-hidden="true">❧</span>
-          <span class="opt__name">Casa di Vino</span><span class="opt__kind">Ristorante</span></button>
+          <span class="opt__name">Ristorante Soleggiato</span><span class="opt__kind">CUCINA ITALIANA</span></button>
         <button class="opt" role="tab" id="tab-5" aria-controls="preview" aria-selected="false" data-i="5">
           <span class="opt__leaf" aria-hidden="true">❧</span>
-          <span class="opt__name">Trattoria Serena</span><span class="opt__kind">Cucina Italiana</span></button>
+          <span class="opt__name">Fiore del Mattino</span><span class="opt__kind">TRATTORIA</span></button>
       </div>
 
       <div class="preview" id="preview" role="tabpanel" aria-live="polite" aria-labelledby="tab-2">
         <!-- brand card: name, palette, fonts -->
         <article class="pv-card">
           <div class="pv-card__leaf" aria-hidden="true">❧</div>
-          <h2 class="pv-card__name" id="pvName">BELLA<br>TAVOLA</h2>
-          <p class="pv-card__kind" id="pvKind">ITALIAN KITCHEN</p>
+          <div class="pv-card__wm" id="pvWordmark" role="img" aria-label="Brand wordmark"></div>
+          <p class="pv-card__tag" id="pvTag">Taste the Heart of Italy.</p>
+          <p class="pv-card__dom" id="pvDom">piazzasanlorenzo.com <span class="pv-ok">available</span></p>
 
           <p class="pv-lbl">Color palette</p>
           <div class="pv-swatches" id="pvSwatches" aria-label="Brand colour palette"></div>
 
           <p class="pv-lbl">Fonts</p>
-          <p class="pv-fonts"><span id="pvFontA">Playfair Display</span><br><span id="pvFontB">Lato</span></p>
+          <p class="pv-fonts"><span id="pvFontA">Elegant Serif</span><br><span id="pvFontB">Warm Script</span></p>
         </article>
 
         <!-- phone -->
         <div class="pv-phone">
           <div class="pv-phone__notch" aria-hidden="true"></div>
-          <img id="pvPhone" src="img/lib-social-kit.webp" width="420" height="880" loading="eager" decoding="async"
+          <img id="pvPhone" src="https://jfjeuejvqltloaltkifc.supabase.co/storage/v1/object/public/brand-headers/art/rp4j0qgabxrggo/piazza-san-lorenzo/logo_lockups/piece-2.png" width="420" height="880" loading="eager" decoding="async"
                alt="The brand's social profile shown on a phone.">
         </div>
 
         <!-- laptop -->
         <div class="pv-laptop">
           <div class="pv-laptop__bar" aria-hidden="true"><span></span><span></span><span></span></div>
-          <img id="pvSite" src="img/lib-restaurant.webp" width="1000" height="620" loading="eager" decoding="async"
+          <img id="pvSite" src="https://jfjeuejvqltloaltkifc.supabase.co/storage/v1/object/public/brand-headers/orders/rp4j0qgabxrggo/v3/card-hero-0.png" width="1000" height="620" loading="eager" decoding="async"
                alt="The brand's website shown on a laptop.">
           <div class="pv-laptop__base" aria-hidden="true"></div>
         </div>
 
         <!-- business cards -->
-        <img id="pvCards" class="pv-cards" src="img/card-hero-2.webp" width="420" height="300" loading="lazy"
+        <img id="pvCards" class="pv-cards" src="https://jfjeuejvqltloaltkifc.supabase.co/storage/v1/object/public/brand-headers/art/rp4j0qgabxrggo/piazza-san-lorenzo/logo_lockups/piece-1.png" width="420" height="300" loading="lazy"
              decoding="async" alt="Printed business cards for the brand.">
       </div>
     </div>
@@ -174,7 +178,7 @@
           <img src="img/card-logos.webp" width="600" height="450" loading="lazy" decoding="async" alt="A logo set laid out on printed cards.">
           <figcaption>Logo set</figcaption></figure></div>
         <div class="card"><figure>
-          <img src="img/card-hero-2.webp" width="600" height="450" loading="lazy" decoding="async" alt="Printed business cards for a restaurant brand.">
+          <img src="https://jfjeuejvqltloaltkifc.supabase.co/storage/v1/object/public/brand-headers/art/rp4j0qgabxrggo/piazza-san-lorenzo/logo_lockups/piece-1.png" width="600" height="450" loading="lazy" decoding="async" alt="Printed business cards for a restaurant brand.">
           <figcaption>Business cards</figcaption></figure></div>
         <div class="card"><figure>
           <img src="img/romanesco-still.webp" width="600" height="450" loading="lazy" decoding="async" alt="A restaurant website header on a laptop.">
@@ -252,7 +256,7 @@
           <div class="grid grid--4">
             <div><p class="small">✓ Logo</p><img src="img/card-logos.webp" width="400" height="260" loading="lazy" alt="Logo files ready for print." style="border-radius:var(--r-sm)"></div>
             <div><p class="small">✓ Sign</p><img src="img/card-hero-1.webp" width="400" height="260" loading="lazy" alt="A hanging shop sign using the brand." style="border-radius:var(--r-sm)"></div>
-            <div><p class="small">✓ Card</p><img src="img/card-hero-2.webp" width="400" height="260" loading="lazy" alt="Business cards using the brand." style="border-radius:var(--r-sm)"></div>
+            <div><p class="small">✓ Card</p><img src="https://jfjeuejvqltloaltkifc.supabase.co/storage/v1/object/public/brand-headers/art/rp4j0qgabxrggo/piazza-san-lorenzo/logo_lockups/piece-1.png" width="400" height="260" loading="lazy" alt="Business cards using the brand." style="border-radius:var(--r-sm)"></div>
             <div><p class="small">✓ Website header</p><img src="img/romanesco-still.webp" width="400" height="260" loading="lazy" alt="A website header using the brand." style="border-radius:var(--r-sm)"></div>
           </div>
           <p class="small">SparkMyName supplies the print-ready files. We don't print or ship anything —
@@ -310,7 +314,7 @@
         <figure><img src="img/brand-carefirst-support.webp" width="300" height="220" loading="lazy" alt="A community support organisation."><figcaption>Charity / cause</figcaption></figure>
         <figure><img src="img/brand-ink-ivy-books.webp" width="300" height="220" loading="lazy" alt="Someone working on a side project."><figcaption>Side project</figcaption></figure>
         <figure><img src="img/brand-meridian-alliance-partners.webp" width="300" height="220" loading="lazy" alt="Two professionals in an office."><figcaption>Professional firm</figcaption></figure>
-        <figure><img src="img/lib-restaurant.webp" width="300" height="220" loading="lazy" alt="A local shopfront."><figcaption>Local shop</figcaption></figure>
+        <figure><img src="https://jfjeuejvqltloaltkifc.supabase.co/storage/v1/object/public/brand-headers/orders/rp4j0qgabxrggo/v3/card-hero-0.png" width="300" height="220" loading="lazy" alt="A local shopfront."><figcaption>Local shop</figcaption></figure>
       </div>
     </div>
   </div>
@@ -491,26 +495,37 @@
    (arrow keys move between tabs, as a tablist should).
    ------------------------------------------------------------------------- */
 (function(){
+  /* THE SIX REAL BRANDS — report rp4j0qgabxrggo, generated by SparkMyName on
+     3 Aug 2026. Names, taglines, domains, palettes and artwork are pulled from
+     the live Supabase record; nothing here is invented for the marketing page. */
+  var CDN='https://jfjeuejvqltloaltkifc.supabase.co/storage/v1/object/public/brand-headers';
+  var R='/rp4j0qgabxrggo';
   var BRANDS=[
-    { name:'LA FIORA',        kind:'RISTORANTE',      fonts:['Cormorant Garamond','Lato'],
-      colors:['#8C2F39','#C9A227','#2E4A3D','#F3EADF'],
-      site:'img/brand-jazz-lounge.webp', phone:'img/lib-social-kit-2.webp', cards:'img/card-hero-1.webp' },
-    { name:'VINO e LEGNA',    kind:'CUCINA ITALIANA', fonts:['Playfair Display','Inter'],
-      colors:['#6B2B2B','#B8862F','#3A4A2E','#EFE6D6'],
-      site:'img/brand-ironclad-roasters.webp', phone:'img/lib-social-kit.webp', cards:'img/card-hero-4.webp' },
-    { name:'BELLA<br>TAVOLA', kind:'ITALIAN KITCHEN', fonts:['Playfair Display','Lato'],
-      colors:['#D9A94C','#4A5D3A','#8C2B2B','#F5EFE2'],
-      site:'img/lib-restaurant.webp', phone:'img/lib-social-kit.webp', cards:'img/card-hero-2.webp' },
-    { name:'OSTERIA<br>LUCENTE', kind:'CUCINA ITALIANA', fonts:['Cormorant Garamond','Inter'],
-      colors:['#2F4858','#C89F4B','#7A3B2E','#F1EBE0'],
-      site:'img/romanesco-still.webp', phone:'img/lib-social-kit-2.webp', cards:'img/card-hero-3.webp' },
-    { name:'CASA di VINO',    kind:'RISTORANTE',      fonts:['Playfair Display','Source Sans'],
-      colors:['#5B2333','#A8763E','#3C4F3D','#EFE4D2'],
-      site:'img/brand-rue-flour-bakery.webp', phone:'img/lib-social-kit.webp', cards:'img/card-hero-4.webp' },
-    { name:'TRATTORIA<br>SERENA', kind:'CUCINA ITALIANA', fonts:['Lora','Lato'],
-      colors:['#3E5C50','#D2A24C','#7C3A2D','#F4EDE1'],
-      site:'img/tile-bakery.webp', phone:'img/lib-social-kit-2.webp', cards:'img/card-hero-1.webp' }
+    { name:'Piazza San Lorenzo', slug:'piazza-san-lorenzo', tag:'Taste the Heart of Italy.',
+      dom:'piazzasanlorenzo.com', pal:'Rustic Warmth',
+      colors:['#C7A57A','#5C3A29','#E5D0B0','#8A6A55'], fonts:['Elegant Serif','Warm Script'], i:0 },
+    { name:'Trattoria Fontana', slug:'trattoria-fontana', tag:'Savor the Taste of Tradition',
+      dom:'trattoriafontana.net', pal:'Rustic Harvest',
+      colors:['#BF7B30','#F4D03F','#6B4F4F','#EFE9E2'], fonts:['Handwritten Charm','Rustic Serif'], i:1 },
+    { name:'Bottega del Vino', slug:'bottega-del-vino', tag:'Taste the Heart of Italy!',
+      dom:'bottegadelvino.net', pal:'Rustic Charm',
+      colors:['#8B4513','#D2691E','#F5DEB3','#FFF8DC'], fonts:['Elegant Serif','Casual Sans'], i:2 },
+    { name:"Villa d'Arte", slug:'villa-d-arte', tag:'Taste the Tradition.',
+      dom:'villadarte.net', pal:'Rustic Warmth',
+      colors:['#8B4513','#CD853F','#FFF8DC','#A0522D'], fonts:['Italian Classic','Rustic Sans'], i:3 },
+    { name:'Ristorante Soleggiato', slug:'ristorante-soleggiato', tag:'Taste the warmth of Italy.',
+      dom:'ristorantesoleggiato.com', pal:'Sunlit Olive',
+      colors:['#BFAE5B','#E5E3C9','#8C7A4E','#D7B45C'], fonts:['Elegant Serif','Vibrant Display'], i:4 },
+    { name:'Fiore del Mattino', slug:'fiore-del-mattino', tag:'Savor the Heart of Italy',
+      dom:'fioredelmattino.com', pal:'Rustic Warmth',
+      colors:['#A0522D','#FFD700','#8B4513','#FFF8DC'], fonts:['Warm Script','Rustic Sans'], i:5 }
   ];
+  BRANDS.forEach(function(b){
+    b.site  = CDN+'/orders'+R+'/v3/card-hero-'+b.i+'.png';
+    b.phone = CDN+'/art'+R+'/'+b.slug+'/logo_lockups/piece-2.png';
+    b.cards = CDN+'/art'+R+'/'+b.slug+'/logo_lockups/piece-1.png';
+  });
+
 
   var tabs=[].slice.call(document.querySelectorAll('.opt[role="tab"]'));
   var panel=document.getElementById('preview');
@@ -525,15 +540,28 @@
     var b=BRANDS[i]; if(!b) return;
     panel.classList.add('is-swapping');
     window.setTimeout(function(){
-      el.name.innerHTML=b.name;
-      el.kind.textContent=b.kind;
-      el.fa.textContent=b.fonts[0];
-      el.fb.textContent=b.fonts[1];
-      el.sw.innerHTML=b.colors.map(function(c){
+      /* The wordmark is DRAWN by the same engine the product uses (agency-logo.js),
+         so what a visitor sees is the actual vector mark, not an image of one. */
+      var wm=document.getElementById('pvWordmark');
+      if(wm){
+        try{
+          var A=window.AGENCY_LOGO;
+          if(A && A.spec && A.wordmarkSVG){
+            wm.innerHTML=A.wordmarkSVG(A.spec(b.name,{colors:b.colors},b.tag),900,240);
+          } else { wm.textContent=b.name; }
+        }catch(e){ wm.textContent=b.name; }
+      }
+      document.getElementById('pvTag').textContent=b.tag;
+      document.getElementById('pvDom').innerHTML=b.dom+' <span class="pv-ok">available</span>';
+      document.getElementById('pvFontA').textContent=b.fonts[0];
+      document.getElementById('pvFontB').textContent=b.fonts[1];
+      document.getElementById('pvSwatches').innerHTML=b.colors.map(function(c){
         return '<i style="background:'+c+'" title="'+c+'"></i>'; }).join('');
-      el.site.src=b.site;  el.site.alt=b.name.replace(/<br>/g,' ')+' website shown on a laptop.';
-      el.phone.src=b.phone; el.phone.alt=b.name.replace(/<br>/g,' ')+' social profile shown on a phone.';
-      el.cards.src=b.cards; el.cards.alt='Printed business cards for '+b.name.replace(/<br>/g,' ')+'.';
+      var site=document.getElementById('pvSite'), ph=document.getElementById('pvPhone'),
+          cd=document.getElementById('pvCards');
+      site.src=b.site;  site.alt=b.name+' brand photograph.';
+      ph.src=b.phone;   ph.alt=b.name+' logo lockup.';
+      cd.src=b.cards;   cd.alt=b.name+' logo artwork.';
       panel.setAttribute('aria-labelledby','tab-'+i);
       panel.classList.remove('is-swapping');
     },120);
@@ -554,7 +582,9 @@
     });
   });
 
-  paint(2);   /* Bella Tavola is the chosen example, as in the design */
+  /* agency-logo.js is deferred; wait for it so the first paint uses the real mark. */
+  if(window.AGENCY_LOGO) paint(0);
+  else window.addEventListener('load', function(){ paint(0); });
 })();
 
 /* Voice capture is designed but not yet wired on this page. Say so plainly
