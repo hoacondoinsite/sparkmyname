@@ -47,7 +47,7 @@
       <a href="#what-you-get">What you get</a>
       <a href="#how-it-works">How it works</a>
       <a href="pricing.html">Pricing</a>
-      <a href="support.html">FAQ</a>
+      <a href="faq.html">FAQ</a>
       <a href="workspace.html">Login</a>
       <a class="btn" href="checkout.html" style="min-height:44px;padding:0 var(--s5)">Get my brand for $99</a>
     </nav>
@@ -60,48 +60,93 @@
 <section class="hero">
   <div class="wrap hero__grid">
 
-    <div class="stack">
+    <!-- LEFT: the pitch + intake -->
+    <div class="hero__left stack">
       <h1 class="hero-title">Turn one sentence<br>into a real brand —<br><span class="gold">for $99.</span></h1>
-      <p class="lede">Tell SparkMyName what you're starting. You get six complete brand options and
+      <p class="lede">Tell SparkMyName what you're starting. It gives you six brand options and
         everything you need to show up like a real business.</p>
 
       <form class="seed" id="seedForm" action="checkout.html" method="get">
-        <label for="seed" style="position:absolute;left:-9999px">Describe your business in one sentence</label>
+        <label for="seed" class="vh">Describe your business in one sentence</label>
         <input id="seed" name="idea" type="text" autocomplete="off"
                placeholder="A cozy neighborhood restaurant with wood-fired pizza and wine.">
         <button class="seed__ico" type="button" id="micBtn" title="Speak your idea"
-                aria-label="Speak your idea (coming soon)">🎙</button>
+                aria-label="Speak your idea">🎙</button>
         <button class="seed__ico" type="submit" title="Continue" aria-label="Continue">⌨</button>
       </form>
       <p class="small">One sentence. That's all it needs. <span class="soon">(voice input — coming soon)</span></p>
 
-      <div style="display:flex;gap:var(--s3);flex-wrap:wrap;align-items:center">
+      <div class="hero__cta">
         <a class="btn" href="checkout.html">Get my brand for $99</a>
         <a class="btn btn--link" href="#what-you-get">See a real example →</a>
       </div>
 
       <p class="trustline">
-        <span>★ $99 one time</span>
-        <span>★ 7 days full access</span>
-        <span>★ Keep your brand and files forever</span>
+        <span>$99 one time</span><span aria-hidden="true">·</span>
+        <span>7 days full access</span><span aria-hidden="true">·</span>
+        <span>Keep your brand and files forever</span>
       </p>
     </div>
 
-    <div class="stack">
+    <!-- RIGHT: the live switcher + preview -->
+    <div class="hero__right">
       <p class="micro center">Six Italian restaurant brand options</p>
-      <p class="small center" style="margin-top:-6px">You choose your favorite.</p>
-      <div class="options" role="list" aria-label="Example brand options">
-        <div class="opt" role="listitem"><div class="opt__name">La Fiora</div><div class="opt__kind">Ristorante</div></div>
-        <div class="opt" role="listitem"><div class="opt__name">Vino e Legna</div><div class="opt__kind">Cucina Italiana</div></div>
-        <div class="opt" role="listitem" data-chosen="true"><div class="opt__name">Bella Tavola</div><div class="opt__kind">Italian Kitchen</div></div>
-        <div class="opt" role="listitem"><div class="opt__name">Osteria Lucente</div><div class="opt__kind">Cucina Italiana</div></div>
-        <div class="opt" role="listitem"><div class="opt__name">Casa di Vino</div><div class="opt__kind">Ristorante</div></div>
-        <div class="opt" role="listitem"><div class="opt__name">Trattoria Serena</div><div class="opt__kind">Cucina Italiana</div></div>
+      <p class="small center hero__sub">You choose your favorite.</p>
+
+      <div class="options" role="tablist" aria-label="Example brand options">
+        <button class="opt" role="tab" id="tab-0" aria-controls="preview" aria-selected="false" data-i="0">
+          <span class="opt__leaf" aria-hidden="true">❧</span>
+          <span class="opt__name">La Fiora</span><span class="opt__kind">Ristorante</span></button>
+        <button class="opt" role="tab" id="tab-1" aria-controls="preview" aria-selected="false" data-i="1">
+          <span class="opt__leaf" aria-hidden="true">❧</span>
+          <span class="opt__name">Vino e Legna</span><span class="opt__kind">Cucina Italiana</span></button>
+        <button class="opt" role="tab" id="tab-2" aria-controls="preview" aria-selected="true" data-i="2">
+          <span class="opt__leaf" aria-hidden="true">❧</span>
+          <span class="opt__name">Bella Tavola</span><span class="opt__kind">Italian Kitchen</span></button>
+        <button class="opt" role="tab" id="tab-3" aria-controls="preview" aria-selected="false" data-i="3">
+          <span class="opt__leaf" aria-hidden="true">❧</span>
+          <span class="opt__name">Osteria Lucente</span><span class="opt__kind">Cucina Italiana</span></button>
+        <button class="opt" role="tab" id="tab-4" aria-controls="preview" aria-selected="false" data-i="4">
+          <span class="opt__leaf" aria-hidden="true">❧</span>
+          <span class="opt__name">Casa di Vino</span><span class="opt__kind">Ristorante</span></button>
+        <button class="opt" role="tab" id="tab-5" aria-controls="preview" aria-selected="false" data-i="5">
+          <span class="opt__leaf" aria-hidden="true">❧</span>
+          <span class="opt__name">Trattoria Serena</span><span class="opt__kind">Cucina Italiana</span></button>
       </div>
-      <figure class="showcase" style="margin:0">
-        <img src="img/lib-restaurant.webp" width="1200" height="700" loading="eager" decoding="async"
-             alt="A finished restaurant brand shown on business cards, a phone and a website.">
-      </figure>
+
+      <div class="preview" id="preview" role="tabpanel" aria-live="polite" aria-labelledby="tab-2">
+        <!-- brand card: name, palette, fonts -->
+        <article class="pv-card">
+          <div class="pv-card__leaf" aria-hidden="true">❧</div>
+          <h2 class="pv-card__name" id="pvName">BELLA<br>TAVOLA</h2>
+          <p class="pv-card__kind" id="pvKind">ITALIAN KITCHEN</p>
+
+          <p class="pv-lbl">Color palette</p>
+          <div class="pv-swatches" id="pvSwatches" aria-label="Brand colour palette"></div>
+
+          <p class="pv-lbl">Fonts</p>
+          <p class="pv-fonts"><span id="pvFontA">Playfair Display</span><br><span id="pvFontB">Lato</span></p>
+        </article>
+
+        <!-- phone -->
+        <div class="pv-phone">
+          <div class="pv-phone__notch" aria-hidden="true"></div>
+          <img id="pvPhone" src="img/lib-social-kit.webp" width="420" height="880" loading="eager" decoding="async"
+               alt="The brand's social profile shown on a phone.">
+        </div>
+
+        <!-- laptop -->
+        <div class="pv-laptop">
+          <div class="pv-laptop__bar" aria-hidden="true"><span></span><span></span><span></span></div>
+          <img id="pvSite" src="img/lib-restaurant.webp" width="1000" height="620" loading="eager" decoding="async"
+               alt="The brand's website shown on a laptop.">
+          <div class="pv-laptop__base" aria-hidden="true"></div>
+        </div>
+
+        <!-- business cards -->
+        <img id="pvCards" class="pv-cards" src="img/card-hero-2.webp" width="420" height="300" loading="lazy"
+             decoding="async" alt="Printed business cards for the brand.">
+      </div>
     </div>
 
   </div>
@@ -373,7 +418,7 @@
       <div class="foot">
         <h4>Support</h4>
         <ul>
-          <li><a href="support.html">FAQ</a></li>
+          <li><a href="faq.html">FAQ</a></li>
           <li><a href="support.html">Help center</a></li>
           <li><a href="support.html">Contact us</a></li>
         </ul>
@@ -436,6 +481,80 @@
   document.querySelectorAll('a[href="checkout.html"]').forEach(function(a){
     a.addEventListener('click',carry);
   });
+})();
+
+/* ---------------------------------------------------------------------------
+   THE BRAND SWITCHER.
+   The six options at the top are not decoration — each one is a real brand with
+   its own name, palette, type pairing and imagery. Choosing one repaints the
+   whole preview: card, phone, laptop and printed cards. Keyboard accessible
+   (arrow keys move between tabs, as a tablist should).
+   ------------------------------------------------------------------------- */
+(function(){
+  var BRANDS=[
+    { name:'LA FIORA',        kind:'RISTORANTE',      fonts:['Cormorant Garamond','Lato'],
+      colors:['#8C2F39','#C9A227','#2E4A3D','#F3EADF'],
+      site:'img/brand-jazz-lounge.webp', phone:'img/lib-social-kit-2.webp', cards:'img/card-hero-1.webp' },
+    { name:'VINO e LEGNA',    kind:'CUCINA ITALIANA', fonts:['Playfair Display','Inter'],
+      colors:['#6B2B2B','#B8862F','#3A4A2E','#EFE6D6'],
+      site:'img/brand-ironclad-roasters.webp', phone:'img/lib-social-kit.webp', cards:'img/card-hero-4.webp' },
+    { name:'BELLA<br>TAVOLA', kind:'ITALIAN KITCHEN', fonts:['Playfair Display','Lato'],
+      colors:['#D9A94C','#4A5D3A','#8C2B2B','#F5EFE2'],
+      site:'img/lib-restaurant.webp', phone:'img/lib-social-kit.webp', cards:'img/card-hero-2.webp' },
+    { name:'OSTERIA<br>LUCENTE', kind:'CUCINA ITALIANA', fonts:['Cormorant Garamond','Inter'],
+      colors:['#2F4858','#C89F4B','#7A3B2E','#F1EBE0'],
+      site:'img/romanesco-still.webp', phone:'img/lib-social-kit-2.webp', cards:'img/card-hero-3.webp' },
+    { name:'CASA di VINO',    kind:'RISTORANTE',      fonts:['Playfair Display','Source Sans'],
+      colors:['#5B2333','#A8763E','#3C4F3D','#EFE4D2'],
+      site:'img/brand-rue-flour-bakery.webp', phone:'img/lib-social-kit.webp', cards:'img/card-hero-4.webp' },
+    { name:'TRATTORIA<br>SERENA', kind:'CUCINA ITALIANA', fonts:['Lora','Lato'],
+      colors:['#3E5C50','#D2A24C','#7C3A2D','#F4EDE1'],
+      site:'img/tile-bakery.webp', phone:'img/lib-social-kit-2.webp', cards:'img/card-hero-1.webp' }
+  ];
+
+  var tabs=[].slice.call(document.querySelectorAll('.opt[role="tab"]'));
+  var panel=document.getElementById('preview');
+  if(!tabs.length||!panel) return;
+
+  var el={ name:document.getElementById('pvName'), kind:document.getElementById('pvKind'),
+           sw:document.getElementById('pvSwatches'), fa:document.getElementById('pvFontA'),
+           fb:document.getElementById('pvFontB'), site:document.getElementById('pvSite'),
+           phone:document.getElementById('pvPhone'), cards:document.getElementById('pvCards') };
+
+  function paint(i){
+    var b=BRANDS[i]; if(!b) return;
+    panel.classList.add('is-swapping');
+    window.setTimeout(function(){
+      el.name.innerHTML=b.name;
+      el.kind.textContent=b.kind;
+      el.fa.textContent=b.fonts[0];
+      el.fb.textContent=b.fonts[1];
+      el.sw.innerHTML=b.colors.map(function(c){
+        return '<i style="background:'+c+'" title="'+c+'"></i>'; }).join('');
+      el.site.src=b.site;  el.site.alt=b.name.replace(/<br>/g,' ')+' website shown on a laptop.';
+      el.phone.src=b.phone; el.phone.alt=b.name.replace(/<br>/g,' ')+' social profile shown on a phone.';
+      el.cards.src=b.cards; el.cards.alt='Printed business cards for '+b.name.replace(/<br>/g,' ')+'.';
+      panel.setAttribute('aria-labelledby','tab-'+i);
+      panel.classList.remove('is-swapping');
+    },120);
+    tabs.forEach(function(t,n){
+      t.setAttribute('aria-selected', n===i?'true':'false');
+      t.setAttribute('tabindex', n===i?'0':'-1');
+    });
+  }
+
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){ paint(+t.getAttribute('data-i')); });
+    t.addEventListener('keydown',function(ev){
+      var i=tabs.indexOf(t), n=null;
+      if(ev.key==='ArrowRight'||ev.key==='ArrowDown') n=(i+1)%tabs.length;
+      if(ev.key==='ArrowLeft'||ev.key==='ArrowUp')    n=(i-1+tabs.length)%tabs.length;
+      if(n===null) return;
+      ev.preventDefault(); tabs[n].focus(); paint(n);
+    });
+  });
+
+  paint(2);   /* Bella Tavola is the chosen example, as in the design */
 })();
 
 /* Voice capture is designed but not yet wired on this page. Say so plainly
