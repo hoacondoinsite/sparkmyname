@@ -22,6 +22,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/spark-site.css">
+<!-- The same vector-wordmark engine the customer workspace uses, so the mark on this
+     page is literally the mark the product draws — not a picture of one. -->
+<script src="js/agency-logo.js" defer></script>
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Product","name":"SparkMyName Brand Pack",
@@ -93,60 +96,55 @@
       <p class="micro center">Six Italian restaurant brand options</p>
       <p class="small center hero__sub">You choose your favorite.</p>
 
-      <div class="options" role="tablist" aria-label="Six real brand options">
+      <div class="options" role="tablist" aria-label="Six Italian restaurant brand options">
         <button class="opt" role="tab" id="tab-0" aria-controls="preview" aria-selected="true" data-i="0">
           <span class="opt__leaf" aria-hidden="true">❧</span>
-          <span class="opt__name">Piazza San Lorenzo</span><span class="opt__kind">RISTORANTE</span></button>
+          <span class="opt__name">La Fiora</span><span class="opt__kind">RISTORANTE</span></button>
         <button class="opt" role="tab" id="tab-1" aria-controls="preview" aria-selected="false" data-i="1">
           <span class="opt__leaf" aria-hidden="true">❧</span>
-          <span class="opt__name">Trattoria Fontana</span><span class="opt__kind">CUCINA ITALIANA</span></button>
+          <span class="opt__name">Vino e Legna</span><span class="opt__kind">CUCINA ITALIANA</span></button>
         <button class="opt" role="tab" id="tab-2" aria-controls="preview" aria-selected="false" data-i="2">
           <span class="opt__leaf" aria-hidden="true">❧</span>
-          <span class="opt__name">Bottega del Vino</span><span class="opt__kind">ENOTECA</span></button>
+          <span class="opt__name">Bella Tavola</span><span class="opt__kind">ITALIAN KITCHEN</span></button>
         <button class="opt" role="tab" id="tab-3" aria-controls="preview" aria-selected="false" data-i="3">
           <span class="opt__leaf" aria-hidden="true">❧</span>
-          <span class="opt__name">Villa d'Arte</span><span class="opt__kind">RISTORANTE</span></button>
+          <span class="opt__name">Osteria Lucente</span><span class="opt__kind">CUCINA ITALIANA</span></button>
         <button class="opt" role="tab" id="tab-4" aria-controls="preview" aria-selected="false" data-i="4">
           <span class="opt__leaf" aria-hidden="true">❧</span>
-          <span class="opt__name">Ristorante Soleggiato</span><span class="opt__kind">CUCINA ITALIANA</span></button>
+          <span class="opt__name">Casa di Vino</span><span class="opt__kind">RISTORANTE</span></button>
         <button class="opt" role="tab" id="tab-5" aria-controls="preview" aria-selected="false" data-i="5">
           <span class="opt__leaf" aria-hidden="true">❧</span>
-          <span class="opt__name">Fiore del Mattino</span><span class="opt__kind">TRATTORIA</span></button>
+          <span class="opt__name">Trattoria Serena</span><span class="opt__kind">CUCINA ITALIANA</span></button>
       </div>
 
-      <div class="preview" id="preview" role="tabpanel" aria-live="polite" aria-labelledby="tab-2">
-        <!-- brand card: name, palette, fonts -->
-        <article class="pv-card">
-          <div class="pv-card__leaf" aria-hidden="true">❧</div>
-          <div class="pv-card__wm" id="pvWordmark" role="img" aria-label="Brand wordmark"></div>
-          <p class="pv-card__tag" id="pvTag">Taste the Heart of Italy.</p>
-          <p class="pv-card__dom" id="pvDom">piazzasanlorenzo.com <span class="pv-ok">available</span></p>
+      <div class="preview" id="preview" role="tabpanel" aria-live="polite" aria-labelledby="tab-0">
 
+        <!-- BRAND CARD — the real vector wordmark, palette and fonts -->
+        <article class="pv-card">
+          <div class="pv-card__wm" id="pvWordmark" role="img" aria-label="Brand wordmark"></div>
+          <p class="pv-card__kind" id="pvKind">RISTORANTE</p>
+          <p class="pv-card__tag" id="pvTag">A cozy neighborhood restaurant with wood-fired pizza and wine.</p>
           <p class="pv-lbl">Color palette</p>
           <div class="pv-swatches" id="pvSwatches" aria-label="Brand colour palette"></div>
-
           <p class="pv-lbl">Fonts</p>
-          <p class="pv-fonts"><span id="pvFontA">Elegant Serif</span><br><span id="pvFontB">Warm Script</span></p>
+          <p class="pv-fonts"><span id="pvFontA">Playfair Display</span><br><span id="pvFontB">Lato</span></p>
         </article>
 
-        <!-- phone -->
+        <!-- PHONE — social profile drawn from the brand mark -->
         <div class="pv-phone">
           <div class="pv-phone__notch" aria-hidden="true"></div>
-          <img id="pvPhone" src="img/brands/piazzasanlorenzo/social.png" width="420" height="880" loading="eager" decoding="async"
-               alt="The brand's social profile shown on a phone.">
+          <div class="pv-phone__screen" id="pvPhone"></div>
         </div>
 
-        <!-- laptop -->
+        <!-- LAPTOP — website header drawn from the lockup -->
         <div class="pv-laptop">
           <div class="pv-laptop__bar" aria-hidden="true"><span></span><span></span><span></span></div>
-          <img id="pvSite" src="img/brands/piazzasanlorenzo/photo.png" width="1000" height="620" loading="eager" decoding="async"
-               alt="The brand's website shown on a laptop.">
+          <div class="pv-laptop__screen" id="pvSite"></div>
           <div class="pv-laptop__base" aria-hidden="true"></div>
         </div>
 
-        <!-- business cards -->
-        <img id="pvCards" class="pv-cards" src="img/brands/piazzasanlorenzo/lockup.png" width="420" height="300" loading="lazy"
-             decoding="async" alt="Printed business cards for the brand.">
+        <!-- BUSINESS CARDS — front and reverse, both code-drawn -->
+        <div class="pv-cards" id="pvCards"></div>
       </div>
     </div>
 
@@ -175,7 +173,7 @@
           <img src="img/card-logos.webp" width="600" height="450" loading="lazy" decoding="async" alt="A logo set laid out on printed cards.">
           <figcaption>Logo set</figcaption></figure></div>
         <div class="card"><figure>
-          <img src="img/brands/piazzasanlorenzo/lockup.png" width="600" height="450" loading="lazy" decoding="async" alt="Printed business cards for a restaurant brand.">
+          <img src="img/card-logos.webp" width="600" height="450" loading="lazy" decoding="async" alt="Printed business cards for a restaurant brand.">
           <figcaption>Business cards</figcaption></figure></div>
         <div class="card"><figure>
           <img src="img/romanesco-still.webp" width="600" height="450" loading="lazy" decoding="async" alt="A restaurant website header on a laptop.">
@@ -253,7 +251,7 @@
           <div class="grid grid--4">
             <div><p class="small">✓ Logo</p><img src="img/card-logos.webp" width="400" height="260" loading="lazy" alt="Logo files ready for print." style="border-radius:var(--r-sm)"></div>
             <div><p class="small">✓ Sign</p><img src="img/card-hero-1.webp" width="400" height="260" loading="lazy" alt="A hanging shop sign using the brand." style="border-radius:var(--r-sm)"></div>
-            <div><p class="small">✓ Card</p><img src="img/brands/piazzasanlorenzo/lockup.png" width="400" height="260" loading="lazy" alt="Business cards using the brand." style="border-radius:var(--r-sm)"></div>
+            <div><p class="small">✓ Card</p><img src="img/card-logos.webp" width="400" height="260" loading="lazy" alt="Business cards using the brand." style="border-radius:var(--r-sm)"></div>
             <div><p class="small">✓ Website header</p><img src="img/romanesco-still.webp" width="400" height="260" loading="lazy" alt="A website header using the brand." style="border-radius:var(--r-sm)"></div>
           </div>
           <p class="small">SparkMyName supplies the print-ready files. We don't print or ship anything —
@@ -311,7 +309,7 @@
         <figure><img src="img/brand-carefirst-support.webp" width="300" height="220" loading="lazy" alt="A community support organisation."><figcaption>Charity / cause</figcaption></figure>
         <figure><img src="img/brand-ink-ivy-books.webp" width="300" height="220" loading="lazy" alt="Someone working on a side project."><figcaption>Side project</figcaption></figure>
         <figure><img src="img/brand-meridian-alliance-partners.webp" width="300" height="220" loading="lazy" alt="Two professionals in an office."><figcaption>Professional firm</figcaption></figure>
-        <figure><img src="img/brands/piazzasanlorenzo/photo.png" width="300" height="220" loading="lazy" alt="A local shopfront."><figcaption>Local shop</figcaption></figure>
+        <figure><img src="img/lib-restaurant.webp" width="300" height="220" loading="lazy" alt="A local shopfront."><figcaption>Local shop</figcaption></figure>
       </div>
     </div>
   </div>
@@ -485,82 +483,111 @@
 })();
 
 /* ---------------------------------------------------------------------------
-   THE BRAND SWITCHER.
-   The six options at the top are not decoration — each one is a real brand with
-   its own name, palette, type pairing and imagery. Choosing one repaints the
-   whole preview: card, phone, laptop and printed cards. Keyboard accessible
-   (arrow keys move between tabs, as a tablist should).
+   THE BRAND SWITCHER — everything on screen is DRAWN, not fetched.
+   Each of the six options is rendered live by agency-logo.js (the same vector
+   engine the customer workspace uses) plus the colour and font map below. No
+   per-brand image files are involved, so any name can be shown without waiting
+   for assets to exist in storage.
    ------------------------------------------------------------------------- */
 (function(){
-  /* THE SIX REAL BRANDS — report rp4j0qgabxrggo, generated by SparkMyName on
-     3 Aug 2026. Names, taglines, domains, palettes and artwork are pulled from
-     the live Supabase record; nothing here is invented for the marketing page. */
-  /* THE SIX REAL BRANDS — delivered kits for report rp4j0qgabxrggo, 3 Aug 2026.
-     Every asset below is the actual file from the customer's brand kit: the
-     code-drawn vector wordmark (SVG), the 2K photograph, the social cover and
-     the horizontal lockup. Nothing here is a stand-in. */
   var BRANDS=[
-    { key:'piazzasanlorenzo', name:'Piazza San Lorenzo', kind:'RISTORANTE',
-      tag:'Taste the Heart of Italy.', dom:'piazzasanlorenzo.com', pal:'Rustic Warmth',
-      colors:['#C7A57A','#5C3A29','#E5D0B0','#8A6A55'], fonts:['Elegant Serif','Warm Script'] },
-    { key:'trattoriafontana', name:'Trattoria Fontana', kind:'CUCINA ITALIANA',
-      tag:'Savor the Taste of Tradition', dom:'trattoriafontana.net', pal:'Rustic Harvest',
-      colors:['#BF7B30','#F4D03F','#6B4F4F','#EFE9E2'], fonts:['Handwritten Charm','Rustic Serif'] },
-    { key:'bottegadelvino', name:'Bottega del Vino', kind:'ENOTECA',
-      tag:'Taste the Heart of Italy!', dom:'bottegadelvino.net', pal:'Rustic Charm',
-      colors:['#8B4513','#D2691E','#F5DEB3','#FFF8DC'], fonts:['Elegant Serif','Casual Sans'] },
-    { key:'villadarte', name:"Villa d'Arte", kind:'RISTORANTE',
-      tag:'Taste the Tradition.', dom:'villadarte.net', pal:'Rustic Warmth',
-      colors:['#8B4513','#CD853F','#FFF8DC','#A0522D'], fonts:['Italian Classic','Rustic Sans'] },
-    { key:'ristorantesoleggiato', name:'Ristorante Soleggiato', kind:'CUCINA ITALIANA',
-      tag:'Taste the warmth of Italy.', dom:'ristorantesoleggiato.com', pal:'Sunlit Olive',
-      colors:['#BFAE5B','#E5E3C9','#8C7A4E','#D7B45C'], fonts:['Elegant Serif','Vibrant Display'] },
-    { key:'fioredelmattino', name:'Fiore del Mattino', kind:'TRATTORIA',
-      tag:'Savor the Heart of Italy', dom:'fioredelmattino.com', pal:'Rustic Warmth',
-      colors:['#A0522D','#FFD700','#8B4513','#FFF8DC'], fonts:['Warm Script','Rustic Sans'] }
+    { name:'La Fiora', kind:'RISTORANTE',
+      tag:'A cozy neighborhood restaurant with wood-fired pizza and wine.',
+      dom:'lafiora.com', colors:['#2C402F','#7C4A2B','#8D3B2B','#574A2F'],
+      fonts:['Playfair Display','Lato'] },
+    { name:'Vino e Legna', kind:'CUCINA ITALIANA',
+      tag:'Casual cucina italiana with wood-oven pizza and wine flights.',
+      dom:'vinoelegna.com', colors:['#273638','#82543A','#C06A3B','#F2D3A4'],
+      fonts:['Playfair Display','Source Sans'] },
+    { name:'Bella Tavola', kind:'ITALIAN KITCHEN',
+      tag:'Authentic Italian food and wine with a handsome, modern brand.',
+      dom:'bellatavola.com', colors:['#1F2A2A','#8C5A38','#C38946','#F7E0B5'],
+      fonts:['Playfair Display','Lato'] },
+    { name:'Osteria Lucente', kind:'CUCINA ITALIANA',
+      tag:'Neighborhood osteria with candle-lit pasta nights and aperitivo.',
+      dom:'osterialucente.com', colors:['#202430','#7B4634','#CF9154','#F7E3BF'],
+      fonts:['Playfair Display','Inter'] },
+    { name:'Casa di Vino', kind:'RISTORANTE',
+      tag:'Dinner-first wine house with small plates and long tables.',
+      dom:'casadivino.com', colors:['#252531','#713B2E','#BF6A46','#F5D1A3'],
+      fonts:['Playfair Display','Lato'] },
+    { name:'Trattoria Serena', kind:'CUCINA ITALIANA',
+      tag:'Bright trattoria for everyday pasta, coffee and dessert.',
+      dom:'trattoriaserena.com', colors:['#243540','#7E4B39','#C47A46','#F6D3A5'],
+      fonts:['Playfair Display','Lato'] }
   ];
-  BRANDS.forEach(function(b){
-    var d='img/brands/'+b.key+'/';
-    b.wordmark=d+'wordmark.svg';  b.site=d+'photo.png';
-    b.phone=d+'social.png';       b.cards=d+'lockup.png';
-  });
-
 
   var tabs=[].slice.call(document.querySelectorAll('.opt[role="tab"]'));
   var panel=document.getElementById('preview');
   if(!tabs.length||!panel) return;
 
-  var el={ name:document.getElementById('pvName'), kind:document.getElementById('pvKind'),
-           sw:document.getElementById('pvSwatches'), fa:document.getElementById('pvFontA'),
-           fb:document.getElementById('pvFontB'), site:document.getElementById('pvSite'),
-           phone:document.getElementById('pvPhone'), cards:document.getElementById('pvCards') };
+  function esc(t){ return String(t).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  function spec(b){
+    var A=window.AGENCY_LOGO;
+    return (A&&A.spec) ? A.spec(b.name,{colors:b.colors},b.kind) : null;
+  }
+
+  /* Phone: the brand mark on the brand's own darkest colour, with a name row —
+     a social profile built entirely from vectors. */
+  function phoneHTML(b){
+    var A=window.AGENCY_LOGO, sp=spec(b);
+    var mark = (A&&sp&&A.markSVG) ? A.markSVG(sp,240,true) : '';
+    return '<div class="ph-top" style="background:'+esc(b.colors[0])+'">'+
+             '<div class="ph-avatar">'+mark+'</div>'+
+             '<div class="ph-name">'+esc(b.name)+'</div>'+
+             '<div class="ph-handle">@'+esc(b.dom.replace(/\..*$/,''))+'</div>'+
+           '</div>'+
+           '<div class="ph-grid">'+
+             b.colors.concat(b.colors).slice(0,6).map(function(c){
+               return '<i style="background:'+esc(c)+'"></i>'; }).join('')+
+           '</div>';
+  }
+
+  /* Laptop: a website header built from the lockup on the brand palette. */
+  function siteHTML(b){
+    var A=window.AGENCY_LOGO, sp=spec(b);
+    var lock = (A&&sp&&A.lockupSVG) ? A.lockupSVG(sp,1200,600,true) : '';
+    return '<div class="st-nav" style="background:'+esc(b.colors[0])+'">'+
+             '<span></span><span></span><span></span><span></span>'+
+           '</div>'+
+           '<div class="st-hero" style="background:linear-gradient(135deg,'+
+             esc(b.colors[0])+','+esc(b.colors[1])+')">'+
+             '<div class="st-lock">'+lock+'</div>'+
+             '<div class="st-tag">'+esc(b.tag)+'</div>'+
+             '<div class="st-btn" style="background:'+esc(b.colors[2])+'">Book a table</div>'+
+           '</div>';
+  }
+
+  /* Business cards: front (wordmark on cream) and reverse (mark on brand dark). */
+  function cardsHTML(b){
+    var A=window.AGENCY_LOGO, sp=spec(b);
+    var wm  = (A&&sp&&A.wordmarkSVG) ? A.wordmarkSVG(sp,900,240) : esc(b.name);
+    var mk  = (A&&sp&&A.markSVG) ? A.markSVG(sp,240,true) : '';
+    return '<div class="bc bc--front">'+wm+'<span class="bc__dom">'+esc(b.dom)+'</span></div>'+
+           '<div class="bc bc--back" style="background:'+esc(b.colors[0])+'">'+mk+'</div>';
+  }
 
   function paint(i){
     var b=BRANDS[i]; if(!b) return;
     panel.classList.add('is-swapping');
     window.setTimeout(function(){
-      /* The wordmark is DRAWN by the same engine the product uses (agency-logo.js),
-         so what a visitor sees is the actual vector mark, not an image of one. */
-      /* The wordmark is the customer's ACTUAL vector file, fetched and inlined so
-         it scales cleanly and keeps its brand gradient. */
+      var A=window.AGENCY_LOGO, sp=spec(b);
       var wm=document.getElementById('pvWordmark');
-      if(wm){
-        wm.innerHTML='<img src="'+b.wordmark+'" alt="'+b.name+' wordmark" loading="eager" decoding="async">';
-      }
+      if(wm) wm.innerHTML = (A&&sp&&A.wordmarkSVG) ? A.wordmarkSVG(sp,900,240) : esc(b.name);
+      document.getElementById('pvKind').textContent=b.kind;
       document.getElementById('pvTag').textContent=b.tag;
-      document.getElementById('pvDom').innerHTML=b.dom+' <span class="pv-ok">available</span>';
       document.getElementById('pvFontA').textContent=b.fonts[0];
       document.getElementById('pvFontB').textContent=b.fonts[1];
       document.getElementById('pvSwatches').innerHTML=b.colors.map(function(c){
-        return '<i style="background:'+c+'" title="'+c+'"></i>'; }).join('');
-      var site=document.getElementById('pvSite'), ph=document.getElementById('pvPhone'),
-          cd=document.getElementById('pvCards');
-      site.src=b.site;  site.alt=b.name+' brand photograph.';
-      ph.src=b.phone;   ph.alt=b.name+' logo lockup.';
-      cd.src=b.cards;   cd.alt=b.name+' logo artwork.';
+        return '<i style="background:'+esc(c)+'" title="'+esc(c)+'"></i>'; }).join('');
+      document.getElementById('pvPhone').innerHTML=phoneHTML(b);
+      document.getElementById('pvSite').innerHTML=siteHTML(b);
+      document.getElementById('pvCards').innerHTML=cardsHTML(b);
       panel.setAttribute('aria-labelledby','tab-'+i);
       panel.classList.remove('is-swapping');
-    },120);
+    },110);
     tabs.forEach(function(t,n){
       t.setAttribute('aria-selected', n===i?'true':'false');
       t.setAttribute('tabindex', n===i?'0':'-1');
@@ -572,15 +599,14 @@
     t.addEventListener('keydown',function(ev){
       var i=tabs.indexOf(t), n=null;
       if(ev.key==='ArrowRight'||ev.key==='ArrowDown') n=(i+1)%tabs.length;
-      if(ev.key==='ArrowLeft'||ev.key==='ArrowUp')    n=(i-1+tabs.length)%tabs.length;
+      if(ev.key==='ArrowLeft' ||ev.key==='ArrowUp')   n=(i-1+tabs.length)%tabs.length;
       if(n===null) return;
       ev.preventDefault(); tabs[n].focus(); paint(n);
     });
   });
 
-  /* agency-logo.js is deferred; wait for it so the first paint uses the real mark. */
   if(window.AGENCY_LOGO) paint(0);
-  else window.addEventListener('load', function(){ paint(0); });
+  else window.addEventListener('load',function(){ paint(0); });
 })();
 
 /* Voice capture is designed but not yet wired on this page. Say so plainly

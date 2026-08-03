@@ -396,5 +396,44 @@ a{ color:inherit; }
 .pv-ok{ background:rgba(63,167,106,.14); color:#2C7A4B; border-radius:var(--r-pill);
   padding:2px 7px; font:700 8.5px var(--sans); letter-spacing:.08em; text-transform:uppercase; }
 
-/* the real vector wordmark file, inlined into the preview card */
-.pv-card__wm img{ width:100%; height:auto; display:block; }
+
+/* ============================================================================
+   NATIVE BRAND PREVIEW — every element below is drawn by agency-logo.js plus
+   the brand's own colour map. No per-brand image files are loaded, so a new
+   name previews instantly without waiting for assets to be generated.
+   ========================================================================== */
+.pv-card__kind{ font:600 9px/1.4 var(--sans); letter-spacing:.24em; text-transform:uppercase;
+  color:var(--on-light-3); margin:var(--s2) 0 var(--s2); }
+
+/* phone */
+.pv-phone__screen{ background:var(--paper-warm); height:100%; display:flex; flex-direction:column; }
+.ph-top{ padding:var(--s5) var(--s3) var(--s3); text-align:center; color:#fff; }
+.ph-avatar{ width:56px; height:56px; margin:0 auto var(--s2); border-radius:50%;
+  background:rgba(255,255,255,.14); display:flex; align-items:center; justify-content:center;
+  overflow:hidden; padding:8px; }
+.ph-avatar svg{ width:100%; height:100%; }
+.ph-name{ font:600 13px/1.2 var(--serif); letter-spacing:.04em; }
+.ph-handle{ font:600 9px/1.4 var(--sans); opacity:.75; margin-top:2px; }
+.ph-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2px; padding:2px; flex:1; }
+.ph-grid i{ display:block; min-height:34px; opacity:.9; }
+
+/* laptop */
+.pv-laptop__screen{ background:var(--paper-warm); }
+.st-nav{ display:flex; gap:14px; padding:9px 12px; }
+.st-nav span{ display:block; width:34px; height:5px; border-radius:3px; background:rgba(255,255,255,.42); }
+.st-hero{ padding:var(--s6) var(--s5); text-align:center; color:#fff; }
+.st-lock{ max-width:230px; margin:0 auto var(--s3); }
+.st-lock svg{ width:100%; height:auto; }
+.st-tag{ font:500 italic 12px/1.5 var(--serif); opacity:.92; max-width:34ch; margin:0 auto var(--s3); }
+.st-btn{ display:inline-block; padding:7px 16px; border-radius:var(--r-sm);
+  font:700 10.5px var(--sans); color:#14110B; }
+
+/* business cards */
+.pv-cards{ grid-area:cards; display:grid; grid-template-columns:1fr 1fr; gap:var(--s2); }
+.bc{ border-radius:var(--r-sm); box-shadow:var(--e3); aspect-ratio:1.75/1;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:4px; padding:var(--s2); overflow:hidden; }
+.bc--front{ background:var(--paper-warm); }
+.bc--front svg{ width:82%; height:auto; }
+.bc__dom{ font:600 7.5px var(--sans); letter-spacing:.10em; color:var(--on-light-3); }
+.bc--back svg{ width:44%; height:auto; }
