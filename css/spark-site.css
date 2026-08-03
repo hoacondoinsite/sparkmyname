@@ -395,3 +395,6 @@ a{ color:inherit; }
   display:flex; gap:6px; align-items:center; justify-content:center; flex-wrap:wrap; }
 .pv-ok{ background:rgba(63,167,106,.14); color:#2C7A4B; border-radius:var(--r-pill);
   padding:2px 7px; font:700 8.5px var(--sans); letter-spacing:.08em; text-transform:uppercase; }
+
+/* the real vector wordmark file, inlined into the preview card */
+.pv-card__wm img{ width:100%; height:auto; display:block; }
